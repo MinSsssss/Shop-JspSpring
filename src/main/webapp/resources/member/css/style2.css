@@ -1,0 +1,25 @@
+.formContent{
+    margin-bottom: 80px;
+}
+.formflex{
+    display: flex;
+    height: 95px;
+}
+
+.formflex label{
+    width: 20%;
+    line-height: 65px;
+    
+}
+.formflex .textarea label{
+    width: 20%;
+    line-height: 65px;
+    height: 200px;
+    
+}
+.select {
+    width: 60%;
+    height: 65px;
+    line-height: 65px;
+    margin-bottom: 30px;
+}

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+	<bean id="customAccessDenied"
+		class="com.sian.security.CustomAccessDeniedHandler"></bean>
+
+	
+	
+
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+
+	<bean id="customUserDetailsService"
+		class="com.sian.security.CustomUserDetailsService"></bean>
+
+
+	<security:http>
+		<!-- 정적리소스 허용 -->
+		<!-- <security:intercept-url pattern="/resources/**"
+			access="permitAll" /> -->
+			
+		<!-- 로그인된 상태에서는 로그인이나 회원가입 화면에 접근 못하도록 함 -->
+		<security:intercept-url pattern="/login" access="isAnonymous()" />
+		<security:intercept-url pattern="/register" access="isAnonymous()" />
+		
+		<security:intercept-url pattern="/login"
+			access="permitAll" />
+		
+			
+
+		
+
+		<security:intercept-url pattern="/admin/**"
+			access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/member/auth/**"
+			access="hasRole('ROLE_MEMBER')" />
+			
+		<security:intercept-url pattern="/member/**"
+			access="permitAll" />
+		<!-- 권한이 없어서 금지된 URI 접속할 때 보여줄 페이지(403 에러 페이지 대체) -->
+		<security:access-denied-handler ref="customAccessDenied" />
+
+		<!-- <security:form-login login-page="/login"
+			authentication-success-handler-ref="customLoginSuccess" /> -->
+			
+		<security:form-login login-page="/login"
+			username-parameter="mem_id" password-parameter="mem_pwd"
+			login-processing-url="/loginProcess" default-target-url="/member"
+			
+			authentication-failure-url="/"
+			always-use-default-target='true' />
+		<security:csrf disabled="true"/>
+
+		<!-- <security:logout logout-url="/logout"
+			invalidate-session="true" /> -->
+		<!--로그아웃 처리  -->
+		
+		
+		<!-- <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800" /> -->
+		
+		<security:logout 
+			logout-url="/member/auth/logout"
+			logout-success-url="/member"
+			invalidate-session="true"
+			delete-cookies="true" />
+			
+		<!-- <security:logout logout-url="/logout"
+			invalidate-session="true" delete-cookies="remember-me,JSESSION_ID" /> -->
+
+
+	</security:http>
+
+
+
+<!-- 	<security:authentication-manager> <security:authentication-provider> 
+		<security:user-service> <security:user name="member" password="{noop}member" 
+		authorities="ROLE_MEMBER"/> <security:user name="admin" password="{noop}admin" 
+		authorities="ROLE_MEMBER, ROLE_ADMIN"/> </security:user-service> </security:authentication-provider> 
+		</security:authentication-manager> -->
+
+	<!-- <security:authentication-manager> <security:authentication-provider> 
+		<security:jdbc-user-service data-source-ref="dataSource" /> 
+		<security:jdbc-user-service data-source-ref="dataSource" 
+		users-by-username-query="select mem_id , mem_pwd, enabled from tbl_member where mem_id = ? " 
+		authorities-by-username-query="select mem_id, auth from tbl_member_auth where mem_id = ? " /> 
+		<security:password-encoder 
+		ref="customPasswordEncoder" /> 
+		<security:password-encoder ref="bcryptPasswordEncoder"/>
+		</security:authentication-provider> 
+		</security:authentication-manager> -->
+
+	<!-- DB 연동 설정 -->
+	<security:authentication-manager>
+
+		<security:authentication-provider
+			user-service-ref="customUserDetailsService">
+
+			<security:password-encoder
+				ref="bcryptPasswordEncoder" />
+
+		</security:authentication-provider>
+
+	</security:authentication-manager>
+
+</beans>
