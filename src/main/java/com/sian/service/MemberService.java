@@ -18,6 +18,8 @@ public interface MemberService {
 	
 	public int idChk(MemberDTO memberDTO) throws Exception;
 	
+	public String getPwd(String mem_id) throws Exception;
+	
 	public boolean pwdChk(MemberDTO memberDTO) throws Exception;
 	
 	public boolean memberModify(MemberDTO memberDTO) throws Exception;

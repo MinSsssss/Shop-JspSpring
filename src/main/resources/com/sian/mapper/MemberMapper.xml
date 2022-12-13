@@ -46,12 +46,16 @@
 		WHERE mem_id = #{mem_id}
 	</select>
 	
+	<select id="getPwd" resultType="String">
+		SELECT mem_pwd from tbl_member where mem_id = #{mem_id}
+	</select>
+	
 	<update id="memberModify">
 		UPDATE tbl_member
 		SET 
 		mem_email = #{mem_email},
 		mem_tel = #{mem_tel},
-		mem_pwd = #{new_mem_pwd}
+		mem_pwd = #{mem_pwd}
 		WHERE mem_id = #{mem_id}
 	</update>
 	<!-- <select id="getList" resultType="com.sian.domain.MemberDTO">

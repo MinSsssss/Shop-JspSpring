@@ -51,7 +51,8 @@
 							<div class="col-lg-8">
 								<div class="ltn__myaccount-tab-content-inner">
 									<div class="ltn__form-box">
-										<form action="#">
+										<form action="/member/auth/memberModifyNextProc"
+										id="memberModifyNextForm" method="post">
 											<div class="row mb-50">
 											
 												<fieldset>
@@ -67,7 +68,7 @@
 														value='<sec:authentication property="principal.member.mem_name"/>'>
 														
 														<label>이메일</label> <button class="btn">이메일변경</button>
-														<input type="email" name="mem_email" readonly="readonly"
+														<input type="email" name="mem_tel" readonly="readonly"
 														value='<sec:authentication property="principal.member.mem_email"/>'>
 														
 														<label>전화번호</label> <button class="btn">전화번호변경</button>
@@ -75,16 +76,16 @@
 														value='<sec:authentication property="principal.member.mem_tel"/>'>
 														
 														<label>현재 비밀번호</label>
-														<input type="password" name="mem_pwd">
+														<input type="password" id="this_mem_pwd">
 														<label>새 비밀번호</label>
-														<input type="password" name="new_mem_pwd">
+														<input type="password" id="mem_pwd" name="mem_pwd">
 														<label>새 비밀번호 다시 입력</label>
-														<input type="password" name="new_mem_pwd_re">	 
+														<input type="password" id="mem_pwd_re">	 
 													</div>
 												</div>
 											</fieldset>
 											<div class="btn-wrapper">
-												<button type="submit"
+												<button type="button" id="memModifySubmitBtn"
 													class="btn theme-btn-1 btn-effect-1 text-uppercase">Save
 													Changes</button>
 											</div>
@@ -94,51 +95,7 @@
 										</form>
 									</div>
 								</div>
-								<!-- <div class="ltn__myaccount-tab-content-inner">
-									<p>정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인 합니다.</p>
-									<div class="ltn__form-box">
-										<form action="#">
-											<div class="row mb-50">
-												<div class="col-md-6">
-													<label>First name:</label> <input type="text"
-														name="ltn__name">
-												</div>
-												<div class="col-md-6">
-													<label>Last name:</label> <input type="text"
-														name="ltn__lastname">
-												</div>
-												<div class="col-md-6">
-													<label>Display Name:</label> <input type="text"
-														name="ltn__lastname" placeholder="Ethan">
-												</div>
-												<div class="col-md-6">
-													<label>Display Email:</label> <input type="email"
-														name="ltn__lastname" placeholder="example@example.com">
-												</div>
-											</div>
-											<fieldset>
-												<legend>Password change</legend>
-												<div class="row">
-													<div class="col-md-12">
-														<label>Current password (leave blank to leave
-															unchanged):</label> <input type="password" name="ltn__name">
-														<label>New password (leave blank to leave
-															unchanged):</label> <input type="password" name="ltn__lastname">
-														<label>Confirm new password:</label> <input
-															type="password" name="ltn__lastname">
-													</div>
-												</div>
-											</fieldset>
-											<div class="btn-wrapper">
-												<button type="submit"
-													class="btn theme-btn-1 btn-effect-1 text-uppercase">Save
-													Changes</button>
-											</div>
-										</form>
-									</div>
-								</div> -->
-
-
+	
 							</div>
 						</div>
 					</div>

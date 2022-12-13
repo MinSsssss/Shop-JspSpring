@@ -52,73 +52,29 @@
 								<div class="ltn__myaccount-tab-content-inner">
 									<p>정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인 합니다.</p>
 									<div class="ltn__form-box">
-										<form action="memberModify" method="post">
+										<form action="/member/auth/memberModify" id="memberModifyForm" method="post">
 											<div class="row mb-50">
 												<div class="col-md-6">
 													<label>아이디</label> 
-													<input type="text" name="mem_id" 
+													<input type="text" id="mem_id" name="mem_id" 
 													value='<sec:authentication property="principal.member.mem_id"/>' readonly="readonly">
 												</div>
 												<div class="col-md-6">
 													<label>비밀번호</label> 
-													<input type="password"name="mem_pwd">
+													<input type="password" id="mem_pwd" name="mem_pwd">
 												</div>
 												
 											</div>
 												
 											
 											<div class="btn-wrapper">
-												<button type="submit" class="btn theme-btn-1 btn-effect-1 text-uppercase" >확인</button>
-												<button type="submit" class="btn theme-btn-3 btn-effect-1 text-uppercase">취소</button>
+												<button type="button" id="pwChkSubmitBtn" class="btn theme-btn-1 btn-effect-1 text-uppercase" >확인</button>
+												<button type="button" id="pwChkCancleBtn" class="btn theme-btn-3 btn-effect-1 text-uppercase">취소</button>
 											</div>
 											
 										</form>
 									</div>
 								</div>
-								<!-- <div class="ltn__myaccount-tab-content-inner">
-									<p>정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인 합니다.</p>
-									<div class="ltn__form-box">
-										<form action="#">
-											<div class="row mb-50">
-												<div class="col-md-6">
-													<label>First name:</label> <input type="text"
-														name="ltn__name">
-												</div>
-												<div class="col-md-6">
-													<label>Last name:</label> <input type="text"
-														name="ltn__lastname">
-												</div>
-												<div class="col-md-6">
-													<label>Display Name:</label> <input type="text"
-														name="ltn__lastname" placeholder="Ethan">
-												</div>
-												<div class="col-md-6">
-													<label>Display Email:</label> <input type="email"
-														name="ltn__lastname" placeholder="example@example.com">
-												</div>
-											</div>
-											<fieldset>
-												<legend>Password change</legend>
-												<div class="row">
-													<div class="col-md-12">
-														<label>Current password (leave blank to leave
-															unchanged):</label> <input type="password" name="ltn__name">
-														<label>New password (leave blank to leave
-															unchanged):</label> <input type="password" name="ltn__lastname">
-														<label>Confirm new password:</label> <input
-															type="password" name="ltn__lastname">
-													</div>
-												</div>
-											</fieldset>
-											<div class="btn-wrapper">
-												<button type="submit"
-													class="btn theme-btn-1 btn-effect-1 text-uppercase">Save
-													Changes</button>
-											</div>
-										</form>
-									</div>
-								</div> -->
-
 
 							</div>
 						</div>

@@ -15,10 +15,11 @@ public interface MemberMapper {
 	
 	public int idChk(MemberDTO memberDTO) throws Exception;
 	
+	public String getPwd(String mem_id) throws Exception;
+	
 	public int memberDrop(MemberDTO memberDTO)throws Exception;
 	
 	public int memberModify(MemberDTO memberDTO) throws Exception;
-	
 	
 	public void insert(MemberDTO memberDTO) throws Exception;
 	

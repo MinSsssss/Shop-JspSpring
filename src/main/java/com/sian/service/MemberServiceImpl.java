@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,31 +21,28 @@ import com.sian.security.domain.CustomUser;
 import lombok.Setter;
 
 @Service
-public class MemberServiceImpl implements MemberService{
-	
-	@Setter (onMethod_= @Autowired)
+public class MemberServiceImpl implements MemberService {
+
+	@Setter(onMethod_ = @Autowired)
 	private MemberMapper mapper;
-	@Setter (onMethod_= @Autowired)
+	@Setter(onMethod_ = @Autowired)
 	private BCryptPasswordEncoder passwordEncoder;
-	
-	/*
-	 * @Setter (onMethod_= @Autowired) private PasswordEncoder pswordEncoder;
-	 */
+
+	@Setter(onMethod_ = @Autowired)
+	private PasswordEncoder pswordEncoder;
 	
 
 	@Override
-	public void register(MemberDTO memberDTO,AuthVO authVO) throws Exception{
-		
+	public void register(MemberDTO memberDTO, AuthVO authVO) throws Exception {
+
 		List<AuthVO> list = new ArrayList<>();
 		authVO.setMem_id(memberDTO.getMem_id());
 		list.add(authVO);
-		
-		
+
 		memberDTO.setMem_pwd(passwordEncoder.encode(memberDTO.getMem_pwd()));
 		memberDTO.setAuthList(list);
 		mapper.insert(memberDTO);
-		
-		
+
 	}
 
 	@Override
@@ -57,38 +55,32 @@ public class MemberServiceImpl implements MemberService{
 	public boolean memberDrop(MemberDTO memberDTO) throws Exception {
 
 		SecurityContextHolder.clearContext();
-		return mapper.memberDrop(memberDTO)==1;
+		return mapper.memberDrop(memberDTO) == 1;
+	}
+
+	@Override
+	public String getPwd(String mem_id) throws Exception {
+		String mem_pwd = mapper.getPwd(mem_id);
+		return mem_pwd;
 	}
 
 	@Override
 	public boolean pwdChk(MemberDTO memberDTO) throws Exception {
 		String thisMemPwd = mapper.read(memberDTO.getMem_id()).getMem_pwd();
-		
-		if(passwordEncoder.matches(memberDTO.getMem_pwd(),thisMemPwd )) {
+
+		if (passwordEncoder.matches(memberDTO.getMem_pwd(), thisMemPwd)) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
-		
-		
+
 	}
 
 	@Override
 	public boolean memberModify(MemberDTO memberDTO) throws Exception {
-		
-		if(mapper.memberModify(memberDTO)==1) {
-			return true;
-		}
-		else {
-			return false;
-		}
-		
+		memberDTO.setMem_pwd(passwordEncoder.encode(memberDTO.getMem_pwd()));
+		return mapper.memberModify(memberDTO) == 1;
+
 	}
-
-	
-
-	
-	
 
 }
