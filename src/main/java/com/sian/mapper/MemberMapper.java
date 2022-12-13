@@ -11,7 +11,7 @@ public interface MemberMapper {
 	
 	public MemberDTO read(String mem_id);
 	
-	public void register(MemberDTO member,AuthVO authVO);
+	public void register(MemberDTO member,AuthVO authVO) throws Exception;
 	
 	public int idChk(MemberDTO memberDTO) throws Exception;
 	

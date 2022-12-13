@@ -14,43 +14,23 @@
 	<h1 class="h3 mb-2 text-gray-800">카테고리생성</h1>
 
 	<!-- DataTales Example -->
-	<form action="" method="post" enctype="multipart/form-data">
+	<form action="/admin/categoryRegisterProc" id="categoryRegisterForm" method="post">
 		<div class="card shadow mb-4">
 
-			<table>
+			<table class="table table-bordered">
 				<tr>
-					<td>카테고리</td>
-					<td><select name="catecory" id="">
-							<option value="">카테고리선택</option>
-							<option value="">커피</option>
-							<option value="">원두</option>
-							<option value="">드립백</option>
-							<option value="">..</option>
-
-					</select></td>
+					<td>카테고리번호</td>
+					<td><input type="text" id="category_no" name="category_no"></td>
 				</tr>
 				<tr>
-					<td>상품이름</td>
-					<td><input type="text" name="title"></td>
+					<td>카테고리이름</td>
+					<td><input type="text" id="category_name" name="category_name"></td>
 				</tr>
-				<tr>
-					<td>상품설명</td>
-					<td><textarea rows="10" cols="20" name="content"></textarea></td>
-				</tr>
-				<tr>
-					<td>가격</td>
-					<td><input type="text" name="price"></td>
-				</tr>
-				<tr>
-					<td>이미지 첨부</td>
-					<td><input type="file" name="image" accept="image/*"
-						onchange="loadFile(this)"></td>
-				</tr>
-
 			</table>
 
 		</div>
-		<input type="submit">
+		<input type="submit" id="cateBtnSubmit" class="btn btn-primary btn-icon-split " value="생성">
+		<input type="button" id="cateBtnCencle" class="btn btn-secondary btn-icon-split " value="취소">
 
 	</form>
 

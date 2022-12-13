@@ -13,7 +13,7 @@ drop table tbl_member;
 
 UPDATE tbl_member_auth
 SET auth = 'ROLE_ADMIN'
-WHERE mem_id = 'cda02';
+WHERE mem_id = 'cda01';
 
 SELECT mem.mem_id,mem_pwd,mem_name,mem_email,mem_tel,mem_joindate,enabled, auth
 			FROM tbl_member mem LEFT OUTER JOIN tbl_member_auth auth on mem.mem_id = auth.mem_id
@@ -26,6 +26,7 @@ commit;
 --create SEQUENCE seq_tbl_member;
 select * from tbl_member;
 select * from tbl_member_auth;
+select * from tbl_category;
 commit;
 
 
@@ -76,13 +77,13 @@ CREATE TABLE tbl_order_detail (
 );
 
 CREATE TABLE tbl_category (
-	category_no	varchar2(13) primary key,
-	category_name	varchar2(30)		NULL
+	category_no	number(2) primary key,
+	category_name	varchar2(30)	NOT NULL
 );
 
 CREATE TABLE tbl_product (
-	product_no	varchar2(13) primary key,
-	category_no	varchar2(13)		NOT NULL,
+	product_no	number(3) primary key,
+	category_no	number(2) default 10,
 	product_name	varchar2(100)		NULL,
 	product_price	number(6)		NULL,
 	product_detail	varchar2(1000)		NULL,
@@ -91,6 +92,7 @@ CREATE TABLE tbl_product (
 	product_date	date		NULL,
 	product_hit	number		NULL
 );
+ALTER TABLE tbl_product ADD CONSTRAINT tbl_cate_no_pk FOREIGN KEY(category_no) REFERENCES tbl_category(category_no);
 
 CREATE TABLE tbl_review (
 	review_no	varchar2(13) primary key,
