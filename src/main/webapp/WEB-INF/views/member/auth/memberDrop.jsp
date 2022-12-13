@@ -56,11 +56,8 @@
 											<div class="row mb-50">
 												<div class="col-md-6">
 													<label>비밀번호를 입력해주세요.</label>
-													<%-- <input type="hidden" name="mem_id"
-																	value='<sec:authentication property="principal.member.mem_id"/>'>
-																	<input type="hidden" name="mem_pwd_hidden"
-																	value='<sec:authentication property="principal.member.mem_pwd"/>'>   --%>
-													<input type="password" name="mem_pwd">
+													
+													<input type="password" id="mem_pwd" name="mem_pwd">
 												</div>
 
 											</div>
@@ -79,7 +76,7 @@
 													role="document">
 													<div class="modal-content">
 														<div class="modal-header">
-															<h5 class="modal-title" id="memberDropModalTitle">로그아웃</h5>
+															<h5 class="modal-title" id="memberDropModalTitle">회원탈퇴</h5>
 															<button type="button" class="close" data-dismiss="modal"
 																aria-label="Close">
 																<span aria-hidden="true">&times;</span>

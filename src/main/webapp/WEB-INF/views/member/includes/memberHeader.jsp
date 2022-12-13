@@ -259,10 +259,11 @@
                             </sec:authorize>
                             
                             
-                             <sec:authorize access="isAuthenticated()"> 
+                             <sec:authorize access="hasRole('ROLE_MEMBER')"> 
 	                            <div class="ltn__drop-menu user-menu">
 	                                    <a href="/member/auth/orderList"><i class="icon-user"></i></a>   
 	                            </div>
+	                         
 	                            
 	                            <!-- mini-cart -->
 	                            <div class="mini-cart-icon">
@@ -272,6 +273,11 @@
 	                                </a>
 	                            </div>
                             </sec:authorize>
+                            <sec:authorize access="hasRole('ROLE_ADMIN')"> 
+	                            <div class="ltn__drop-menu user-menu">
+	                                    <a href="/admin"><i class="icon-user"></i></a>   
+	                            </div>
+	                        </sec:authorize>
                             <!-- Mobile Menu Button -->
                             <div class="mobile-menu-toggle d-xl-none">
                                 <a href="#ltn__utilize-mobile-menu" class="ltn__utilize-toggle">

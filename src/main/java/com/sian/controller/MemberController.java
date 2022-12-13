@@ -38,7 +38,6 @@ public class MemberController {
 
 	private MemberService memberService;
 
-	private MemberMapper mapper;
 
 	@GetMapping("/auth/orderList")
 	public void orderList() {
@@ -74,57 +73,47 @@ public class MemberController {
 	@ResponseBody
 	@PostMapping("/auth/pwdChk")
 	public int pwdChk(@RequestBody MemberDTO memberDTO, Authentication authentication) throws Exception {
+		boolean result = false;
+		result = memberService.pwdChk(memberDTO, authentication);
 
-		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-		MemberDTO thisMem = mapper.read(userDetails.getUsername());
-		String thisMemId = thisMem.getMem_id();
-		String thisMemPwd = memberService.getPwd(thisMemId);
-		
-		System.out.println(thisMemPwd);
-		System.out.println(memberDTO.getMem_pwd());
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		if (passwordEncoder.matches(memberDTO.getMem_pwd(), thisMemPwd)) {
+		if (result) {
 			System.out.println("성공");
 			return 0;
 		}
 		System.out.println("실패");
 		return 1;
-
 	}
 
 	@PostMapping("/auth/memberDropProc")
 	public String memberDropProc(MemberDTO memberDTO, Authentication authentication, RedirectAttributes rttr)
 			throws Exception {
-		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-		MemberDTO thisMem = mapper.read(userDetails.getUsername());
 
-		String thisMemId = thisMem.getMem_id();
-		String thisMemPwd = thisMem.getMem_pwd();
+		boolean pwdChk = false;
+		pwdChk = memberService.pwdChk(memberDTO, authentication);
 
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-		if (passwordEncoder.matches(memberDTO.getMem_pwd(), thisMemPwd)) {
-			memberDTO.setMem_id(thisMemId);
+		if (pwdChk) {
+			memberDTO.setMem_id(memberService.getId(authentication));
 			if (memberService.memberDrop(memberDTO)) {
-				rttr.addFlashAttribute("msg", "회원 탈퇴에 성공하였습니다.");
+				
 				System.out.println("성공");
 				return "redirect:/member";
 			} else {
 				System.out.println("실패");
-				rttr.addFlashAttribute("msg", "회원 탈퇴에 실패했습니다.");
-				return "redirect:/member/auth/myPage";
+				
+				return "redirect:/member/auth/memberDrop";
 			}
 
 		} else {
 			System.out.println("실패 비번틀림");
 			rttr.addFlashAttribute("msg", "비밀번호가 틀렸습니다.");
-			return "redirect:/member/auth/myPage";
+			return "redirect:/member/auth/memberDrop";
 		}
 	}
 
 	@PostMapping("/auth/memberModify")
-	public String memberModifyPwdChk(MemberDTO memberDTO, RedirectAttributes rttr) throws Exception {
-		if (!memberService.pwdChk(memberDTO)) {
+	public String memberModifyPwdChk(MemberDTO memberDTO, Authentication authentication, RedirectAttributes rttr)
+			throws Exception {
+		if (!memberService.pwdChk(memberDTO, authentication)) {
 			rttr.addFlashAttribute("msg", "비밀번호가 틀렸습니다.");
 			return "redirect:/member/auth/memberModify";
 		} else {
@@ -143,12 +132,11 @@ public class MemberController {
 	public String memberModifyNextProc(MemberDTO memberDTO, RedirectAttributes rttr) throws Exception {
 
 		if (memberService.memberModify(memberDTO)) {
-			rttr.addFlashAttribute("msg", "수정되었습니다.");
+
 			return "redirect:/member/auth/orderList";
-		} else {
-			rttr.addFlashAttribute("msg", "수정에 실패했습니다.");
-			return "redirect:/member/auth/memberModifyNext";
 		}
+
+		return "redirect:/member/auth/memberModifyNext";
 
 	}
 

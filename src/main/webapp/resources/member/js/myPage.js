@@ -1,116 +1,146 @@
-$(document).ready(function(){
-	$("#orderList").on("click",function(){
-		location.href="/member/auth/orderList"
+$(document).ready(function() {
+	$("#orderList").on("click", function() {
+		location.href = "/member/auth/orderList"
 	})
-	$("#wishList").on("click",function(){
-		location.href="/member/auth/wishList"
+	$("#wishList").on("click", function() {
+		location.href = "/member/auth/wishList"
 	})
-	$("#cart").on("click",function(){
-		location.href="/member/auth/cart"
+	$("#cart").on("click", function() {
+		location.href = "/member/auth/cart"
 	})
-	$("#qnaList").on("click",function(){
-		location.href="/member/auth/qnaList"
+	$("#qnaList").on("click", function() {
+		location.href = "/member/auth/qnaList"
 	})
-	$("#memberModify").on("click",function(){
-		location.href="/member/auth/memberModify"
+	$("#memberModify").on("click", function() {
+		location.href = "/member/auth/memberModify"
 	})
-	$("#memberDrop").on("click",function(){
-		location.href="/member/auth/memberDrop"
+	$("#memberDrop").on("click", function() {
+		location.href = "/member/auth/memberDrop"
 	})
-	
-    $("#logoutBtn").on("click",function(){
-        $("#logoutForm").submit();
-    })
-    
-    $("#pwChkCancleBtn").on("click",function(){
-    	location.href="/member/auth/orderList";
-    })
-    $("#pwChkSubmitBtn").on("click",function(){
-    	let mem_id = $("#mem_id").val();
-    	let mem_pwd = $("#mem_pwd").val();
-    	console.log(mem_pwd);
-    	var param = {"mem_id" : mem_id, "mem_pwd" : mem_pwd};
-    	console.log(param);
-    	if(mem_pwd == ""){
-    		alert("비밀번호를 입력해주세요.");
-    		return false();
-    	}
-    	else{
-    		$.ajax({
+
+	$("#logoutBtn").on("click", function() {
+		$("#logoutForm").submit();
+	})
+
+	$("#pwChkCancleBtn").on("click", function() {
+		location.href = "/member/auth/orderList";
+	})
+	$("#pwChkSubmitBtn").on("click", function() {
+		let mem_id = $("#mem_id").val();
+		let mem_pwd = $("#mem_pwd").val();
+		console.log(mem_pwd);
+		var param = {
+			"mem_id" : mem_id,
+			"mem_pwd" : mem_pwd
+		};
+		console.log(param);
+		if (mem_pwd == "") {
+			alert("비밀번호를 입력해주세요.");
+			return false();
+		} else {
+			$.ajax({
 				url : "/member/auth/pwdChk",
 				async : true,
 				type : "post",
-				dataType: "json",
+				dataType : "json",
 				data : JSON.stringify(param),
-				contentType: "application/json; charset=UTF-8",
+				contentType : "application/json; charset=UTF-8",
 				success : function(data) {
 					console.log(data);
 					if (data == 1) {
 						console.log(data);
 						alert("비밀번호가 틀렸습니다.");
 						return false;
-					} else if(data == 0){
+					} else if (data == 0) {
 						$("#memberModifyForm").submit();
 					}
 				}
 			})
-    		
-    	}
-    	
-    })
-    
-     $("#memModifySubmitBtn").on("click",function(){
-    	let this_mem_pwd = $("#this_mem_pwd").val();
-    	let mem_pwd = $("#mem_pwd").val();
-    	let mem_pwd_re = $("#mem_pwd_re").val();
-    	console.log(this_mem_pwd);
-    	console.log(mem_pwd);
-    	console.log(mem_pwd_re);
-    	
 
-    	if(this_mem_pwd == "" && this_mem_pwd == undefined){
-    		alert("비밀번호를 입력해주세요.");
-    		return false();
-    	}
-    	else{
-    		let param ={"mem_pwd" : this_mem_pwd}
-    		console.log(param);
-    		$.ajax({
+		}
+
+	})
+
+	$("#memModifySubmitBtn").on("click", function() {
+		let this_mem_pwd = $("#this_mem_pwd").val();
+		let mem_pwd = $("#mem_pwd").val();
+		let mem_pwd_re = $("#mem_pwd_re").val();
+		console.log(this_mem_pwd);
+		console.log(mem_pwd);
+		console.log(mem_pwd_re);
+
+		if (this_mem_pwd == "" && this_mem_pwd == undefined) {
+			alert("비밀번호를 입력해주세요.");
+			return false();
+		} else {
+			let param = {
+				"mem_pwd" : this_mem_pwd
+			}
+			console.log(param);
+			$.ajax({
 				url : "/member/auth/pwdChk",
 				async : true,
 				type : "post",
-				dataType: "json",
+				dataType : "json",
 				data : JSON.stringify(param),
-				contentType: "application/json; charset=UTF-8",
+				contentType : "application/json; charset=UTF-8",
 				success : function(data) {
 					console.log(data);
 					if (data == 1) {
 						alert("비밀번호가 틀렸습니다.");
 						return false;
-					} else if(data == 0){
-						if(mem_pwd == mem_pwd_re){
+					} else if (data == 0) {
+						if (mem_pwd == mem_pwd_re) {
 							alert("회원 정보 수정이 완료되었습니다.");
 							$("#memberModifyNextForm").submit();
-						}
-						else{
+						} else {
 							alert("새 비밀번호가 같지 않습니다.")
 							return false;
 						}
-						
+
 					}
 				}
 			})
-    		
-    	}
-    	
-    })
-    
-    
-    $("#memberDropBtn").on("click",function(){
-        
-    
-   
-        $("#memberDropForm").submit();
-    })
+
+		}
+
+	})
+
+	$("#memberDropBtn").on("click", function() {
+		
+		let mem_pwd = $("#mem_pwd").val();
+		console.log(mem_pwd);
+		var param = {
+			
+			"mem_pwd" : mem_pwd
+		};
+		console.log(param);
+		if (mem_pwd == "") {
+			alert("비밀번호를 입력해주세요.");
+			return false();
+		} else {
+			$.ajax({
+				url : "/member/auth/pwdChk",
+				async : true,
+				type : "post",
+				dataType : "json",
+				data : JSON.stringify(param),
+				contentType : "application/json; charset=UTF-8",
+				success : function(data) {
+					console.log(data);
+					if (data == 1) {
+						console.log(data);
+						alert("비밀번호가 틀렸습니다.");
+						$("#memberDropModal").modal('hide');
+						return false;
+					} else if (data == 0) {
+						$("#memberDropForm").submit();
+					}
+				}
+			})
+
+		}
+		
+	})
 
 })

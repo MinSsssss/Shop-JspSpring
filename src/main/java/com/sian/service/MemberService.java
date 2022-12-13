@@ -2,6 +2,7 @@ package com.sian.service;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import com.sian.domain.AuthVO;
@@ -15,12 +16,13 @@ public interface MemberService {
 	
 	public boolean memberDrop(MemberDTO memberDTO) throws Exception;
 	
-	
 	public int idChk(MemberDTO memberDTO) throws Exception;
 	
-	public String getPwd(String mem_id) throws Exception;
+	public String getId(Authentication authentication) throws Exception;
 	
-	public boolean pwdChk(MemberDTO memberDTO) throws Exception;
+	public String getPwd(Authentication authentication) throws Exception;
+	
+	public boolean pwdChk(MemberDTO memberDTO,Authentication authentication) throws Exception;
 	
 	public boolean memberModify(MemberDTO memberDTO) throws Exception;
 }

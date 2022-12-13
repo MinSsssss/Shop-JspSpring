@@ -1,8 +1,8 @@
 package com.sian.mapper;
 
-import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 import com.sian.domain.AuthVO;
 import com.sian.domain.MemberDTO;
@@ -23,7 +23,7 @@ public interface MemberMapper {
 	
 	public void insert(MemberDTO memberDTO) throws Exception;
 	
-	
+	public List<MemberDTO> getList() throws Exception;
 	
 	
 	

@@ -46,6 +46,11 @@
 		WHERE mem_id = #{mem_id}
 	</select>
 	
+	<!-- <select id="getId" resultType="String">
+		SELECT COUNT(*) FROM tbl_member
+		WHERE mem_id = #{mem_id}
+	</select> -->
+	
 	<select id="getPwd" resultType="String">
 		SELECT mem_pwd from tbl_member where mem_id = #{mem_id}
 	</select>
@@ -58,10 +63,16 @@
 		mem_pwd = #{mem_pwd}
 		WHERE mem_id = #{mem_id}
 	</update>
+	<select id="getList" resultMap="memberMap">
+			SELECT mem.mem_id,mem_pwd,mem_name,mem_email,mem_tel,mem_joindate,enabled, auth
+			FROM tbl_member mem LEFT OUTER JOIN tbl_member_auth auth on mem.mem_id = auth.mem_id
+	</select>
+	
+	
 	<!-- <select id="getList" resultType="com.sian.domain.MemberDTO">
 			<![CDATA[
-				select * from tbl_member where bno > 0
+				select * from tbl_member
 			]]>
-		</select>   -->
+	</select> -->
 	
 </mapper>

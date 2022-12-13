@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,8 @@ import lombok.Setter;
 public class MemberServiceImpl implements MemberService {
 
 	@Setter(onMethod_ = @Autowired)
-	private MemberMapper mapper;
+	private MemberMapper memberMapper;
+	
 	@Setter(onMethod_ = @Autowired)
 	private BCryptPasswordEncoder passwordEncoder;
 
@@ -41,34 +43,46 @@ public class MemberServiceImpl implements MemberService {
 
 		memberDTO.setMem_pwd(passwordEncoder.encode(memberDTO.getMem_pwd()));
 		memberDTO.setAuthList(list);
-		mapper.insert(memberDTO);
+		memberMapper.insert(memberDTO);
 
 	}
-
 	@Override
 	public int idChk(MemberDTO memberDTO) throws Exception {
-		int result = mapper.idChk(memberDTO);
+		int result = memberMapper.idChk(memberDTO);
 		return result;
+	}
+
+
+	@Override
+	public String getId(Authentication authentication) throws Exception {
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		MemberDTO thisMem = memberMapper.read(userDetails.getUsername());
+		String thisMemId = thisMem.getMem_id();
+		return thisMemId;
 	}
 
 	@Override
 	public boolean memberDrop(MemberDTO memberDTO) throws Exception {
 
 		SecurityContextHolder.clearContext();
-		return mapper.memberDrop(memberDTO) == 1;
+		return memberMapper.memberDrop(memberDTO) == 1;
 	}
-
+	
+	//현재 사용자의 비밀번호를 가져옴
 	@Override
-	public String getPwd(String mem_id) throws Exception {
-		String mem_pwd = mapper.getPwd(mem_id);
-		return mem_pwd;
+	public String getPwd(Authentication authentication) throws Exception {
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		MemberDTO thisMem = memberMapper.read(userDetails.getUsername());
+		String thisMemId = thisMem.getMem_id();
+		
+		String thisMemPwd = memberMapper.getPwd(thisMemId);
+		return thisMemPwd;
 	}
-
+	//getPwd() 로 사용자의 비밀번호를 가져와서 입력한 비밀번호와 비교.
 	@Override
-	public boolean pwdChk(MemberDTO memberDTO) throws Exception {
-		String thisMemPwd = mapper.read(memberDTO.getMem_id()).getMem_pwd();
+	public boolean pwdChk(MemberDTO memberDTO,Authentication authentication) throws Exception {
 
-		if (passwordEncoder.matches(memberDTO.getMem_pwd(), thisMemPwd)) {
+		if (passwordEncoder.matches(memberDTO.getMem_pwd(), this.getPwd(authentication))) {
 			return true;
 		} else {
 			return false;
@@ -79,7 +93,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public boolean memberModify(MemberDTO memberDTO) throws Exception {
 		memberDTO.setMem_pwd(passwordEncoder.encode(memberDTO.getMem_pwd()));
-		return mapper.memberModify(memberDTO) == 1;
+		return memberMapper.memberModify(memberDTO) == 1;
 
 	}
 

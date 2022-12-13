@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <% request.setCharacterEncoding("utf-8"); 
-   response.setContentType("text/html; charset=UTF-8"); 
-%> --%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<!DOCTYPE html>
 <html lang="en">
 
@@ -69,7 +68,7 @@
                 </a>
                 <div id="memberManage" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="./memberList.html">회원조회</a>
+                        <a class="collapse-item" href="/admin/memberList">회원조회</a>
                         <a class="collapse-item" href="#">회원정보</a>
                     </div>
                 </div>
@@ -83,6 +82,18 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="./orderList.html">주문조회</a>
                         <a class="collapse-item" href="#">배송조회</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#cateManage"
+                    aria-expanded="true" aria-controls="productManage">
+                    <span>상품카테고리관리</span>
+                </a>
+                <div id="cateManage" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="#">상품카테고리조회</a>
+                        <a class="collapse-item" href="/admin/categoryRegister">상품카테고리생성</a>
                     </div>
                 </div>
             </li>
@@ -381,7 +392,11 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                 <sec:authorize access="isAuthenticated()">
+                           		<div class=""><sec:authentication property="principal.member.mem_name"/> 관리자님</div>
+                           </sec:authorize>
+                                </span>
                                 <img class="img-profile rounded-circle"
                                     src="/resources/admin/img/undraw_profile.svg">
                             </a>

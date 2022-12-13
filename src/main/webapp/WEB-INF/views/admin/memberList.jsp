@@ -25,17 +25,18 @@
                                             <th>이름</th>
                                             <th>전화번호</th>
                                             <th>가입일자</th>
+                                            <th>권한</th>
                                         </tr>
                                     </thead>
                                     
                                     <tbody>
-                                    <c:forEach items="${list }" var="member">
+                                    <c:forEach items="${memberList }" var="member">
                                     	<tr>
                                             <td><c:out value= "${member.mem_id }" /></td>
                                             <td><c:out value= "${member.mem_name }" /></td>
                                             <td><c:out value= "${member.mem_tel }" /></td>
                                             <td><fmt:formatDate pattern="yyyy-MM-dd" value = "${member.mem_joindate }"/></td>
-                                            
+                                             <td><c:out value= "${member.authList.get(0).auth }" /></td>
                                         </tr>
                                     
                                     </c:forEach>
