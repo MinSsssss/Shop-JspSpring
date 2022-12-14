@@ -21,38 +21,46 @@
 			<div class="table-responsive">
 				<table class="table table-bordered" id="dataTable" width="100%"
 					cellspacing="0">
-					<thead>
-						<tr>
-							<th>카테고리번호</th>
-							<th>카테고리이름</th>
-							<th></th>
-						</tr>
-					</thead>
 
 					<tbody>
-						<c:forEach items="${categoryList }" var="category">
-							<tr>
-								<td class="align-middle">
-								<a class="move" href=<c:out value="${category.category_no}"/>></a></td>
-								<%-- <a href="#"><c:out value="${category.category_no }" /></a></td> --%>
-								<td class="align-middle"><c:out
-										value="${category.category_name }" /></td>
-								<!-- <td>
-									<button class="btn btn-primary btn-sm" id="categoryModyfyBtn">수정</button>
-									<button class="btn btn-secondary btn-sm" id="categoryDeleteBtn"
-									data-toggle="modal" data-target="#categoryDropModal">삭제</button>
-								</td> -->
-							</tr>
-						</c:forEach>
+						<tr>
+							<td>카테고리번호</td>
+							<td class="align-middle">
+								<c:out value="${categoryRead.category_no }" />
+							</td>
 
+						</tr>
+						
+						<tr>
+							<td>카테고리이름</td>
+							<td class="align-middle">
+								<c:out value="${categoryRead.category_name }" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">포함된 제품</td>
+						</tr>		
+						<tr>
+							<td colspan="2">
+								<p>상품1</p>
+								<p>상품1</p>
+								<p>상품1</p>
+								<p>상품1</p>
+								<p>상품1</p>			
+							</td>
+						</tr>
 
+							
 					</tbody>
 				</table>
+				
+				
 			</div>
+			<button class="btn btn-primary btn-sm" id="categoryModyfyBtn">수정</button>
+			<button class="btn btn-secondary btn-sm" id="categoryDeleteBtn" 
+			data-toggle="modal" data-target="#categoryDropModal">삭제</button>
+			
 		</div>
-		<form id='actionForm' action="/admin/categoryList" method='get'>
-											
-		</form>
 		<!--Category Modal -->
 		<div class="modal fade" id="categoryDropModal" tabindex="-1"
 			role="dialog" aria-labelledby="categoryDropCenterTitle"
@@ -67,9 +75,7 @@
 						</button>
 					</div>
 					<div class="modal-body">삭제하시겠습니까?</div>
-					<div class="modal-body">카테고리번호를 입력해주세요.
-						<input type="text" id="" name="category_no">
-					</div>
+					
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" id="categoryDropBtn">삭제</button>
 						<button type="button" class="btn btn-secondary"
@@ -83,7 +89,7 @@
 	</div>
 
 
-	
+	</form>
 
 
 </div>
@@ -96,4 +102,3 @@
 
 <!-- End of Main Content -->
 <jsp:include page="./includes/adminFooter.jsp"></jsp:include>
-<script src="/resources/admin/js/admin.js"></script>

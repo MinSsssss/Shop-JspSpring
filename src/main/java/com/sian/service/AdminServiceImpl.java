@@ -37,5 +37,17 @@ public class AdminServiceImpl implements AdminService{
 		
 		return categoryMapper.getList();
 	}
+
+	@Override
+	public int categoryRemove() throws Exception {
+		
+		return categoryMapper.delete();
+	}
+
+	@Override
+	public CategoryDTO categoryRead(int category_no) throws Exception {
+		
+		return categoryMapper.categoryRead(category_no);
+	}
 	
 }

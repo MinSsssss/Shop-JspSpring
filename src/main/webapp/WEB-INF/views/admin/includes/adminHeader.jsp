@@ -105,7 +105,7 @@
                 <div id="productManage" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="#">상품조회</a>
-                        <a class="collapse-item" href="#">상품등록</a>
+                        <a class="collapse-item" href="/admin/productRegister">상품등록</a>
                     </div>
                 </div>
             </li>

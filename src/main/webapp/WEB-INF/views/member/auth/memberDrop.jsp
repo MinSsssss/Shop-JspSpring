@@ -48,57 +48,56 @@
 								<jsp:include page="./myPageListInclude.jsp"></jsp:include>
 
 							</div>
-								<div class="ltn__myaccount-tab-content-inner">
-									<p>회원탈퇴 하시겠습니까?</p>
-									<div class="ltn__form-box">
-										<form action="/member/auth/memberDropProc" id="memberDropForm"
-											method="post">
-											<div class="row mb-50">
-												<div class="col-md-6">
-													<label>비밀번호를 입력해주세요.</label>
-													
-													<input type="password" id="mem_pwd" name="mem_pwd">
-												</div>
-
+							<div class="ltn__myaccount-tab-content-inner">
+								<p>회원탈퇴 하시겠습니까?</p>
+								<div class="ltn__form-box">
+									<form action="/member/auth/memberDropProc" id="memberDropForm"
+										method="post">
+										<div class="row mb-50">
+											<div class="col-md-6">
+												<label>비밀번호를 입력해주세요.</label> <input type="password"
+													id="mem_pwd" name="mem_pwd">
 											</div>
 
-											<div class="btn-wrapper">
-												<button type="button" data-toggle="modal"
-													data-target="#memberDropModal"
-													class="btn theme-btn-1 btn-effect-1 text-uppercase">회원탈퇴</button>
-											</div>
+										</div>
 
-											<!--MemberDrop Modal -->
-											<div class="modal fade" id="memberDropModal" tabindex="-1"
-												role="dialog" aria-labelledby="memberDropCenterTitle"
-												aria-hidden="true">
-												<div class="modal-dialog modal-dialog-centered"
-													role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title" id="memberDropModalTitle">회원탈퇴</h5>
-															<button type="button" class="close" data-dismiss="modal"
-																aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">탈퇴하시겠습니까?</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-primary"
-																id="memberDropBtn">회원탈퇴</button>
-															<button type="button" class="btn btn-secondary"
-																data-dismiss="modal">취소</button>
+										<div class="btn-wrapper">
+											<button type="button" data-toggle="modal"
+												data-target="#memberDropModal"
+												class="btn theme-btn-1 btn-effect-1 text-uppercase">회원탈퇴</button>
+										</div>
+										
+										<!--MemberDrop Modal -->
+										<div class="modal fade" id="memberDropModal" tabindex="-1"
+											role="dialog" aria-labelledby="memberDropCenterTitle"
+											aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered"
+												role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="memberDropModalTitle">회원탈퇴</h5>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">탈퇴하시겠습니까?</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-primary"
+															id="memberDropBtn">회원탈퇴</button>
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">취소</button>
 
-														</div>
 													</div>
 												</div>
 											</div>
-											<!--End MemberDrop Modal -->
+										</div>
+										<!--End MemberDrop Modal -->
 
-										</form>
-									</div>
+									</form>
 								</div>
-							
+							</div>
+
 						</div>
 					</div>
 				</div>

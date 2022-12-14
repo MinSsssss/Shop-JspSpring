@@ -11,4 +11,8 @@ public interface AdminService {
 	public void categoryRegister(CategoryDTO categoryDTO) throws Exception;
 	
 	public List<CategoryDTO> getCategoryList() throws Exception;
+	
+	public int categoryRemove() throws Exception;
+	
+	public CategoryDTO categoryRead(int category_no) throws Exception;
 }

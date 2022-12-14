@@ -10,4 +10,13 @@
 			SELECT category_no,category_name
 			FROM tbl_category
 	</select>
+	<delete id="delete" parameterType="com.sian.domain.CategoryDTO">
+		DELETE FROM tbl_category
+		WHERE category_no = #{category_no}
+	</delete>
+	<select id="categoryRead" parameterType="Integer" resultType="com.sian.domain.CategoryDTO">
+		SELECT category_no,category_name
+		FROM tbl_category
+		WHERE category_no = #{category_no}
+	</select>
 </mapper>

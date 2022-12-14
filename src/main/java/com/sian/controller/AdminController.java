@@ -5,8 +5,11 @@ package com.sian.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 import com.sian.domain.CategoryDTO;
 import com.sian.service.AdminService;
@@ -37,6 +40,24 @@ public class AdminController {
 		adminService.categoryRegister(categoryDTO);
 		return "redirect:/admin";
 	}
+	@PostMapping("/categoryRemove")
+	public int categoryRemove(CategoryDTO categoryDTO) throws Exception{
+		return 1;
+	}
+	@GetMapping("/categoryRead")
+	public void categoryRead(@RequestParam("category_no")int category_no, Model model) throws Exception {
+		System.out.println(category_no);
+		model.addAttribute("categoryRead", adminService.categoryRead(category_no));
+	}
+	
+	@GetMapping("/productRegister")
+	public void productRegister(Model model) throws Exception{
+		model.addAttribute("categoryList",adminService.getCategoryList());
+	}
+	/*
+	 * @PostMapping("/productRegisterProc") public String productRegisterProc()
+	 */
+	
 	
 	
 }

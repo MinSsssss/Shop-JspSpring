@@ -23,6 +23,7 @@ insert into tbl_member values('admin2','1234','test','test@test.com','1234',sysd
 insert into tbl_member_auth values('admin2','ROLE_ADMIN');
 commit;
 
+
 --create SEQUENCE seq_tbl_member;
 select * from tbl_member;
 select * from tbl_member_auth;
@@ -80,17 +81,26 @@ CREATE TABLE tbl_category (
 	category_no	number(2) primary key,
 	category_name	varchar2(30)	NOT NULL
 );
+CREATE SEQUENCE seq_tbl_product_no
+    INCREMENT BY 1
+    START WITH 101
+    MINVALUE 101
+    MAXVALUE 999
+    NOCYCLE
+    NOCACHE
+    NOORDER;
 
 CREATE TABLE tbl_product (
 	product_no	number(3) primary key,
-	category_no	number(2) default 10,
-	product_name	varchar2(100)		NULL,
-	product_price	number(6)		NULL,
-	product_detail	varchar2(1000)		NULL,
-	product_image1	varchar2(1000)		NULL,
-	product_image2	varchar2(1000)		NULL,
-	product_date	date		NULL,
-	product_hit	number		NULL
+	category_no	number(2) default 10 NOT NULL,
+	product_name	varchar2(100)	NOT NULL,
+	product_price	number(6)		NOT NULL,
+	product_detail	varchar2(1000)		NOT NULL,
+	product_image1	varchar2(1000),
+	--product_image2	varchar2(1000)		NULL,
+	product_regdate	date default sysdate NOT NULL,
+    product_updatedate	date default sysdate NOT NULL,
+	product_hit	number default 0 NOT NULL
 );
 ALTER TABLE tbl_product ADD CONSTRAINT tbl_cate_no_pk FOREIGN KEY(category_no) REFERENCES tbl_category(category_no);
 
