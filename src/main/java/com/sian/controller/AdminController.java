@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import com.sian.domain.CategoryDTO;
+import com.sian.domain.ProductDTO;
 import com.sian.service.AdminService;
 import com.sian.service.MemberService;
 
@@ -54,9 +55,16 @@ public class AdminController {
 	public void productRegister(Model model) throws Exception{
 		model.addAttribute("categoryList",adminService.getCategoryList());
 	}
-	/*
-	 * @PostMapping("/productRegisterProc") public String productRegisterProc()
-	 */
+	
+	 @PostMapping("/productRegisterProc") 
+	 public String productRegisterProc(ProductDTO productDTO) throws Exception{
+		 adminService.productRegister(productDTO);
+		 return "redirect:/admin";
+	 }
+	 @GetMapping("/productList")
+	 public void productList(Model model)throws Exception {
+		 model.addAttribute("productList",adminService.getProductList());
+	 }
 	
 	
 	

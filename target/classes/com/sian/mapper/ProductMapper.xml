@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sian.mapper.ProductMapper">
+ 	<insert id="insert">
+ 		<!-- <selectKey keyProperty="category_no" resultType="int" order="BEFORE">
+			select category_no from tbl_category 
+			where category_name=#{category_name} 
+		</selectKey> -->
+ 	
+ 		INSERT INTO tbl_product(product_no,category_no,product_name,product_price,
+ 		product_detail,product_image1)
+ 		VALUES (seq_tbl_product_no.nextval,(
+ 		SELECT category_no FROM tbl_category WHERE category_name=#{category_name}
+ 		)
+ 		,#{product_name},#{product_price},
+ 		#{product_detail},#{product_image1})
+ 	</insert>
+ 	<select id="getList" resultType="com.sian.domain.ProductDTO">
+			SELECT product_no,product_name,product_price,product_hit,
+			product_regdate,product_updatedate
+			FROM tbl_product
+			<!--  FROM tbl_product pro LEFT OUTER JOIN tbl_category cate ON pro.category_no = cate.category_no-->
+	</select>
+ 	
+ 	<!-- <select id="getList" resultType="com.sian.domain.CategoryDTO">
+			SELECT category_no,category_name
+			FROM tbl_category
+	</select>
+	<delete id="delete" parameterType="com.sian.domain.CategoryDTO">
+		DELETE FROM tbl_category
+		WHERE category_no = #{category_no}
+	</delete>
+	<select id="categoryRead" parameterType="Integer" resultType="com.sian.domain.CategoryDTO">
+		SELECT category_no,category_name
+		FROM tbl_category
+		WHERE category_no = #{category_no}
+	</select> -->
+</mapper>

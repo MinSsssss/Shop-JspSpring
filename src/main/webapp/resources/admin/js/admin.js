@@ -31,8 +31,9 @@ $(document).ready(function() {
 		$("#productRegModal").modal();
 		$("#productRegModalBtn").on("click",function(){
 			
-			alert("상품등록이 완료되었습니다.")
+			
 			$("#productRegisterForm").submit();	
+			alert("상품등록이 완료되었습니다.")
 		})
 		
 		

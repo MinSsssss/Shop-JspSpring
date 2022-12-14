@@ -33,15 +33,11 @@
 						<c:forEach items="${categoryList }" var="category">
 							<tr>
 								<td class="align-middle">
-								<a class="move" href=<c:out value="${category.category_no}"/>></a></td>
-								<%-- <a href="#"><c:out value="${category.category_no }" /></a></td> --%>
+								<a class="move" href=<c:out value="${category.category_no}"/>>${category.category_no}</a></td>
+								
 								<td class="align-middle"><c:out
 										value="${category.category_name }" /></td>
-								<!-- <td>
-									<button class="btn btn-primary btn-sm" id="categoryModyfyBtn">수정</button>
-									<button class="btn btn-secondary btn-sm" id="categoryDeleteBtn"
-									data-toggle="modal" data-target="#categoryDropModal">삭제</button>
-								</td> -->
+							
 							</tr>
 						</c:forEach>
 

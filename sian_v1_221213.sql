@@ -28,6 +28,7 @@ commit;
 select * from tbl_member;
 select * from tbl_member_auth;
 select * from tbl_category;
+select * from tbl_product;
 commit;
 
 
@@ -96,12 +97,21 @@ CREATE TABLE tbl_product (
 	product_name	varchar2(100)	NOT NULL,
 	product_price	number(6)		NOT NULL,
 	product_detail	varchar2(1000)		NOT NULL,
-	product_image1	varchar2(1000),
+	product_image1	varchar2(1000) NOT NULL,
 	--product_image2	varchar2(1000)		NULL,
 	product_regdate	date default sysdate NOT NULL,
     product_updatedate	date default sysdate NOT NULL,
 	product_hit	number default 0 NOT NULL
 );
+INSERT INTO tbl_product(product_no,category_no,product_name,product_price,
+ 		product_detail,product_image1)
+ 		VALUES (seq_tbl_product_no,(
+ 		SELECT category_no FROM tbl_category WHERE category_name=#{category_name}
+ 		)
+ 		,#{product_name},#{product_price},
+ 		#{product_detail},#{product_image1})
+
+
 ALTER TABLE tbl_product ADD CONSTRAINT tbl_cate_no_pk FOREIGN KEY(category_no) REFERENCES tbl_category(category_no);
 
 CREATE TABLE tbl_review (

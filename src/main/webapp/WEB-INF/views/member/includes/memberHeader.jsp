@@ -108,119 +108,10 @@
                             <nav>
                                 <div class="ltn__main-menu">
                                     <ul>
-                                        <li class="menu-icon"><a href="#">Home</a>
-                                            <ul>
-                                                <li><a href="index.html">Home Style - 01</a></li>
-                                                <li><a href="index-2.html">Home Style - 02</a></li>
-                                                <li><a href="index-3.html">Home Style - 03  <span class="menu-item-badge">new</span></a></li>
-                                                <li><a href="index-4.html">Home Style - 04</a></li>
-                                                <li><a href="index-5.html">Home Style - 05</a></li>
-                                                <li><a href="index-6.html">Home Style - 06</a></li>
-                                                <li><a href="index-7.html">Home Style - 07</a></li>
-                                                <li><a href="index-8.html">Home Style - 08</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-icon"><a href="#">About Us</a>
-                                            <ul>
-                                                <li><a href="about.html">About Us</a></li>
-                                                <li><a href="faq.html">FAQ</a></li>
-                                                <li><a href="coming-soon.html">Coming Soon</a></li>
-                                                <li><a href="404.html">404</a></li>
-                                                <li><a href="contact.html">Contact</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-icon"><a href="#">Products</a>
-                                            <ul>
-                                                <li><a href="shop.html">Product</a></li>
-                                                <li><a href="shop-grid.html">Product Grid</a></li>
-                                                <li><a href="shop-left-sidebar.html">Product Left Sidebar</a></li>
-                                                <li><a href="shop-right-sidebar.html">Product Right Sidebar</a></li>
-                                                <li><a href="product-details.html">Product Details</a></li>
-                                                <li><a href="product-details-no-sidebar.html">Details No Sidebar</a></li>
-                                                <li><a href="product-details-hover-zoom.html">Details Hover Zoom</a></li>
-                                                <li><a href="#">Other Pages <span class="float-right">>></span></a>
-                                                    <ul>
-                                                        <li><a href="cart.html">Cart</a></li>
-                                                        <li><a href="wishlist.html">Wishlist</a></li>
-                                                        <li><a href="checkout.html">Checkout</a></li>
-                                                        <li><a href="order-tracking.html">Order Tracking</a></li>
-                                                        <li><a href="#">My Account</a></li>
-                                                        <li><a href="login.html">Sign in</a></li>
-                                                        <li><a href="register.html">Register</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-icon"><a href="#">Kits</a>
-                                            <ul class="mega-menu">
-                                                <li>
-                                                    <div class="menu-product-item">
-                                                        <div class="menu-product-img">
-                                                            <a href="product-details.html"><img src="/resources/member/img/product/13.png" alt="#"></a>
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <h2 class="product-title"><a href="product-details.html">Trimmer Kits</a></h2>
-                                                            <div class="product-price">
-                                                                <span>$125.00</span>
-                                                                <del>$142.00</del>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="menu-product-item">
-                                                        <div class="menu-product-img">
-                                                            <a href="product-details.html"><img src="/resources/member/img/product/9.png" alt="#"></a>
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <h2 class="product-title"><a href="product-details.html">Beard Growth Vitamins</a></h2>
-                                                            <div class="product-price">
-                                                                <span>$135.00</span>
-                                                                <del>$145.00</del>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="menu-product-item">
-                                                        <div class="menu-product-img">
-                                                            <a href="product-details.html"><img src="/resources/member/img/product/15.png" alt="#"></a>
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <h2 class="product-title"><a href="product-details.html">Beard Scissors</a></h2>
-                                                            <div class="product-price">
-                                                                <span>$15.00</span>
-                                                                <del>$18.00</del>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="menu-product-item">
-                                                        <div class="menu-product-img">
-                                                            <a href="product-details.html"><img src="/resources/member/img/product/6.png" alt="#"></a>
-                                                        </div>
-                                                        <div class="product-info">
-                                                            <h2 class="product-title"><a href="product-details.html">Beard Care Oil</a></h2>
-                                                            <div class="product-price">
-                                                                <span>$149.00</span>
-                                                                <del>$162.00</del>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-icon"><a href="#">News</a>
-                                            <ul>
-                                                <li><a href="blog.html">News</a></li>
-                                                <li><a href="blog-grid.html">News Grid</a></li>
-                                                <li><a href="blog-left-sidebar.html">News Left sidebar</a></li>
-                                                <li><a href="blog-right-sidebar.html">News Right sidebar</a></li>
-                                                <li><a href="blog-details.html">News details</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html">Contact</a></li>
+                                        <c:forEach items="${categoryList }" var="category">
+                                             <li><a class="menu-icon" href="#"><c:out value="${category.category_name }"/></a></li>
+                                        </c:forEach>
+                                        
                                     </ul>
                                 </div>
                             </nav>
@@ -378,65 +269,9 @@
             </div>
             <div class="ltn__utilize-menu">
                 <ul>
-                    <li><a href="#">Home</a>
-                        <ul class="sub-menu">
-                            <li><a href="index.html">Home Style - 01</a></li>
-                            <li><a href="index-2.html">Home Style - 02</a></li>
-                            <li><a href="index-3.html">Home Style - 03  <span class="menu-item-badge">new</span></a></li>
-                            <li><a href="index-4.html">Home Style - 04</a></li>
-                            <li><a href="index-5.html">Home Style - 05</a></li>
-                            <li><a href="index-6.html">Home Style - 06</a></li>
-                            <li><a href="index-7.html">Home Style - 07</a></li>
-                            <li><a href="index-8.html">Home Style - 08</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="#">Product</a>
-                        <ul class="sub-menu">
-                            <li><a href="shop.html">Product</a></li>
-                            <li><a href="shop-grid.html">Product Grid</a></li>
-                            <li><a href="shop-left-sidebar.html">Product Left Sidebar</a></li>
-                            <li><a href="shop-right-sidebar.html">Product Right Sidebar</a></li>
-                            <li><a href="product-details.html">Product Details</a></li>
-                            <li><a href="cart.html">Cart</a></li>
-                            <li><a href="wishlist.html">Wishlist</a></li>
-                            <li><a href="checkout.html">Checkout</a></li>
-                            <li><a href="order-tracking.html">Order Tracking</a></li>
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="login.html">Sign in</a></li>
-                            <li><a href="register.html">Register</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">News</a>
-                        <ul class="sub-menu">
-                            <li><a href="blog.html">News</a></li>
-                            <li><a href="blog-left-sidebar.html">News Left sidebar</a></li>
-                            <li><a href="blog-right-sidebar.html">News Right sidebar</a></li>
-                            <li><a href="blog-grid.html">News Grid</a></li>
-                            <li><a href="blog-details.html">News details</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Pages</a>
-                        <ul class="sub-menu">
-                            <li><a href="faq.html">FAQ</a></li>
-                            <li><a href="404.html">404</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                            <li><a href="coming-soon.html">Coming Soon</a></li>
-                            <li><a href="shop.html">Shop</a></li>
-                            <li><a href="shop-left-sidebar.html">Shop Left sidebar</a></li>
-                            <li><a href="shop-right-sidebar.html">Shop right sidebar</a></li>
-                            <li><a href="shop-grid.html">Shop Grid</a></li>
-                            <li><a href="product-details.html">Shop details </a></li>
-                            <li><a href="cart.html">Cart</a></li>
-                            <li><a href="wishlist.html">Wishlist</a></li>
-                            <li><a href="checkout.html">Checkout</a></li>
-                            <li><a href="order-tracking.html">Order Tracking</a></li>
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="login.html">Sign in</a></li>
-                            <li><a href="register.html">Register</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <c:forEach items="${categoryList }" var="category">
+                        <li><a class="menu-icon" href="#"><c:out value="${category.category_name }"/></a></li>
+                    </c:forEach>
                 </ul>
             </div>
             <div class="ltn__utilize-buttons ltn__utilize-buttons-2">
@@ -446,7 +281,7 @@
                             <span class="utilize-btn-icon">
                                 <i class="far fa-user"></i>
                             </span>
-                            Login / Register
+                            로그인 / 회원가입
                         </a>
                     </li>
                     <li>
@@ -455,7 +290,7 @@
                                 <i class="far fa-heart"></i>
                                 <sup>3</sup>
                             </span>
-                            Wishlist
+                            찜 리스트
                         </a>
                     </li>
                     <li>
@@ -464,7 +299,7 @@
                                 <i class="fas fa-shopping-cart"></i>
                                 <sup>5</sup>
                             </span>
-                            Shoping Cart
+                            장바구니
                         </a>
                     </li>
                 </ul>

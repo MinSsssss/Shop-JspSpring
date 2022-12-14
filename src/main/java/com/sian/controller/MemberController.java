@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
+import com.sian.domain.CategoryDTO;
 import com.sian.domain.MemberDTO;
 import com.sian.mapper.MemberMapper;
 import com.sian.security.domain.CustomUser;
+import com.sian.service.AdminService;
 import com.sian.service.MemberService;
 
 import lombok.AllArgsConstructor;
@@ -38,6 +40,14 @@ public class MemberController {
 
 	private MemberService memberService;
 
+	private AdminService adminService;
+
+	@GetMapping("/")
+	public String memberIndex(Model model) throws Exception {
+		model.addAttribute("categoryList", adminService.getCategoryList());
+
+		return "/member/index";
+	}
 
 	@GetMapping("/auth/orderList")
 	public void orderList() {
@@ -94,12 +104,12 @@ public class MemberController {
 		if (pwdChk) {
 			memberDTO.setMem_id(memberService.getId(authentication));
 			if (memberService.memberDrop(memberDTO)) {
-				
+
 				System.out.println("성공");
 				return "redirect:/member";
 			} else {
 				System.out.println("실패");
-				
+
 				return "redirect:/member/auth/memberDrop";
 			}
 

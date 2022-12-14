@@ -10,7 +10,11 @@ public class ProductDTO {
 	
 	private int category_no;
 	
+	private String category_name;
+	
 	private String product_name;
+	
+	private int product_price;
 	
 	private String product_detail;
 	
@@ -20,5 +24,5 @@ public class ProductDTO {
 	
 	private Date product_updateDate;
 	
-	private Long hit;
+	private Long product_hit;
 }

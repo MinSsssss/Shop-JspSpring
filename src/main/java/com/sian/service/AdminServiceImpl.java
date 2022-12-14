@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.sian.domain.CategoryDTO;
 import com.sian.domain.MemberDTO;
+import com.sian.domain.ProductDTO;
 import com.sian.mapper.CategoryMapper;
 import com.sian.mapper.MemberMapper;
+import com.sian.mapper.ProductMapper;
 
 import lombok.Setter;
 
@@ -18,6 +20,8 @@ public class AdminServiceImpl implements AdminService{
 	private MemberMapper memberMapper;
 	@Setter(onMethod_ = @Autowired)
 	private CategoryMapper categoryMapper;
+	@Setter(onMethod_ = @Autowired)
+	private ProductMapper productMapper;
 	
 	
 	@Override
@@ -48,6 +52,18 @@ public class AdminServiceImpl implements AdminService{
 	public CategoryDTO categoryRead(int category_no) throws Exception {
 		
 		return categoryMapper.categoryRead(category_no);
+	}
+
+	@Override
+	public void productRegister(ProductDTO productDTO) throws Exception {
+		productMapper.insert(productDTO);
+		
+	}
+
+	@Override
+	public List<ProductDTO> getProductList() throws Exception {
+		
+		return productMapper.getList();
 	}
 	
 }
