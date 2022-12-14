@@ -43,8 +43,8 @@ CREATE TABLE tbl_member (
 	enabled char(1) default '1'
    
 );
-select * from tbl_member_auth;
-
+select * from tbl_product;
+select * from tbl_category;
 insert all
 into tbl_member(mem_id,mem_pwd,mem_name,mem_email,mem_tel)
 values ('id','1234','ad','ad@ad','0101010')
@@ -105,11 +105,11 @@ CREATE TABLE tbl_product (
 );
 INSERT INTO tbl_product(product_no,category_no,product_name,product_price,
  		product_detail,product_image1)
- 		VALUES (seq_tbl_product_no,(
- 		SELECT category_no FROM tbl_category WHERE category_name=#{category_name}
+ 		VALUES (seq_tbl_product_no.nextval,(
+ 		SELECT category_no FROM tbl_category WHERE category_name='커피'
  		)
- 		,#{product_name},#{product_price},
- 		#{product_detail},#{product_image1})
+ 		,'커피1',12345,
+ 		'하하하하','qwe.qwe');
 
 
 ALTER TABLE tbl_product ADD CONSTRAINT tbl_cate_no_pk FOREIGN KEY(category_no) REFERENCES tbl_category(category_no);
