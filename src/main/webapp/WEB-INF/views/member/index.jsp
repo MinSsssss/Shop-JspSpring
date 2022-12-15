@@ -906,3 +906,4 @@
     <!-- BRAND LOGO AREA END -->
 
 <jsp:include page="./includes/memberFooter.jsp"></jsp:include>
+<script src="/resources/member/js/index.js"></script>

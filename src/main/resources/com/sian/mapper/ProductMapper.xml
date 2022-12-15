@@ -16,8 +16,9 @@
  		#{product_detail},#{product_image1})
  	</insert>
  	<select id="getList" resultType="com.sian.domain.ProductDTO">
-			SELECT product_no,product_name,product_price,product_hit,
-			product_regdate,product_updatedate
+			SELECT * 
+			<!-- product_no,product_name,product_price,product_hit,
+			product_regdate,product_updatedate -->
 			FROM tbl_product
 			<!--  FROM tbl_product pro LEFT OUTER JOIN tbl_category cate ON pro.category_no = cate.category_no-->
 	</select>

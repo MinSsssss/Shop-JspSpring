@@ -109,13 +109,21 @@
                                 <div class="ltn__main-menu">
                                     <ul>
                                         <c:forEach items="${categoryList }" var="category">
-                                             <li><a class="menu-icon" href="#"><c:out value="${category.category_name }"/></a></li>
+                                        	
+                                        		<li>
+                                        			<a class="menu-icon" id="productMove"
+                                        			href=<c:out value="${category.category_no}"/>>
+                                        			${category.category_name }</a>
+                                        		</li>
                                         </c:forEach>
                                         
                                     </ul>
                                 </div>
                             </nav>
                         </div>
+                        <form id='actionForm' action="/member/productList" method='get'>
+											
+						</form>
                     </div>
                     <div class="col">
                         <div class="ltn__header-options ltn__header-options-color-white----">

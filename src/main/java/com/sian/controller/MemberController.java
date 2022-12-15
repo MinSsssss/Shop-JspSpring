@@ -149,5 +149,12 @@ public class MemberController {
 		return "redirect:/member/auth/memberModifyNext";
 
 	}
+	@GetMapping("/productList")
+	public void productList(@RequestParam("category_no")int category_no, Model model) throws Exception {
+		
+		model.addAttribute("category",adminService.categoryRead(category_no));
+		System.out.println(category_no);
+		model.addAttribute("productList", adminService.getProductList());
+	}
 
 }
