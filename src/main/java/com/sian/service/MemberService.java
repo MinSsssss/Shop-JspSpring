@@ -7,6 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import com.sian.domain.AuthVO;
 import com.sian.domain.MemberDTO;
+import com.sian.domain.ProductDTO;
 import com.sian.security.domain.CustomUser;
 
 public interface MemberService {
@@ -25,4 +26,6 @@ public interface MemberService {
 	public boolean pwdChk(MemberDTO memberDTO,Authentication authentication) throws Exception;
 	
 	public boolean memberModify(MemberDTO memberDTO) throws Exception;
+	
+	public List<ProductDTO> memberProductList(int product_no) throws Exception;
 }

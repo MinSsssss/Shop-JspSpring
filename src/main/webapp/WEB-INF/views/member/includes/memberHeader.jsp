@@ -112,17 +112,19 @@
                                         	
                                         		<li>
                                         			<a class="menu-icon" id="productMove"
-                                        			href=<c:out value="${category.category_no}"/>>
+                                        			href='/member/productList?category_no=<c:out value="${category.category_no}"/>'>
+                                        			
                                         			${category.category_name }</a>
                                         		</li>
+                                        		 
                                         </c:forEach>
                                         
                                     </ul>
                                 </div>
                             </nav>
                         </div>
-                        <form id='actionForm' action="/member/productList" method='get'>
-											
+                       <form id='actionForm' action="/member/productList" method='get'>
+							<input type="hidden" name=>
 						</form>
                     </div>
                     <div class="col">

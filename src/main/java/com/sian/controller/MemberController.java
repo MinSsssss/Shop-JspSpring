@@ -154,7 +154,7 @@ public class MemberController {
 		
 		model.addAttribute("category",adminService.categoryRead(category_no));
 		System.out.println(category_no);
-		model.addAttribute("productList", adminService.getProductList());
+		model.addAttribute("productList", memberService.memberProductList(category_no));
 	}
 
 }

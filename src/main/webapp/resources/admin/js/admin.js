@@ -2,14 +2,14 @@ $(document).ready(function() {
 	$("#cateBtnSubmit").on("click",function(){
 			
 	})
-	var actionForm = $("#actionForm");
+	/*var actionForm = $("#actionForm");
 	$("#categoryMove").on("click",function(e){
 	e.preventDefault();
 	actionForm.append("<input type = 'hidden' name = 'category_no' value='"+$(this).attr("href")+"'>");
 	actionForm.attr("action","/admin/categoryRead");
 	actionForm.submit();
 	});
-	
+	*/
 	
 	$("#productRegBtn").on("click",function(){
 		

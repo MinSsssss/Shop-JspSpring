@@ -22,6 +22,11 @@
 			FROM tbl_product
 			<!--  FROM tbl_product pro LEFT OUTER JOIN tbl_category cate ON pro.category_no = cate.category_no-->
 	</select>
+	<select id="memberProductList" resultType="com.sian.domain.ProductDTO" parameterType="int">
+		SELECT * 
+		FROM tbl_product
+		WHERE category_no=#{category_no}
+	</select>
  	
  	<!-- <select id="getList" resultType="com.sian.domain.CategoryDTO">
 			SELECT category_no,category_name

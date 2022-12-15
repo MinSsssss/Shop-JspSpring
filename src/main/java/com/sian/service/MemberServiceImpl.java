@@ -16,7 +16,9 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import com.sian.domain.AuthVO;
 import com.sian.domain.MemberDTO;
+import com.sian.domain.ProductDTO;
 import com.sian.mapper.MemberMapper;
+import com.sian.mapper.ProductMapper;
 import com.sian.security.domain.CustomUser;
 
 import lombok.Setter;
@@ -33,7 +35,8 @@ public class MemberServiceImpl implements MemberService {
 	@Setter(onMethod_ = @Autowired)
 	private PasswordEncoder pswordEncoder;
 	
-
+	@Setter(onMethod_ = @Autowired)
+	private ProductMapper productMapper;
 	@Override
 	public void register(MemberDTO memberDTO, AuthVO authVO) throws Exception {
 
@@ -95,6 +98,11 @@ public class MemberServiceImpl implements MemberService {
 		memberDTO.setMem_pwd(passwordEncoder.encode(memberDTO.getMem_pwd()));
 		return memberMapper.memberModify(memberDTO) == 1;
 
+	}
+	@Override
+	public List<ProductDTO> memberProductList(int product_no) throws Exception {
+		
+		return productMapper.memberProductList(product_no);
 	}
 
 }

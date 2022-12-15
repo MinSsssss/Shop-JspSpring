@@ -33,7 +33,8 @@
 						<c:forEach items="${categoryList }" var="category">
 							<tr>
 								<td class="align-middle">
-								<a id="categoryMove" href=<c:out value="${category.category_no}"/>>${category.category_no}</a></td>
+								<a id="categoryMove" href='/admin/categoryRead?category_no=<c:out value="${category.category_no}"/>'>
+								<c:out value="${category.category_no}"/></a></td>
 								
 								<td class="align-middle"><c:out
 										value="${category.category_name }" /></td>
