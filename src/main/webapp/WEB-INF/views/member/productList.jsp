@@ -67,7 +67,8 @@
 						</div>
 						<div class="product-info">
 							<h2 class="product-title">
-								<a href="product-details.html"><c:out value="${product.product_name}"/></a>
+								<a href='/member/productRead?product_no=<c:out value="${product.product_no}"/>'>
+								<c:out value="${product.product_name}"/></a>
 							</h2>
 							<div class="product-price">
 								<span><c:out value="${product.product_price}"/></span>

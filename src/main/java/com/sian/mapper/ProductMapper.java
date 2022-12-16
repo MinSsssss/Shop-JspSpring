@@ -11,4 +11,6 @@ public interface ProductMapper {
 	public List<ProductDTO> getList() throws Exception;
 
 	public List<ProductDTO> memberProductList(int category_no) throws Exception;
+	
+	public ProductDTO getProduct(int product_no) throws Exception;
 }

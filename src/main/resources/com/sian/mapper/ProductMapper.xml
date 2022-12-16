@@ -27,6 +27,11 @@
 		FROM tbl_product
 		WHERE category_no=#{category_no}
 	</select>
+	<select id="getProduct" resultType="com.sian.domain.ProductDTO" parameterType="int">
+		SELECT * 
+		FROM tbl_product
+		WHERE product_no = #{product_no}
+	</select>
  	
  	<!-- <select id="getList" resultType="com.sian.domain.CategoryDTO">
 			SELECT category_no,category_name

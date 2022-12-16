@@ -27,5 +27,7 @@ public interface MemberService {
 	
 	public boolean memberModify(MemberDTO memberDTO) throws Exception;
 	
-	public List<ProductDTO> memberProductList(int product_no) throws Exception;
+	public List<ProductDTO> memberProductList(int category_no) throws Exception;
+	
+	public ProductDTO getProduct(int product_no) throws Exception;
 }

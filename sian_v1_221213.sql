@@ -1,6 +1,7 @@
 drop table tbl_qna_comment;
 drop table tbl_qna_catecory;
 drop table tbl_qna;
+drop table tbl_cart_product;
 drop table tbl_cart;
 drop table tbl_review_comment;
 drop table tbl_review;
@@ -43,6 +44,12 @@ CREATE TABLE tbl_member (
 	enabled char(1) default '1'
    
 );
+
+create table tbl_member_auth(
+    mem_id varchar2(50) not null,
+    auth varchar2(50)  default 'ROLE_MEMBER' not null,
+    constraint fk_member_auth foreign key(mem_id) references tbl_member(mem_id)
+);
 select * from tbl_product;
 select * from tbl_category;
 insert all
@@ -53,11 +60,6 @@ select * from dual;
 
 
 
-create table tbl_member_auth(
-    mem_id varchar2(50) not null,
-    auth varchar2(50)  default 'ROLE_MEMBER' not null,
-    constraint fk_member_auth foreign key(mem_id) references tbl_member(mem_id)
-);
 
 
 CREATE TABLE tbl_order (
@@ -132,11 +134,19 @@ CREATE TABLE tbl_review_comment (
 	review_com_writer	varchar2(12)		NULL
 );
 
-CREATE TABLE tbl_cart (
-	cart_no	varchar2(13) primary key,
-	mem_no	varchar2(13)		NOT NULL,
-	product_no	varchar2(13)		NOT NULL,
-	cart_qty	number(3)		NULL
+create table tbl_cart(
+    cart_no number primary key,
+    mem_id varchar2(50) UNIQUE  not null,
+    
+    constraint fk_cart_mem_id foreign key(mem_id) references tbl_member(mem_id)
+);
+create table tbl_cart_product(
+    product_no number(3),
+    cart_no number,
+    cart_qty number(3) default 0 not null ,
+    cart_price number default 0 not null,
+    constraint fk_cart_product_no foreign key(product_no) references tbl_product(product_no),
+    constraint fk_cart_no foreign key(cart_no) references tbl_cart(cart_no)
 );
 
 CREATE TABLE tbl_qna (

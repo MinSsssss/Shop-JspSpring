@@ -100,9 +100,14 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 	@Override
-	public List<ProductDTO> memberProductList(int product_no) throws Exception {
+	public List<ProductDTO> memberProductList(int category_no) throws Exception {
 		
-		return productMapper.memberProductList(product_no);
+		return productMapper.memberProductList(category_no);
+	}
+	@Override
+	public ProductDTO getProduct(int product_no) throws Exception {
+		
+		return productMapper.getProduct(product_no);
 	}
 
 }

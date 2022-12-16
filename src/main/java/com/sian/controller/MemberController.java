@@ -149,12 +149,25 @@ public class MemberController {
 		return "redirect:/member/auth/memberModifyNext";
 
 	}
+	//http://localhost:8090/member/productList?category_no=12
 	@GetMapping("/productList")
 	public void productList(@RequestParam("category_no")int category_no, Model model) throws Exception {
-		
+		model.addAttribute("categoryList", adminService.getCategoryList());
 		model.addAttribute("category",adminService.categoryRead(category_no));
 		System.out.println(category_no);
 		model.addAttribute("productList", memberService.memberProductList(category_no));
 	}
+	
+	@GetMapping("productRead")
+	public void productRead(@RequestParam("product_no")int product_no,Model model)throws Exception {
+		model.addAttribute("categoryList", adminService.getCategoryList());
+		model.addAttribute("product",memberService.getProduct(product_no));
+		
+	}
+	@GetMapping("/auth/cartView")
+	public void cartView(Model model ) {
+		
+	}
+	
 
 }
