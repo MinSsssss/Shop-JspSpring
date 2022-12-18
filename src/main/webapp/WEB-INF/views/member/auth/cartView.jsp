@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
     <jsp:include page="../includes/memberHeader.jsp"></jsp:include>
 
@@ -41,54 +42,24 @@
                             <table class="table">
                                 
                                 <tbody>
+                                	<c:forEach items="${cartList }" var="cart">
                                     <tr>
                                         <td class="cart-product-remove">x</td>
                                         <td class="cart-product-image">
                                             <a href="product-details.html"><img src="/resources/member/img/product/1.png" alt="#"></a>
                                         </td>
                                         <td class="cart-product-info">
-                                            <h4><a href="product-details.html">Brake Conversion Kit</a></h4>
+                                            <h4><a href="product-details.html"><c:out value="${cart.product_name }"/></a></h4>
                                         </td>
-                                        <td class="cart-product-price">$149.00</td>
+                                        <td class="cart-product-price" id="product_price"><c:out value="${cart.product_price }"/></td>
                                         <td class="cart-product-quantity">
                                             <div class="cart-plus-minus">
-                                                <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
+                                                <input type="text" id="cart_qty" value="${cart.cart_qty }" name="cart_qty" class="cart-plus-minus-box">
                                             </div>
                                         </td>
-                                        <td class="cart-product-subtotal">$298.00</td>
+                                        <td class="cart-product-subtotal" id="subTotal"></td>
                                     </tr>
-                                    <tr>
-                                        <td class="cart-product-remove">x</td>
-                                        <td class="cart-product-image">
-                                            <a href="product-details.html"><img src="/resources/member/img/product/2.png" alt="#"></a>
-                                        </td>
-                                        <td class="cart-product-info">
-                                            <h4><a href="product-details.html">OE Replica Wheels</a></h4>
-                                        </td>
-                                        <td class="cart-product-price">$85.00</td>
-                                        <td class="cart-product-quantity">
-                                            <div class="cart-plus-minus">
-                                                <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
-                                            </div>
-                                        </td>
-                                        <td class="cart-product-subtotal">$170.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cart-product-remove">x</td>
-                                        <td class="cart-product-image">
-                                            <a href="product-details.html"><img src="/resources/member/img/product/3.png" alt="#"></a>
-                                        </td>
-                                        <td class="cart-product-info">
-                                            <h4><a href="product-details.html">Wheel Bearing Retainer</a></h4>
-                                        </td>
-                                        <td class="cart-product-price">$75.00</td>
-                                        <td class="cart-product-quantity">
-                                            <div class="cart-plus-minus">
-                                                <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
-                                            </div>
-                                        </td>
-                                        <td class="cart-product-subtotal">$150.00</td>
-                                    </tr>
+                                   </c:forEach> 
                                     
                                 </tbody>
                             </table>
@@ -196,3 +167,4 @@
 
 	<jsp:include page="../includes/memberFooter.jsp"></jsp:include>
 	<script src="/resources/member/js/myPage.js"></script>
+	<script src="/resources/member/js/cart.js"></script>

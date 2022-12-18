@@ -69,10 +69,5 @@
 	</select>
 	
 	
-	<!-- <select id="getList" resultType="com.sian.domain.MemberDTO">
-			<![CDATA[
-				select * from tbl_member
-			]]>
-	</select> -->
 	
 </mapper>

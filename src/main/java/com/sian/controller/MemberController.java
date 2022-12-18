@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
+import com.sian.domain.CartDTO;
+import com.sian.domain.CartProductDTO;
 import com.sian.domain.CategoryDTO;
 import com.sian.domain.MemberDTO;
 import com.sian.mapper.MemberMapper;
@@ -164,10 +166,26 @@ public class MemberController {
 		model.addAttribute("product",memberService.getProduct(product_no));
 		
 	}
-	@GetMapping("/auth/cartView")
-	public void cartView(Model model ) {
+	
+	@ResponseBody
+	@PostMapping("/auth/addCart")
+	public void addCart(CartDTO cartDTO,@RequestBody CartProductDTO cartProductDTO,
+			Authentication authentication) throws Exception {
+		
+		int cart_no = memberService.getCartNo(memberService.getId(authentication));
+		cartProductDTO.setCart_no(cart_no);
+		System.out.println(cartProductDTO);
+		memberService.addCart(cartProductDTO);
+		
 		
 	}
+	@GetMapping("/auth/cartView")
+	public void cartView(Model model,Authentication authentication) throws Exception {
+		String mem_id= memberService.getId(authentication);
+		
+		model.addAttribute("cartList",memberService.getCartList(mem_id));
+	}
+	
 	
 
 }

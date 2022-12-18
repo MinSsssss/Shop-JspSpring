@@ -115,7 +115,7 @@
                                     
                                     <h3><c:out value="${product.product_name }"/></h3>
                                     <div class="product-price">
-                                        <span><c:out value="${product.product_price }"/></span>
+                                        <span id="product_price"><c:out value="${product.product_price }"/></span>
                                         
                                     </div>
                                     <p><c:out value="${product.product_detail }"/></p>
@@ -124,14 +124,14 @@
                                         <ul>
                                             <li>
                                                 <div class="cart-plus-minus">
-                                                    <input type="text" value="01" name="qtybutton" class="cart-plus-minus-box">
+                                                    <input type="text" id="cart_qty" value="1" name="cart_qty" class="cart-plus-minus-box">
                                                 </div>
                                             </li>
                                             <li>
-                                                <a href="#" class="theme-btn-1 btn btn-effect-1" title="Add to Cart" data-toggle="modal" data-target="#add_to_cart_modal">
+                                                <button id="addCart" class="theme-btn-1 btn btn-effect-1" title="Add to Cart" data-toggle="modal" data-target="#add_to_cart_modal">
                                                     <i class="fas fa-shopping-cart"></i>
                                                     <span>장바구니 담기</span>
-                                                </a>
+                                                </button>
                                             </li>
                                         </ul>
                                     </div>
@@ -295,68 +295,7 @@
 
     
 
-    <!-- FEATURE AREA START ( Feature - 3) -->
-    <div class="ltn__feature-area before-bg-bottom before-bg-bottom-2 plr--5">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ltn__feature-item-box-wrap ltn__border-between-column white-bg">
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6 col-12">
-                                <div class="ltn__feature-item ltn__feature-item-8">
-                                    <div class="ltn__feature-icon">
-                                        <img src="img/icons/svg/4-track.svg" alt="#">
-                                    </div>
-                                    <div class="ltn__feature-info">
-                                        <h4>Free home delivery</h4>
-                                        <p>Provide free home delivery for
-                                            all product over $100</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6 col-12">
-                                <div class="ltn__feature-item ltn__feature-item-8">
-                                    <div class="ltn__feature-icon">
-                                        <img src="img/icons/svg/5-madel.svg" alt="#">
-                                    </div>
-                                    <div class="ltn__feature-info">
-                                        <h4>Quality Products</h4>
-                                        <p>We ensure the product quality
-                                            that is our main goal</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6 col-12">
-                                <div class="ltn__feature-item ltn__feature-item-8">
-                                    <div class="ltn__feature-icon">
-                                        <img src="img/icons/svg/6-return.svg" alt="#">
-                                    </div>
-                                    <div class="ltn__feature-info">
-                                        <h4>3 Days Return</h4>
-                                        <p>Return product within 3 days
-                                            for any product you buy</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6 col-12">
-                                <div class="ltn__feature-item ltn__feature-item-8">
-                                    <div class="ltn__feature-icon">
-                                        <img src="img/icons/svg/7-support.svg" alt="#">
-                                    </div>
-                                    <div class="ltn__feature-info">
-                                        <h4>Online Support</h4>
-                                        <p>We ensure the product quality
-                                            that you can trust easily</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- FEATURE AREA END -->
+    
 
    
 

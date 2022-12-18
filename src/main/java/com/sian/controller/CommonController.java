@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sian.domain.AuthVO;
+import com.sian.domain.CartDTO;
 import com.sian.domain.MemberDTO;
 import com.sian.service.MemberService;
 
@@ -56,9 +57,10 @@ public class CommonController {
 	 }
 	 
 	 @PostMapping("/registerProc") 
-	 public String registerAction(@Valid MemberDTO memberDTO,AuthVO authVO) throws Exception{
-		 
+	 public String registerAction(@Valid MemberDTO memberDTO,AuthVO authVO,CartDTO cartDTO) throws Exception{
+		 cartDTO.setMem_id(memberDTO.getMem_id());
 		 memberService.register(memberDTO,authVO);
+		 memberService.cartRegister(cartDTO);
 		 return "redirect:/login";
 	 }
 	 

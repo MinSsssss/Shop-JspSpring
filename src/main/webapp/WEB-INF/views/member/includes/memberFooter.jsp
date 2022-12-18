@@ -263,11 +263,11 @@
                                             <img src="/resources/member/img/product/1.png" alt="#">
                                         </div>
                                          <div class="modal-product-info">
-                                            <h5><a href="product-details.html">Brand new product</a></h5>
-                                            <p class="added-cart"><i class="fa fa-check-circle"></i>  Successfully added to your Cart</p>
+                                            <h5>장바구니</h5>
+                                            <p class="added-cart"><i class="fa fa-check-circle"></i>  상품이 장바구니에 담겼습니다.</p>
                                             <div class="btn-wrapper">
-                                                <a href="cart.html" class="theme-btn-1 btn btn-effect-1">View Cart</a>
-                                                <a href="checkout.html" class="theme-btn-2 btn btn-effect-2">Checkout</a>
+                                                <a href="/member/auth/cartView" class="theme-btn-1 btn btn-effect-1">장바구니</a>
+                                                <a href="checkout.html" class="theme-btn-2 btn btn-effect-2">구매하기</a>
                                             </div>
                                          </div>
                                          <!-- additional-info -->
@@ -307,10 +307,10 @@
                                             <img src="/resources/member/img/product/7.png" alt="#">
                                         </div>
                                          <div class="modal-product-info">
-                                            <h5><a href="product-details.html">Brand new product</a></h5>
-                                            <p class="added-cart"><i class="fa fa-check-circle"></i>  Successfully added to your Wishlist</p>
+                                            <h5>찜하기</h5>
+                                            <p class="added-cart"><i class="fa fa-check-circle"></i>  찜하기 완료</p>
                                             <div class="btn-wrapper">
-                                                <a href="wishlist.html" class="theme-btn-1 btn btn-effect-1">View Wishlist</a>
+                                                <a href="wishlist.html" class="theme-btn-1 btn btn-effect-1">찜 목록으로 이동</a>
                                             </div>
                                          </div>
                                          <!-- additional-info -->
@@ -349,6 +349,7 @@
     <script src="/resources/member/js/plugins.js"></script>
     <!-- Main JS -->
     <script src="/resources/member/js/main.js"></script>
+    <script src="/resources/member/js/cart.js"></script>
    
 </body>
 </html>

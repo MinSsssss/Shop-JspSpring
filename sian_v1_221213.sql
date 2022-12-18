@@ -52,6 +52,7 @@ create table tbl_member_auth(
 );
 select * from tbl_product;
 select * from tbl_category;
+select * from tbl_cart_product;
 insert all
 into tbl_member(mem_id,mem_pwd,mem_name,mem_email,mem_tel)
 values ('id','1234','ad','ad@ad','0101010')
@@ -133,13 +134,15 @@ CREATE TABLE tbl_review_comment (
 	review_com_content	varchar2(1000)		NULL,
 	review_com_writer	varchar2(12)		NULL
 );
-
+CREATE SEQUENCE seq_tbl_cart_no;
+select * from tbl_cart;
 create table tbl_cart(
     cart_no number primary key,
     mem_id varchar2(50) UNIQUE  not null,
     
     constraint fk_cart_mem_id foreign key(mem_id) references tbl_member(mem_id)
 );
+
 create table tbl_cart_product(
     product_no number(3),
     cart_no number,
@@ -148,6 +151,9 @@ create table tbl_cart_product(
     constraint fk_cart_product_no foreign key(product_no) references tbl_product(product_no),
     constraint fk_cart_no foreign key(cart_no) references tbl_cart(cart_no)
 );
+ 		SELECT pro.product_image1,pro.product_name,pro.product_price,cp.cart_qty,cp.cart_price
+		FROM tbl_product pro,tbl_cart cart,tbl_cart_product cp
+		WHERE cart.cart_no=cp.cart_no AND cp.product_no=pro.product_no AND cart.mem_id='cda03';
 
 CREATE TABLE tbl_qna (
 	qna_no	varchar2(13) primary key,

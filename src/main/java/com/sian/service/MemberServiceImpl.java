@@ -15,8 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
 import com.sian.domain.AuthVO;
+import com.sian.domain.CartDTO;
+import com.sian.domain.CartListDTO;
+import com.sian.domain.CartProductDTO;
 import com.sian.domain.MemberDTO;
 import com.sian.domain.ProductDTO;
+import com.sian.mapper.CartMapper;
 import com.sian.mapper.MemberMapper;
 import com.sian.mapper.ProductMapper;
 import com.sian.security.domain.CustomUser;
@@ -37,6 +41,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private ProductMapper productMapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private CartMapper cartMapper;
 	@Override
 	public void register(MemberDTO memberDTO, AuthVO authVO) throws Exception {
 
@@ -108,6 +115,28 @@ public class MemberServiceImpl implements MemberService {
 	public ProductDTO getProduct(int product_no) throws Exception {
 		
 		return productMapper.getProduct(product_no);
+	}
+	@Override
+	public void cartRegister(CartDTO cartDTO) throws Exception {
+		cartMapper.insert(cartDTO);
+		System.out.println("장바구니생성성공");
+	}
+	@Override
+	public int getCartNo(String mem_id) throws Exception {
+		
+		return cartMapper.get(mem_id);
+		
+	}
+	@Override
+	public void addCart(CartProductDTO cartProductDTO) throws Exception {
+		cartMapper.addCart(cartProductDTO);
+		
+		
+	}
+	@Override
+	public List<CartListDTO> getCartList(String mem_id) throws Exception {
+		
+		return cartMapper.cartList(mem_id);
 	}
 
 }
