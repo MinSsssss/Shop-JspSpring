@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
 import com.sian.domain.AuthVO;
-import com.sian.domain.CartDTO;
 import com.sian.domain.CartListDTO;
 import com.sian.domain.CartProductDTO;
 import com.sian.domain.MemberDTO;
@@ -116,23 +115,16 @@ public class MemberServiceImpl implements MemberService {
 		
 		return productMapper.getProduct(product_no);
 	}
-	@Override
-	public void cartRegister(CartDTO cartDTO) throws Exception {
-		cartMapper.insert(cartDTO);
-		System.out.println("장바구니생성성공");
-	}
-	@Override
-	public int getCartNo(String mem_id) throws Exception {
-		
-		return cartMapper.get(mem_id);
-		
-	}
+
+
+	
 	@Override
 	public void addCart(CartProductDTO cartProductDTO) throws Exception {
-		cartMapper.addCart(cartProductDTO);
 		
-		
+		cartMapper.insert(cartProductDTO);	
 	}
+	
+	
 	@Override
 	public List<CartListDTO> getCartList(String mem_id) throws Exception {
 		

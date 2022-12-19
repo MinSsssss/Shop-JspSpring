@@ -2,22 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sian.mapper.CartMapper">
  	<insert id="insert">
- 		INSERT INTO tbl_cart(cart_no,mem_id)
- 		VALUES (seq_tbl_cart_no.nextval,#{mem_id})
+ 		INSERT INTO tbl_cart(product_no,mem_id,cart_qty,sub_total)
+ 		VALUES (#{product_no},#{mem_id},#{cart_qty},
+ 		((SELECT product_price FROM tbl_product WHERE product_no=#{product_no})*#{cart_qty}))
  	</insert>
- 	<select id="get" resultType="int">
- 		select cart_no from tbl_cart
- 		where mem_id=#{mem_id}
+
+ 	
+	<select id="cartList" resultType="com.sian.domain.CartListDTO">
+ 		SELECT pro.product_image1,pro.product_name,pro.product_price,cart.cart_qty,sub_total
+		FROM tbl_product pro,tbl_cart cart,tbl_member mem
+		WHERE cart.product_no=pro.product_no AND mem.mem_id=cart.mem_id AND cart.mem_id=#{mem_id}
  	</select>
  	
- 	<select id="cartList" resultType="com.sian.domain.CartListDTO">
- 		SELECT pro.product_image1,pro.product_name,pro.product_price,cp.cart_qty
-		FROM tbl_product pro,tbl_cart cart,tbl_cart_product cp
-		WHERE cart.cart_no=cp.cart_no AND cp.product_no=pro.product_no AND cart.mem_id=#{mem_id}
- 	</select>
- 	
- 	<insert id="addCart">
- 		INSERT INTO tbl_cart_product(product_no,cart_no,cart_qty)
- 		VALUES (#{product_no},#{cart_no},#{cart_qty})
- 	</insert>
+
 </mapper>

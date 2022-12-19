@@ -1,7 +1,7 @@
 drop table tbl_qna_comment;
 drop table tbl_qna_catecory;
 drop table tbl_qna;
-drop table tbl_cart_product;
+--drop table tbl_cart_product;
 drop table tbl_cart;
 drop table tbl_review_comment;
 drop table tbl_review;
@@ -134,23 +134,25 @@ CREATE TABLE tbl_review_comment (
 	review_com_content	varchar2(1000)		NULL,
 	review_com_writer	varchar2(12)		NULL
 );
-CREATE SEQUENCE seq_tbl_cart_no;
+--CREATE SEQUENCE seq_tbl_cart_no;
 select * from tbl_cart;
 create table tbl_cart(
-    cart_no number primary key,
-    mem_id varchar2(50) UNIQUE  not null,
-    
-    constraint fk_cart_mem_id foreign key(mem_id) references tbl_member(mem_id)
+    product_no number(3), 
+    mem_id varchar2(50)  not null,
+    cart_qty number(3) default 0 not null ,
+    sub_total number default 0 not null, 
+    constraint fk_cart_mem_id foreign key(mem_id) references tbl_member(mem_id),
+    constraint fk_cart_product_no foreign key(product_no) references tbl_product(product_no)
 );
 
-create table tbl_cart_product(
-    product_no number(3),
-    cart_no number,
-    cart_qty number(3) default 0 not null ,
-    cart_price number default 0 not null,
-    constraint fk_cart_product_no foreign key(product_no) references tbl_product(product_no),
-    constraint fk_cart_no foreign key(cart_no) references tbl_cart(cart_no)
-);
+--create table tbl_cart_product(
+--    product_no number(3),
+--    cart_no number,
+--    cart_qty number(3) default 0 not null ,
+--    cart_price number default 0 not null,
+--    constraint fk_cart_product_no foreign key(product_no) references tbl_product(product_no),
+--    constraint fk_cart_no foreign key(cart_no) references tbl_cart(cart_no)
+--);
  		SELECT pro.product_image1,pro.product_name,pro.product_price,cp.cart_qty,cp.cart_price
 		FROM tbl_product pro,tbl_cart cart,tbl_cart_product cp
 		WHERE cart.cart_no=cp.cart_no AND cp.product_no=pro.product_no AND cart.mem_id='cda03';

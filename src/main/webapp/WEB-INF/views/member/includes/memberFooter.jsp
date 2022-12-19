@@ -245,47 +245,7 @@
     <!-- MODAL AREA END -->
 
     <!-- MODAL AREA START (Add To Cart Modal) -->
-    <div class="ltn__modal-area ltn__add-to-cart-modal-area">
-        <div class="modal fade" id="add_to_cart_modal" tabindex="-1">
-            <div class="modal-dialog modal-md" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                         <div class="ltn__quick-view-modal-inner">
-                             <div class="modal-product-item">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="modal-product-img">
-                                            <img src="/resources/member/img/product/1.png" alt="#">
-                                        </div>
-                                         <div class="modal-product-info">
-                                            <h5>장바구니</h5>
-                                            <p class="added-cart"><i class="fa fa-check-circle"></i>  상품이 장바구니에 담겼습니다.</p>
-                                            <div class="btn-wrapper">
-                                                <a href="/member/auth/cartView" class="theme-btn-1 btn btn-effect-1">장바구니</a>
-                                                <a href="checkout.html" class="theme-btn-2 btn btn-effect-2">구매하기</a>
-                                            </div>
-                                         </div>
-                                         <!-- additional-info -->
-                                         <div class="additional-info d-none">
-                                            <p>We want to give you <b>10% discount</b> for your first order, <br>  Use discount code at checkout</p>
-                                            <div class="payment-method">
-                                                <img src="/resources/member/img/icons/payment.png" alt="#">
-                                            </div>
-                                         </div>
-                                    </div>
-                                </div>
-                             </div>
-                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <!-- MODAL AREA END -->
 
     <!-- MODAL AREA START (Wishlist Modal) -->
