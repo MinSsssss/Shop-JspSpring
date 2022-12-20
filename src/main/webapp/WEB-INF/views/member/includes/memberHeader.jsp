@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="/resources/member/css/style.css">
     <!-- Responsive css -->
     <link rel="stylesheet" href="/resources/member/css/responsive.css">
+    
+    <link rel="stylesheet" href="/resources/member/css/custom.css">
 </head>
 
 <body>

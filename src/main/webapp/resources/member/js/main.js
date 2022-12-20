@@ -1101,15 +1101,22 @@
             var oldValue = $button.parent().find("input").val();
             if ($button.text() == "+") {
                 var newVal = parseFloat(oldValue) + 1;
+				console.log(newVal)
+				var product_name = $("#product_name").val();
+				console.log(product_name);
+				
             } 
             else {
                 if (oldValue > 0) {
                     var newVal = parseFloat(oldValue) - 1;
+					console.log(newVal)
                 } 
                 else {
                     newVal = 0;
                 }
             }
+			
+
             $button.parent().find("input").val(newVal);
         });
 

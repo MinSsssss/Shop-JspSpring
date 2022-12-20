@@ -115,6 +115,12 @@ public class MemberServiceImpl implements MemberService {
 		
 		return productMapper.getProduct(product_no);
 	}
+	@Override
+	public int getProductNo(String product_name) throws Exception {
+		
+		return productMapper.getProductNo(product_name);
+	}
+
 
 
 	
@@ -126,9 +132,16 @@ public class MemberServiceImpl implements MemberService {
 	
 	
 	@Override
-	public List<CartListDTO> getCartList(String mem_id) throws Exception {
+	public List<CartListDTO> cartList(String mem_id) throws Exception {
 		
-		return cartMapper.getCartList(mem_id);
+		return cartMapper.cartList(mem_id);
 	}
-
+	@Override
+	public void cartModify(CartProductDTO cartProductDTO) {
+		System.out.println("되나안되나");
+		cartMapper.cartModify(cartProductDTO);
+		System.out.println("되긴하는듯");
+		
+	}
+	
 }

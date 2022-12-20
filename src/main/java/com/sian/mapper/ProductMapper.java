@@ -13,4 +13,6 @@ public interface ProductMapper {
 	public List<ProductDTO> memberProductList(int category_no) throws Exception;
 	
 	public ProductDTO getProduct(int product_no) throws Exception;
+	
+	public int getProductNo(String product_name) throws Exception;
 }

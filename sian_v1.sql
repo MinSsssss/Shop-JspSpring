@@ -31,8 +31,21 @@ select * from tbl_member;
 select * from tbl_member_auth;
 select * from tbl_category;
 select * from tbl_product;
-commit;
+select * from tbl_cart;
+update tbl_cart
+set cart_qty=7,
+sub_total=(select product_price from tbl_product where product_no=102 )
+where product_no=102 AND mem_id='cda03';
 
+commit;
+SELECT pro.product_image1,pro.product_name,pro.product_price,cart.cart_qty,cart.sub_total
+FROM tbl_product pro,tbl_cart cart
+WHERE pro.product_no=cart.product_no AND cart.mem_id='cda03';
+
+UPDATE tbl_cart
+		SET cart_qty=9,
+		sub_total=((SELECT product_price FROM tbl_product WHERE product_no=102 )*9)
+		WHERE product_no=102 AND mem_id='cda03';
 
 CREATE TABLE tbl_member (
 	--mem_no	varchar2(13) primary key,

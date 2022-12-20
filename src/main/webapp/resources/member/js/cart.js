@@ -5,13 +5,10 @@ $(document).ready(function() {
 	$("#addCart").on("click",function(){
 	let cart_qty = $("#cart_qty").val();
 	let product_no = getParameter("product_no");
-		
-		
-		
+
 		let param = {
 			"cart_qty" : cart_qty,
 			"product_no" : product_no
-			
 		};
 		console.log("카트수량"+cart_qty);
 		
@@ -25,11 +22,16 @@ $(document).ready(function() {
 				contentType : "application/json; charset=UTF-8",
 				success : function() {
 					
-					$("#add_to_cart_modal").modal('show');
-					
-				
+					$("#add_to_cart_modal").modal('show');	
 				}
 			})
+	})
+	$("#cartModifyBtn").on("click",function(){
+		
+		
+		
+			
+		
 	})
 
 
