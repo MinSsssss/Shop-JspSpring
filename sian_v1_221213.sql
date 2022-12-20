@@ -2,13 +2,14 @@ drop table tbl_qna_comment;
 drop table tbl_qna_catecory;
 drop table tbl_qna;
 --drop table tbl_cart_product;
-drop table tbl_cart;
 drop table tbl_review_comment;
 drop table tbl_review;
-drop table tbl_product;
-drop table tbl_category;
 drop table tbl_order_detail;
 drop table tbl_order;
+
+drop table tbl_cart;
+drop table tbl_product;
+drop table tbl_category;
 drop table tbl_member_auth;
 drop table tbl_member;
 
@@ -144,7 +145,7 @@ create table tbl_cart(
     constraint fk_cart_mem_id foreign key(mem_id) references tbl_member(mem_id),
     constraint fk_cart_product_no foreign key(product_no) references tbl_product(product_no)
 );
-
+commit;
 --create table tbl_cart_product(
 --    product_no number(3),
 --    cart_no number,

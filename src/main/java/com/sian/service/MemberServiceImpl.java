@@ -128,7 +128,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<CartListDTO> getCartList(String mem_id) throws Exception {
 		
-		return cartMapper.cartList(mem_id);
+		return cartMapper.getCartList(mem_id);
 	}
 
 }
