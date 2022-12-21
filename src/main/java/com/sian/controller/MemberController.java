@@ -169,12 +169,16 @@ public class MemberController {
 	
 	@ResponseBody
 	@PostMapping("/auth/addCart")
-	public void addCart(@RequestBody CartProductDTO cartProductDTO,
-			Authentication authentication) throws Exception {
+	public int addCart(@RequestBody CartProductDTO cartProductDTO,
+			Authentication authentication,RedirectAttributes rttr) throws Exception {
 		
 		cartProductDTO.setMem_id(memberService.getId(authentication));
-		memberService.addCart(cartProductDTO);
-	
+		if(memberService.addCart(cartProductDTO)==1) {
+			return 1;
+		}else {
+			return 0;
+		}
+//	return "redirect:/member/auth/cartView";
 		
 	}
 	@GetMapping("/auth/cartView")
@@ -186,18 +190,26 @@ public class MemberController {
 		model.addAttribute("cartList",memberService.cartList(memberService.getId(authentication)));
 	}
 	@PostMapping("/auth/cartModify")
-	public void cartModify(CartProductDTO cartProductDTO,
+	public String cartModify(CartProductDTO cartProductDTO,
 			Authentication authentication,Model model) throws Exception {
-		System.out.println(cartProductDTO);
-		cartProductDTO.setProduct_no(memberService.getProductNo(cartProductDTO.getProduct_name()));
-		cartProductDTO.setMem_id(memberService.getId(authentication));
-		System.out.println(cartProductDTO);
-		memberService.cartModify(cartProductDTO);
-		System.out.println(cartProductDTO);
+		int product_no=memberService.getProductNo(cartProductDTO.getProduct_name());
 		
-		model.addAttribute("cartList",memberService.cartList(memberService.getId(authentication)));
-//		return "redirect:/member/auth/cartView";
+		cartProductDTO.setProduct_no(product_no);
+		cartProductDTO.setMem_id(memberService.getId(authentication));
+		
+		memberService.cartModify(cartProductDTO);
+		
+		return "redirect:/member/auth/cartView";
 	}
+	@PostMapping("/auth/cartRemove")
+	public String cartRemove(@RequestParam("product_name") String product_name) throws Exception {
+//		int product_no=memberService.getProductNo(product_name);
+		
+		memberService.cartRemove(product_name);
+		
+		return "redirect:/member/auth/cartView";
+	}
+	
 
 	
 	

@@ -49,14 +49,17 @@
 								<c:forEach items="${cartList }" var="cart">
 									
 										<tr>
-											<td class="cart-product-remove">x</td>
+											<td class="cart-product-remove"><a id="cartRemoveBtn">x</a>
+												<form action="/member/auth/cartRemove" id="cartRemoveForm" method="post">
+													<input type="hidden" name="product_name" id="product_name" value="${cart.product_name }">
+												</form>
+												
+											</td>
 											<td class="cart-product-image"><a
 												href="product-details.html"><img
 													src="/resources/member/img/product/1.png" alt="#"></a></td>
 											<td class="cart-product-info">
-												<h4>
-													<a href="product-details.html">${cart.product_name }</a>
-												</h4>
+												<a href="product-details.html">${cart.product_name }</a>
 											</td>
 											<td class="cart-product-price" >${cart.product_price }</td>
 											<td class="cart-product-quantity">

@@ -21,7 +21,7 @@ public interface MemberMapper {
 	
 	public int memberModify(MemberDTO memberDTO) throws Exception;
 	
-	public void insert(MemberDTO memberDTO) throws Exception;
+	public int insert(MemberDTO memberDTO) throws Exception;
 	
 	public List<MemberDTO> getList() throws Exception;
 	

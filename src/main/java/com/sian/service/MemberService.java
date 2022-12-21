@@ -35,9 +35,13 @@ public interface MemberService {
 	
 	public int getProductNo(String product_name) throws Exception;
 	
-	public void addCart(CartProductDTO cartProductDTO) throws Exception;
+	public int addCart(CartProductDTO cartProductDTO) throws Exception;
 
+	public int findCart(CartProductDTO cartProductDTO);
+	
 	public List<CartListDTO> cartList(String mem_id) throws Exception;
 	
-	public void cartModify(CartProductDTO cartProductDTO) ;
+	public void cartModify(CartProductDTO cartProductDTO);
+	
+	public void cartRemove(String product_name) throws Exception;
 }

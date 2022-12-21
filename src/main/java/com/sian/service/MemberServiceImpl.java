@@ -1,10 +1,12 @@
 package com.sian.service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -125,11 +127,25 @@ public class MemberServiceImpl implements MemberService {
 
 	
 	@Override
-	public void addCart(CartProductDTO cartProductDTO) throws Exception {
+	public int addCart(CartProductDTO cartProductDTO) throws Exception {
 		
-		cartMapper.insert(cartProductDTO);	
+		try {
+			if(cartMapper.insert(cartProductDTO)) {
+				return 1;
+			}
+			else {
+				return 0;
+			}
+		} catch (DataIntegrityViolationException e) {
+			return 0;
+		}
+		
 	}
-	
+	@Override
+	public int findCart(CartProductDTO cartProductDTO) {
+		
+		return cartMapper.findCart(cartProductDTO);
+	}
 	
 	@Override
 	public List<CartListDTO> cartList(String mem_id) throws Exception {
@@ -138,10 +154,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 	@Override
 	public void cartModify(CartProductDTO cartProductDTO) {
-		System.out.println("되나안되나");
+		
 		cartMapper.cartModify(cartProductDTO);
-		System.out.println("되긴하는듯");
+		
 		
 	}
+	@Override
+	public void cartRemove(String product_name) throws Exception {
+		cartMapper.cartRemove(product_name);
+		
+	}
+	
 	
 }

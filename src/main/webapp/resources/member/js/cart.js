@@ -20,18 +20,22 @@ $(document).ready(function() {
 				dataType : "json",
 				data : JSON.stringify(param),
 				contentType : "application/json; charset=UTF-8",
-				success : function() {
-					
-					$("#add_to_cart_modal").modal('show');	
+				success : function(data) {
+					console.log(data);
+					if(data==1){
+						$(".add_to_cart_modal").modal('show');
+					}
+					else{
+						alert("장바구니에 이미 상품이 있습니다.");
+						return false;
+						
+					}
+						
 				}
 			})
 	})
-	$("#cartModifyBtn").on("click",function(){
-		
-		
-		
-			
-		
+	$("#cartRemoveBtn").on("click",function(){
+		$("#cartRemoveForm").submit();
 	})
 
 

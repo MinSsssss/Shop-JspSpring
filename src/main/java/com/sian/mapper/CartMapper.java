@@ -12,8 +12,13 @@ public interface CartMapper {
 //	
 	public List<CartListDTO> cartList(String mem_id) throws Exception;
 //	
-	public void insert(CartProductDTO cartProductDTO) throws Exception;
+	public boolean insert(CartProductDTO cartProductDTO) throws Exception;
 
-	public void cartModify(CartProductDTO cartProductDTO) ;
+	public int findCart(CartProductDTO cartProductDTO);
+	
+	public void cartModify(CartProductDTO cartProductDTO);
+	
+	public void cartRemove(String product_name);
+	
 	
 }

@@ -25,7 +25,8 @@ insert into tbl_member values('admin2','1234','test','test@test.com','1234',sysd
 insert into tbl_member_auth values('admin2','ROLE_ADMIN');
 commit;
 
-
+DELETE FROM tbl_cart   
+WHERE product_no=(SELECT product_no FROM tbl_product WHERE product_name='고고고고');
 --create SEQUENCE seq_tbl_member;
 select * from tbl_member;
 select * from tbl_member_auth;
@@ -158,6 +159,7 @@ create table tbl_cart(
     constraint fk_cart_mem_id foreign key(mem_id) references tbl_member(mem_id),
     constraint fk_cart_product_no foreign key(product_no) references tbl_product(product_no)
 );
+ALTER TABLE tbl_cart ADD UNIQUE(product_no,mem_id);
 commit;
 --create table tbl_cart_product(
 --    product_no number(3),
