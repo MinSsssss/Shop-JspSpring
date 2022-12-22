@@ -23,10 +23,12 @@ $(document).ready(function() {
 				success : function(data) {
 					console.log(data);
 					if(data==1){
-						$(".add_to_cart_modal").modal('show');
+						$("#add_to_cart_modal").modal('show');
 					}
 					else{
 						alert("장바구니에 이미 상품이 있습니다.");
+						
+						$("#add_to_cart_modal").modal('hide');
 						return false;
 						
 					}

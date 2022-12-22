@@ -139,8 +139,8 @@
 										</li>
 										<li>
 											<button id="addCart" class="theme-btn-1 btn btn-effect-1"
-												title="Add to Cart" data-toggle="modal"
-												data-target="#add_to_cart_modal">
+												title="Add to Cart" 
+												>
 												<i class="fas fa-shopping-cart"></i> <span>장바구니 담기</span>
 											</button>
 										</li>
