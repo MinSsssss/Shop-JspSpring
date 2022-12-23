@@ -2,3 +2,24 @@
 
 	margin : 0 50px;
 }
+.allTable{
+	width:100%; 
+	text-align: center;
+	
+	
+}
+.allTable tr td{
+	border-top: 1px solid #ddd;
+}
+.allTable tr:nth-child(2n) {
+	border-top: 1px solid #ddd;
+    background-color: #eee;
+  }
+.allTable button{
+	background-color: #808080;
+	color: white;
+}
+.cart-plus-minus{
+	
+	margin: 0 auto;
+}

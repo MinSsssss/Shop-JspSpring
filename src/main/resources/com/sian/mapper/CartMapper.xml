@@ -18,6 +18,8 @@
 		FROM tbl_product pro,tbl_cart cart
 		WHERE pro.product_no=cart.product_no AND cart.mem_id=#{mem_id}
  	</select>
+ 	
+ 	
  	<update id="cartModify" >
  		UPDATE tbl_cart
 		SET cart_qty=#{cart_qty},

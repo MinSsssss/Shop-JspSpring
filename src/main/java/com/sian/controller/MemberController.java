@@ -189,6 +189,7 @@ public class MemberController {
 		
 		model.addAttribute("cartList",memberService.cartList(memberService.getId(authentication)));
 	}
+	
 	@PostMapping("/auth/cartModify")
 	public String cartModify(CartProductDTO cartProductDTO,
 			Authentication authentication,Model model) throws Exception {
@@ -201,6 +202,8 @@ public class MemberController {
 		
 		return "redirect:/member/auth/cartView";
 	}
+	
+	
 	@PostMapping("/auth/cartRemove")
 	public String cartRemove(@RequestParam("product_name") String product_name) throws Exception {
 //		int product_no=memberService.getProductNo(product_name);

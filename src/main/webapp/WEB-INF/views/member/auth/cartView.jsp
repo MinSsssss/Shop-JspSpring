@@ -43,14 +43,32 @@
 			<div class="col-lg-12">
 				<div class="shoping-cart-inner">
 					<div class="shoping-cart-table table-responsive">
-						<table class="table">
-
+						 <button onclick="checkDelete()">선택삭제</button>
+						
+						<table class="allTable">
+							<thead>
+								
+		                        <tr>
+		                            <th>
+		                                
+		                                <input type="checkbox" id="allCheckBox" onclick="allChecked()">
+		                                
+		                            </th>
+		                            <th></th>
+		                            <th>이름</th>
+		                            <th>가격</th>
+		                            <th>수량</th>
+		                            <th>총금액</th>
+		                            <th></th>
+		                        </tr>
+		                    </thead>
 							<tbody>
 								<c:forEach items="${cartList }" var="cart">
-									
+										
 										<tr>
-											<td class="cart-product-remove"><a id="cartRemoveBtn">x</a>
+											<td class="cart-product-remove">
 												<form action="/member/auth/cartRemove" id="cartRemoveForm" method="post">
+													<input type="checkbox" name="chk" class="chk" onclick="chkClicked()" >
 													<input type="hidden" name="product_name" id="product_name" value="${cart.product_name }">
 												</form>
 												
@@ -79,8 +97,10 @@
 												
 											</td>
 											<td class="cart-product-subtotal" id="subTotal">${cart.sub_total }</td>
-											<td>
-												
+											<td class="cart-product-remove"><button id="cartRemoveBtn">삭제</button>
+												<form action="/member/auth/cartRemove" id="cartRemoveForm" method="post">
+													<input type="hidden" name="product_name" id="product_name" value="${cart.product_name }">
+												</form>
 												
 											</td>
 										</tr>
@@ -96,26 +116,23 @@
 						<table class="table">
 							<tbody>
 								<tr>
-									<td>Cart Subtotal</td>
+									<td>상품가격</td>
 									<td>$618.00</td>
 								</tr>
 								<tr>
-									<td>Shipping and Handing</td>
+									<td>배송비</td>
 									<td>$15.00</td>
 								</tr>
+								
 								<tr>
-									<td>Vat</td>
-									<td>$00.00</td>
-								</tr>
-								<tr>
-									<td><strong>Order Total</strong></td>
+									<td><strong>주문 총 금액</strong></td>
 									<td><strong>$633.00</strong></td>
 								</tr>
 							</tbody>
 						</table>
 						<div class="btn-wrapper text-right">
-							<a href="checkout.html" class="theme-btn-1 btn btn-effect-1">Proceed
-								to checkout</a>
+							<a href="checkout.html" class="theme-btn-1 btn btn-effect-1">
+							구매하기</a>
 						</div>
 					</div>
 				</div>
@@ -125,66 +142,8 @@
 </div>
 <!-- SHOPING CART AREA END -->
 
-<!-- FEATURE AREA START ( Feature - 3) -->
-<div
-	class="ltn__feature-area before-bg-bottom before-bg-bottom-2 plr--5">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-12">
-				<div
-					class="ltn__feature-item-box-wrap ltn__border-between-column white-bg">
-					<div class="row">
-						<div class="col-xl-3 col-md-6 col-12">
-							<div class="ltn__feature-item ltn__feature-item-8">
-								<div class="ltn__feature-icon">
-									<img src="img/icons/svg/4-track.svg" alt="#">
-								</div>
-								<div class="ltn__feature-info">
-									<h4>Free home delivery</h4>
-									<p>Provide free home delivery for all product over $100</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6 col-12">
-							<div class="ltn__feature-item ltn__feature-item-8">
-								<div class="ltn__feature-icon">
-									<img src="img/icons/svg/5-madel.svg" alt="#">
-								</div>
-								<div class="ltn__feature-info">
-									<h4>Quality Products</h4>
-									<p>We ensure the product quality that is our main goal</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6 col-12">
-							<div class="ltn__feature-item ltn__feature-item-8">
-								<div class="ltn__feature-icon">
-									<img src="img/icons/svg/6-return.svg" alt="#">
-								</div>
-								<div class="ltn__feature-info">
-									<h4>3 Days Return</h4>
-									<p>Return product within 3 days for any product you buy</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6 col-12">
-							<div class="ltn__feature-item ltn__feature-item-8">
-								<div class="ltn__feature-icon">
-									<img src="img/icons/svg/7-support.svg" alt="#">
-								</div>
-								<div class="ltn__feature-info">
-									<h4>Online Support</h4>
-									<p>We ensure the product quality that you can trust easily</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- FEATURE AREA END -->
+
+
 
 
 
