@@ -18,7 +18,7 @@ public interface CartMapper {
 	
 	public void cartModify(CartProductDTO cartProductDTO);
 	
-	public void cartRemove(String product_name);
+	public void cartDelete(CartProductDTO cartProductDTO);
 	
 	
 }

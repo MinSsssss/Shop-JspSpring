@@ -160,8 +160,10 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 	@Override
-	public void cartRemove(String product_name) throws Exception {
-		cartMapper.cartRemove(product_name);
+	public void cartDelete(CartProductDTO cartProductDTO) throws Exception {
+		
+		
+		cartMapper.cartDelete(cartProductDTO);
 		
 	}
 	

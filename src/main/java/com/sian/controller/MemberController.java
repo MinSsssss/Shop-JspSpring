@@ -1,6 +1,7 @@
 package com.sian.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -151,70 +152,90 @@ public class MemberController {
 		return "redirect:/member/auth/memberModifyNext";
 
 	}
-	//http://localhost:8090/member/productList?category_no=12
+
+	// http://localhost:8090/member/productList?category_no=12
 	@GetMapping("/productList")
-	public void productList(@RequestParam("category_no")int category_no, Model model) throws Exception {
+	public void productList(@RequestParam("category_no") int category_no, Model model) throws Exception {
 		model.addAttribute("categoryList", adminService.getCategoryList());
-		model.addAttribute("category",adminService.categoryRead(category_no));
+		model.addAttribute("category", adminService.categoryRead(category_no));
 		System.out.println(category_no);
 		model.addAttribute("productList", memberService.memberProductList(category_no));
 	}
-	
+
 	@GetMapping("productRead")
-	public void productRead(@RequestParam("product_no")int product_no,Model model)throws Exception {
+	public void productRead(@RequestParam("product_no") int product_no, Model model) throws Exception {
 		model.addAttribute("categoryList", adminService.getCategoryList());
-		model.addAttribute("product",memberService.getProduct(product_no));
-		
+		model.addAttribute("product", memberService.getProduct(product_no));
+
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/auth/addCart")
-	public int addCart(@RequestBody CartProductDTO cartProductDTO,
-			Authentication authentication,RedirectAttributes rttr) throws Exception {
-		
+	public int addCart(@RequestBody CartProductDTO cartProductDTO, Authentication authentication,
+			RedirectAttributes rttr) throws Exception {
+
 		cartProductDTO.setMem_id(memberService.getId(authentication));
-		if(memberService.addCart(cartProductDTO)==1) {
+		if (memberService.addCart(cartProductDTO) == 1) {
 			return 1;
-		}else {
+		} else {
 			return 0;
 		}
 //	return "redirect:/member/auth/cartView";
-		
+
 	}
+
 	@GetMapping("/auth/cartView")
-	public void cartView(Authentication authentication,Model model) throws Exception {
+	public void cartView(Authentication authentication, Model model) throws Exception {
 //		cartProductDTO.setMem_id(memberService.getId(authentication));
-		
-		//memberService.cartList(memberService.getId(authentication));
-		
-		model.addAttribute("cartList",memberService.cartList(memberService.getId(authentication)));
+
+		// memberService.cartList(memberService.getId(authentication));
+
+		model.addAttribute("cartList", memberService.cartList(memberService.getId(authentication)));
 	}
-	
+
 	@PostMapping("/auth/cartModify")
-	public String cartModify(CartProductDTO cartProductDTO,
-			Authentication authentication,Model model) throws Exception {
-		int product_no=memberService.getProductNo(cartProductDTO.getProduct_name());
-		
+	public String cartModify(CartProductDTO cartProductDTO, Authentication authentication, Model model)
+			throws Exception {
+		int product_no = memberService.getProductNo(cartProductDTO.getProduct_name());
+
 		cartProductDTO.setProduct_no(product_no);
 		cartProductDTO.setMem_id(memberService.getId(authentication));
-		
+
 		memberService.cartModify(cartProductDTO);
+
+		return "redirect:/member/auth/cartView";
+	}
+
+	@PostMapping("/auth/cartDelete")
+	public String cartDelete(@RequestParam("product_name") String product_name, 
+	CartProductDTO cartProductDTO,
+			Authentication authentication) throws Exception {
+		
+	
+		cartProductDTO.setProduct_no(memberService.getProductNo(product_name));
+		cartProductDTO.setMem_id(memberService.getId(authentication));
+		memberService.cartDelete(cartProductDTO);
 		
 		return "redirect:/member/auth/cartView";
 	}
-	
-	
-	@PostMapping("/auth/cartRemove")
-	public String cartRemove(@RequestParam("product_name") String product_name) throws Exception {
-//		int product_no=memberService.getProductNo(product_name);
-		
-		memberService.cartRemove(product_name);
-		
+
+	@PostMapping("/auth/cartSelectDelete")
+	public String cartSelectDelete(@RequestParam(required = false) List<String> cartIds,
+			CartProductDTO cartProductDTO,
+			Authentication authentication) throws Exception {
+
+		for (int i = 0; i < cartIds.size(); i++) {
+			System.out.println(cartIds);
+			cartProductDTO.setProduct_no(memberService.getProductNo(cartIds.get(i)));
+			cartProductDTO.setMem_id(memberService.getId(authentication));
+			memberService.cartDelete(cartProductDTO);
+			
+		}
+
 		return "redirect:/member/auth/cartView";
 	}
-	
-
-	
-	
-
+	@GetMapping("/auth/checkout")
+	public void checkout() {
+		
+	}
 }

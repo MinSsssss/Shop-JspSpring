@@ -43,5 +43,5 @@ public interface MemberService {
 	
 	public void cartModify(CartProductDTO cartProductDTO);
 	
-	public void cartRemove(String product_name) throws Exception;
+	public void cartDelete(CartProductDTO cartProductDTO) throws Exception;
 }

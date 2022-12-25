@@ -26,8 +26,8 @@
 		sub_total=((SELECT product_price FROM tbl_product WHERE product_no=#{product_no} )*#{cart_qty})
 		WHERE product_no=#{product_no} AND mem_id=#{mem_id}
  	</update>
-	<delete id="cartRemove">
+	<delete id="cartDelete">
 		DELETE FROM tbl_cart
-		WHERE product_no=(SELECT product_no FROM tbl_product WHERE product_name=#{product_name})
+		WHERE product_no=#{product_no} AND mem_id=#{mem_id}
 	</delete>
 </mapper>
