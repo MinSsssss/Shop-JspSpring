@@ -79,22 +79,34 @@ select * from dual;
 
 
 CREATE TABLE tbl_order (
-	order_no	varchar2(13) primary key,
+	order_no varchar2(13) primary key,
 	mem_id	varchar2(50)		NOT NULL,
-	order_date	date		 NOT NULL,
-	receiver_name	varchar2(20)		NOT NULL,
-	receiver_tel	varchar2(20)		NOT NULL,
-	receiver_addr1	varchar2(100)		NOT NULL,
-	receicer_addr2	varchar2(100)		NOT NULL
+	receiver_name	varchar2(20)		NULL,
+	receiver_tel	varchar2(20)		NULL,
+	receiver_addr1	varchar2(100)		NULL,
+	receicer_addr2	varchar2(100)		NULL,
+    order_date	date	DEFAULT sysdate	 NOT NULL,
+    order_request_msg varchar2(1000),
+    order_status	varchar2(20),
+    constraint fk_order_mem_id foreign key(mem_id) references tbl_member(mem_id)
 );
 
 CREATE TABLE tbl_order_detail (
 	order_detail_no	varchar2(13) primary key,
-	order_no	varchar2(13)		NOT NULL,
-	product_no	varchar2(13)		NOT NULL,
-	order_qty	number(3)		NULL,
-	order_status	varchar2(20)		NULL
+	order_no	varchar2(16)		NOT NULL,
+	product_no	number(3)		NOT NULL,
+	order_qty	number(3) default 0 not null ,
+    sub_total number default 0 not null, 
+    constraint fk_order_no foreign key(order_no) references tbl_order(order_no),
+    constraint fk_order_product_no foreign key(product_no) references tbl_product(product_no)
 );
+insert into tbl_order(order_no,mem_id)
+values(seq_order_no.nextval,'cda03');
+select MAX(order_no) from tbl_order;
+
+CREATE SEQUENCE seq_order_no;
+CREATE SEQUENCE seq_order_detail_no;
+
 
 CREATE TABLE tbl_category (
 	category_no	number(2) primary key,
@@ -133,19 +145,19 @@ INSERT INTO tbl_product(product_no,category_no,product_name,product_price,
 ALTER TABLE tbl_product ADD CONSTRAINT tbl_cate_no_pk FOREIGN KEY(category_no) REFERENCES tbl_category(category_no);
 
 CREATE TABLE tbl_review (
-	review_no	varchar2(13) primary key,
-	product_no	varchar2(13)		NOT NULL,
+	review_no	number primary key,
+	product_no	number(3)		NOT NULL,
 	review_title	varchar2(100)		NULL,
 	revire_writer	varchar2(12)		NULL,
 	review_content	varchar2(1000)		NULL,
-	review_date	date		NULL,
+	review_date	DATE DEFAULT sysdate	NOT NULL,
 	review_hit	number		NULL
 );
 
 CREATE TABLE tbl_review_comment (
-	review_com_no	varchar2(13) primary key,
-	review_no	varchar2(13)		NOT NULL,
-	review_com_date	date		NULL,
+	review_com_no	number primary key,
+	review_no	number		NOT NULL,
+	review_com_date	DATE DEFAULT sysdate	NOT NULL,
 	review_com_content	varchar2(1000)		NULL,
 	review_com_writer	varchar2(12)		NULL
 );

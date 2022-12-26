@@ -1,22 +1,14 @@
 package com.sian.controller;
 
-import java.security.Principal;
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
-import org.apache.ibatis.annotations.Param;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,13 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.gson.JsonObject;
-import com.sian.domain.CartListDTO;
 import com.sian.domain.CartProductDTO;
-import com.sian.domain.CategoryDTO;
 import com.sian.domain.MemberDTO;
-import com.sian.mapper.MemberMapper;
-import com.sian.security.domain.CustomUser;
+import com.sian.domain.OrderDTO;
+import com.sian.domain.OrderDetailDTO;
 import com.sian.service.AdminService;
 import com.sian.service.MemberService;
 
@@ -207,35 +196,65 @@ public class MemberController {
 	}
 
 	@PostMapping("/auth/cartDelete")
-	public String cartDelete(@RequestParam("product_name") String product_name, 
-	CartProductDTO cartProductDTO,
+	public String cartDelete(@RequestParam("product_name") String product_name, CartProductDTO cartProductDTO,
 			Authentication authentication) throws Exception {
-		
-	
+
 		cartProductDTO.setProduct_no(memberService.getProductNo(product_name));
 		cartProductDTO.setMem_id(memberService.getId(authentication));
 		memberService.cartDelete(cartProductDTO);
-		
+
 		return "redirect:/member/auth/cartView";
 	}
 
 	@PostMapping("/auth/cartSelectDelete")
-	public String cartSelectDelete(@RequestParam(required = false) List<String> cartIds,
-			CartProductDTO cartProductDTO,
-			Authentication authentication) throws Exception {
+	public String cartSelectDelete(@RequestParam(value = "cartIds", required = false) List<String> cartIds,
+			CartProductDTO cartProductDTO, Authentication authentication) throws Exception {
 
 		for (int i = 0; i < cartIds.size(); i++) {
 			System.out.println(cartIds);
 			cartProductDTO.setProduct_no(memberService.getProductNo(cartIds.get(i)));
 			cartProductDTO.setMem_id(memberService.getId(authentication));
 			memberService.cartDelete(cartProductDTO);
-			
+
 		}
 
 		return "redirect:/member/auth/cartView";
 	}
-	@GetMapping("/auth/checkout")
-	public void checkout() {
+
+	@PostMapping("/auth/cartSelectOrder")
+	public String checkout(@RequestParam(value = "chkNameArr", required = false) List<String> chkNameArr,
+			@RequestParam(value = "chkQtyArr", required = false) List<Integer> chkQtyArr,
+			@RequestParam(value = "chkTotalArr", required = false) List<Integer> chkTotalArr,
+			OrderDTO orderDTO,
+			OrderDetailDTO orderDetailDTO, Model model, Authentication authentication) throws Exception {
+		System.out.println(chkQtyArr);
+		System.out.println(chkTotalArr);
+		System.out.println(orderDetailDTO);
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+		String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+		String subNum = "";
+
+		for (int i = 1; i <= 6; i++) {
+			subNum += (int) (Math.random() * 10);
+		}
+
+		String order_no = ymd + "_" + subNum;
+		orderDTO.setOrder_no(order_no);
+		orderDTO.setMem_id(memberService.getId(authentication));
 		
+		memberService.orderInsert(orderDTO);
+		System.out.println(order_no);
+		String order_detail_no = "";
+		for (int i = 0; i < chkQtyArr.size(); i++) {
+			orderDetailDTO.setOrder_no(order_no);
+			orderDetailDTO.setProduct_no(memberService.getProductNo(chkNameArr.get(i)));
+			order_detail_no = order_no+"_"+i;
+			System.out.println(order_detail_no);
+			orderDetailDTO.setOrder_detail_no(order_detail_no);
+			
+		}
+		return "/member/auth/checkout";
 	}
 }

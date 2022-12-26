@@ -58,16 +58,19 @@
 									<th></th>
 								</tr>
 							</thead>
+							
 							<tbody>
+							
 								<c:forEach items="${cartList }" var="cart">
 
 									<tr>
 
 										<td class="cart_info_td">
 											<input type="checkbox" name="checkedCount" class="individual_cart_checkbox" checked="checked"  >
-											 
-											<input type="hidden" id="chkSubTotal" value="${cart.sub_total }">
+											
 											<input type="hidden" id="chkProductName" value="${cart.product_name }">
+											<input type="hidden" id="chkProductQty" value="${cart.cart_qty }">
+											<input type="hidden" id="chkSubTotal" value="${cart.sub_total }">
 										</td>
 
 
@@ -131,8 +134,8 @@
 							</tbody>
 						</table>
 						<div class="btn-wrapper text-right">
-							<a href="/member/auth/checkout" class="theme-btn-1 btn btn-effect-1">
-								구매하기</a>
+							<button class="theme-btn-1 btn btn-effect-1"
+							id="selectOrderBtn">구매하기</button>
 						</div>
 					</div>
 				</div>

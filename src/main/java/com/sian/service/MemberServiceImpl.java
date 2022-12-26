@@ -1,30 +1,27 @@
 package com.sian.service;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.SessionScope;
 
 import com.sian.domain.AuthVO;
 import com.sian.domain.CartListDTO;
 import com.sian.domain.CartProductDTO;
 import com.sian.domain.MemberDTO;
+import com.sian.domain.OrderDTO;
 import com.sian.domain.ProductDTO;
 import com.sian.mapper.CartMapper;
 import com.sian.mapper.MemberMapper;
+import com.sian.mapper.OrderMapper;
 import com.sian.mapper.ProductMapper;
-import com.sian.security.domain.CustomUser;
 
 import lombok.Setter;
 
@@ -45,6 +42,10 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private CartMapper cartMapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private OrderMapper orderMapper;
+	
 	@Override
 	public void register(MemberDTO memberDTO, AuthVO authVO) throws Exception {
 
@@ -166,6 +167,12 @@ public class MemberServiceImpl implements MemberService {
 		cartMapper.cartDelete(cartProductDTO);
 		
 	}
+	@Override
+	public void orderInsert(OrderDTO orderDTO) throws Exception {
+		orderMapper.orderInsert(orderDTO);
+		
+	}
+
 	
 	
 }

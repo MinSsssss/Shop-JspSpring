@@ -3,14 +3,13 @@ package com.sian.service;
 import java.util.List;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import com.sian.domain.AuthVO;
 import com.sian.domain.CartListDTO;
 import com.sian.domain.CartProductDTO;
 import com.sian.domain.MemberDTO;
+import com.sian.domain.OrderDTO;
 import com.sian.domain.ProductDTO;
-import com.sian.security.domain.CustomUser;
 
 public interface MemberService {
 	
@@ -44,4 +43,8 @@ public interface MemberService {
 	public void cartModify(CartProductDTO cartProductDTO);
 	
 	public void cartDelete(CartProductDTO cartProductDTO) throws Exception;
+	
+	public void orderInsert(OrderDTO orderDTO) throws Exception;
+	
+	
 }

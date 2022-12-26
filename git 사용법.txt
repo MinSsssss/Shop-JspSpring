@@ -34,6 +34,9 @@ git checkout -b 생성할 branch이름  branch 생성
 
 다른 사람이랑 같이 작업 할때 commit하기전 pull 해서 push 하고 commit
 
+git pull 했을때 안되면 git stash 쓰고 git pull 다시하기
+ stash 는 현재 디렉토리의 파일을 임시로 백업하고 깨끗한 상태로 돌린다
+
 복사: ctrl + insert
 
 붙여넣기: shift + insert

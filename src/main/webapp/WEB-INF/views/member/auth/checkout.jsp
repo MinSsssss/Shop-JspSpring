@@ -41,95 +41,58 @@
                     <div class="ltn__checkout-inner">
                         
                         <div class="ltn__checkout-single-content mt-50">
-                            <h4 class="title-2">배송지 정보</h4>
+                            <h4 class="title-2">주문/결제</h4>
                             <div class="ltn__checkout-single-content-info">
                                 <form action="#" >
-                                    <h6>Personal Information</h6>
+                                    <h5>구매자정보</h5>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="input-item input-item-name ltn__custom-icon">
+                                        	<label>이름</label>
+                                            <div class="input-item">
                                                 <input type="text" name="ltn__name" placeholder="First name">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="input-item input-item-name ltn__custom-icon">
+                                        	<label>이메일</label>
+                                            <div class="input-item">
                                                 <input type="text" name="ltn__lastname" placeholder="Last name">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="input-item input-item-email ltn__custom-icon">
+                                        	<label>휴대폰번호</label>
+                                            <div class="input-item">
                                                 <input type="email" name="ltn__email" placeholder="email address">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="input-item input-item-phone ltn__custom-icon">
-                                                <input type="text" name="ltn__phone" placeholder="phone number">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="input-item input-item-website ltn__custom-icon">
-                                                <input type="text" name="ltn__company" placeholder="Company name (optional)">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="input-item input-item-website ltn__custom-icon">
-                                                <input type="text" name="ltn__phone" placeholder="Company address (optional)">
-                                            </div>
-                                        </div>
-                                    </div>
+                                        
+                                    </div> 
+                                    <h5>받는사람정보</h5>
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-6">
-                                            <h6>Country</h6>
+                                        <div class="col-md-6">
+                                        	<label>이름</label>
                                             <div class="input-item">
-                                                <select class="nice-select">
-                                                    <option>Select Country</option>
-                                                    <option>Australia</option>
-                                                    <option>Canada</option>
-                                                    <option>China</option>
-                                                    <option>Morocco</option>
-                                                    <option>Saudi Arabia</option>
-                                                    <option>United Kingdom (UK)</option>
-                                                    <option>United States (US)</option>
-                                                </select>
+                                                <input type="text" name="ltn__name" placeholder="First name">
                                             </div>
                                         </div>
-                                        <div class="col-lg-12 col-md-12">
-                                            <h6>Address</h6>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="input-item">
-                                                        <input type="text" placeholder="House number and street name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="input-item">
-                                                        <input type="text" placeholder="Apartment, suite, unit etc. (optional)">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <h6>Town / City</h6>
+                                       
+                                        <div class="col-md-6">
+                                        	<label>연락처</label>
                                             <div class="input-item">
-                                                <input type="text" placeholder="City">
+                                                <input type="email" name="ltn__email" placeholder="email address">
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <h6>State </h6>
+                                         <div class="col-md-6">
+                                        	<label>배송주소</label>
                                             <div class="input-item">
-                                                <input type="text" placeholder="State">
+                                                <input type="text" name="ltn__lastname" placeholder="Last name">
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <h6>Zip</h6>
-                                            <div class="input-item">
-                                                <input type="text" placeholder="Zip">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p><label class="input-info-save mb-0"><input type="checkbox" name="agree"> Create an account?</label></p>
-                                    <h6>Order Notes (optional)</h6>
-                                    <div class="input-item input-item-textarea ltn__custom-icon">
+                                        
+                                        
+                                    </div> 
+        
+                                    <h6>배송 요청 사항 (선택)</h6>
+                                    <div class="input-item input-item-textarea">
                                         <textarea name="ltn__message" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                                     </div>
 
@@ -179,7 +142,7 @@
                         <div class="ltn__payment-note mt-30 mb-30">
                             <p>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
                         </div>
-                        <button class="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit">Place order</button>
+                        <button class="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit">결제하기</button>
                     </div>
                 </div>
                 <div class="col-lg-6">

@@ -44,7 +44,48 @@ $(document).ready(function() {
 	})
 
 	$("#seleteDeleteBtn").on("click", function() {
+		let eachLength = $(".cart_info_td").length;
+		let chkAmount = $("input:checkbox[name=checkedCount]:checked").length;
+		console.log(chkAmount);
+		if(chkAmount==0){
+			alert("삭제할 항목을 선택해주세요.");
+			return false;
+		}
+		let count=0;
+		let selectArr = new Array(chkAmount);
+		$(".cart_info_td").each(function(index, element) {
 
+			if ($(element).find(".individual_cart_checkbox").is(":checked") == true) {	//체크여부
+				
+				
+				let chkProductName = $(element).find("#chkProductName").val();
+				
+				selectArr[count] = chkProductName;
+				count++;
+				
+				console.log(selectArr);
+				
+				const form = document.createElement('form');
+				form.setAttribute('method', 'post');        //Post 메소드 적용
+				form.setAttribute('action', '/member/auth/cartSelectDelete');
+				
+				var input1 = document.createElement('input');
+				input1.setAttribute("type", "hidden");
+				input1.setAttribute("name", "cartIds");
+				input1.setAttribute("value", selectArr);
+				form.appendChild(input1);
+				console.log(selectArr.length);
+				document.body.appendChild(form);
+				//form.submit();
+
+			} 
+
+
+
+		});
+
+	})
+	$("#selectOrderBtn").on("click", function() {
 		let eachLength = $(".cart_info_td").length;
 		let chkAmount = $("input:checkbox[name=checkedCount]:checked").length;
 		console.log(chkAmount);
@@ -53,34 +94,48 @@ $(document).ready(function() {
 			return false;
 		}
 		let count=0;
-		let selectArr = new Array(chkAmount);
+		let chkNameArr = new Array(chkAmount);
+		let chkQtyArr = new Array(chkAmount);
+		let chkTotalArr = new Array(chkAmount);
 		$(".cart_info_td").each(function(index, element) {
 
 			if ($(element).find(".individual_cart_checkbox").is(":checked") == true) {	//체크여부
-				console.log("몇번" + index)
+				
 				
 				let chkProductName = $(element).find("#chkProductName").val();
+				let chkProductQty = $(element).find("#chkProductQty").val();
+				let chkSubTotal = $(element).find("#chkSubTotal").val();
 				
-				selectArr[count] = chkProductName;
+				chkNameArr[count] = chkProductName;
+				chkQtyArr[count] = chkProductQty;
+				chkTotalArr[count] = chkSubTotal;
+				console.log(chkQtyArr);
+				
+				
 				count++;
-				const form = document.createElement('form');
-				form.setAttribute('method', 'post');        //Post 메소드 적용
-				form.setAttribute('action', '/member/auth/cartSelectDelete');
+				
+				const form2 = document.createElement('form');
+				form2.setAttribute('method', 'post');        //Post 메소드 적용
+				form2.setAttribute('action', '/member/auth/cartSelectOrder');
 
-				var input1 = document.createElement('input');
-				input1.setAttribute("type", "hidden");
-				input1.setAttribute("name", "cartIds");
-				input1.setAttribute("value", selectArr);
-				form.appendChild(input1);
-				console.log(selectArr.length);
-				document.body.appendChild(form);
-				form.submit();
-
-
+				var input2 = document.createElement('input');
+				input2.setAttribute("type", "hidden");
+				input2.setAttribute("name", "chkNameArr");
+				input2.setAttribute("value", chkNameArr);
+				
+				input2.setAttribute("type", "hidden");
+				input2.setAttribute("name", "chkQtyArr");
+				input2.setAttribute("value", chkQtyArr);
+				
+				input2.setAttribute("type", "hidden");
+				input2.setAttribute("name", "chkTotalArr");
+				input2.setAttribute("value", chkTotalArr);
+				form2.appendChild(input2);
+				
+				document.body.appendChild(form2);
+				form2.submit();
 
 			} 
-
-
 
 		});
 
