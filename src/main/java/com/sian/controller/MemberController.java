@@ -4,6 +4,8 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,7 @@ import com.sian.domain.CartProductDTO;
 import com.sian.domain.MemberDTO;
 import com.sian.domain.OrderDTO;
 import com.sian.domain.OrderDetailDTO;
+
 import com.sian.service.AdminService;
 import com.sian.service.MemberService;
 
@@ -222,14 +225,12 @@ public class MemberController {
 	}
 
 	@PostMapping("/auth/cartSelectOrder")
-	public String checkout(@RequestParam(value = "chkNameArr", required = false) List<String> chkNameArr,
-			@RequestParam(value = "chkQtyArr", required = false) List<Integer> chkQtyArr,
-			@RequestParam(value = "chkTotalArr", required = false) List<Integer> chkTotalArr,
-			OrderDTO orderDTO,
-			OrderDetailDTO orderDetailDTO, Model model, Authentication authentication) throws Exception {
-		System.out.println(chkQtyArr);
-		System.out.println(chkTotalArr);
-		System.out.println(orderDetailDTO);
+	public String cartSelectOrder(
+			OrderDTO orderDTO, Model model, Authentication authentication) throws Exception {
+		
+		System.out.println(orderDTO.getOrderDetailList());
+		
+		
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
@@ -239,22 +240,12 @@ public class MemberController {
 		for (int i = 1; i <= 6; i++) {
 			subNum += (int) (Math.random() * 10);
 		}
-
-		String order_no = ymd + "_" + subNum;
-		orderDTO.setOrder_no(order_no);
-		orderDTO.setMem_id(memberService.getId(authentication));
-		
-		memberService.orderInsert(orderDTO);
-		System.out.println(order_no);
-		String order_detail_no = "";
-		for (int i = 0; i < chkQtyArr.size(); i++) {
-			orderDetailDTO.setOrder_no(order_no);
-			orderDetailDTO.setProduct_no(memberService.getProductNo(chkNameArr.get(i)));
-			order_detail_no = order_no+"_"+i;
-			System.out.println(order_detail_no);
-			orderDetailDTO.setOrder_detail_no(order_detail_no);
-			
-		}
+		model.addAttribute("orderList",orderDTO.getOrderDetailList());
 		return "/member/auth/checkout";
+	}
+	
+	@PostMapping("/auth/chkckout")
+	public void chkout(Model model) throws Exception{
+
 	}
 }

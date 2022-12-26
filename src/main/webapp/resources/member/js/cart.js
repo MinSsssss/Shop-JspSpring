@@ -97,6 +97,7 @@ $(document).ready(function() {
 		let chkNameArr = new Array(chkAmount);
 		let chkQtyArr = new Array(chkAmount);
 		let chkTotalArr = new Array(chkAmount);
+		let form_content =''
 		$(".cart_info_td").each(function(index, element) {
 
 			if ($(element).find(".individual_cart_checkbox").is(":checked") == true) {	//체크여부
@@ -109,35 +110,23 @@ $(document).ready(function() {
 				chkNameArr[count] = chkProductName;
 				chkQtyArr[count] = chkProductQty;
 				chkTotalArr[count] = chkSubTotal;
-				console.log(chkQtyArr);
 				
-				
-				count++;
-				
-				const form2 = document.createElement('form');
-				form2.setAttribute('method', 'post');        //Post 메소드 적용
-				form2.setAttribute('action', '/member/auth/cartSelectOrder');
-
-				var input2 = document.createElement('input');
-				input2.setAttribute("type", "hidden");
-				input2.setAttribute("name", "chkNameArr");
-				input2.setAttribute("value", chkNameArr);
-				
-				input2.setAttribute("type", "hidden");
-				input2.setAttribute("name", "chkQtyArr");
-				input2.setAttribute("value", chkQtyArr);
-				
-				input2.setAttribute("type", "hidden");
-				input2.setAttribute("name", "chkTotalArr");
-				input2.setAttribute("value", chkTotalArr);
-				form2.appendChild(input2);
-				
-				document.body.appendChild(form2);
-				form2.submit();
+				let productName_input = 
+				" <input name='orderDetailList["+ count + "].product_name' type='hidden' value='"+chkProductName+"'> ";
+				form_content+= productName_input;
+				let productQty_input = 
+				" <input name='orderDetailList["+ count + "].order_qty' type='hidden' value='"+chkProductQty+"'> ";
+				form_content+= productQty_input;
+				let subTotal_input = 
+				" <input name='orderDetailList["+ count + "].sub_total' type='hidden' value='"+chkSubTotal+"'> ";
+				form_content+= subTotal_input;
+				count++;		
 
 			} 
 
 		});
+		$("#orderForm").html(form_content);
+		$("#orderForm").submit();
 
 	})
 
@@ -177,9 +166,6 @@ function getParameter(name) {
 function setTotalInfo() {
 
 	let totalPrice = 0;				// 총 가격
-	let totalCount = 0;				// 총 갯수
-	let totalKind = 0;				// 총 종류
-	let totalPoint = 0;				// 총 마일리지
 	let deliveryPrice = 0;			// 배송비
 	let finalTotalPrice = 0; 		// 최종 가격(총 가격 + 배송비)
 
@@ -189,10 +175,6 @@ function setTotalInfo() {
 		if ($(element).find(".individual_cart_checkbox").is(":checked") == true) {	//체크여부
 			totalPrice += parseInt($(element).find("#chkSubTotal").val());
 		}
-
-
-
-
 
 	});
 

@@ -62,17 +62,21 @@
 							<tbody>
 							
 								<c:forEach items="${cartList }" var="cart">
-
+									<form action="/member/auth/cartSelectOrder" id="orderForm" method="post">
+											<input type="hidden" id="chkProductName" value="${cart.product_name }">
+											<input type="hidden" id="chkProductQty" value="${cart.cart_qty }">
+									</form>
 									<tr>
 
 										<td class="cart_info_td">
+										
 											<input type="checkbox" name="checkedCount" class="individual_cart_checkbox" checked="checked"  >
 											
 											<input type="hidden" id="chkProductName" value="${cart.product_name }">
 											<input type="hidden" id="chkProductQty" value="${cart.cart_qty }">
 											<input type="hidden" id="chkSubTotal" value="${cart.sub_total }">
 										</td>
-
+										
 
 										<td class="cart-product-image"><a
 											href="product-details.html"><img
@@ -120,11 +124,11 @@
 							<tbody>
 								<tr>
 									<td>상품가격</td>
-									<td class="totalPrice">$618.00</td>
+									<td class="totalPrice"></td>
 								</tr>
 								<tr>
 									<td>배송비</td>
-									<td class="deliveryPrice">$15.00</td>
+									<td class="deliveryPrice"></td>
 								</tr>
 
 								<tr>
