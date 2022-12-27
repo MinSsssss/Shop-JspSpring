@@ -1,40 +1,69 @@
 $(document).ready(function() {
 	$("#checkoutBtn").on("click", function() {
-		console.log("크크크")
-		//$("#checkoutForm").submit();
+		$("#checkoutForm").submit();
 		
 		
-	})
-	
-	
-	/*let param = {
-		"product_name": product_name,
-		"sub_total": sub_total,
-		"order_qty": order_qty
-	};
-	
-	$.ajax({
-		url: "/member/auth/addCart",
-		async: true,
-		type: "post",
-		dataType: "json",
-		data: JSON.stringify(param),
-		contentType: "application/json; charset=UTF-8",
-		success: function(data) {
-			console.log(data);
-			if (data == 1) {
-				$("#add_to_cart_modal").modal('show');
+		let chkAmount = $(".sub_total_td").length
+		console.log(chkAmount);
+		let count=0;
+		let orderDetailArr = [];
+		
+		let chkNameArr = new Array(chkAmount);
+		let chkQtyArr = new Array(chkAmount);
+		let chkTotalArr = new Array(chkAmount);
+		let form_content =''
+		$(".productDetail").each(function(index, element) {
+			
+			let chkProductName = $(element).find("#product_name").val();
+			let chkProductQty = $(element).find("#order_qty").val();
+			let chkSubTotal = $(element).find("#sub_total").val();
+				
+			chkNameArr[count] = chkProductName;
+			chkQtyArr[count] = chkProductQty;
+			chkTotalArr[count] = chkSubTotal;
+			let data= {
+					"product_name" : chkProductName,
+					"order_qty" : chkProductQty,
+					"sub_total" : chkSubTotal
 			}
-			else {
-				alert("장바구니에 이미 상품이 있습니다.");
+			
+			orderDetailArr.push(data);
 
-				$("#add_to_cart_modal").modal('hide');
-				return false;
+			
+//			let productName_input = 
+//			" <input name='orderDetailList["+ count + "].product_name' type='hidden' value='"+chkProductName+"'> ";
+//			form_content+= productName_input;
+//			let productQty_input = 
+//			" <input name='orderDetailList["+ count + "].order_qty' type='hidden' value='"+chkProductQty+"'> ";
+//			form_content+= productQty_input;
+//			let subTotal_input = 
+//			" <input name='orderDetailList["+ count + "].sub_total' type='hidden' value='"+chkSubTotal+"'> ";
+//			form_content+= subTotal_input;
+			count++;		
 
-			}
-
+		})
+		let paramList = {
+			"paramList" : JSON.stringify(orderDetailArr)
 		}
-	})*/
+		$.ajax({
+			
+			type : "POST",
+			url : "/member/auth/checkout",
+			data : paramList,
+			success : function(data){},
+			error :function(e) {}
+		})
+		console.log(orderArr);
+		
+		$("#orderDetailForm").html(form_content);
+		
+		//$("#orderDetailForm").submit();
+
+	})
+		
+	
+	
+	
 
 });
 

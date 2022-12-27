@@ -63,8 +63,7 @@
 							
 								<c:forEach items="${cartList }" var="cart">
 									<form action="/member/auth/cartSelectOrder" id="orderForm" method="post">
-											<input type="hidden" id="chkProductName" value="${cart.product_name }">
-											<input type="hidden" id="chkProductQty" value="${cart.cart_qty }">
+											
 									</form>
 									<tr>
 

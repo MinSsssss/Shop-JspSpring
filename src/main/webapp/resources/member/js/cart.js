@@ -76,7 +76,7 @@ $(document).ready(function() {
 				form.appendChild(input1);
 				console.log(selectArr.length);
 				document.body.appendChild(form);
-				//form.submit();
+				form.submit();
 
 			} 
 

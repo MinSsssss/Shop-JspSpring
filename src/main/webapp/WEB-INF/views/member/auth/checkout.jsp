@@ -74,7 +74,7 @@
 									</div>
 								</sec:authorize>
 							</div>
-							<form action="/member/auth/chkckout" method="post" id="checkoutForm">
+							<form action="/member/auth/checkout" method="post" id="checkoutForm">
 								<h5>받는사람정보</h5>
 								<div class="row">
 									<div class="col-md-6">
@@ -165,8 +165,16 @@
 						<tbody>
 							
 							<c:forEach items="${orderList }" var="order">
-								
+								<form action="/member/auth/orderDetail" id="orderDetailForm" method="post">
+										
+										
+								</form>
 								<tr>
+								<td class="productDetail">
+									<input type="hidden" id="product_name" value="${order.product_name }">
+									<input type="hidden" id="sub_total" value="${order.sub_total }">
+									<input type="hidden" id="order_qty" value="${order.order_qty }"> 
+								</td>
 									<td>${order.product_name }<strong>×
 											${order.order_qty } </strong></td>
 									<td class="sub_total_td">${order.sub_total }<input
@@ -174,12 +182,8 @@
 									</td>
 								</tr>
 								
-									<form action="/member/auth/orderDetail" id="orderDetailForm" method="post">
-										<input type="text" id="h_product_name" value="${order.product_name }">
-										<input type="hidden" id="h_sub_total" value="${order.sub_total }">
-										<input type="hidden" id="h_order_qty" value="${order.order_qty }">
-										
-									</form>
+									
+									
 							</c:forEach>
 							<tr>
 								<td><strong>배송비</strong></td>

@@ -1,8 +1,11 @@
 package com.sian.controller;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sian.domain.CartProductDTO;
 import com.sian.domain.MemberDTO;
 import com.sian.domain.OrderDTO;
@@ -244,8 +249,23 @@ public class MemberController {
 		return "/member/auth/checkout";
 	}
 	
-	@PostMapping("/auth/chkckout")
-	public void chkout(Model model) throws Exception{
-
+	/*
+	 * @PostMapping("/auth/checkout") public void chkout(Model model,OrderDTO
+	 * orderDTO) throws Exception{
+	 * 
+	 * }
+	 */
+	
+	@PostMapping("/auth/checkout")
+	public String checkout(
+			@RequestParam HashMap<String,Object> orderDetailList
+			) throws Exception{
+		
+		String json = orderDetailList.toString();
+		ObjectMapper mapper = new ObjectMapper();
+		System.out.println(json);
+		OrderDetailDTO paramList = mapper.readValue(json, new TypeReference<OrderDetailDTO>(){});
+		System.out.println("paramList : "+paramList);
+		return "redirect:/member";
 	}
 }
