@@ -14,6 +14,10 @@ public class OrderDetailDTO {
 	
 	private int product_no;
 	private String product_name;
-	private int order_qty;
-	private int sub_total;
+	private String order_qty;
+	private String sub_total;
+	
+//	private List<String> product_nameArr;
+//	private List<Integer> order_qtyArr;
+//	private List<Integer> subTotalArr;
 }

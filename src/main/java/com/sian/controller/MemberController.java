@@ -21,13 +21,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sian.domain.CartProductDTO;
 import com.sian.domain.MemberDTO;
 import com.sian.domain.OrderDTO;
 import com.sian.domain.OrderDetailDTO;
-
+import com.sian.domain.OrderListDTO;
 import com.sian.service.AdminService;
 import com.sian.service.MemberService;
 
@@ -230,12 +232,10 @@ public class MemberController {
 	}
 
 	@PostMapping("/auth/cartSelectOrder")
-	public String cartSelectOrder(
-			OrderDTO orderDTO, Model model, Authentication authentication) throws Exception {
-		
+	public String cartSelectOrder(OrderDTO orderDTO, Model model, Authentication authentication) throws Exception {
+
 		System.out.println(orderDTO.getOrderDetailList());
-		
-		
+
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
@@ -245,27 +245,39 @@ public class MemberController {
 		for (int i = 1; i <= 6; i++) {
 			subNum += (int) (Math.random() * 10);
 		}
-		model.addAttribute("orderList",orderDTO.getOrderDetailList());
+		model.addAttribute("orderList", orderDTO.getOrderDetailList());
 		return "/member/auth/checkout";
 	}
-	
+
 	/*
 	 * @PostMapping("/auth/checkout") public void chkout(Model model,OrderDTO
 	 * orderDTO) throws Exception{
 	 * 
 	 * }
 	 */
-	
+
 	@PostMapping("/auth/checkout")
-	public String checkout(
-			@RequestParam HashMap<String,Object> orderDetailList
-			) throws Exception{
-		
-		String json = orderDetailList.toString();
-		ObjectMapper mapper = new ObjectMapper();
-		System.out.println(json);
-		OrderDetailDTO paramList = mapper.readValue(json, new TypeReference<OrderDetailDTO>(){});
-		System.out.println("paramList : "+paramList);
+	public String checkout(OrderDTO orderDTO) throws Exception {
+
+		System.out.println("orderDTO : " + orderDTO);
+
 		return "redirect:/member";
+	}
+
+	@PostMapping("/auth/orderDetails")
+	public void orderDetails(@RequestParam HashMap<String, Object> orderDetailList) throws Exception {
+
+		String json = (String) orderDetailList.get("paramList");
+		ObjectMapper mapper = new ObjectMapper();
+
+		System.out.println(json);
+
+		List<OrderDetailDTO> orderDetails = mapper.readValue(json, new TypeReference<List<OrderDetailDTO>>() {
+		});
+		System.out.println("orderDetails : " + orderDetails);
+		for (int i = 0; i < orderDetails.size(); i++) {
+			System.out.println(orderDetails.get(i));
+		}
+
 	}
 }

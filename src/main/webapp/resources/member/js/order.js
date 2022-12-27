@@ -28,17 +28,6 @@ $(document).ready(function() {
 			}
 			
 			orderDetailArr.push(data);
-
-			
-//			let productName_input = 
-//			" <input name='orderDetailList["+ count + "].product_name' type='hidden' value='"+chkProductName+"'> ";
-//			form_content+= productName_input;
-//			let productQty_input = 
-//			" <input name='orderDetailList["+ count + "].order_qty' type='hidden' value='"+chkProductQty+"'> ";
-//			form_content+= productQty_input;
-//			let subTotal_input = 
-//			" <input name='orderDetailList["+ count + "].sub_total' type='hidden' value='"+chkSubTotal+"'> ";
-//			form_content+= subTotal_input;
 			count++;		
 
 		})
@@ -48,16 +37,13 @@ $(document).ready(function() {
 		$.ajax({
 			
 			type : "POST",
-			url : "/member/auth/checkout",
+			url : "/member/auth/orderDetails",
 			data : paramList,
 			success : function(data){},
 			error :function(e) {}
 		})
 		console.log(orderArr);
-		
-		$("#orderDetailForm").html(form_content);
-		
-		//$("#orderDetailForm").submit();
+
 
 	})
 		
