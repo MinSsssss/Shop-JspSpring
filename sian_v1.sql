@@ -1,17 +1,4 @@
-drop table tbl_qna_comment;
-drop table tbl_qna_catecory;
-drop table tbl_qna;
---drop table tbl_cart_product;
-drop table tbl_review_comment;
-drop table tbl_review;
-drop table tbl_order_detail;
-drop table tbl_order;
 
-drop table tbl_cart;
-drop table tbl_product;
-drop table tbl_category;
-drop table tbl_member_auth;
-drop table tbl_member;
 
 UPDATE tbl_member_auth
 SET auth = 'ROLE_ADMIN'
@@ -33,6 +20,9 @@ select * from tbl_member_auth;
 select * from tbl_category;
 select * from tbl_product;
 select * from tbl_cart;
+select * from tbl_order;
+select * from tbl_order_detail;
+
 update tbl_cart
 set cart_qty=7,
 sub_total=(select product_price from tbl_product where product_no=102 )
@@ -87,7 +77,7 @@ CREATE TABLE tbl_order (
 	receicer_addr2	varchar2(100)		NULL,
     order_date	date	DEFAULT sysdate	 NOT NULL,
     order_request_msg varchar2(1000),
-    order_status	varchar2(20),
+    order_status varchar2(20) default '결제 대기' NOT NULL,
     constraint fk_order_mem_id foreign key(mem_id) references tbl_member(mem_id)
 );
 
@@ -100,6 +90,7 @@ CREATE TABLE tbl_order_detail (
     constraint fk_order_no foreign key(order_no) references tbl_order(order_no),
     constraint fk_order_product_no foreign key(product_no) references tbl_product(product_no)
 );
+
 insert into tbl_order(order_no,mem_id)
 values(seq_order_no.nextval,'cda03');
 select MAX(order_no) from tbl_order;
@@ -208,3 +199,16 @@ CREATE TABLE tbl_qna_comment (
 	qna_com_writer	varchar2(12) NULL
 );
 
+drop table tbl_qna_comment;
+drop table tbl_qna_catecory;
+drop table tbl_qna;
+drop table tbl_review_comment;
+drop table tbl_review;
+drop table tbl_order_detail;
+drop table tbl_order;
+
+drop table tbl_cart;
+drop table tbl_product;
+drop table tbl_category;
+drop table tbl_member_auth;
+drop table tbl_member;

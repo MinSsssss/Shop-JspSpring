@@ -1,6 +1,7 @@
 package com.sian.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.Authentication;
 
@@ -9,6 +10,7 @@ import com.sian.domain.CartListDTO;
 import com.sian.domain.CartProductDTO;
 import com.sian.domain.MemberDTO;
 import com.sian.domain.OrderDTO;
+import com.sian.domain.OrderDetailDTO;
 import com.sian.domain.ProductDTO;
 
 public interface MemberService {
@@ -44,8 +46,12 @@ public interface MemberService {
 	
 	public void cartDelete(CartProductDTO cartProductDTO) throws Exception;
 	
-	public void orderInsert(OrderDTO orderDTO) throws Exception;
+	public void orderInsert(OrderDTO orderDTO, Authentication authentication) throws Exception;
 	
+	public void orderDetailInsert(OrderDetailDTO orderDetailDTO)throws Exception;
 	
+	public void orderCartDelete(Map<String,Object>map) throws Exception;
+
+	public Long getOrderNo(String mem_id) throws Exception;
 	
 }

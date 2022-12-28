@@ -75,25 +75,6 @@
 
 	</security:http>
 
-
-
-<!-- 	<security:authentication-manager> <security:authentication-provider> 
-		<security:user-service> <security:user name="member" password="{noop}member" 
-		authorities="ROLE_MEMBER"/> <security:user name="admin" password="{noop}admin" 
-		authorities="ROLE_MEMBER, ROLE_ADMIN"/> </security:user-service> </security:authentication-provider> 
-		</security:authentication-manager> -->
-
-	<!-- <security:authentication-manager> <security:authentication-provider> 
-		<security:jdbc-user-service data-source-ref="dataSource" /> 
-		<security:jdbc-user-service data-source-ref="dataSource" 
-		users-by-username-query="select mem_id , mem_pwd, enabled from tbl_member where mem_id = ? " 
-		authorities-by-username-query="select mem_id, auth from tbl_member_auth where mem_id = ? " /> 
-		<security:password-encoder 
-		ref="customPasswordEncoder" /> 
-		<security:password-encoder ref="bcryptPasswordEncoder"/>
-		</security:authentication-provider> 
-		</security:authentication-manager> -->
-
 	<!-- DB 연동 설정 -->
 	<security:authentication-manager>
 

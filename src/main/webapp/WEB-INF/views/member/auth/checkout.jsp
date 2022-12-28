@@ -100,7 +100,7 @@
 
 								<h6>배송 요청 사항 (선택)</h6>
 								<div class="input-item input-item-textarea">
-									<textarea name="order_requset_msg"
+									<textarea name="order_request_msg"
 										placeholder="배송 요청 사항을 입력해주세요."></textarea>
 								</div>
 

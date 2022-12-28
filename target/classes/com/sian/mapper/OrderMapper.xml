@@ -2,8 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sian.mapper.OrderMapper">
  	<insert id="orderInsert">
- 		INSERT INTO tbl_order(order_no,mem_id)
- 		VALUES (#{order_no},#{mem_id})
+ 		INSERT INTO tbl_order(order_no,mem_id,receiver_name,
+ 		receiver_tel,receiver_addr1,order_request_msg)
+ 		VALUES (seq_order_no.nextval,#{mem_id},
+ 		#{receiver_name},#{receiver_tel},#{receiver_addr1},
+ 		#{order_request_msg}
+ 		)
+ 	</insert>
+ 	<insert id="orderDetailInsert">
+ 		<!-- <selectKey keyProperty="order_no" resultType="long" order="BEFORE">
+			select MAX(order_no) from tbl_order
+		</selectKey> -->
+ 		INSERT INTO tbl_order_detail(order_detail_no,order_no,
+ 		product_no,order_qty,sub_total)
+ 		VALUES (seq_order_detail_no.nextval,#{order_no},
+ 		#{product_no},#{order_qty},#{sub_total}
+ 		)
  	</insert>
  	
+ 	<delete id="orderCartDelete" parameterType="Map">
+		DELETE FROM tbl_cart
+		WHERE product_no=#{product_no} AND mem_id=#{mem_id}
+	</delete>
+	<select id="getOrderNo" resultType="Long">
+ 		SELECT MAX(order_no)
+ 		FROM tbl_order
+ 		WHERE mem_id = #{mem_id}
+ 	</select>
 </mapper>

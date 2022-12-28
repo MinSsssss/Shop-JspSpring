@@ -2,6 +2,7 @@ package com.sian.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,7 +18,7 @@ import com.sian.domain.CartListDTO;
 import com.sian.domain.CartProductDTO;
 import com.sian.domain.MemberDTO;
 import com.sian.domain.OrderDTO;
-
+import com.sian.domain.OrderDetailDTO;
 import com.sian.domain.ProductDTO;
 import com.sian.mapper.CartMapper;
 import com.sian.mapper.MemberMapper;
@@ -168,12 +169,29 @@ public class MemberServiceImpl implements MemberService {
 		cartMapper.cartDelete(cartProductDTO);
 		
 	}
+	
 	@Override
-	public void orderInsert(OrderDTO orderDTO) throws Exception {
+	public void orderInsert(OrderDTO orderDTO,Authentication authentication) throws Exception {
+		orderDTO.setMem_id(getId(authentication));
 		orderMapper.orderInsert(orderDTO);
 		
 	}
+	@Override
+	public void orderDetailInsert(OrderDetailDTO orderDetailDTO) throws Exception {
+		
+		orderMapper.orderDetailInsert(orderDetailDTO);	
+	}
+	@Override
+	public void orderCartDelete(Map<String,Object>map) throws Exception {
+		orderMapper.orderCartDelete(map);
+		
+	}
+	@Override
+	public Long getOrderNo(String mem_id) throws Exception {
+
+		return orderMapper.getOrderNo(mem_id);
+	}
 	
-	
+
 	
 }

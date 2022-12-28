@@ -1,19 +1,15 @@
 package com.sian.controller;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,15 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sian.domain.CartProductDTO;
 import com.sian.domain.MemberDTO;
 import com.sian.domain.OrderDTO;
 import com.sian.domain.OrderDetailDTO;
-import com.sian.domain.OrderListDTO;
 import com.sian.service.AdminService;
 import com.sian.service.MemberService;
 
@@ -51,10 +44,6 @@ public class MemberController {
 		return "/member/index";
 	}
 
-	@GetMapping("/auth/orderList")
-	public void orderList() {
-
-	}
 
 	@GetMapping("/auth/wishList")
 	public void wishList() {
@@ -236,48 +225,60 @@ public class MemberController {
 
 		System.out.println(orderDTO.getOrderDetailList());
 
-		Calendar cal = Calendar.getInstance();
-		int year = cal.get(Calendar.YEAR);
-		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
-		String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE));
-		String subNum = "";
-
-		for (int i = 1; i <= 6; i++) {
-			subNum += (int) (Math.random() * 10);
-		}
+//		Calendar cal = Calendar.getInstance();
+//		int year = cal.get(Calendar.YEAR);
+//		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+//		String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+//		String subNum = "";
+//
+//		for (int i = 1; i <= 6; i++) {
+//			subNum += (int) (Math.random() * 10);
+//		}
 		model.addAttribute("orderList", orderDTO.getOrderDetailList());
 		return "/member/auth/checkout";
 	}
 
-	/*
-	 * @PostMapping("/auth/checkout") public void chkout(Model model,OrderDTO
-	 * orderDTO) throws Exception{
-	 * 
-	 * }
-	 */
 
 	@PostMapping("/auth/checkout")
-	public String checkout(OrderDTO orderDTO) throws Exception {
+	public String checkout(OrderDTO orderDTO,
+			Authentication authentication) throws Exception {
 
-		System.out.println("orderDTO : " + orderDTO);
-
-		return "redirect:/member";
+		
+		memberService.orderInsert(orderDTO, authentication);
+		return "redirect:/member/auth/orderDetails";
 	}
 
 	@PostMapping("/auth/orderDetails")
-	public void orderDetails(@RequestParam HashMap<String, Object> orderDetailList) throws Exception {
-
+	public String orderDetails(@RequestParam HashMap<String, Object> orderDetailList,
+			OrderDetailDTO orderDetailDTO,
+			Authentication authentication) throws Exception {
 		String json = (String) orderDetailList.get("paramList");
 		ObjectMapper mapper = new ObjectMapper();
 
-		System.out.println(json);
-
 		List<OrderDetailDTO> orderDetails = mapper.readValue(json, new TypeReference<List<OrderDetailDTO>>() {
 		});
-		System.out.println("orderDetails : " + orderDetails);
+		String mem_id = memberService.getId(authentication);
+		Long orderNo = memberService.getOrderNo(mem_id);
+		
 		for (int i = 0; i < orderDetails.size(); i++) {
+			System.out.println(orderDetails.size());
+			Map<String,Object> map = new HashMap<String, Object>();
+			int product_no = memberService.getProductNo(orderDetails.get(i).getProduct_name());
+			
+			orderDetails.get(i).setProduct_no(product_no);
+			orderDetails.get(i).setOrder_no(orderNo);
+			map.put("product_no", product_no);
+			map.put("mem_id", mem_id);
 			System.out.println(orderDetails.get(i));
+			memberService.orderDetailInsert(orderDetails.get(i));
+			memberService.orderCartDelete(map);
+	
 		}
-
+		return "redirect:/member/auth/cart";
+	}
+	
+	@GetMapping("/auth/orderList")
+	public void orderList() {
+		
 	}
 }
