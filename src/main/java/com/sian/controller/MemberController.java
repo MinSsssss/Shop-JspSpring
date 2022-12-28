@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sian.domain.CartProductDTO;
 import com.sian.domain.MemberDTO;
@@ -238,27 +240,28 @@ public class MemberController {
 		return "/member/auth/checkout";
 	}
 
-
+	@Transactional
 	@PostMapping("/auth/checkout")
 	public String checkout(OrderDTO orderDTO,
 			Authentication authentication) throws Exception {
-
-		
-		memberService.orderInsert(orderDTO, authentication);
-		return "redirect:/member/auth/orderDetails";
+		String mem_id = memberService.getId(authentication);
+		orderDTO.setMem_id(mem_id);
+		memberService.orderInsert(orderDTO);
+		System.out.println("order에서 orderNO:");
+		return "redirect:/member/auth/cartView";
 	}
 
 	@PostMapping("/auth/orderDetails")
-	public String orderDetails(@RequestParam HashMap<String, Object> orderDetailList,
+	public void orderDetails(@RequestParam HashMap<String, Object> orderDetailList,
 			OrderDetailDTO orderDetailDTO,
-			Authentication authentication) throws Exception {
+			Authentication authentication) throws JsonMappingException, JsonProcessingException{
 		String json = (String) orderDetailList.get("paramList");
 		ObjectMapper mapper = new ObjectMapper();
 
 		List<OrderDetailDTO> orderDetails = mapper.readValue(json, new TypeReference<List<OrderDetailDTO>>() {
 		});
 		String mem_id = memberService.getId(authentication);
-		Long orderNo = memberService.getOrderNo(mem_id);
+		//Long orderNo = memberService.getOrderNo(mem_id);
 		
 		for (int i = 0; i < orderDetails.size(); i++) {
 			System.out.println(orderDetails.size());
@@ -266,15 +269,16 @@ public class MemberController {
 			int product_no = memberService.getProductNo(orderDetails.get(i).getProduct_name());
 			
 			orderDetails.get(i).setProduct_no(product_no);
-			orderDetails.get(i).setOrder_no(orderNo);
+			//orderDetails.get(i).setDe_order_no(orderNo);
 			map.put("product_no", product_no);
 			map.put("mem_id", mem_id);
+			//System.out.println(orderNo);
 			System.out.println(orderDetails.get(i));
 			memberService.orderDetailInsert(orderDetails.get(i));
-			memberService.orderCartDelete(map);
+			//memberService.orderCartDelete(map);
 	
 		}
-		return "redirect:/member/auth/cart";
+		//return "redirect:/member/auth/cartView";
 	}
 	
 	@GetMapping("/auth/orderList")

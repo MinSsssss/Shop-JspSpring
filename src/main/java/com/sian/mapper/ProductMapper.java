@@ -14,5 +14,5 @@ public interface ProductMapper {
 	
 	public ProductDTO getProduct(int product_no) throws Exception;
 	
-	public int getProductNo(String product_name) throws Exception;
+	public int getProductNo(String product_name);
 }

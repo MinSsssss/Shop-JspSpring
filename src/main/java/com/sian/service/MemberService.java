@@ -22,7 +22,7 @@ public interface MemberService {
 	
 	public int idChk(MemberDTO memberDTO) throws Exception;
 	
-	public String getId(Authentication authentication) throws Exception;
+	public String getId(Authentication authentication);
 	
 	public String getPwd(Authentication authentication) throws Exception;
 	
@@ -34,7 +34,7 @@ public interface MemberService {
 	
 	public ProductDTO getProduct(int product_no) throws Exception;
 	
-	public int getProductNo(String product_name) throws Exception;
+	public int getProductNo(String product_name);
 	
 	public int addCart(CartProductDTO cartProductDTO) throws Exception;
 
@@ -46,12 +46,12 @@ public interface MemberService {
 	
 	public void cartDelete(CartProductDTO cartProductDTO) throws Exception;
 	
-	public void orderInsert(OrderDTO orderDTO, Authentication authentication) throws Exception;
+	public void orderInsert(OrderDTO orderDTO);
 	
-	public void orderDetailInsert(OrderDetailDTO orderDetailDTO)throws Exception;
+	public void orderDetailInsert(OrderDetailDTO orderDetailDTO);
 	
-	public void orderCartDelete(Map<String,Object>map) throws Exception;
+	public void orderCartDelete(Map<String,Object>map);
 
-	public Long getOrderNo(String mem_id) throws Exception;
+	public Long getOrderNo(String mem_id);
 	
 }

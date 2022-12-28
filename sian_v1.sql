@@ -22,7 +22,7 @@ select * from tbl_product;
 select * from tbl_cart;
 select * from tbl_order;
 select * from tbl_order_detail;
-
+commit;
 update tbl_cart
 set cart_qty=7,
 sub_total=(select product_price from tbl_product where product_no=102 )
@@ -83,11 +83,11 @@ CREATE TABLE tbl_order (
 
 CREATE TABLE tbl_order_detail (
 	order_detail_no	varchar2(13) primary key,
-	order_no	varchar2(16)		NOT NULL,
+	de_order_no	varchar2(16)		NOT NULL,
 	product_no	number(3)		NOT NULL,
 	order_qty	number(3) default 0 not null ,
     sub_total number default 0 not null, 
-    constraint fk_order_no foreign key(order_no) references tbl_order(order_no),
+    constraint fk_order_no foreign key(de_order_no) references tbl_order(order_no),
     constraint fk_order_product_no foreign key(product_no) references tbl_product(product_no)
 );
 

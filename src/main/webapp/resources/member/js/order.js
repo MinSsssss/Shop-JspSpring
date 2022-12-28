@@ -38,6 +38,7 @@ $(document).ready(function() {
 			url : "/member/auth/orderDetails",
 			data : paramList,
 			success : function(data) {
+				
 			},
 			error : function(e) {
 			}

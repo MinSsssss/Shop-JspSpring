@@ -68,7 +68,7 @@ public class MemberServiceImpl implements MemberService {
 
 
 	@Override
-	public String getId(Authentication authentication) throws Exception {
+	public String getId(Authentication authentication){
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		MemberDTO thisMem = memberMapper.read(userDetails.getUsername());
 		String thisMemId = thisMem.getMem_id();
@@ -121,7 +121,7 @@ public class MemberServiceImpl implements MemberService {
 		return productMapper.getProduct(product_no);
 	}
 	@Override
-	public int getProductNo(String product_name) throws Exception {
+	public int getProductNo(String product_name){
 		
 		return productMapper.getProductNo(product_name);
 	}
@@ -171,23 +171,23 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void orderInsert(OrderDTO orderDTO,Authentication authentication) throws Exception {
-		orderDTO.setMem_id(getId(authentication));
+	public void orderInsert(OrderDTO orderDTO) {
+		
 		orderMapper.orderInsert(orderDTO);
 		
 	}
 	@Override
-	public void orderDetailInsert(OrderDetailDTO orderDetailDTO) throws Exception {
+	public void orderDetailInsert(OrderDetailDTO orderDetailDTO) {
 		
 		orderMapper.orderDetailInsert(orderDetailDTO);	
 	}
 	@Override
-	public void orderCartDelete(Map<String,Object>map) throws Exception {
+	public void orderCartDelete(Map<String,Object>map){
 		orderMapper.orderCartDelete(map);
 		
 	}
 	@Override
-	public Long getOrderNo(String mem_id) throws Exception {
+	public Long getOrderNo(String mem_id){
 
 		return orderMapper.getOrderNo(mem_id);
 	}

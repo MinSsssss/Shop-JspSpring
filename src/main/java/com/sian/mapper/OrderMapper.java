@@ -11,9 +11,9 @@ import com.sian.domain.OrderDetailDTO;
 public interface OrderMapper {
 
 	
-	public void orderInsert(OrderDTO orderDTO) throws Exception;
+	public void orderInsert(OrderDTO orderDTO);
 	
-	public void orderDetailInsert(OrderDetailDTO orderDetailDTO) throws Exception;
+	public void orderDetailInsert(OrderDetailDTO orderDetailDTO);
 	
 	public void orderCartDelete(Map<String,Object>map);
 	
