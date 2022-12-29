@@ -53,22 +53,28 @@
 									<div class="orderFor">
 										<div class="orderForDisplay">
 											<h3 class="orderDate">2022.11.17</h3>
-											<div>
-												<a>주문상세보기</a>
-											</div>
+											<button class="btn btn-link">주문상세보기</button>
 										</div>
 
 										<div class="orderProductFor">
-											<h4>배송준비중</h4>
-											<div class="orderDisplay">
-												<a> <img class="product_img"
-													src="/resources/member/img/logo.png" alt="">
-												</a>
-												<div>
-													<p>상품이름상품이름상품이름상품이름</p>
-													<span class="productPrice">19,900원 </span> <span
-														class="orderQty"> 수량</span>
+											<div class="orderInfo">
+												<h5>배송준비중</h5>
+
+												<div class="orderDisplay">
+													<a> <img class="product_img"
+														src="/resources/member/img/logo.png" alt="">
+													</a>
+													<div class="productInfo">
+														<p>상품이름상품이름상품이름상품이름</p>
+														<span class="productPrice">19,900원 </span> <span
+															class="orderQty"> 수량</span>
+													</div>
 												</div>
+											</div>
+											<div class="orderBtns">
+												<button class="btn btn-outline-warning">교환,반품</button>
+												<button class="btn btn-outline-info">리뷰작성</button>
+												<button class="btn btn-outline-info">주문내역삭제</button>
 											</div>
 										</div>
 									</div>
