@@ -74,37 +74,37 @@
 									</div>
 								</sec:authorize>
 							</div>
-							<form action="/member/auth/checkout" method="post" id="checkoutForm">
+							<!-- <form action="/member/auth/checkout" method="post" id="checkoutForm"> -->
 								<h5>받는사람정보</h5>
 								<div class="row">
 									<div class="col-md-6">
 										<label>이름</label>
 										<div class="input-item">
-											<input type="text" name="receiver_name">
+											<input type="text" id="receiver_name" name="receiver_name">
 										</div>
 									</div>
 
 									<div class="col-md-6">
 										<label>연락처</label>
 										<div class="input-item">
-											<input type="email" name="receiver_tel">
+											<input type="email" id="receiver_tel" name="receiver_tel">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<label>배송주소</label>
 										<div class="input-item">
-											<input type="text" name="receiver_addr1">
+											<input type="text" id="receiver_addr1" name="receiver_addr1">
 										</div>
 									</div>
 								</div>
 
 								<h6>배송 요청 사항 (선택)</h6>
 								<div class="input-item input-item-textarea">
-									<textarea name="order_request_msg"
+									<textarea id="order_request_msg" name="order_request_msg"
 										placeholder="배송 요청 사항을 입력해주세요."></textarea>
 								</div>
 
-							</form>
+							<!-- </form> -->
 						</div>
 					</div>
 				</div>

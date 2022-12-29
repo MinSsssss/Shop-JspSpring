@@ -4,7 +4,7 @@ $(document).ready(function() {
 
 
 
-	$("#addCart").on("click", function() {
+	$("#addCartBtn").on("click", function() {
 		let cart_qty = $("#cart_qty").val();
 		let product_no = getParameter("product_no");
 
@@ -38,6 +38,12 @@ $(document).ready(function() {
 			}
 		})
 	})
+	
+	
+	
+	
+	
+	
 
 	$("#cartDeleteBtn").on("click", function() {
 		$("#cartDeleteForm").submit();

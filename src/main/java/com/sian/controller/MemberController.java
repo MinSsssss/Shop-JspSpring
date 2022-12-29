@@ -240,17 +240,17 @@ public class MemberController {
 		return "/member/auth/checkout";
 	}
 
-	@Transactional
+	@ResponseBody
 	@PostMapping("/auth/checkout")
-	public String checkout(OrderDTO orderDTO,
+	public void checkout(@RequestBody OrderDTO orderDTO,
 			Authentication authentication) throws Exception {
 		String mem_id = memberService.getId(authentication);
 		orderDTO.setMem_id(mem_id);
 		memberService.orderInsert(orderDTO);
-		System.out.println("order에서 orderNO:");
-		return "redirect:/member/auth/cartView";
+		
+		
 	}
-
+	
 	@PostMapping("/auth/orderDetails")
 	public void orderDetails(@RequestParam HashMap<String, Object> orderDetailList,
 			OrderDetailDTO orderDetailDTO,
@@ -261,7 +261,7 @@ public class MemberController {
 		List<OrderDetailDTO> orderDetails = mapper.readValue(json, new TypeReference<List<OrderDetailDTO>>() {
 		});
 		String mem_id = memberService.getId(authentication);
-		//Long orderNo = memberService.getOrderNo(mem_id);
+
 		
 		for (int i = 0; i < orderDetails.size(); i++) {
 			System.out.println(orderDetails.size());
@@ -269,17 +269,21 @@ public class MemberController {
 			int product_no = memberService.getProductNo(orderDetails.get(i).getProduct_name());
 			
 			orderDetails.get(i).setProduct_no(product_no);
-			//orderDetails.get(i).setDe_order_no(orderNo);
+			
 			map.put("product_no", product_no);
 			map.put("mem_id", mem_id);
-			//System.out.println(orderNo);
-			System.out.println(orderDetails.get(i));
+			
+			
 			memberService.orderDetailInsert(orderDetails.get(i));
-			//memberService.orderCartDelete(map);
+			memberService.orderCartDelete(map);
 	
 		}
 		//return "redirect:/member/auth/cartView";
 	}
+//	@PostMapping("/auth/buyNow")
+//	public void buyNow() {
+//		
+//	}
 	
 	@GetMapping("/auth/orderList")
 	public void orderList() {

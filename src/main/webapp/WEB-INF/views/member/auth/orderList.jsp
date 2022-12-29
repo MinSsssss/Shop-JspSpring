@@ -50,40 +50,29 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="tab-content">
-									<table class="table">
-										<thead>
-											<tr>
-												<th>Order</th>
-												<th>Date</th>
-												<th>Status</th>
-												<th>Total</th>
-												<th>Action</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>1</td>
-												<td>Jun 22, 2019</td>
-												<td>Pending</td>
-												<td>$3000</td>
-												<td><a href="cart.html">View</a></td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>Nov 22, 2019</td>
-												<td>Approved</td>
-												<td>$200</td>
-												<td><a href="cart.html">View</a></td>
-											</tr>
-											<tr>
-												<td>3</td>
-												<td>Jan 12, 2020</td>
-												<td>On Hold</td>
-												<td>$990</td>
-												<td><a href="cart.html">View</a></td>
-											</tr>
-										</tbody>
-									</table>
+									<div class="orderFor">
+										<div class="orderForDisplay">
+											<h3 class="orderDate">2022.11.17</h3>
+											<div>
+												<a>주문상세보기</a>
+											</div>
+										</div>
+
+										<div class="orderProductFor">
+											<h4>배송준비중</h4>
+											<div class="orderDisplay">
+												<a> <img class="product_img"
+													src="/resources/member/img/logo.png" alt="">
+												</a>
+												<div>
+													<p>상품이름상품이름상품이름상품이름</p>
+													<span class="productPrice">19,900원 </span> <span
+														class="orderQty"> 수량</span>
+												</div>
+											</div>
+										</div>
+									</div>
+
 								</div>
 
 							</div>

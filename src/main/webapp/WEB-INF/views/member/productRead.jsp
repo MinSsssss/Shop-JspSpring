@@ -117,17 +117,12 @@
 									</ul>
 								</div>
 
-								<h3>
-									<c:out value="${product.product_name }" />
-								</h3>
+								<h3 id="product_name">${product.product_name }</h3>
 								<div class="product-price">
-									<span id="product_price"><c:out
-											value="${product.product_price }" /></span>
+									<span id="product_price">${product.product_price }</span>
 
 								</div>
-								<p>
-									<c:out value="${product.product_detail }" />
-								</p>
+								<p>${product.product_detail }</p>
 
 								<div class="ltn__product-details-menu-2">
 									<ul>
@@ -138,11 +133,17 @@
 											</div>
 										</li>
 										<li>
-											<button id="addCart" class="theme-btn-1 btn btn-effect-1"
-												title="Add to Cart" 
-												>
-												<i class="fas fa-shopping-cart"></i> <span>장바구니 담기</span>
+											<button id="addCartBtn" class="theme-btn-1 btn btn-effect-1">
+												 <span>장바구니 담기</span>
 											</button>
+											<form action="/member/auth/cartSelectOrder" id="orderForm" method="post">
+												
+												
+											</form>
+											<button id="buyNowBtn" class="theme-btn-1 btn btn-effect-1">
+												 	<span>바로구매 하기</span>
+											</button>
+											
 										</li>
 									</ul>
 								</div>
@@ -402,4 +403,5 @@
 
 
 <jsp:include page="./includes/memberFooter.jsp"></jsp:include>
-<script src="/resources/member/js/index.js"></script>
+<script src="/resources/member/js/order.js"></script>
+

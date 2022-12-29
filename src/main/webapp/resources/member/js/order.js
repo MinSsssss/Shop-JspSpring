@@ -1,6 +1,65 @@
 $(document).ready(function() {
 	$("#checkoutBtn").on("click", function() {
-		$("#checkoutForm").submit();
+		// $("#checkoutForm").submit();
+		let receiver_name = $("#receiver_name").val();
+		let receiver_tel = $("#receiver_tel").val();
+		let receiver_addr1 = $("#receiver_addr1").val();
+		let order_request_msg = $("#order_request_msg").val();
+		let param = {
+			"receiver_name" : receiver_name,
+			"receiver_tel" : receiver_tel,
+			"receiver_addr1" : receiver_addr1,
+			"order_request_msg" : order_request_msg
+		}
+		console.log(receiver_name)
+		console.log(receiver_tel)
+		console.log(receiver_addr1)
+		$.ajax({
+			url : "/member/auth/checkout",
+			async : true,
+			type : "post",
+			dataType : "json",
+			data : JSON.stringify(param),
+			contentType : "application/json; charset=UTF-8",
+			success : function(data) {
+
+			}
+		})
+
+		$("#buyNowBtn").on("click", function() {
+			let cart_qty = $("#cart_qty").val();
+			let product_no = getParameter("product_no");
+
+			let param = {
+				"cart_qty" : cart_qty,
+				"product_no" : product_no
+			};
+			console.log("카트수량" + cart_qty);
+
+			console.log("제품번호" + product_no);
+			$.ajax({
+				url : "/member/auth/addCart",
+				async : true,
+				type : "post",
+				dataType : "json",
+				data : JSON.stringify(param),
+				contentType : "application/json; charset=UTF-8",
+				success : function(data) {
+					console.log(data);
+					if (data == 1) {
+						$("#add_to_cart_modal").modal('show');
+					} else {
+						alert("장바구니에 이미 상품이 있습니다.");
+
+						$("#add_to_cart_modal").modal('hide');
+						return false;
+
+					}
+
+				}
+			})
+		})
+
 		let chkAmount = $(".sub_total_td").length
 		console.log(chkAmount);
 		let count = 0;
@@ -37,15 +96,36 @@ $(document).ready(function() {
 			type : "POST",
 			url : "/member/auth/orderDetails",
 			data : paramList,
-			success : function(data) {
-				
-			},
-			error : function(e) {
-			}
+			success : window.location.replace('/member')
+
 		})
+
 		console.log(orderArr);
 	})
-
+	
+	$("#buyNowBtn").on("click", function() {
+		let product_name= $("#product_name").text();
+		let order_qty = $("#cart_qty").val();
+		let product_price = $("#product_price").text();
+		let sub_total = parseInt(order_qty) * parseInt(product_price);
+		console.log("order_qty : " + order_qty);
+		console.log("product_name : " + product_name);
+		console.log("product_price : " + product_price);
+		console.log("sub_total : " + sub_total);
+		let form_content = '';
+		let productName_input = 
+			" <input name='orderDetailList[0].product_name' type='hidden' value='"+product_name+"'> ";
+			form_content+= productName_input;
+			let productQty_input = 
+			" <input name='orderDetailList[0].order_qty' type='hidden' value='"+order_qty+"'> ";
+			form_content+= productQty_input;
+			let subTotal_input = 
+			" <input name='orderDetailList[0].sub_total' type='hidden' value='"+sub_total+"'> ";
+			form_content+= subTotal_input;
+		$("#orderForm").html(form_content);
+		$("#orderForm").submit();
+			
+	});
 });
 
 function setTotalInfo() {
