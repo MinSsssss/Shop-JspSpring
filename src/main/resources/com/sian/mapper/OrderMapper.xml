@@ -1,35 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sian.mapper.OrderMapper">
- 	<insert id="orderInsert">
- 		<!-- <selectKey keyProperty="order_no" resultType="Long" order="BEFORE">
-			SELECT seq_order_no.nextval FROM DUAL
-		</selectKey> -->
- 		INSERT INTO tbl_order(order_no,mem_id,receiver_name,
- 		receiver_tel,receiver_addr1,order_request_msg)
- 		VALUES (seq_order_no.nextval,#{mem_id},
- 		#{receiver_name},#{receiver_tel},#{receiver_addr1},
- 		#{order_request_msg}
- 		)
- 	</insert>
- 	<insert id="orderDetailInsert">
- 		<selectKey keyProperty="de_order_no" resultType="Long" order="BEFORE">
+<!-- 	<resultMap type="com.sian.domain.OrderDTO" id="orderMap">
+		<id property="order_no" column="order_no" />
+		<result property="mem_id" column="mem_id" />
+		<result property="receiver_name" column="receiver_name" />
+		<result property="receiver_tel" column="receiver_tel" />
+		<result property="receiver_addr1" column="receiver_addr1" />
+		<result property="receiver_addr2" column="receiver_addr2" />
+		<result property="order_date" column="order_date" />
+		<result property="order_request_msg" column="order_request_msg" />
+		<result property="order_status" column="order_status" />
+		<collection property="authList" resultMap="authMap"></collection>
+	</resultMap>
+	<resultMap type="com.sian.domain.OrderDetailDTO" id="orederDetailMap">
+		<id property="order_detail_no" column="order_detail_no" />
+		<result property="de_order_no" column="de_order_no" />
+		<result property="product_no" column="product_no" />
+		<result property="product_name" column="product_name" />
+		<result property="order_qty" column="order_qty" />
+	</resultMap> -->
+
+	<insert id="orderInsert">
+		<!-- <selectKey keyProperty="order_no" resultType="Long" order="BEFORE"> 
+			SELECT seq_order_no.nextval FROM DUAL </selectKey> -->
+		INSERT INTO tbl_order(order_no,mem_id,receiver_name,
+		receiver_tel,receiver_addr1,order_request_msg)
+		VALUES (seq_order_no.nextval,#{mem_id},
+		#{receiver_name},#{receiver_tel},#{receiver_addr1},
+		#{order_request_msg}
+		)
+	</insert>
+	<insert id="orderDetailInsert">
+		<selectKey keyProperty="de_order_no" resultType="Long"
+			order="BEFORE">
 			select NVL(MAX(order_no),1) from tbl_order
 		</selectKey>
- 		INSERT INTO tbl_order_detail(order_detail_no,de_order_no,
- 		product_no,order_qty,sub_total)
- 		VALUES (seq_order_detail_no.nextval,#{de_order_no},
- 		#{product_no},#{order_qty},#{sub_total}
- 		)
- 	</insert>
- 	
- 	<delete id="orderCartDelete" parameterType="Map">
+		INSERT INTO tbl_order_detail(order_detail_no,de_order_no,
+		product_no,order_qty,sub_total)
+		VALUES (seq_order_detail_no.nextval,#{de_order_no},
+		#{product_no},#{order_qty},#{sub_total}
+		)
+	</insert>
+	
+	<delete id="orderCartDelete" parameterType="Map">
 		DELETE FROM tbl_cart
 		WHERE product_no=#{product_no} AND mem_id=#{mem_id}
 	</delete>
+	
 	<select id="getOrderNo" resultType="Long">
- 		SELECT MAX(order_no)
- 		FROM tbl_order
- 		WHERE mem_id = #{mem_id}
- 	</select>
+		SELECT MAX(order_no)
+		FROM tbl_order
+		WHERE mem_id = #{mem_id}
+	</select>
+	
+	<select id="getOrder" resultType="com.sian.domain.OrderDTO">
+		SELECT *
+		FROM tbl_order
+		WHERE order_no=#{order_no}
+	</select>
+	
+	<select id="getOrderList" resultType="com.sian.domain.OrderDTO">
+		SELECT *
+		FROM tbl_order
+		WHERE mem_id=#{mem_id}
+	</select>
+	
+	<select id="getOrderDetailList" resultType="com.sian.domain.OrderDetailDTO">
+		SELECT od.order_detail_no,od.de_order_no,
+		od.order_qty,od.sub_total,
+		pro.product_no,pro.product_name,
+		pro.product_price,pro.product_image1
+		FROM tbl_order_detail od,tbl_product pro
+		WHERE od.product_no=pro.product_no AND 
+		de_order_no=#{de_order_no}
+	</select>
+	
 </mapper>

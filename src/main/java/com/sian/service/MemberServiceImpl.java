@@ -191,6 +191,23 @@ public class MemberServiceImpl implements MemberService {
 
 		return orderMapper.getOrderNo(mem_id);
 	}
+	@Override
+	public OrderDTO getOrder(Long order_no) {
+		
+		return orderMapper.getOrder(order_no);
+	}
+	
+	@Override
+	public List<OrderDTO> getOrderList(String mem_id) {
+		
+		return orderMapper.getOrderList(mem_id);
+	}
+	@Override
+	public List<OrderDetailDTO> getOrderDetailList(Long order_no) {
+		
+		return orderMapper.getOrderDetailList(order_no);
+	}
+	
 	
 
 	

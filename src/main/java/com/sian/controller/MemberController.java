@@ -132,11 +132,11 @@ public class MemberController {
 	}
 
 	@PostMapping("/auth/memberModifyNextProc")
-	public String memberModifyNextProc(MemberDTO memberDTO, RedirectAttributes rttr) throws Exception {
+	public String memberModifyNextProc(MemberDTO memberDTO) throws Exception {
 
 		if (memberService.memberModify(memberDTO)) {
 
-			return "redirect:/member/auth/orderList";
+			return "redirect:/member";
 		}
 
 		return "redirect:/member/auth/memberModifyNext";
@@ -280,13 +280,37 @@ public class MemberController {
 		}
 		//return "redirect:/member/auth/cartView";
 	}
-//	@PostMapping("/auth/buyNow")
-//	public void buyNow() {
-//		
-//	}
+
 	
 	@GetMapping("/auth/orderList")
-	public void orderList() {
+	public String orderList(Authentication authentication,Model model) {
+		String mem_id = memberService.getId(authentication);
+		List<OrderDTO> orderList = memberService.getOrderList(mem_id);
 		
+		Long order_no=0L;
+		List<OrderDetailDTO> orderDetailList = null;
+		for(int i=0; i<orderList.size(); i++) {
+			order_no = orderList.get(i).getOrder_no();
+			orderDetailList = memberService.getOrderDetailList(order_no);
+			orderList.get(i).setOrderDetailList(orderDetailList);
+			System.out.println(orderDetailList);
+			
+		}
+		model.addAttribute("orderList", orderList);
+		return "/member/auth/orderList";
+		
+		
+	}
+	@GetMapping("/auth/orderDetailView")
+	public String orderDetailView(@RequestParam("order_no")Long order_no,Model model,
+			Authentication authentication) {
+		
+		OrderDTO orderDTO = memberService.getOrder(order_no);
+		List<OrderDetailDTO> orderDetailList = memberService.getOrderDetailList(order_no);
+		orderDTO.setOrderDetailList(orderDetailList);
+		
+		model.addAttribute("orderList", orderDTO);
+		System.out.println(orderDTO);
+		return "/member/auth/orderDetailView";
 	}
 }

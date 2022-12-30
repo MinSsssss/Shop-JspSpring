@@ -22,7 +22,7 @@ select * from tbl_product;
 select * from tbl_cart;
 select * from tbl_order;
 select * from tbl_order_detail;
-
+commit;
 
 CREATE TABLE tbl_member (
 	--mem_no	varchar2(13) primary key,
@@ -67,7 +67,7 @@ CREATE TABLE tbl_order (
 	receicer_addr2	varchar2(100)		NULL,
     order_date	date	DEFAULT sysdate	 NOT NULL,
     order_request_msg varchar2(1000),
-    order_status varchar2(20) default '결제 대기' NOT NULL,
+    order_status varchar2(20) default '결제 완료' NOT NULL,
     constraint fk_order_mem_id foreign key(mem_id) references tbl_member(mem_id)
 );
 

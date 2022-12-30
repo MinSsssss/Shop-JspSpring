@@ -18,4 +18,12 @@ public interface OrderMapper {
 	public void orderCartDelete(Map<String,Object>map);
 	
 	public Long getOrderNo(String mem_id);
+	
+	public OrderDTO getOrder(Long order_no);
+	
+	public List<OrderDTO> getOrderList(String mem_id);
+	
+	public List<OrderDetailDTO> getOrderDetailList(Long order_no);
+	
+	
 }

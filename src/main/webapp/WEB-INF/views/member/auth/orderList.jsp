@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="../includes/memberHeader.jsp"></jsp:include>
 
 
@@ -50,34 +52,55 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="tab-content">
-									<div class="orderFor">
-										<div class="orderForDisplay">
-											<h3 class="orderDate">2022.11.17</h3>
-											<button class="btn btn-link">주문상세보기</button>
-										</div>
+									<c:forEach items="${orderList}" var="orderList">
+										<div class="orderFor">
+											<div class="orderForDisplay">
+												<div>
+													<h3 class="orderDate">
+														<fmt:formatDate pattern="yyyy. MM. dd 주문"
+															value="${orderList.order_date}" />
+													</h3>
+													<h5>${orderList.order_status }</h5>
+												</div>
+												<div>
+													<p>
+														<a class="btn btn-link"
+															href="/member/auth/orderDetailView?order_no=${orderList.order_no }">주문상세보기</a>
+													</p>
+													<a class="btn btn-link">주문내역삭제</a>
+												</div>
 
-										<div class="orderProductFor">
-											<div class="orderInfo">
-												<h5>배송준비중</h5>
 
-												<div class="orderDisplay">
-													<a> <img class="product_img"
-														src="/resources/member/img/logo.png" alt="">
-													</a>
-													<div class="productInfo">
-														<p>상품이름상품이름상품이름상품이름</p>
-														<span class="productPrice">19,900원 </span> <span
-															class="orderQty"> 수량</span>
+											</div>
+											<c:forEach items="${orderList.orderDetailList}" var="orderDetailList" varStatus="status">
+												<div class="orderProductFor">
+													<div class="orderInfo">
+														<div class="orderDisplay">
+															<a href='/member/productRead?product_no=${orderDetailList.product_no}'> <img class="product_img"
+																src="/resources/member/img/${orderDetailList.product_image1 }" alt="">
+															</a>
+															<div class="productInfo">
+																
+																<p>
+																	<a href='/member/productRead?product_no=${orderDetailList.product_no}'>
+																		${orderDetailList.product_name }
+																	</a>
+																</p>
+																
+																<span class="productPrice">${orderDetailList.product_price }원 x</span> 
+																<span class="orderQty">${orderDetailList.order_qty } = </span>
+																<span>${orderDetailList.sub_total }</span>
+															</div>
+														</div>
+													</div>
+													<div class="orderBtns">
+														<button class="btn btn-outline-warning">교환,반품</button>
+														<button class="btn btn-outline-info">리뷰작성</button>
 													</div>
 												</div>
-											</div>
-											<div class="orderBtns">
-												<button class="btn btn-outline-warning">교환,반품</button>
-												<button class="btn btn-outline-info">리뷰작성</button>
-												<button class="btn btn-outline-info">주문내역삭제</button>
-											</div>
+											</c:forEach>
 										</div>
-									</div>
+									</c:forEach>
 
 								</div>
 

@@ -79,7 +79,7 @@
 
 										<td class="cart-product-image"><a
 											href="product-details.html"><img
-												src="/resources/member/img/product/1.png" alt="#"></a></td>
+												src="/resources/member/img/${cart.product_image1 }" alt="#"></a></td>
 										<td class="cart-product-info"><a
 											href="product-details.html">${cart.product_name }</a></td>
 										<td class="cart-product-price">${cart.product_price }</td>
