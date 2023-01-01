@@ -44,7 +44,7 @@ public interface MemberService {
 	
 	public void cartModify(CartProductDTO cartProductDTO);
 	
-	public void cartDelete(CartProductDTO cartProductDTO) throws Exception;
+	public int cartDelete(CartProductDTO cartProductDTO) throws Exception;
 	
 	public void orderInsert(OrderDTO orderDTO);
 	
@@ -60,4 +60,5 @@ public interface MemberService {
 	
 	public List<OrderDetailDTO> getOrderDetailList(Long order_no);
 	
+	public int orderDelete(Long order_no);
 }

@@ -207,5 +207,5 @@
 
 
 <jsp:include page="../includes/memberFooter.jsp"></jsp:include>
-<script src="/resources/member/js/myPage.js"></script>
 <script src="/resources/member/js/order.js"></script>
+

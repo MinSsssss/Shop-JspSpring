@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
 	$("#checkoutBtn").on("click", function() {
 		// $("#checkoutForm").submit();
 		let receiver_name = $("#receiver_name").val();
@@ -6,105 +7,75 @@ $(document).ready(function() {
 		let receiver_addr1 = $("#receiver_addr1").val();
 		let order_request_msg = $("#order_request_msg").val();
 		let param = {
-			"receiver_name" : receiver_name,
-			"receiver_tel" : receiver_tel,
-			"receiver_addr1" : receiver_addr1,
-			"order_request_msg" : order_request_msg
+			"receiver_name": receiver_name,
+			"receiver_tel": receiver_tel,
+			"receiver_addr1": receiver_addr1,
+			"order_request_msg": order_request_msg
 		}
-		console.log(receiver_name)
-		console.log(receiver_tel)
-		console.log(receiver_addr1)
 		$.ajax({
-			url : "/member/auth/checkout",
-			async : true,
-			type : "post",
-			dataType : "json",
-			data : JSON.stringify(param),
-			contentType : "application/json; charset=UTF-8",
-			success : function(data) {
+			url: "/member/auth/checkout",
+			async: true,
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(param),
+			contentType: "application/json; charset=UTF-8",
+			success: function(data) {
+				alert(data);
+				let chkAmount = $(".sub_total_td").length
+				console.log(chkAmount);
 
-			}
-		})
 
-		$("#buyNowBtn").on("click", function() {
-			let cart_qty = $("#cart_qty").val();
-			let product_no = getParameter("product_no");
+				let count = 0;
+				let orderDetailArr = [];
 
-			let param = {
-				"cart_qty" : cart_qty,
-				"product_no" : product_no
-			};
-			console.log("카트수량" + cart_qty);
+				let chkNameArr = new Array(chkAmount);
+				let chkQtyArr = new Array(chkAmount);
+				let chkTotalArr = new Array(chkAmount);
+				let form_content = ''
+				$(".productDetail").each(function(index, element) {
 
-			console.log("제품번호" + product_no);
-			$.ajax({
-				url : "/member/auth/addCart",
-				async : true,
-				type : "post",
-				dataType : "json",
-				data : JSON.stringify(param),
-				contentType : "application/json; charset=UTF-8",
-				success : function(data) {
-					console.log(data);
-					if (data == 1) {
-						$("#add_to_cart_modal").modal('show');
-					} else {
-						alert("장바구니에 이미 상품이 있습니다.");
+					let chkProductName = $(element).find("#product_name").val();
+					let chkProductQty = $(element).find("#order_qty").val();
+					let chkSubTotal = $(element).find("#sub_total").val();
 
-						$("#add_to_cart_modal").modal('hide');
-						return false;
-
+					chkNameArr[count] = chkProductName;
+					chkQtyArr[count] = chkProductQty;
+					chkTotalArr[count] = chkSubTotal;
+					let params = {
+						"de_order_no": data,
+						"product_name": chkProductName,
+						"order_qty": chkProductQty,
+						"sub_total": chkSubTotal
 					}
 
+					orderDetailArr.push(params);
+					count++;
+
+				})
+				let paramList = {
+					"paramList": JSON.stringify(orderDetailArr)
 				}
-			})
-		})
+				$.ajax({
 
-		let chkAmount = $(".sub_total_td").length
-		console.log(chkAmount);
-		let count = 0;
-		let orderDetailArr = [];
+					type: "POST",
+					url: "/member/auth/orderDetails",
+					data: paramList,
+					success: window.location.replace('/member')
 
-		let chkNameArr = new Array(chkAmount);
-		let chkQtyArr = new Array(chkAmount);
-		let chkTotalArr = new Array(chkAmount);
-		let form_content = ''
-		$(".productDetail").each(function(index, element) {
-
-			let chkProductName = $(element).find("#product_name").val();
-			let chkProductQty = $(element).find("#order_qty").val();
-			let chkSubTotal = $(element).find("#sub_total").val();
-
-			chkNameArr[count] = chkProductName;
-			chkQtyArr[count] = chkProductQty;
-			chkTotalArr[count] = chkSubTotal;
-			let data = {
-				"product_name" : chkProductName,
-				"order_qty" : chkProductQty,
-				"sub_total" : chkSubTotal
+				})
 			}
-
-			orderDetailArr.push(data);
-			count++;
-
-		})
-		let paramList = {
-			"paramList" : JSON.stringify(orderDetailArr)
-		}
-		$.ajax({
-
-			type : "POST",
-			url : "/member/auth/orderDetails",
-			data : paramList,
-			success : window.location.replace('/member')
-
 		})
 
-		console.log(orderArr);
+
+
+
 	})
-	
+
+
+
+
 	$("#buyNowBtn").on("click", function() {
-		let product_name= $("#product_name").text();
+		let product_name = $("#product_name").text();
 		let order_qty = $("#cart_qty").val();
 		let product_price = $("#product_price").text();
 		let sub_total = parseInt(order_qty) * parseInt(product_price);
@@ -113,20 +84,23 @@ $(document).ready(function() {
 		console.log("product_price : " + product_price);
 		console.log("sub_total : " + sub_total);
 		let form_content = '';
-		let productName_input = 
-			" <input name='orderDetailList[0].product_name' type='hidden' value='"+product_name+"'> ";
-			form_content+= productName_input;
-			let productQty_input = 
-			" <input name='orderDetailList[0].order_qty' type='hidden' value='"+order_qty+"'> ";
-			form_content+= productQty_input;
-			let subTotal_input = 
-			" <input name='orderDetailList[0].sub_total' type='hidden' value='"+sub_total+"'> ";
-			form_content+= subTotal_input;
+		let productName_input =
+			"<input name='orderDetailList[0].product_name' type='hidden' value='" + product_name + "'> ";
+		form_content += productName_input;
+		let productQty_input =
+			"<input name='orderDetailList[0].order_qty' type='hidden' value='" + order_qty + "'> ";
+		form_content += productQty_input;
+		let subTotal_input =
+			" <input name='orderDetailList[0].sub_total' type='hidden' value='" + sub_total + "'> ";
+		form_content += subTotal_input;
 		$("#orderForm").html(form_content);
 		$("#orderForm").submit();
-			
+
 	});
+
+
 });
+
 
 function setTotalInfo() {
 
@@ -157,4 +131,28 @@ function setTotalInfo() {
 	$(".deliveryPrice").text(deliveryPrice);
 	// 최종 가격(총 가격 + 배송비)
 	$(".finalTotalPrice").text(finalTotalPrice.toLocaleString());
+}
+function orderDeleteFun(order_status, order_no) {
+
+	let answer = confirm("선택하신 주문내역을 삭제하시겠습니까?");
+	if (answer) {
+		if (order_status.value == "배송 완료") {
+			let param = { "order_no": order_no.value }
+			$.ajax({
+				url: "/member/auth/orderDelete",
+				type: "post",
+				data: param,
+				success: function(data) {
+					alert("주문내역이 삭제되었습니다.");
+					location.reload();
+				}
+			})
+		}
+		else {
+			alert("배송이 완료되지 않은 주문내역은 삭제하실수 없습니다.");
+			return false;
+		}
+
+
+	}
 }

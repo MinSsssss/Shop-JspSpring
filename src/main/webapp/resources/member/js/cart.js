@@ -1,4 +1,3 @@
-//$("#subTotal").text()=$("#cart_qty").val()*$("#product_price").val();
 
 $(document).ready(function() {
 
@@ -38,43 +37,44 @@ $(document).ready(function() {
 			}
 		})
 	})
-	
-	
-	
-	
-	
-	
 
-	$("#cartDeleteBtn").on("click", function() {
-		$("#cartDeleteForm").submit();
-	})
+
+
+
+
+
+
+	/*	$("#cartDeleteBtn").on("click", function() {
+	
+			$("#cartDeleteForm").submit();
+		})*/
 
 	$("#seleteDeleteBtn").on("click", function() {
 		let eachLength = $(".cart_info_td").length;
 		let chkAmount = $("input:checkbox[name=checkedCount]:checked").length;
 		console.log(chkAmount);
-		if(chkAmount==0){
+		if (chkAmount == 0) {
 			alert("삭제할 항목을 선택해주세요.");
 			return false;
 		}
-		let count=0;
+		let count = 0;
 		let selectArr = new Array(chkAmount);
 		$(".cart_info_td").each(function(index, element) {
 
 			if ($(element).find(".individual_cart_checkbox").is(":checked") == true) {	//체크여부
-				
-				
+
+
 				let chkProductName = $(element).find("#chkProductName").val();
-				
+
 				selectArr[count] = chkProductName;
 				count++;
-				
+
 				console.log(selectArr);
-				
+
 				const form = document.createElement('form');
 				form.setAttribute('method', 'post');        //Post 메소드 적용
 				form.setAttribute('action', '/member/auth/cartSelectDelete');
-				
+
 				var input1 = document.createElement('input');
 				input1.setAttribute("type", "hidden");
 				input1.setAttribute("name", "cartIds");
@@ -84,7 +84,7 @@ $(document).ready(function() {
 				document.body.appendChild(form);
 				form.submit();
 
-			} 
+			}
 
 
 
@@ -95,40 +95,40 @@ $(document).ready(function() {
 		let eachLength = $(".cart_info_td").length;
 		let chkAmount = $("input:checkbox[name=checkedCount]:checked").length;
 		console.log(chkAmount);
-		if(chkAmount==0){
+		if (chkAmount == 0) {
 			alert("구매할 항목을 선택해주세요.");
 			return false;
 		}
-		let count=0;
+		let count = 0;
 		let chkNameArr = new Array(chkAmount);
 		let chkQtyArr = new Array(chkAmount);
 		let chkTotalArr = new Array(chkAmount);
-		let form_content =''
+		let form_content = ''
 		$(".cart_info_td").each(function(index, element) {
 
 			if ($(element).find(".individual_cart_checkbox").is(":checked") == true) {	//체크여부
-				
-				
+
+
 				let chkProductName = $(element).find("#chkProductName").val();
 				let chkProductQty = $(element).find("#chkProductQty").val();
 				let chkSubTotal = $(element).find("#chkSubTotal").val();
-				
+
 				chkNameArr[count] = chkProductName;
 				chkQtyArr[count] = chkProductQty;
 				chkTotalArr[count] = chkSubTotal;
-				
-				let productName_input = 
-				" <input name='orderDetailList["+ count + "].product_name' type='hidden' value='"+chkProductName+"'> ";
-				form_content+= productName_input;
-				let productQty_input = 
-				" <input name='orderDetailList["+ count + "].order_qty' type='hidden' value='"+chkProductQty+"'> ";
-				form_content+= productQty_input;
-				let subTotal_input = 
-				" <input name='orderDetailList["+ count + "].sub_total' type='hidden' value='"+chkSubTotal+"'> ";
-				form_content+= subTotal_input;
-				count++;		
 
-			} 
+				let productName_input =
+					" <input name='orderDetailList[" + count + "].product_name' type='hidden' value='" + chkProductName + "'> ";
+				form_content += productName_input;
+				let productQty_input =
+					" <input name='orderDetailList[" + count + "].order_qty' type='hidden' value='" + chkProductQty + "'> ";
+				form_content += productQty_input;
+				let subTotal_input =
+					" <input name='orderDetailList[" + count + "].sub_total' type='hidden' value='" + chkSubTotal + "'> ";
+				form_content += subTotal_input;
+				count++;
+
+			}
 
 		});
 		$("#orderForm").html(form_content);
@@ -203,13 +203,28 @@ function setTotalInfo() {
 	$(".finalTotalPrice").text(finalTotalPrice.toLocaleString());
 }
 
+function cartDelete(product_no) {
+	let answer = confirm("선택하신 상품을 장바구니에서 삭제하시겠습니까?");
+	if (answer) {
+		console.log(product_no);
+		let param = { "product_no": product_no.value };
+		$.ajax({
+			url: "/member/auth/cartDelete",
+			type: "post",
+			dataType : "json",
+			data: JSON.stringify(param),
+			contentType :"application/json; charset=UTF-8",
+			success: function(data) {
+				alert("삭제되었습니다.");
+				location.reload();
+			}
+		})
 
 
 
-/* ※ 세자리 컴마 Javscript Number 객체의 toLocaleString() */
 
-	// 총 가격
+	}
+}
 
-// 총 마일리지
 
 

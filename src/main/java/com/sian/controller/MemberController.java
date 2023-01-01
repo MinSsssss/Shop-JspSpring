@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.defaults.DefaultSqlSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -161,8 +162,8 @@ public class MemberController {
 
 	@ResponseBody
 	@PostMapping("/auth/addCart")
-	public int addCart(@RequestBody CartProductDTO cartProductDTO, Authentication authentication,
-			RedirectAttributes rttr) throws Exception {
+	public int addCart(@RequestBody CartProductDTO cartProductDTO, Authentication authentication
+			) throws Exception {
 
 		cartProductDTO.setMem_id(memberService.getId(authentication));
 		if (memberService.addCart(cartProductDTO) == 1) {
@@ -170,7 +171,7 @@ public class MemberController {
 		} else {
 			return 0;
 		}
-//	return "redirect:/member/auth/cartView";
+
 
 	}
 
@@ -195,16 +196,20 @@ public class MemberController {
 
 		return "redirect:/member/auth/cartView";
 	}
-
+	@ResponseBody
 	@PostMapping("/auth/cartDelete")
-	public String cartDelete(@RequestParam("product_name") String product_name, CartProductDTO cartProductDTO,
+	public int cartDelete(@RequestBody CartProductDTO cartProductDTO,
 			Authentication authentication) throws Exception {
 
-		cartProductDTO.setProduct_no(memberService.getProductNo(product_name));
 		cartProductDTO.setMem_id(memberService.getId(authentication));
-		memberService.cartDelete(cartProductDTO);
+		if(memberService.cartDelete(cartProductDTO)==1) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 
-		return "redirect:/member/auth/cartView";
+		
 	}
 
 	@PostMapping("/auth/cartSelectDelete")
@@ -242,13 +247,14 @@ public class MemberController {
 
 	@ResponseBody
 	@PostMapping("/auth/checkout")
-	public void checkout(@RequestBody OrderDTO orderDTO,
+	public Long checkout(@RequestBody OrderDTO orderDTO,
 			Authentication authentication) throws Exception {
 		String mem_id = memberService.getId(authentication);
 		orderDTO.setMem_id(mem_id);
 		memberService.orderInsert(orderDTO);
-		
-		
+		Long order_no = memberService.getOrderNo(mem_id);
+		System.out.println(order_no);
+		return order_no;
 	}
 	
 	@PostMapping("/auth/orderDetails")
@@ -312,5 +318,13 @@ public class MemberController {
 		model.addAttribute("orderList", orderDTO);
 		System.out.println(orderDTO);
 		return "/member/auth/orderDetailView";
+	}
+	@ResponseBody
+	@PostMapping("/auth/orderDelete")
+	public void orderDelete(@RequestParam("order_no") Long order_no) {
+		System.out.println(order_no);
+		//System.out.println(memberService.orderDelete(order_no));
+		memberService.orderDelete(order_no);
+		
 	}
 }

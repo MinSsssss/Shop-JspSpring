@@ -25,5 +25,5 @@ public interface OrderMapper {
 	
 	public List<OrderDetailDTO> getOrderDetailList(Long order_no);
 	
-	
+	public int orderDelete(Long order_id);
 }

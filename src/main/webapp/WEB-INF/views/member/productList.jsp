@@ -68,10 +68,10 @@
 						<div class="product-info">
 							<h2 class="product-title">
 								<a href='/member/productRead?product_no=${product.product_no}'>
-								<c:out value="${product.product_name}"/></a>
+								${product.product_name}</a>
 							</h2>
 							<div class="product-price">
-								<span><c:out value="${product.product_price}"/></span>
+								<span>${product.product_price}</span>
 								
 							</div>
 						</div>

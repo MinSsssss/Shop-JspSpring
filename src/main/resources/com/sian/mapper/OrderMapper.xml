@@ -32,10 +32,10 @@
 		)
 	</insert>
 	<insert id="orderDetailInsert">
-		<selectKey keyProperty="de_order_no" resultType="Long"
+		<!-- <selectKey keyProperty="de_order_no" resultType="Long"
 			order="BEFORE">
 			select NVL(MAX(order_no),1) from tbl_order
-		</selectKey>
+		</selectKey> -->
 		INSERT INTO tbl_order_detail(order_detail_no,de_order_no,
 		product_no,order_qty,sub_total)
 		VALUES (seq_order_detail_no.nextval,#{de_order_no},
@@ -49,9 +49,9 @@
 	</delete>
 	
 	<select id="getOrderNo" resultType="Long">
-		SELECT MAX(order_no)
-		FROM tbl_order
-		WHERE mem_id = #{mem_id}
+		SELECT order_no
+		FROM (SELECT * FROM tbl_order ORDER BY order_date DESC)
+		WHERE ROWNUM=1 AND mem_id=#{mem_id}
 	</select>
 	
 	<select id="getOrder" resultType="com.sian.domain.OrderDTO">
@@ -75,5 +75,9 @@
 		WHERE od.product_no=pro.product_no AND 
 		de_order_no=#{de_order_no}
 	</select>
+	<delete id="orderDelete">
+		DELETE FROM tbl_order
+		WHERE order_no = #{order_no}
+	</delete>
 	
 </mapper>

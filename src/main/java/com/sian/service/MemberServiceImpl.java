@@ -163,10 +163,10 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 	@Override
-	public void cartDelete(CartProductDTO cartProductDTO) throws Exception {
+	public int cartDelete(CartProductDTO cartProductDTO) throws Exception {
 		
 		
-		cartMapper.cartDelete(cartProductDTO);
+		return cartMapper.cartDelete(cartProductDTO);
 		
 	}
 	
@@ -207,8 +207,10 @@ public class MemberServiceImpl implements MemberService {
 		
 		return orderMapper.getOrderDetailList(order_no);
 	}
-	
-	
+	@Override
+	public int orderDelete(Long order_no) {
+		
+		return orderMapper.orderDelete(order_no);
+	}
 
-	
 }

@@ -45,4 +45,4 @@
                                     </div>
                                     
 	
-	<script src="/resources/member/js/myPage.js"></script>
+	

@@ -68,9 +68,7 @@
 									<tr>
 
 										<td class="cart_info_td">
-										
 											<input type="checkbox" name="checkedCount" class="individual_cart_checkbox" checked="checked"  >
-											
 											<input type="hidden" id="chkProductName" value="${cart.product_name }">
 											<input type="hidden" id="chkProductQty" value="${cart.cart_qty }">
 											<input type="hidden" id="chkSubTotal" value="${cart.sub_total }">
@@ -96,7 +94,6 @@
 													value="${cart.product_name }"> <input type="hidden"
 													name="product_price" value="${cart.product_price }">
 
-												<%-- <input type="hidden" name="sub_total" id="sub_total" value="${cart.sub_total }"> --%>
 												<button id="cartModifyBtn" class="cartModifyBtn">수정</button>
 											</form>
 
@@ -116,30 +113,7 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="shoping-cart-total mt-50">
-						<h4>Cart Totals</h4>
-						<table class="table">
-							<tbody>
-								<tr>
-									<td>상품가격</td>
-									<td class="totalPrice"></td>
-								</tr>
-								<tr>
-									<td>배송비</td>
-									<td class="deliveryPrice"></td>
-								</tr>
-
-								<tr>
-									<td><strong>주문 총 금액</strong></td>
-									<td class="finalTotalPrice"></td>
-								</tr>
-							</tbody>
-						</table>
-						<div class="btn-wrapper text-right">
-							<button class="theme-btn-1 btn btn-effect-1"
-							id="selectOrderBtn">구매하기</button>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 		</div>

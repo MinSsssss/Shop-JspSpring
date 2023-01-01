@@ -1,5 +1,45 @@
 @charset "utf-8";
+/* 회원가입페이지 */
+.registerTable input{
+	height:4.5rem;
+	margin : 0;
+}
 
+.registerTable tr{
+	
+	border-bottom: 1px solid #ddd;
+}
+
+.registerTable th{
+	height:65px;
+	width:25%;
+	
+}
+.registerTable td{
+	
+	padding: 5px;
+	
+}
+#address_tr input{
+	margin: 5px 0;
+}
+
+#mem_id{
+	width:60%;
+}
+.btnCheck{
+	color:white;
+	padding :8px; 
+	margin-bottom: 5px;
+}
+#postcode{
+	width:40%;
+	padding-right: 2rem;
+}
+
+	
+	
+/*  */
 .cartModifyBtn {
 	margin: 0 50px;
 }

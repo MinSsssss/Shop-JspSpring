@@ -52,8 +52,9 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="tab-content">
-									<c:forEach items="${orderList}" var="orderList">
+									<c:forEach items="${orderList}" var="orderList" varStatus="status">
 										<div class="orderFor">
+											
 											<div class="orderForDisplay">
 												<div>
 													<h3 class="orderDate">
@@ -67,29 +68,39 @@
 														<a class="btn btn-link"
 															href="/member/auth/orderDetailView?order_no=${orderList.order_no }">주문상세보기</a>
 													</p>
-													<a class="btn btn-link">주문내역삭제</a>
+													
+														
+
+													<form>
+														<input type="hidden" name ="thisOrder_no${status.index}" id="order_no" value="${orderList.order_no}">
+														<input type="hidden" name="thisStatus${status.index}" id="order_status" value="${orderList.order_status }">
+														<button type="button" id="orderDeleteBtns" onclick="orderDeleteFun(thisStatus${status.index},thisOrder_no${status.index})">주문내역삭제</button>
+													</form>
 												</div>
 
 
 											</div>
-											<c:forEach items="${orderList.orderDetailList}" var="orderDetailList" varStatus="status">
+											<c:forEach items="${orderList.orderDetailList}"
+												var="orderDetailList" varStatus="status">
 												<div class="orderProductFor">
 													<div class="orderInfo">
 														<div class="orderDisplay">
-															<a href='/member/productRead?product_no=${orderDetailList.product_no}'> <img class="product_img"
-																src="/resources/member/img/${orderDetailList.product_image1 }" alt="">
+															<a
+																href='/member/productRead?product_no=${orderDetailList.product_no}'>
+																<img class="product_img"
+																src="/resources/member/img/${orderDetailList.product_image1 }"
+																alt="">
 															</a>
 															<div class="productInfo">
-																
-																<p>
-																	<a href='/member/productRead?product_no=${orderDetailList.product_no}'>
-																		${orderDetailList.product_name }
-																	</a>
-																</p>
-																
-																<span class="productPrice">${orderDetailList.product_price }원 x</span> 
-																<span class="orderQty">${orderDetailList.order_qty } = </span>
-																<span>${orderDetailList.sub_total }</span>
+
+																 <p>
+																	<a href='/member/productRead?product_no=${orderDetailList.product_no}'> 
+																	${orderDetailList.product_name } </a>
+																</p> 
+
+																<span class="productPrice">${orderDetailList.product_price }원
+																	x</span> <span class="orderQty">${orderDetailList.order_qty }
+																	= </span> <span>${orderDetailList.sub_total }</span>
 															</div>
 														</div>
 													</div>
@@ -120,4 +131,6 @@
 
 
 <jsp:include page="../includes/memberFooter.jsp"></jsp:include>
-<script src="/resources/member/js/myPage.js"></script>
+<script src="/resources/member/js/order.js"></script>
+
+

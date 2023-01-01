@@ -3,7 +3,8 @@ commit;
 UPDATE tbl_member_auth
 SET auth = 'ROLE_ADMIN'
 WHERE mem_id = 'cda01';
-
+insert into tbl_member_auth(mem_id,auth)
+values('cda01','ROLE_ADMIN');
 SELECT mem.mem_id,mem_pwd,mem_name,mem_email,mem_tel,mem_joindate,enabled, auth
 			FROM tbl_member mem LEFT OUTER JOIN tbl_member_auth auth on mem.mem_id = auth.mem_id
 			WHERE mem.mem_id = 'admin1';
@@ -15,6 +16,7 @@ commit;
 DELETE FROM tbl_cart   
 WHERE product_no=(SELECT product_no FROM tbl_product WHERE product_name='고고고고');
 --create SEQUENCE seq_tbl_member;
+
 select * from tbl_member;
 select * from tbl_member_auth;
 select * from tbl_category;
@@ -22,8 +24,17 @@ select * from tbl_product;
 select * from tbl_cart;
 select * from tbl_order;
 select * from tbl_order_detail;
+
+select order_no
+FROM (SELECT * FROM tbl_order ORDER BY order_date DESC)
+WHERE ROWNUM=1 AND mem_id='cda02';
+
+
 commit;
 
+update tbl_order
+set order_status = '배송 완료';
+commit;
 CREATE TABLE tbl_member (
 	--mem_no	varchar2(13) primary key,
 	mem_id	varchar2(50) primary key	 NOT NULL,
@@ -77,8 +88,10 @@ CREATE TABLE tbl_order_detail (
 	product_no	number(3)		NOT NULL,
 	order_qty	number(3) default 0 not null ,
     sub_total number default 0 not null, 
-    constraint fk_order_no foreign key(de_order_no) references tbl_order(order_no),
+    constraint fk_order_no foreign key(de_order_no) references tbl_order(order_no)
+    ON DELETE CASCADE,
     constraint fk_order_product_no foreign key(product_no) references tbl_product(product_no)
+    
 );
 
 CREATE SEQUENCE seq_order_no;

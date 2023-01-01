@@ -136,13 +136,14 @@
 											<button id="addCartBtn" class="theme-btn-1 btn btn-effect-1">
 												 <span>장바구니 담기</span>
 											</button>
+											
+											<button id="buyNowBtn" class="theme-btn-1 btn btn-effect-1">
+												 	<span>바로구매 하기</span>
+											</button>
 											<form action="/member/auth/cartSelectOrder" id="orderForm" method="post">
 												
 												
 											</form>
-											<button id="buyNowBtn" class="theme-btn-1 btn btn-effect-1">
-												 	<span>바로구매 하기</span>
-											</button>
 											
 										</li>
 									</ul>
@@ -404,4 +405,4 @@
 
 <jsp:include page="./includes/memberFooter.jsp"></jsp:include>
 <script src="/resources/member/js/order.js"></script>
-
+<script src="/resources/member/js/cart.js"></script>

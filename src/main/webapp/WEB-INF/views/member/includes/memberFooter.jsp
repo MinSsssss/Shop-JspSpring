@@ -306,11 +306,14 @@
     <!-- preloader area end -->
 
     <!-- All JS Plugins -->
+    
+    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
     <script src="/resources/member/js/plugins.js"></script>
     <!-- Main JS -->
     <script src="/resources/member/js/main.js"></script>
-    <script src="/resources/member/js/cart.js"></script>
-   
+    
+    <script src="/resources/member/js/myPage.js"></script>
+    
 </body>
 </html>
     
