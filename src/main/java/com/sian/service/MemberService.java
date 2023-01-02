@@ -59,4 +59,6 @@ public interface MemberService {
 	public List<OrderDetailDTO> getOrderDetailList(Long order_no);
 	
 	public int orderDelete(Long order_no);
+	
+	public OrderDetailDTO getReviewView(Long order_detail_no);
 }

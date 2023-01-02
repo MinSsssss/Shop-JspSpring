@@ -29,9 +29,11 @@ import com.sian.domain.MemberDTO;
 import com.sian.domain.OrderDTO;
 import com.sian.domain.OrderDetailDTO;
 import com.sian.domain.ProductDTO;
+import com.sian.domain.ReviewDTO;
 import com.sian.domain.WishListDTO;
 import com.sian.service.AdminService;
 import com.sian.service.MemberService;
+import com.sian.service.ReviewService;
 import com.sian.service.WishListService;
 
 import lombok.AllArgsConstructor;
@@ -46,6 +48,8 @@ public class MemberController {
 	private AdminService adminService;
 	
 	private WishListService wishListService;
+	
+	private ReviewService reviewService;
 
 	@GetMapping("/")
 	public String memberIndex(Model model) throws Exception {
@@ -378,17 +382,24 @@ public class MemberController {
 		return "redirect:/member/auth/wishListView";
 	}
 	
-	@ResponseBody
+	
 	@GetMapping("/auth/reviewWriteForm")
-	public String reviweWrite(@RequestParam("order_detail_no")Long order_detail_no,Model model) {
+	public void reviweWrite(@RequestParam(value="order_detail_no",required = false)Long order_detail_no,Model model) {
 		
-//		OrderDTO orderDTO = memberService.getOrder(order_detail_no);
-//		List<OrderDetailDTO> orderDetailList = memberService.getOrderDetailList(order_detail_no);
-//		orderDTO.setOrderDetailList(orderDetailList);
-//		
-//		model.addAttribute("orderList", orderDTO);
-//		System.out.println(orderDTO);
-		return "/member/auth/reviewWriteForm";
+		model.addAttribute("reviewView",memberService.getReviewView(order_detail_no));
+		
 	}
+	@PostMapping("/auth/reviewRegister")
+	public String reviewRegister(ReviewDTO reviewDTO,Authentication authentication) {
+		String mem_id = memberService.getId(authentication);
+		reviewDTO.setMem_id(mem_id);
+		
+		System.out.println(reviewDTO);
+		
+		reviewService.reviewRegister(reviewDTO);
+		
+		return "redirect:/member/auth/orderList";
+	}
+	
 	
 }

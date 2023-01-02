@@ -208,5 +208,10 @@ public class MemberServiceImpl implements MemberService {
 		
 		return orderMapper.orderDelete(order_no);
 	}
+	@Override
+	public OrderDetailDTO getReviewView(Long order_detail_no) {
+		
+		return orderMapper.getReviewView(order_detail_no);
+	}
 
 }

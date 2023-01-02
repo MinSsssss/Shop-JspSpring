@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sian.mapper.ReviewMapper">
+	<insert id="reviewRegister">
+		INSERT INTO tbl_review(review_no,order_detail_no,
+		mem_id,review_title,review_content,review_star)
+		VALUES(seq_review_no.nextval,#{order_detail_no},
+		#{mem_id},#{review_title},#{review_content},#{review_star})
+	</insert>
+	
+	
+</mapper>

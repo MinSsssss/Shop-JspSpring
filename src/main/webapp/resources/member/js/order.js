@@ -97,7 +97,7 @@ $(document).ready(function() {
 	
 
 });
-
+setTotalInfo()
 
 function setTotalInfo() {
 
