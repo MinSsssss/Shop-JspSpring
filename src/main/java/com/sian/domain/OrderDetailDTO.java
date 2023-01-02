@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 public class OrderDetailDTO {
 	private Long order_detail_no;
-	private Long de_order_no;
+	private Long order_no;
 	private int order_qty;
 	private int sub_total;
 	
@@ -18,7 +18,5 @@ public class OrderDetailDTO {
 	private String product_name;
 	private String product_image1;
 	private int product_price;
-//	private List<String> product_nameArr;
-//	private List<Integer> order_qtyArr;
-//	private List<Integer> subTotalArr;
+
 }

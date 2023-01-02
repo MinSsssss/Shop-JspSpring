@@ -24,7 +24,7 @@ select * from tbl_product;
 select * from tbl_cart;
 select * from tbl_order;
 select * from tbl_order_detail;
-
+select * from tbl_wishlist;
 select order_no
 FROM (SELECT * FROM tbl_order ORDER BY order_date DESC)
 WHERE ROWNUM=1 AND mem_id='cda02';
@@ -33,7 +33,8 @@ WHERE ROWNUM=1 AND mem_id='cda02';
 commit;
 
 update tbl_order
-set order_status = '배송 완료';
+set order_status = '배송 완료'
+where order_no = 3;
 commit;
 CREATE TABLE tbl_member (
 	--mem_no	varchar2(13) primary key,
@@ -43,10 +44,10 @@ CREATE TABLE tbl_member (
 	mem_email	varchar2(50)		NOT NULL,
 	mem_tel	varchar2(20)		NOT NULL,
 	mem_joindate date default sysdate,
-	enabled char(1) default '1'
-   
+	enabled char(1) default '1',
+    full_address VARCHAR2(500) NOT NULL
 );
-
+ALTER TABLE tbl_member ADD full_address VARCHAR2(200);
 create table tbl_member_auth(
     mem_id varchar2(50) not null,
     auth varchar2(50)  default 'ROLE_MEMBER' not null,
@@ -84,11 +85,11 @@ CREATE TABLE tbl_order (
 
 CREATE TABLE tbl_order_detail (
 	order_detail_no	varchar2(13) primary key,
-	de_order_no	varchar2(16)		NOT NULL,
+	order_no	varchar2(16)		NOT NULL,
 	product_no	number(3)		NOT NULL,
 	order_qty	number(3) default 0 not null ,
     sub_total number default 0 not null, 
-    constraint fk_order_no foreign key(de_order_no) references tbl_order(order_no)
+    constraint fk_order_no foreign key(order_no) references tbl_order(order_no)
     ON DELETE CASCADE,
     constraint fk_order_product_no foreign key(product_no) references tbl_product(product_no)
     
@@ -112,20 +113,24 @@ ALTER TABLE tbl_product ADD CONSTRAINT tbl_cate_no_pk FOREIGN KEY(category_no) R
 
 CREATE TABLE tbl_review (
 	review_no	number primary key,
-	product_no	number(3)		NOT NULL,
-	review_title	varchar2(100)		NULL,
-	revire_writer	varchar2(12)		NULL,
-	review_content	varchar2(1000)		NULL,
-	review_date	DATE DEFAULT sysdate	NOT NULL,
-	review_hit	number		NULL
+	order_detail_no	varchar2(13)  NOT NULL,
+    mem_id	varchar2(50) NOT NULL,
+	review_title	varchar2(300)	NOT NULL,
+	review_content	varchar2(1000),
+	review_date	DATE DEFAULT sysdate NOT NULL,
+	review_hit	number DEFAULT 0	NOT NULL,
+    constraint fk_review_order_detail foreign key(order_detail_no) references tbl_order_detail(order_detail_no),
+    constraint fk_review_mem_id foreign key(mem_id) references tbl_member(mem_id)
 );
+ALTER TABLE tbl_review ADD UNIQUE(order_detail_no);
 
 CREATE TABLE tbl_review_comment (
 	review_com_no	number primary key,
 	review_no	number		NOT NULL,
 	review_com_date	DATE DEFAULT sysdate	NOT NULL,
 	review_com_content	varchar2(1000)		NULL,
-	review_com_writer	varchar2(12)		NULL
+	review_com_writer	varchar2(12)		NULL,
+    constraint fk_review foreign key(review_no) references tbl_review(review_no)
 );
 
 create table tbl_cart(
@@ -137,6 +142,15 @@ create table tbl_cart(
     constraint fk_cart_product_no foreign key(product_no) references tbl_product(product_no)
 );
 ALTER TABLE tbl_cart ADD UNIQUE(product_no,mem_id);
+create table tbl_wishlist(
+    product_no number(3), 
+    mem_id varchar2(50)  not null,
+    constraint fk_wish_mem_id foreign key(mem_id) references tbl_member(mem_id),
+    constraint fk_wish_product_no foreign key(product_no) references tbl_product(product_no)
+);
+ALTER TABLE tbl_wishlist ADD UNIQUE(product_no,mem_id);
+
+
 commit;
 
 CREATE TABLE tbl_qna (
@@ -169,7 +183,7 @@ drop table tbl_review_comment;
 drop table tbl_review;
 drop table tbl_order_detail;
 drop table tbl_order;
-
+drop table tbl_wishlist;
 drop table tbl_cart;
 drop table tbl_product;
 drop table tbl_category;

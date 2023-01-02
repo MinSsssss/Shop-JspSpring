@@ -14,7 +14,7 @@ public interface CartMapper {
 //	
 	public boolean insert(CartProductDTO cartProductDTO) throws Exception;
 
-	public int findCart(CartProductDTO cartProductDTO);
+	
 	
 	public void cartModify(CartProductDTO cartProductDTO);
 	

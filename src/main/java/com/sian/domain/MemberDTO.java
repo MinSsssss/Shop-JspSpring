@@ -14,6 +14,13 @@ public class MemberDTO {
 	private String mem_tel;
 	private Date mem_joindate;
 	private boolean enabled;
+	private String full_address;
+	
+	
+	private String postcode;
+	private String address;
+	private String detailAddress;
+	
 	
 	private List<AuthVO> authList;
 

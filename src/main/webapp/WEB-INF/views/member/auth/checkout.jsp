@@ -72,31 +72,78 @@
 												value="<sec:authentication property='principal.member.mem_tel'/>">
 										</div>
 									</div>
+									<div class="col-md-6">
+										<label>주소</label>
+										<div class="input-item">
+											<input type="text" name="ltn__name" readonly="readonly"
+												value="<sec:authentication property='principal.member.full_address'/>">
+										</div>
+									</div>
 								</sec:authorize>
 							</div>
-							<!-- <form action="/member/auth/checkout" method="post" id="checkoutForm"> -->
+							<sec:authorize access="isAuthenticated()">
 								<h5>받는사람정보</h5>
 								<div class="row">
 									<div class="col-md-6">
 										<label>이름</label>
 										<div class="input-item">
-											<input type="text" id="receiver_name" name="receiver_name">
+											<input type="text" id="receiver_name" name="receiver_name"
+											value="<sec:authentication property='principal.member.mem_name'/>">
 										</div>
 									</div>
 
 									<div class="col-md-6">
 										<label>연락처</label>
 										<div class="input-item">
-											<input type="email" id="receiver_tel" name="receiver_tel">
+											<input type="email" id="receiver_tel" name="receiver_tel"
+											value="<sec:authentication property='principal.member.mem_tel'/>">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<label>배송주소</label>
+										<button type="button" data-toggle="modal"
+												data-target="#addressModifyModal">주소 변경</button>
 										<div class="input-item">
-											<input type="text" id="receiver_addr1" name="receiver_addr1">
+											<input type="text" id="receiver_addr1" name="receiver_addr1" readonly="readonly"
+											value="<sec:authentication property='principal.member.full_address'/>">
+											
 										</div>
 									</div>
 								</div>
+							</sec:authorize>
+							<!--MemberDrop Modal -->
+										<div class="modal fade" id="addressModifyModal" tabindex="-1"
+											role="dialog" aria-labelledby="addressModifyCenterTitle"
+											aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered"
+												role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="addressModifyModalTitle">주소 변경</h5>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<input type="text" name="postcode" id="postcode" placeholder="우편번호" readonly="readonly">
+														<input type="button" class="btn btn-warning btnCheck" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+														<input type="text" name="address" id="address" placeholder="주소" readonly="readonly"><br>
+														<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
+														<input type="hidden" id="extraAddress" placeholder="참고항목" >
+													
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-primary"
+															id="addressModifyBtn" onclick="addressModify()">수정</button>
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">취소</button>
+
+													</div>
+												</div>
+											</div>
+										</div>
+										<!--End MemberDrop Modal -->
 
 								<h6>배송 요청 사항 (선택)</h6>
 								<div class="input-item input-item-textarea">
@@ -170,15 +217,16 @@
 										
 								</form>
 								<tr>
-								<td class="productDetail">
-									<input type="hidden" id="product_name" value="${order.product_name }">
-									<input type="hidden" id="sub_total" value="${order.sub_total }">
-									<input type="hidden" id="order_qty" value="${order.order_qty }"> 
-								</td>
+								
 									<td>${order.product_name }<strong>×
 											${order.order_qty } </strong></td>
 									<td class="sub_total_td">${order.sub_total }<input
 										type="hidden" id="sub_total" value="${order.sub_total }">
+										<div class="productDetail">
+											<input type="hidden" id="product_name" value="${order.product_name }">
+											<input type="hidden" id="sub_total" value="${order.sub_total }">
+											<input type="hidden" id="order_qty" value="${order.order_qty }"> 
+										</div>
 									</td>
 								</tr>
 								
@@ -208,4 +256,5 @@
 
 <jsp:include page="../includes/memberFooter.jsp"></jsp:include>
 <script src="/resources/member/js/order.js"></script>
-
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/resources/member/js/address.js"></script>

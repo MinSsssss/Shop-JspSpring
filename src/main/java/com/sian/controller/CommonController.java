@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sian.domain.AuthVO;
 
 import com.sian.domain.MemberDTO;
+
 import com.sian.service.MemberService;
 
 import lombok.Setter;
@@ -28,6 +30,8 @@ import lombok.extern.log4j.Log4j;
 public class CommonController {
 	@Setter (onMethod_ = @Autowired)
 	private MemberService memberService;
+	
+
 	
 	@GetMapping("/accessError")
 	public void accessDenied(Authentication auth, Model model) {
@@ -58,7 +62,11 @@ public class CommonController {
 	 
 	 @PostMapping("/registerProc") 
 	 public String registerAction(@Valid MemberDTO memberDTO,AuthVO authVO) throws Exception{
-		
+		 String postcode = memberDTO.getPostcode();
+		 String address = memberDTO.getAddress();
+		 String detailAddress = memberDTO.getDetailAddress();
+		 String full_address = "["+ postcode + "] " + address + ", " + detailAddress;
+		 memberDTO.setFull_address(full_address);
 		 memberService.register(memberDTO,authVO);
 		 
 		 return "redirect:/login";
@@ -70,6 +78,7 @@ public class CommonController {
 		 int result=memberService.idChk(memberDTO);
 		 return result;
 	 }
+	 	
 	 
 	 
 		/* @GetMapping("/logout") */

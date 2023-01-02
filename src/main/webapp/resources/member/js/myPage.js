@@ -3,10 +3,10 @@ $(document).ready(function() {
 		location.href = "/member/auth/orderList"
 	})
 	$("#wishList").on("click", function() {
-		location.href = "/member/auth/wishList"
+		location.href = "/member/auth/wishListView"
 	})
 	$("#cart").on("click", function() {
-		location.href = "/member/auth/cart"
+		location.href = "/member/auth/cartView"
 	})
 	$("#qnaList").on("click", function() {
 		location.href = "/member/auth/qnaList"

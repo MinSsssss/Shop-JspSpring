@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="./includes/memberHeader.jsp"></jsp:include>
-
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 
 
 <div class="ltn__utilize-overlay"></div>
@@ -150,9 +151,13 @@
 								</div>
 								<div class="ltn__product-details-menu-3">
 									<ul>
-										<li><a href="#" class="" title="Wishlist"
-											data-toggle="modal" data-target="#liton_wishlist_modal">
+										<li><a href="#" class="" id="wishListBtn" title="Wishlist">
+											 <!-- data-toggle="modal" data-target="#liton_wishlist_modal" -->
 												<i class="far fa-heart"></i> <span>찜 하기</span>
+												<sec:authorize access="isAuthenticated()">
+												<input type="hidden" id="chk_mem_id" 
+												value="<sec:authentication property='principal.member.mem_id'/>">
+												</sec:authorize>
 										</a></li>
 
 									</ul>
@@ -179,24 +184,11 @@
 							<div class="ltn__shop-details-tab-content-inner">
 								<h4 class="title-2">Lorem ipsum dolor sit amet elit.</h4>
 								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-									sed do eiusmod tempor incididunt ut labore et dolore magna
-									aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-									ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-									aute irure dolor in reprehenderit in voluptate velit esse
-									cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+									riatur. Excepteur sint occaecat
 									cupidatat non proident.</p>
 								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
 									sed do eiusmod tempor incididunt ut labore et dolore magna
-									aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-									ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-									aute irure dolor in reprehenderit in voluptate velit esse
-									cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-									cupidatat non proident, sunt in culpa qui officia deserunt
-									mollit anim id est laborum. Sed ut perspiciatis unde omnis iste
-									natus error sit voluptatem, totam rem aperiam, eaque ipsa quae
-									ab illo inventore veritatis et quasi architecto beatae vitae
-									dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
-									sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+									quia consequuntur magni
 									dolores eos qui ratione voluptatem sequi nesciunt. Neque porro
 									quisquam est, qui dolorem ipsum quia dolor sit amet,
 									consectetur, adipisci velit, sed quia non numquam eius modi
@@ -406,3 +398,4 @@
 <jsp:include page="./includes/memberFooter.jsp"></jsp:include>
 <script src="/resources/member/js/order.js"></script>
 <script src="/resources/member/js/cart.js"></script>
+<script src="/resources/member/js/wishList.js"></script>

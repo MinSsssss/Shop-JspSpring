@@ -81,7 +81,7 @@
 
 											</div>
 											<c:forEach items="${orderList.orderDetailList}"
-												var="orderDetailList" varStatus="status">
+												var="orderDetailList" varStatus="nextStatus">
 												<div class="orderProductFor">
 													<div class="orderInfo">
 														<div class="orderDisplay">
@@ -106,7 +106,14 @@
 													</div>
 													<div class="orderBtns">
 														<button class="btn btn-outline-warning">교환,반품</button>
-														<button class="btn btn-outline-info">리뷰작성</button>
+														
+														<form 
+															id="reviewWriteForm" >
+															<input type="hidden" name ="thisOrder_detail_no${nextStatus.index}" id="order_detail_no" value="${orderDetailList.order_detail_no}">
+															<input type="hidden" name="thisStatus${status.index}" id="order_status" value="${orderList.order_status }">
+															<button type="button" class="btn btn-outline-info" id="reviewWriteForm" 
+															onclick="reviewWriteFun(thisOrder_detail_no${nextStatus.index},thisStatus${status.index})">리뷰작성</button>
+														</form>
 													</div>
 												</div>
 											</c:forEach>
@@ -132,5 +139,5 @@
 
 <jsp:include page="../includes/memberFooter.jsp"></jsp:include>
 <script src="/resources/member/js/order.js"></script>
-
+<!-- <script src="/resources/member/js/review.js"></script> -->
 

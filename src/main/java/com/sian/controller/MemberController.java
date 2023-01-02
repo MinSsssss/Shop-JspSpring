@@ -1,11 +1,13 @@
 package com.sian.controller;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.defaults.DefaultSqlSession;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,8 +28,11 @@ import com.sian.domain.CartProductDTO;
 import com.sian.domain.MemberDTO;
 import com.sian.domain.OrderDTO;
 import com.sian.domain.OrderDetailDTO;
+import com.sian.domain.ProductDTO;
+import com.sian.domain.WishListDTO;
 import com.sian.service.AdminService;
 import com.sian.service.MemberService;
+import com.sian.service.WishListService;
 
 import lombok.AllArgsConstructor;
 
@@ -39,6 +44,8 @@ public class MemberController {
 	private MemberService memberService;
 
 	private AdminService adminService;
+	
+	private WishListService wishListService;
 
 	@GetMapping("/")
 	public String memberIndex(Model model) throws Exception {
@@ -47,11 +54,6 @@ public class MemberController {
 		return "/member/index";
 	}
 
-
-	@GetMapping("/auth/wishList")
-	public void wishList() {
-
-	}
 
 	@GetMapping("/auth/qnaList")
 	public void qnaList() {
@@ -241,6 +243,7 @@ public class MemberController {
 //		for (int i = 1; i <= 6; i++) {
 //			subNum += (int) (Math.random() * 10);
 //		}
+		
 		model.addAttribute("orderList", orderDTO.getOrderDetailList());
 		return "/member/auth/checkout";
 	}
@@ -327,4 +330,65 @@ public class MemberController {
 		memberService.orderDelete(order_no);
 		
 	}
+	@GetMapping("/auth/wishListView")
+	public void wishList(Authentication authentication,Model model) {
+		String mem_id = memberService.getId(authentication);
+		model.addAttribute("wishList",wishListService.wishList(mem_id));
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("/auth/addWishList")
+	public int addWishList(@RequestBody WishListDTO wishListDTO, Authentication authentication) {
+		try {
+			return wishListService.wishListInsert(wishListDTO);
+		} catch (DataIntegrityViolationException e) {
+			
+			return 0;
+		}
+	}
+	@ResponseBody
+	@PostMapping("/auth/wishDelete")
+	public int wishDelete(@RequestBody WishListDTO wishListDTO,
+			Authentication authentication) throws Exception {
+
+		wishListDTO.setMem_id(memberService.getId(authentication));
+		if(wishListService.wishDelete(wishListDTO)==1) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+
+		
+	}
+	
+	@PostMapping("/auth/wishSelectDelete")
+	public String wishSelectDelete(@RequestParam(value = "cartIds", required = false) List<String> cartIds,
+			WishListDTO wishListDTO, Authentication authentication) throws Exception {
+
+		for (int i = 0; i < cartIds.size(); i++) {
+			System.out.println(cartIds);
+			wishListDTO.setProduct_no(memberService.getProductNo(cartIds.get(i)));
+			wishListDTO.setMem_id(memberService.getId(authentication));
+			wishListService.wishDelete(wishListDTO);
+
+		}
+
+		return "redirect:/member/auth/wishListView";
+	}
+	
+	@ResponseBody
+	@GetMapping("/auth/reviewWriteForm")
+	public String reviweWrite(@RequestParam("order_detail_no")Long order_detail_no,Model model) {
+		
+//		OrderDTO orderDTO = memberService.getOrder(order_detail_no);
+//		List<OrderDetailDTO> orderDetailList = memberService.getOrderDetailList(order_detail_no);
+//		orderDTO.setOrderDetailList(orderDetailList);
+//		
+//		model.addAttribute("orderList", orderDTO);
+//		System.out.println(orderDTO);
+		return "/member/auth/reviewWriteForm";
+	}
+	
 }

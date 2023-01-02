@@ -144,11 +144,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 	}
-	@Override
-	public int findCart(CartProductDTO cartProductDTO) {
-		
-		return cartMapper.findCart(cartProductDTO);
-	}
+
 	
 	@Override
 	public List<CartListDTO> cartList(String mem_id) throws Exception {

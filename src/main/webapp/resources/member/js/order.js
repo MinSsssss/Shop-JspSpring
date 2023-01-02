@@ -42,7 +42,7 @@ $(document).ready(function() {
 					chkQtyArr[count] = chkProductQty;
 					chkTotalArr[count] = chkSubTotal;
 					let params = {
-						"de_order_no": data,
+						"order_no": data,
 						"product_name": chkProductName,
 						"order_qty": chkProductQty,
 						"sub_total": chkSubTotal
@@ -71,9 +71,6 @@ $(document).ready(function() {
 
 	})
 
-
-
-
 	$("#buyNowBtn").on("click", function() {
 		let product_name = $("#product_name").text();
 		let order_qty = $("#cart_qty").val();
@@ -97,7 +94,7 @@ $(document).ready(function() {
 		$("#orderForm").submit();
 
 	});
-
+	
 
 });
 
@@ -140,7 +137,7 @@ function orderDeleteFun(order_status, order_no) {
 			let param = { "order_no": order_no.value }
 			$.ajax({
 				url: "/member/auth/orderDelete",
-				type: "post",
+				type: "POST",
 				data: param,
 				success: function(data) {
 					alert("주문내역이 삭제되었습니다.");
@@ -156,3 +153,47 @@ function orderDeleteFun(order_status, order_no) {
 
 	}
 }
+
+function reviewWriteFun(order_detail_no, order_status) {
+	console.log(order_status.value);
+	if(order_status.value!='배송 완료'){
+		alert("배송이 완료된 제품만 리뷰를 작성할 수 있습니다.");
+		return false;
+	}
+	else{
+		location.href="/member/auth/reviewWriteForm?order_detail_no="+order_detail_no.value;
+		/*let param = { "order_detail_no": order_detail_no.value }
+		console.log(param)*/
+		/*$.ajax({
+			url: "/member/auth/reviewWriteForm",
+			type: "GET",
+			data: param,
+			success: window.location.replace('/member/auth/reviewWriteForm')
+			
+		})*/
+	}
+	
+	
+	/*let answer = confirm("선택하신 주문내역을 삭제하시겠습니까?");
+	if (answer) {
+		if (order_status.value == "배송 완료") {
+			let param = { "order_no": order_no.value }
+			$.ajax({
+				url: "/member/auth/orderDelete",
+				type: "post",
+				data: param,
+				success: function(data) {
+					alert("주문내역이 삭제되었습니다.");
+					location.reload();
+				}
+			})
+		}
+		else {
+			alert("배송이 완료되지 않은 주문내역은 삭제하실수 없습니다.");
+			return false;
+		}
+
+
+	}*/
+}
+

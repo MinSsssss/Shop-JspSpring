@@ -1,47 +1,53 @@
-
 $(document).ready(function() {
+	$("#wishListBtn").on("click", function() {
+		console.log("하하하")
+		let mem_id = $("#chk_mem_id").val();
+		console.log(mem_id);
 
+		if (mem_id == undefined) {
+			let answer = confirm("로그인이 필요합니다." + "\r\n로그인 페이지로 이동하시겠습니까?");
+			if (answer) {
 
-
-	$("#addCartBtn").on("click", function() {
-		let cart_qty = $("#cart_qty").val();
-		let product_no = getParameter("product_no");
-
-		let param = {
-			"cart_qty": cart_qty,
-			"product_no": product_no
-		};
-		console.log("카트수량" + cart_qty);
-
-		console.log("제품번호" + product_no);
-		$.ajax({
-			url: "/member/auth/addCart",
-			async: true,
-			type: "post",
-			dataType: "json",
-			data: JSON.stringify(param),
-			contentType: "application/json; charset=UTF-8",
-			success: function(data) {
-				console.log(data);
-				if (data == 1) {
-					$("#add_to_cart_modal").modal('show');
-				}
-				else {
-					alert("장바구니에 이미 상품이 있습니다.");
-
-					$("#add_to_cart_modal").modal('hide');
-					return false;
-
-				}
-
+				window.location.replace('/login');
+				return false;
 			}
-		})
-	})
+		} else {
+			let product_no = getParameter("product_no");
+				
+			let param = {
+				"mem_id" : mem_id,
+				"product_no" : product_no
+			};
 
-	/*	$("#cartDeleteBtn").on("click", function() {
-	
-			$("#cartDeleteForm").submit();
-		})*/
+			$.ajax({
+				url : "/member/auth/addWishList",
+				async : true,
+				type : "post",
+				dataType : "json",
+				data : JSON.stringify(param),
+				contentType : "application/json; charset=UTF-8",
+				success : function(data) {
+					console.log(data);
+					if (data == 1) {
+						$("#liton_wishlist_modal").modal('show');
+					} else {
+						answer = confirm("이미 찜 목록에 포함되어있습니다." 
+								+ "\r\n찜리스트로 이동하시겠습니까?");
+						if(answer){
+							window.location.replace('/member/auth/wishListView');
+						}
+						
+						 
+						return false;
+
+					}
+					
+						
+
+				}
+			})
+		}
+	})
 
 	$("#seleteDeleteBtn").on("click", function() {
 		let eachLength = $(".cart_info_td").length;
@@ -67,7 +73,7 @@ $(document).ready(function() {
 
 				const form = document.createElement('form');
 				form.setAttribute('method', 'post');        //Post 메소드 적용
-				form.setAttribute('action', '/member/auth/cartSelectDelete');
+				form.setAttribute('action', '/member/auth/wishSelectDelete');
 
 				var input1 = document.createElement('input');
 				input1.setAttribute("type", "hidden");
@@ -79,12 +85,11 @@ $(document).ready(function() {
 				form.submit();
 
 			}
-
-
-
 		});
 
 	})
+	
+	
 	$("#selectOrderBtn").on("click", function() {
 		let eachLength = $(".cart_info_td").length;
 		let chkAmount = $("input:checkbox[name=checkedCount]:checked").length;
@@ -151,10 +156,7 @@ $(document).ready(function() {
 
 	});
 
-
-
 })
-
 
 function getParameter(name) {
 	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -163,47 +165,15 @@ function getParameter(name) {
 	return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-function setTotalInfo() {
-
-	let totalPrice = 0;				// 총 가격
-	let deliveryPrice = 0;			// 배송비
-	let finalTotalPrice = 0; 		// 최종 가격(총 가격 + 배송비)
 
 
-	$(".cart_info_td").each(function(index, element) {
-
-		if ($(element).find(".individual_cart_checkbox").is(":checked") == true) {	//체크여부
-			totalPrice += parseInt($(element).find("#chkSubTotal").val());
-		}
-
-	});
-
-	/* 배송비 결정 */
-	if (totalPrice >= 30000) {
-		deliveryPrice = 0;
-	} else if (totalPrice == 0) {
-		deliveryPrice = 0;
-	} else {
-		deliveryPrice = 3000;
-	}
-
-	finalTotalPrice = totalPrice + deliveryPrice;
-
-	// 총 가격
-	$(".totalPrice").text(totalPrice.toLocaleString());
-	// 배송비
-	$(".deliveryPrice").text(deliveryPrice);
-	// 최종 가격(총 가격 + 배송비)
-	$(".finalTotalPrice").text(finalTotalPrice.toLocaleString());
-}
-
-function cartDelete(product_no) {
+function wishDelete(product_no) {
 	let answer = confirm("선택하신 상품을 장바구니에서 삭제하시겠습니까?");
 	if (answer) {
 		console.log(product_no);
 		let param = { "product_no": product_no.value };
 		$.ajax({
-			url: "/member/auth/cartDelete",
+			url: "/member/auth/wishDelete",
 			type: "post",
 			dataType : "json",
 			data: JSON.stringify(param),
@@ -215,6 +185,4 @@ function cartDelete(product_no) {
 		})
 	}
 }
-
-
 
