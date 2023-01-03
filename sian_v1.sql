@@ -22,9 +22,20 @@ select * from tbl_order;
 select * from tbl_order_detail;
 select * from tbl_wishlist;
 select * from tbl_review;
+
+
 select order_no
 FROM (SELECT * FROM tbl_order ORDER BY order_date DESC)
 WHERE ROWNUM=1 AND mem_id='cda02';
+
+		SELECT re.review_no, od.order_detail_no, re.review_star,
+		re.review_title, re.review_content, re.review_date,
+		pro.product_image1, pro.product_name, re.mem_id
+        
+		FROM tbl_review re,tbl_order_detail od,tbl_product pro
+        
+		WHERE re.order_detail_no=od.order_detail_no
+		AND od.product_no=pro.product_no;
 
 commit;
 
@@ -121,6 +132,7 @@ CREATE TABLE tbl_review (
     constraint fk_review_mem_id foreign key(mem_id) references tbl_member(mem_id)
 );
 ALTER TABLE tbl_review ADD UNIQUE(order_detail_no);
+
 
 
 CREATE TABLE tbl_review_comment (

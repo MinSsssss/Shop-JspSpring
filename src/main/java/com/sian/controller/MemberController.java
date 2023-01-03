@@ -314,8 +314,8 @@ public class MemberController {
 		
 		
 	}
-	@GetMapping("/auth/orderDetailView")
-	public String orderDetailView(@RequestParam("order_no")Long order_no,Model model,
+	@PostMapping("/auth/orderDetailView")
+	public String orderDetailView(Long order_no,Model model,
 			Authentication authentication) {
 		
 		OrderDTO orderDTO = memberService.getOrder(order_no);
@@ -383,12 +383,30 @@ public class MemberController {
 	}
 	
 	
-	@GetMapping("/auth/reviewWriteForm")
-	public void reviweWrite(@RequestParam(value="order_detail_no",required = false)Long order_detail_no,Model model) {
-		
-		model.addAttribute("reviewView",memberService.getReviewView(order_detail_no));
-		
+	@PostMapping("/auth/reviewWriteView")
+	public String reviweWriteView(Long order_detail_no,
+			Model model,RedirectAttributes rttr ) {
+		System.out.println(reviewService.findReview(order_detail_no));
+		if(reviewService.findReview(order_detail_no)!=0) {
+			rttr.addFlashAttribute("msg","already");
+			return "redirect:/member/auth/orderList";
+		}
+		else {
+			model.addAttribute("reviewView",memberService.getReviewView(order_detail_no));
+			return "/member/auth/reviewWriteView";
+		}
+
 	}
+	@PostMapping("/auth/reviewModifyView")
+	public String reviweModifyView(ReviewDTO reviewDTO,
+			Model model,RedirectAttributes rttr ) {
+		model.addAttribute("review",reviewService.getReview(reviewDTO));
+		return "/member/auth/reviewModifyView";
+
+	}
+	
+	
+	
 	@PostMapping("/auth/reviewRegister")
 	public String reviewRegister(ReviewDTO reviewDTO,Authentication authentication) {
 		String mem_id = memberService.getId(authentication);
@@ -399,6 +417,14 @@ public class MemberController {
 		reviewService.reviewRegister(reviewDTO);
 		
 		return "redirect:/member/auth/orderList";
+	}
+	@GetMapping("/auth/reviewList")
+	public void reviewList(Authentication authentication,Model model) {
+		String mem_id = memberService.getId(authentication);
+		System.out.println(reviewService.reviewList(mem_id));
+		model.addAttribute("reviewList", reviewService.reviewList(mem_id));
+		
+		
 	}
 	
 	

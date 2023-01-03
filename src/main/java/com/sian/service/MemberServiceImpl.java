@@ -212,6 +212,7 @@ public class MemberServiceImpl implements MemberService {
 	public OrderDetailDTO getReviewView(Long order_detail_no) {
 		
 		return orderMapper.getReviewView(order_detail_no);
+		
 	}
 
 }

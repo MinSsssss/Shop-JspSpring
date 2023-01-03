@@ -16,6 +16,6 @@ public class ReviewDTO {
 	private int review_hit;
 	
 	private String product_name;
-	private String product_image;
+	private String product_image1;
 	
 }

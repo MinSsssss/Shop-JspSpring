@@ -52,9 +52,10 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="tab-content">
-									<c:forEach items="${orderList}" var="orderList" varStatus="status">
+									<c:forEach items="${orderList}" var="orderList"
+										varStatus="status">
 										<div class="orderFor">
-											
+
 											<div class="orderForDisplay">
 												<div>
 													<h3 class="orderDate">
@@ -65,58 +66,69 @@
 												</div>
 												<div>
 													<p>
-														<a class="btn btn-link"
-															href="/member/auth/orderDetailView?order_no=${orderList.order_no }">주문상세보기</a>
+														<button class="btn btn-link" id="orderDetailView" onclick="orderDetailViewFun(${status.index})"
+															>주문상세보기</button>
 													</p>
-													
-														
+													<form action="/member/auth/orderDetailView" method="post" id="orderDetailViewForm${status.index}">
+														<input type="hidden" name="order_no" value="${orderList.order_no}">
+													</form>
+
+
 
 													<form>
-														<input type="hidden" name ="thisOrder_no${status.index}" id="order_no" value="${orderList.order_no}">
-														<input type="hidden" name="thisStatus${status.index}" id="order_status" value="${orderList.order_status }">
-														<button type="button" id="orderDeleteBtns" onclick="orderDeleteFun(thisStatus${status.index},thisOrder_no${status.index})">주문내역삭제</button>
+														<input type="hidden" name="thisOrder_no${status.index}"
+															id="order_no" value="${orderList.order_no}"> <input
+															type="hidden" name="thisStatus${status.index}"
+															id="order_status" value="${orderList.order_status }">
+														<button type="button" id="orderDeleteBtns"
+															onclick="orderDeleteFun(thisStatus${status.index},thisOrder_no${status.index})">주문내역삭제</button>
 													</form>
 												</div>
 
 
 											</div>
-											<c:forEach items="${orderList.orderDetailList}"
-												var="orderDetailList" varStatus="nextStatus">
-												<div class="orderProductFor">
-													<div class="orderInfo">
-														<div class="orderDisplay">
-															<a
-																href='/member/productRead?product_no=${orderDetailList.product_no}'>
-																<img class="product_img"
-																src="/resources/member/img/${orderDetailList.product_image1 }"
-																alt="">
-															</a>
-															<div class="productInfo">
+											
+												<c:forEach items="${orderList.orderDetailList}"
+													var="orderDetailList" varStatus="nextStatus">
+													<div class="orderProductFor">
+														<div class="orderInfo">
+															<div class="orderDisplay">
+																<a
+																	href='/member/productRead?product_no=${orderDetailList.product_no}'>
+																	<img class="product_img"
+																	src="/resources/member/img/${orderDetailList.product_image1 }"
+																	alt="">
+																</a>
+																<div class="productInfo">
 
-																 <p>
-																	<a href='/member/productRead?product_no=${orderDetailList.product_no}'> 
-																	${orderDetailList.product_name } </a>
-																</p> 
+																	<p>
+																		<a
+																			href='/member/productRead?product_no=${orderDetailList.product_no}'>
+																			${orderDetailList.product_name } </a>
+																	</p>
 
-																<span class="productPrice">${orderDetailList.product_price }원
-																	x</span> <span class="orderQty">${orderDetailList.order_qty }
-																	= </span> <span>${orderDetailList.sub_total }</span>
+																	<span class="productPrice">${orderDetailList.product_price }원
+																		x</span> <span class="orderQty">${orderDetailList.order_qty }
+																		= </span> <span>${orderDetailList.sub_total }</span>
+																</div>
 															</div>
 														</div>
+														<div class="orderBtns">
+															<button class="btn btn-outline-warning">교환,반품</button>
+
+
+															<button type="button" class="btn btn-outline-info" id="reviewWriteFormBtn"
+																onclick="reviewWriteFun('${orderList.order_status}',${status.index}${nextStatus.index})">
+																리뷰작성</button>
+																
+															<form action="/member/auth/reviewWriteView" method="post" 
+																id="reviewWriteForm${status.index}${nextStatus.index}">
+																<input type="hidden" name="order_detail_no" value="${orderDetailList.order_detail_no}">
+															</form>
+														</div>
 													</div>
-													<div class="orderBtns">
-														<button class="btn btn-outline-warning">교환,반품</button>
-														
-														<form 
-															id="reviewWriteForm" >
-															<input type="hidden" name ="thisOrder_detail_no${nextStatus.index}" id="order_detail_no" value="${orderDetailList.order_detail_no}">
-															<input type="hidden" name="thisStatus${status.index}" id="order_status" value="${orderList.order_status }">
-															<button type="button" class="btn btn-outline-info" id="reviewWriteForm" 
-															onclick="reviewWriteFun(thisOrder_detail_no${nextStatus.index},thisStatus${status.index})">리뷰작성</button>
-														</form>
-													</div>
-												</div>
-											</c:forEach>
+												</c:forEach>
+											
 										</div>
 									</c:forEach>
 
@@ -132,9 +144,14 @@
 	</div>
 </div>
 <!-- WISHLIST AREA START -->
-
-
-
+<script>
+var result = '${msg}';
+if(result === 'already'){
+	console.log(result);
+	alert('이미 리뷰를 작성하셨습니다.');
+	location.href="/member/auth/orderList";
+}
+</script>
 
 
 <jsp:include page="../includes/memberFooter.jsp"></jsp:include>

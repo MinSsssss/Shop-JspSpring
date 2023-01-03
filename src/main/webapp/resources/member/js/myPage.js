@@ -11,6 +11,9 @@ $(document).ready(function() {
 	$("#qnaList").on("click", function() {
 		location.href = "/member/auth/qnaList"
 	})
+	$("#reviewList").on("click", function() {
+		location.href = "/member/auth/reviewList"
+	})
 	$("#memberModify").on("click", function() {
 		location.href = "/member/auth/memberModify"
 	})

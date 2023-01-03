@@ -62,7 +62,7 @@
 		FROM tbl_product pro,tbl_order_detail od
 		WHERE pro.product_no = od.product_no
 		AND od.order_detail_no=#{order_detail_no}
-
+		
 	</select>
 	
 </mapper>
