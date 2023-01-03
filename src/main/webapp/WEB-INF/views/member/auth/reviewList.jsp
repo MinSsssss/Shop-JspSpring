@@ -69,11 +69,17 @@
 													
 												</div>
 												<div class="reviewModifyBtns">
-													<form action="/member/auth/reviewModifyView" method="post" id="reviewModifyViewForm${status.index}">
+													<form action="/member/auth/reviewModifyView" method="post" id="reviewModifyViewForm${status.count}">
 														<input type="hidden" name="review_no" value="${review.review_no}">
-														<button class="btn btn-link" onclick="reviewModifyViewFun(${status.index})">수정</button><br>
+														<button class="btn btn-link" onclick="reviewModifyViewFun(${status.count})">수정</button><br>
 													</form>
-													<button class="btn btn-link">삭제</button>
+													<button class="btn btn-link" onclick="reviewDeleteFun(${status.count})">삭제</button>
+													<input type="hidden" value="${review.review_no}" id="review_no${status.count}">
+													<%-- <form action="/member/auth/reviewDelete" method="post" id="reviewDeleteForm${status.count}">
+														
+														
+													</form> --%>
+													
 												</div>
 											</div>
 											<div>
@@ -118,7 +124,16 @@
 	</div>
 </div>
 <!-- WISHLIST AREA START -->
+<script>
 
+var result = '${msg}';
+if(result === 'success'){
+	
+	alert('수정이 완료되었습니다.');
+}else if(result === 'success'){
+	alert('수정에 실패하였습니다.');
+}
+</script>
 
 
 

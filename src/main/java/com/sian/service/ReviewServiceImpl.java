@@ -39,4 +39,21 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewMapper.getReview(reviewDTO);
 	}
 
+	@Override
+	public boolean reviewModify(ReviewDTO reviewDTO) {
+		if(reviewMapper.reviewModify(reviewDTO)==0) {
+			return false;
+		}
+		return true;
+		
+	}
+
+	@Override
+	public boolean reviewDelete(Long review_no) {
+		if(reviewMapper.reviewDelete(review_no)==0) {
+			return false;
+		}
+		return true;
+	}
+
 }

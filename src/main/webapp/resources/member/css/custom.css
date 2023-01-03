@@ -217,22 +217,22 @@ html {
 
 
 
-#myform fieldset {
+#reviewForm fieldset {
 	display: inline-block;
 	direction: rtl;
 	border: 0;
 	padding: 0;
 }
 
-#myform fieldset legend {
+#reviewForm fieldset legend {
 	text-align: right;
 }
 
-#myform input[type=radio] {
+#reviewForm input[type=radio] {
 	display: none;
 }
 
-#myform label {
+#reviewForm label {
 	height:4rem;
 	font-size: 3rem;
 	color: transparent;
@@ -240,15 +240,15 @@ html {
 	margin-bottom: 0;
 }
 
-#myform label:hover {
+#reviewForm label:hover {
 	text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 }
 
-#myform label:hover ~ label {
+#reviewForm label:hover ~ label {
 	text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 }
 
-#myform input[type=radio]:checked ~ label {
+#reviewForm input[type=radio]:checked ~ label {
 	text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 } 
 

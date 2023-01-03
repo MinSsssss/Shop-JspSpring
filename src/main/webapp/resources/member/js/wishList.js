@@ -41,129 +41,14 @@ $(document).ready(function() {
 						return false;
 
 					}
-					
-						
-
 				}
 			})
 		}
 	})
 
-	$("#seleteDeleteBtn").on("click", function() {
-		let eachLength = $(".cart_info_td").length;
-		let chkAmount = $("input:checkbox[name=checkedCount]:checked").length;
-		console.log(chkAmount);
-		if (chkAmount == 0) {
-			alert("삭제할 항목을 선택해주세요.");
-			return false;
-		}
-		let count = 0;
-		let selectArr = new Array(chkAmount);
-		$(".cart_info_td").each(function(index, element) {
 
-			if ($(element).find(".individual_cart_checkbox").is(":checked") == true) {	//체크여부
-
-
-				let chkProductName = $(element).find("#chkProductName").val();
-
-				selectArr[count] = chkProductName;
-				count++;
-
-				console.log(selectArr);
-
-				const form = document.createElement('form');
-				form.setAttribute('method', 'post');        //Post 메소드 적용
-				form.setAttribute('action', '/member/auth/wishSelectDelete');
-
-				var input1 = document.createElement('input');
-				input1.setAttribute("type", "hidden");
-				input1.setAttribute("name", "cartIds");
-				input1.setAttribute("value", selectArr);
-				form.appendChild(input1);
-				console.log(selectArr.length);
-				document.body.appendChild(form);
-				form.submit();
-
-			}
-		});
-
-	})
-	
-	
-	$("#selectOrderBtn").on("click", function() {
-		let eachLength = $(".cart_info_td").length;
-		let chkAmount = $("input:checkbox[name=checkedCount]:checked").length;
-		console.log(chkAmount);
-		if (chkAmount == 0) {
-			alert("구매할 항목을 선택해주세요.");
-			return false;
-		}
-		let count = 0;
-		let chkNameArr = new Array(chkAmount);
-		let chkQtyArr = new Array(chkAmount);
-		let chkTotalArr = new Array(chkAmount);
-		let form_content = ''
-		$(".cart_info_td").each(function(index, element) {
-
-			if ($(element).find(".individual_cart_checkbox").is(":checked") == true) {	//체크여부
-
-
-				let chkProductName = $(element).find("#chkProductName").val();
-				let chkProductQty = $(element).find("#chkProductQty").val();
-				let chkSubTotal = $(element).find("#chkSubTotal").val();
-
-				chkNameArr[count] = chkProductName;
-				chkQtyArr[count] = chkProductQty;
-				chkTotalArr[count] = chkSubTotal;
-
-				let productName_input =
-					" <input name='orderDetailList[" + count + "].product_name' type='hidden' value='" + chkProductName + "'> ";
-				form_content += productName_input;
-				let productQty_input =
-					" <input name='orderDetailList[" + count + "].order_qty' type='hidden' value='" + chkProductQty + "'> ";
-				form_content += productQty_input;
-				let subTotal_input =
-					" <input name='orderDetailList[" + count + "].sub_total' type='hidden' value='" + chkSubTotal + "'> ";
-				form_content += subTotal_input;
-				count++;
-
-			}
-
-		});
-		$("#orderForm").html(form_content);
-		$("#orderForm").submit();
-
-	})
-
-
-
-
-	setTotalInfo();
-
-	$(".individual_cart_checkbox").on("change", function() {
-		/* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
-		setTotalInfo();
-	});
-	$(".all_check_input").on("click", function() {
-
-		/* 체크박스 체크/해제 */
-		if ($(".all_check_input").prop("checked")) {
-			$(".individual_cart_checkbox").prop("checked", true);
-		} else {
-			$(".individual_cart_checkbox").prop("checked", false);
-		}
-		setTotalInfo();
-
-	});
 
 })
-
-function getParameter(name) {
-	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-		results = regex.exec(location.search);
-	return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
 
 
 

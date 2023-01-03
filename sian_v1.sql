@@ -41,7 +41,7 @@ commit;
 
 update tbl_order
 set order_status = '배송 완료'
-where order_no = 44;
+where order_no = 45;
 commit;
 CREATE TABLE tbl_member (
 	--mem_no	varchar2(13) primary key,
@@ -127,9 +127,8 @@ CREATE TABLE tbl_review (
 	review_content	varchar2(1000),
 	review_date	DATE DEFAULT sysdate NOT NULL,
     review_star number(1) DEFAULT 0 NOT NULL,
-	review_hit	number DEFAULT 0	NOT NULL,
-    constraint fk_review_order_detail foreign key(order_detail_no) references tbl_order_detail(order_detail_no),
-    constraint fk_review_mem_id foreign key(mem_id) references tbl_member(mem_id)
+	review_hit	number DEFAULT 0	NOT NULL
+    
 );
 ALTER TABLE tbl_review ADD UNIQUE(order_detail_no);
 

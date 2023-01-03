@@ -66,22 +66,22 @@
 												</div>
 												<div>
 													<p>
-														<button class="btn btn-link" id="orderDetailView" onclick="orderDetailViewFun(${status.index})"
+														<button class="btn btn-link" id="orderDetailView" onclick="orderDetailViewFun(${status.count})"
 															>주문상세보기</button>
 													</p>
-													<form action="/member/auth/orderDetailView" method="post" id="orderDetailViewForm${status.index}">
+													<form action="/member/auth/orderDetailView" method="post" id="orderDetailViewForm${status.count}">
 														<input type="hidden" name="order_no" value="${orderList.order_no}">
 													</form>
 
 
 
 													<form>
-														<input type="hidden" name="thisOrder_no${status.index}"
+														<input type="hidden" name="thisOrder_no${status.count}"
 															id="order_no" value="${orderList.order_no}"> <input
-															type="hidden" name="thisStatus${status.index}"
+															type="hidden" name="thisStatus${status.count}"
 															id="order_status" value="${orderList.order_status }">
 														<button type="button" id="orderDeleteBtns"
-															onclick="orderDeleteFun(thisStatus${status.index},thisOrder_no${status.index})">주문내역삭제</button>
+															onclick="orderDeleteFun(thisStatus${status.count},thisOrder_no${status.count})">주문내역삭제</button>
 													</form>
 												</div>
 
@@ -118,11 +118,11 @@
 
 
 															<button type="button" class="btn btn-outline-info" id="reviewWriteFormBtn"
-																onclick="reviewWriteFun('${orderList.order_status}',${status.index}${nextStatus.index})">
+																onclick="reviewWriteFun('${orderList.order_status}',${status.count}${nextStatus.count})">
 																리뷰작성</button>
 																
 															<form action="/member/auth/reviewWriteView" method="post" 
-																id="reviewWriteForm${status.index}${nextStatus.index}">
+																id="reviewWriteForm${status.count}${nextStatus.count}">
 																<input type="hidden" name="order_detail_no" value="${orderDetailList.order_detail_no}">
 															</form>
 														</div>
@@ -156,5 +156,6 @@ if(result === 'already'){
 
 <jsp:include page="../includes/memberFooter.jsp"></jsp:include>
 <script src="/resources/member/js/order.js"></script>
-<!-- <script src="/resources/member/js/review.js"></script> -->
+<script src="/resources/member/js/review.js"></script>
+
 

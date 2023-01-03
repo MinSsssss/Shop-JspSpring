@@ -12,4 +12,8 @@ public interface ReviewService {
 	public int findReview(Long order_detail_no);
 	
 	public ReviewDTO getReview(ReviewDTO reviewDTO);
+	
+	public boolean reviewModify(ReviewDTO reviewDTO);
+	
+	public boolean reviewDelete(Long review_no);
 }

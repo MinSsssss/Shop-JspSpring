@@ -52,8 +52,10 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="tab-content">
-									<form class="mb-3" action="/member/auth/reviewRegister" id="myform" method="post">
-										<input type="hidden" name="order_detail_no" value="${reviewView.order_detail_no }">
+									<form class="mb-3" action="/member/auth/reviewRegisterProc"
+										id="reviewForm" method="post">
+										<input type="hidden" name="order_detail_no"
+											value="${reviewView.order_detail_no }">
 										<div class="reviewWrap">
 											<div class="reviewHeader">
 												<h3>리뷰 작성</h3>
@@ -61,23 +63,24 @@
 											</div>
 											<div class="reviewInfo">
 												<div class="reviewImg">
-													<img alt="" src="/resources/member/img/${reviewView.product_image1}">
+													<img alt=""
+														src="/resources/member/img/${reviewView.product_image1}">
 												</div>
 												<div>
 													<p class="product_name">${reviewView.product_name}</p>
 													<div>
 
 														<fieldset>
-															<input type="radio" name="review_star" value="5"
-																id="rate1"><label for="rate1">★</label> <input
-																type="radio" name="review_star" value="4" id="rate2"><label
-																for="rate2">★</label> <input type="radio"
-																name="review_star" value="3" id="rate3"><label
-																for="rate3">★</label> <input type="radio"
-																name="review_star" value="2" id="rate4"><label
-																for="rate4">★</label> <input type="radio"
-																name="review_star" value="1" id="rate5"><label
-																for="rate5">★</label>
+															<input type="radio" name="review_star" value="5" id="rate1">
+															<label for="rate1">★</label> 
+															<input type="radio" name="review_star" value="4" id="rate2">
+															<label for="rate2">★</label> 
+															<input type="radio" name="review_star" value="3" id="rate3">
+															<label for="rate3">★</label> 
+															<input type="radio" name="review_star" value="2" id="rate4">
+															<label for="rate4">★</label> 
+															<input type="radio" name="review_star" value="1" id="rate5">
+															<label for="rate5">★</label>
 
 														</fieldset>
 													</div>
@@ -86,8 +89,8 @@
 											<div>
 												<p>리뷰제목 *</p>
 												<input type="text" id="review_title" name="review_title">
-												<textarea class="col-auto form-control" id="review_content" name="review_content"
-													placeholder="솔직한 리뷰는 큰 힘이 됩니다!"></textarea>
+												<textarea class="col-auto form-control" id="review_content"
+													name="review_content" placeholder="솔직한 리뷰는 큰 힘이 됩니다!"></textarea>
 											</div>
 
 											<div>

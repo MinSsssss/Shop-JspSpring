@@ -151,21 +151,11 @@ function orderDeleteFun(order_status, order_no) {
 		}
 	}
 }
-function orderDetailViewFun(index){
-	$("#orderDetailViewForm"+index).submit();
+function orderDetailViewFun(count){
+	$("#orderDetailViewForm"+count).submit();
 }
 
 
-function reviewWriteFun(order_status,index) {
 
-	if(order_status!='배송 완료'){
-		alert("배송이 완료된 제품만 리뷰를 작성할 수 있습니다.");
-		return false;
-	}
-	else{
-		$("#reviewWriteForm"+index).submit();
-	}
-	
-}
 
 

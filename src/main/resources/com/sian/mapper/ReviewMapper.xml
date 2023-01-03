@@ -38,4 +38,16 @@
 		AND re.review_no = #{review_no} 	
 	</select>
 	
+	<update id="reviewModify">
+		UPDATE tbl_review
+		SET review_title= #{review_title},
+		review_star= #{review_star},
+		review_content= #{review_content}
+		WHERE review_no= #{review_no}
+	</update>
+	
+	<delete id="reviewDelete">
+		DELETE tbl_review
+		WHERE review_no = #{review_no}
+	</delete>
 </mapper>

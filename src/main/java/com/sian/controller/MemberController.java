@@ -329,8 +329,7 @@ public class MemberController {
 	@ResponseBody
 	@PostMapping("/auth/orderDelete")
 	public void orderDelete(@RequestParam("order_no") Long order_no) {
-		System.out.println(order_no);
-		//System.out.println(memberService.orderDelete(order_no));
+
 		memberService.orderDelete(order_no);
 		
 	}
@@ -407,8 +406,8 @@ public class MemberController {
 	
 	
 	
-	@PostMapping("/auth/reviewRegister")
-	public String reviewRegister(ReviewDTO reviewDTO,Authentication authentication) {
+	@PostMapping("/auth/reviewRegisterProc")
+	public String reviewRegisterProc(ReviewDTO reviewDTO,Authentication authentication) {
 		String mem_id = memberService.getId(authentication);
 		reviewDTO.setMem_id(mem_id);
 		
@@ -421,10 +420,28 @@ public class MemberController {
 	@GetMapping("/auth/reviewList")
 	public void reviewList(Authentication authentication,Model model) {
 		String mem_id = memberService.getId(authentication);
-		System.out.println(reviewService.reviewList(mem_id));
+		
 		model.addAttribute("reviewList", reviewService.reviewList(mem_id));
 		
 		
+	}
+	@PostMapping("/auth/reviewModifyProc")
+	public String reviewModifyProc(ReviewDTO reviewDTO,RedirectAttributes rttr) {
+		
+		if(reviewService.reviewModify(reviewDTO)) {
+			rttr.addFlashAttribute("msg", "success");
+		}
+		else {
+			rttr.addFlashAttribute("msg", "false");
+		}
+		return "redirect:/member/auth/reviewList";
+	}
+	
+	@ResponseBody
+	@PostMapping("/auth/reviewDelete")
+	public void reviewDelete(@RequestParam("review_no")Long review_no) {
+		
+		reviewService.reviewDelete(review_no);
 	}
 	
 	
