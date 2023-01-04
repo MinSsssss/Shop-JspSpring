@@ -3,9 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- <% request.setCharacterEncoding("utf-8"); 
-   response.setContentType("text/html; charset=UTF-8"); 
-%> --%>
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
@@ -43,8 +41,24 @@
     <!-- HEADER AREA START (header-4) -->
     <header class="ltn__header-area ltn__header-4 ltn__header-6 ltn__header-transparent gradient-color-2---">
         <!-- ltn__header-top-area start -->
+        <div class="top-bar">
+	        
+	        <sec:authorize access="isAnonymous()">
+	            <button>로그인</button>
+	            <button>회원가입</button>
+	        </sec:authorize>
+	        
+	        <sec:authorize access="isAuthenticated()">
+	            <div class=""><sec:authentication property="principal.member.mem_name"/>님</div>
+	            <button>로그아웃</button>
+	        </sec:authorize>
+	        <a href="/member/noticeList">고객센터</a>
+	        
+        </div>
         <div class="ltn__header-top-area top-area-color-white d-none">
+        	
             <div class="container">
+            	
                 <div class="row">
                     <div class="col-md-7">
                         <div class="ltn__top-bar-menu">
@@ -131,13 +145,7 @@
                     </div>
                     <div class="col">
                         <div class="ltn__header-options ltn__header-options-color-white----">
-                          <!--  isAuthenticated -->
-                           <sec:authorize access="isAuthenticated()">
-                           		<div class=""><sec:authentication property="principal.member.mem_name"/>님</div>
-                           </sec:authorize>
-                           
-                           
-                           
+ 
                             <div class="header-search-wrap">
                                 <div class="header-search-1">
                                     <div class="search-icon">
@@ -191,8 +199,10 @@
                                     </svg>
                                 </a>
                             </div>
+                            
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>

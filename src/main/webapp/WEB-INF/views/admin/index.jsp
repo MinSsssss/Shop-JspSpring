@@ -12,6 +12,7 @@
 	
 	
 	</div>
+	
 	<!-- End of Main Content -->
 	<jsp:include page="./includes/adminFooter.jsp"></jsp:include>
 </body>

@@ -56,4 +56,10 @@ public class ReviewServiceImpl implements ReviewService{
 		return true;
 	}
 
+	@Override
+	public List<ReviewDTO> getReviewList(int product_no) {
+		
+		return reviewMapper.getReviewList(product_no);
+	}
+
 }

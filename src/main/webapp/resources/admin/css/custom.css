@@ -1,0 +1,11 @@
+.pageHead{
+	display:flex;
+	justify-content: space-between;
+	margin: 0 20px;
+}
+.table-bordered .thWidth10{
+	width:10%;
+}
+.table-bordered .thWidth15{
+	width:15%;
+}

@@ -58,11 +58,30 @@ public class MemberController {
 		return "/member/index";
 	}
 
+	@GetMapping("/noticeList")
+	public void noticeList() {
+		
+	}
+	@GetMapping("/inquiry")
+	public void inquiry() {
+		
+	}
 
-	@GetMapping("/auth/qnaList")
-	public void qnaList() {
+	@GetMapping("/faqList")
+	public void faqList() {
 
 	}
+	
+	
+	
+	
+	
+//	@GetMapping("/auth/qnaList")
+//	public void qnaList() {
+//
+//	}
+	
+	
 
 	@GetMapping("/auth/memberModify")
 	public void memberModify() {
@@ -161,8 +180,13 @@ public class MemberController {
 
 	@GetMapping("productRead")
 	public void productRead(@RequestParam("product_no") int product_no, Model model) throws Exception {
+		
 		model.addAttribute("categoryList", adminService.getCategoryList());
+		
 		model.addAttribute("product", memberService.getProduct(product_no));
+		
+		model.addAttribute("reviewList", reviewService.getReviewList(product_no));
+		
 
 	}
 

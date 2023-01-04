@@ -2,9 +2,9 @@
 
 UPDATE tbl_member_auth
 SET auth = 'ROLE_ADMIN'
-WHERE mem_id = 'cda01';
+WHERE mem_id = 'cda010';
 insert into tbl_member_auth(mem_id,auth)
-values('cda01','ROLE_ADMIN');
+values('cda010','ROLE_ADMIN');
 
 
 commit;
@@ -23,7 +23,15 @@ select * from tbl_order_detail;
 select * from tbl_wishlist;
 select * from tbl_review;
 
-
+SELECT re.review_no, re.review_star,
+		re.review_title, re.review_content, re.review_date,
+		pro.product_image1, pro.product_name, re.mem_id
+		
+		FROM tbl_review re, tbl_product pro	,tbl_order_detail od
+		
+		WHERE re.order_detail_no = od.order_detail_no
+		AND od.product_no = pro.product_no
+		AND pro.product_no = 102;	
 select order_no
 FROM (SELECT * FROM tbl_order ORDER BY order_date DESC)
 WHERE ROWNUM=1 AND mem_id='cda02';

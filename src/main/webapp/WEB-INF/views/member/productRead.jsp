@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="./includes/memberHeader.jsp"></jsp:include>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
@@ -210,123 +211,34 @@
 								<div class="ltn__comment-area mb-30">
 									<div class="ltn__comment-inner">
 										<ul>
-											<li>
-												<div class="ltn__comment-item clearfix">
-													<div class="ltn__commenter-img">
-														<img src="img/team/1.jpg" alt="Image">
-													</div>
-													<div class="ltn__commenter-comment">
-														<h6>
-															<a href="#">리뷰제목</a>
-														</h6>
-														<div class="product-ratting">
-															<ul>
-																<li><a href="#"><i class="far fa-star">점수/10</i></a></li>
-																<li class="review-total"><a href="#"> ( 95
-																		Reviews )</a></li>
-															</ul>
+											<c:forEach items="${reviewList }" var="review">
+												<li>
+													<div class="ltn__comment-item clearfix">
+														
+														<div class="ltn__commenter-comment">
+															<div>
+																<h6>
+																	<a href="#">${review.review_title }</a>
+																	<small>작성자 : 1234</small>
+																</h6>
+																
+															
+															</div>
+															<a href="#"><i class="far fa-star">${review.review_star }</i></a>
+															<p>${review.review_content }</p>
+															
+															<span class="ltn__comment-reply-btn"><fmt:formatDate pattern="yyyy.MM.dd" value="${review.review_date}" /></span>
 														</div>
-														<p>리뷰내용</p>
-														<span class="ltn__comment-reply-btn">리뷰등록일</span>
 													</div>
-												</div>
-											</li>
-											<li>
-												<div class="ltn__comment-item clearfix">
-													<div class="ltn__commenter-img">
-														<img src="img/team/3.jpg" alt="Image">
-													</div>
-													<div class="ltn__commenter-comment">
-														<h6>
-															<a href="#">Adam Smit</a>
-														</h6>
-														<div class="product-ratting">
-															<ul>
-																<li><a href="#"><i class="fas fa-star"></i></a></li>
-																<li><a href="#"><i class="fas fa-star"></i></a></li>
-																<li><a href="#"><i class="fas fa-star"></i></a></li>
-																<li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-																<li><a href="#"><i class="far fa-star"></i></a></li>
-															</ul>
-														</div>
-														<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-															elit. Doloribus, omnis fugit corporis iste magnam
-															ratione.</p>
-														<span class="ltn__comment-reply-btn">September 2,
-															2020</span>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="ltn__comment-item clearfix">
-													<div class="ltn__commenter-img">
-														<img src="img/team/2.jpg" alt="Image">
-													</div>
-													<div class="ltn__commenter-comment">
-														<h6>
-															<a href="#">Adam Smit</a>
-														</h6>
-														<div class="product-ratting">
-															<ul>
-																<li><a href="#"><i class="fas fa-star"></i></a></li>
-																<li><a href="#"><i class="fas fa-star"></i></a></li>
-																<li><a href="#"><i class="fas fa-star"></i></a></li>
-																<li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-																<li><a href="#"><i class="far fa-star"></i></a></li>
-															</ul>
-														</div>
-														<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-															elit. Doloribus, omnis fugit corporis iste magnam
-															ratione.</p>
-														<span class="ltn__comment-reply-btn">September 2,
-															2020</span>
-													</div>
-												</div>
-											</li>
+												</li>
+											</c:forEach>
+											
 										</ul>
 									</div>
 								</div>
 
-								<!-- comment-reply -->
-								<div class="ltn__comment-reply-area ltn__form-box mb-30">
-									<form action="#">
-										<h4 class="title-2">Add a Review</h4>
-										<div class="mb-30">
-											<div class="add-a-review">
-												<h6>Your Ratings:</h6>
-												<div class="product-ratting">
-													<ul>
-														<li><a href="#"><i class="fas fa-star"></i></a></li>
-														<li><a href="#"><i class="fas fa-star"></i></a></li>
-														<li><a href="#"><i class="fas fa-star"></i></a></li>
-														<li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-														<li><a href="#"><i class="far fa-star"></i></a></li>
-													</ul>
-												</div>
-											</div>
-										</div>
-										<div class="input-item input-item-textarea ltn__custom-icon">
-											<textarea placeholder="Type your comments...."></textarea>
-										</div>
-										<div class="input-item input-item-name ltn__custom-icon">
-											<input type="text" placeholder="Type your name....">
-										</div>
-										<div class="input-item input-item-email ltn__custom-icon">
-											<input type="email" placeholder="Type your email....">
-										</div>
-										<div class="input-item input-item-website ltn__custom-icon">
-											<input type="text" name="website"
-												placeholder="Type your website....">
-										</div>
-										<label class="mb-0"><input type="checkbox"
-											name="agree"> Save my name, email, and website in
-											this browser for the next time I comment.</label>
-										<div class="btn-wrapper">
-											<button class="btn theme-btn-1 btn-effect-1 text-uppercase"
-												type="submit">Submit</button>
-										</div>
-									</form>
-								</div>
+								
+								
 							</div>
 						</div>
 					</div>

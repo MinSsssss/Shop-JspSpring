@@ -16,4 +16,6 @@ public interface ReviewMapper {
 	public int reviewModify(ReviewDTO reviewDTO);
 	
 	public int reviewDelete(Long review_no);
+	
+	public List<ReviewDTO> getReviewList(int product_no);
 }

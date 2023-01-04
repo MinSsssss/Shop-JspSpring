@@ -65,7 +65,22 @@ public class AdminController {
 	 public void productList(Model model)throws Exception {
 		 model.addAttribute("productList",adminService.getProductList());
 	 }
-	
+	 @GetMapping("/noticeList")
+	 public void noticeList() {
+		 
+	 }
+	 @GetMapping("/faqList")
+	 public void faqList() {
+		 
+	 }
+	 @GetMapping("/inquiryList")
+	 public void inquiryList() {
+		 
+	 }
+	 @GetMapping("/noticeRegister")
+	 public void noticeRegister() {
+		 
+	 }
 	
 	
 }

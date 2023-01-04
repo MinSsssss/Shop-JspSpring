@@ -16,4 +16,6 @@ public interface ReviewService {
 	public boolean reviewModify(ReviewDTO reviewDTO);
 	
 	public boolean reviewDelete(Long review_no);
+	
+	public List<ReviewDTO> getReviewList(int product_no);
 }

@@ -20,4 +20,6 @@ public interface AdminService {
 	public void productRegister(ProductDTO productDTO) throws Exception;
 	
 	public List<ProductDTO> getProductList() throws Exception;
+	
+	
 }
