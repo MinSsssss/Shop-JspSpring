@@ -11,17 +11,14 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800">카테고리생성</h1>
+	<h1 class="h3 mb-2 text-gray-800">${title}카테고리생성</h1>
 
 	<!-- DataTales Example -->
 	<form action="/admin/categoryRegisterProc" id="categoryRegisterForm" method="post">
 		<div class="card shadow mb-4">
 
 			<table class="table table-bordered">
-				<tr>
-					<td>카테고리번호</td>
-					<td><input type="text" id="category_no" name="category_no"></td>
-				</tr>
+				
 				<tr>
 					<td>카테고리이름</td>
 					<td><input type="text" id="category_name" name="category_name"></td>
@@ -29,6 +26,7 @@
 			</table>
 
 		</div>
+		<input type="hidden" name="category_class" value="${category_class}"> 
 		<input type="submit" id="cateBtnSubmit" class="btn btn-primary btn-icon-split " value="생성">
 		<input type="button" id="cateBtnCencle" class="btn btn-secondary btn-icon-split " value="취소">
 

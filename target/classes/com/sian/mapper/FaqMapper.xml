@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sian.mapper.FaqMapper">
+ 	<insert id="faqRegister">
+ 		INSERT INTO tbl_faq(faq_no,category_no,faq_title,
+ 		faq_content)
+ 		VALUES(seq_faq.nextval,
+ 		(SELECT category_no
+ 		FROM tbl_category
+ 		WHERE category_name=#{category_name}),
+ 		#{faq_title},
+ 		#{faq_content})
+ 	</insert>
+ 	<select id="faqList" resultType="com.sian.domain.FaqDTO">
+ 		SELECT faq.faq_no,cate.category_no,cate.category_name,faq.faq_title,faq.faq_content,faq.faq_hit
+ 		FROM tbl_faq faq, tbl_category cate
+ 		WHERE faq.category_no=cate.category_no
+ 	</select>
+ 	 	<select id="selectFaqList" resultType="com.sian.domain.FaqDTO">
+ 		SELECT faq.faq_no,cate.category_no,cate.category_name,faq.faq_title,faq.faq_content,faq.faq_hit
+ 		FROM tbl_faq faq, tbl_category cate
+ 		WHERE faq.category_no=cate.category_no
+ 		AND faq.category_no=#{category_no}
+ 	</select>
+ 	
+ 	<select id="getFaq" resultType="com.sian.domain.FaqDTO">
+ 		SELECT faq.faq_no,cate.category_no,cate.category_name,faq.faq_title,faq.faq_content,faq.faq_hit
+ 		FROM tbl_faq faq, tbl_category cate
+ 		WHERE faq.category_no=cate.category_no
+ 		AND faq.faq_no=#{faq_no}
+ 	</select>
+ 	
+ 	<update id="faqModify">
+ 		UPDATE tbl_faq
+ 		SET category_no=(SELECT category_no FROM tbl_category 
+ 		WHERE category_name=#{category_name}),
+ 		faq_title=#{faq_title},
+ 		faq_content=#{faq_content}
+ 		WHERE faq_no=#{faq_no}
+ 	</update>
+ 	
+ 	<delete id="faqDelete">
+ 		DELETE FROM tbl_faq
+ 		WHERE faq_no = #{faq_no}
+ 	</delete>
+</mapper>

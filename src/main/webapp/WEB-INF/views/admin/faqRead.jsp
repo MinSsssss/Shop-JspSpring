@@ -11,7 +11,7 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800">카테고리조회</h1>
+	<h1 class="h3 mb-2 text-gray-800">FAQ 조회</h1>
 
 	<!-- DataTales Example -->
 
@@ -19,45 +19,60 @@
 
 		<div class="card-body">
 			<div class="table-responsive">
-				<form action="/admin/categoryDeleteProc" method="post" id="deleteForm">
-					<input type="hidden" name="category_no" value="${category.category_no}">
+				<form action="/admin/faqDeleteProc" method="post" id="deleteForm">
+					<input type="hidden" name="faq_no" value="${faq.faq_no}">
 				</form>
 				<table class="table table-bordered" id="dataTable" width="100%"
 					cellspacing="0">
-					
+
 					<tbody>
 						<tr>
-							<td>카테고리번호</td>
+							<th>번호</th>
 							<td class="align-middle">
-								<c:out value="${category.category_no }" />
+								<input class="readOnlyText" type="text" value="${faq.faq_no}" readonly="readonly">
 							</td>
 
 						</tr>
-						
 						<tr>
-							<td>카테고리이름</td>
-							<td class="align-middle">
-								<c:out value="${category.category_name }" />
+							<th>분류</th>
+							<td class="align-middle readOnlyText">
+								<input class="readOnlyText" type="text" value="${faq.category_name}" readonly="readonly">
 							</td>
-						</tr>	
+						</tr>
+						<tr>
+							<th>제목</th>
+							<td class="align-middle readOnlyText">
+								<input class="readOnlyText" type="text" value="${faq.faq_title}" readonly="readonly">
+							</td>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<td> 
+							<textarea class="readOnlyText "
+							rows="10" cols="30" readonly="readonly">${faq.faq_content}</textarea> 
+							</td>
+						</tr>		
+						
+
+							
 					</tbody>
 				</table>
 				
 				
 			</div>
-			<button class="btn btn-primary btn-sm" id="categoryModyfyBtn">수정</button>
-			<button class="btn btn-secondary btn-sm" id="categoryDeleteBtn" 
-			data-toggle="modal" data-target="#categoryDropModal">삭제</button>
+			<a href="/admin/faqModify?faq_no=${faq.faq_no}" class="btn btn-primary btn-sm" id="faqModyfyBtn">수정</a>
+			<button class="btn btn-secondary btn-sm"
+			data-toggle="modal" data-target="#faqDeleteModal">삭제</button>
 			
 		</div>
 		<!--Category Modal -->
-		<div class="modal fade" id="categoryDropModal" tabindex="-1"
-			role="dialog" aria-labelledby="categoryDropCenterTitle"
+		<div class="modal fade" id="faqDeleteModal" tabindex="-1"
+			role="dialog" aria-labelledby="faqDeleteCenterTitle"
 			aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="categoryDropModalTitle">카테고리삭제</h5>
+						<h5 class="modal-title" id="faqDeleteModalTitle">FAQ삭제</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -77,8 +92,6 @@
 		<!--End Category Modal -->
 	</div>
 
-
-	</form>
 
 
 </div>

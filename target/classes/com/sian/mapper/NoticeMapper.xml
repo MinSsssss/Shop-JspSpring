@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sian.mapper.NoticeMapper">
+ 	<insert id="noticeRegister">
+ 		INSERT INTO tbl_notice(notice_no,notice_title,
+ 		notice_content,notice_writer)
+ 		VALUES (seq_notice.nextval,#{notice_title},
+ 		#{notice_content},#{notice_writer}) 
+ 	</insert>
+	
+	<select id="noticeList" resultType="com.sian.domain.NoticeDTO">
+		SELECT *
+		FROM tbl_notice
+	</select>
+	
+	<select id="getNotice" resultType="com.sian.domain.NoticeDTO">
+		SELECT *
+		FROM tbl_notice
+		WHERE notice_no=#{notice_no}
+	</select>
+	
+	<update id="noticeModify">
+		UPDATE tbl_notice
+		SET notice_title=#{notice_title},
+		notice_content=#{notice_content}
+		WHERE notice_no=#{notice_no}
+	</update>
+	
+	<delete id="noticeDelete">
+		DELETE FROM tbl_notice
+		WHERE notice_no = #{notice_no}
+	</delete>
+</mapper>

@@ -2,50 +2,53 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 	<jsp:include page="./includes/adminHeader.jsp"></jsp:include>
 	
 	
-
-                <!-- Begin Page Content -->
+<!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
                     <div class="pageHead">
-                    	<h1 class="h3 mb-2 text-gray-800">상품리스트</h1>
-                    	<div><a class="btn btn-link" href="/admin/productRegister">등록하기</a></div>
+                    	<h1 class="h3 mb-2 text-gray-800">FAQ</h1>
+                    	<div><a class="btn btn-link" href="/admin/faqRegister">등록하기</a></div>
                     </div>
-
+					
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         
                         <div class="card-body">
                             <div class="table-responsive">
+                            	<div>
+                            		<span><a href="/admin/faqList?category_no=0">전체</a></span>
+                            		<c:forEach items="${category}" var="cate">
+                            			<span>
+                            				<a href="/admin/faqList?category_no=${cate.category_no}">
+                            					${cate.category_name}
+                            				</a>
+                            			</span> 
+                            		</c:forEach>
+                            	</div>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>상품번호</th>
-                                            <th>상품이름</th>
-                                            <th>가격</th>
-                                            <th>조회수</th>
-                                            <th>생성일자</th>
-                                            <th>수정일자</th>
+                                            <th class="thWidth10">번호</th>
+                                            <th>분류</th>
+                                            <th class="thWidth15">제목</th>             
                                         </tr>
                                     </thead>
                                     
                                     <tbody>
-                                    <c:forEach items="${productList }" var="product">
+                                    	<c:forEach items="${faqList}" var="faq">
+                                    	
                                     	<tr>
-                                            <td><c:out value= "${product.product_no }" /></td>
-                                            <td><c:out value= "${product.product_name }" /></td>
-                                            <td><c:out value= "${product.product_price }" /></td>
-                                            <td><c:out value= "${product.product_hit }" /></td>
-                                            <td><fmt:formatDate pattern="yyyy-MM-dd" value = "${product.product_regdate }"/></td>
-                                            <td><fmt:formatDate pattern="yyyy-MM-dd" value = "${product.product_updateDate }"/></td>
-                                             
+                                            <td>${faq.faq_no }</td>
+                                            <td>${faq.category_name }</td>
+                                            <td><a href="/admin/faqRead?faq_no=${faq.faq_no}">${faq.faq_title }</a></td> 
                                         </tr>
+                                        
+                                    	</c:forEach>
                                     
-                                    </c:forEach>
                                         
                                         
                                     </tbody>
@@ -59,8 +62,11 @@
 
             </div>
             <!-- End of Main Content -->
-
-           
-	
-	<!-- End of Main Content -->
+            
+        
 	<jsp:include page="./includes/adminFooter.jsp"></jsp:include>
+	<script>
+		let result = '${msg}';
+		successFun(result);
+	</script>    
+	

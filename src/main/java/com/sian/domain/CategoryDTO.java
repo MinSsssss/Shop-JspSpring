@@ -8,4 +8,5 @@ public class CategoryDTO {
 	
 	private String category_name;
 	
+	private String category_class;
 }

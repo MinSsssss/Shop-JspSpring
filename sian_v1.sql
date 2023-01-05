@@ -22,6 +22,9 @@ select * from tbl_order;
 select * from tbl_order_detail;
 select * from tbl_wishlist;
 select * from tbl_review;
+select * from tbl_faq;
+select * from tbl_notice;
+
 
 SELECT re.review_no, re.review_star,
 		re.review_title, re.review_content, re.review_date,
@@ -69,9 +72,14 @@ create table tbl_member_auth(
     constraint fk_member_auth foreign key(mem_id) references tbl_member(mem_id)
 );
 CREATE TABLE tbl_category (
-	category_no	number(2) primary key,
+	category_no	number,
+    category_class varchar2(30) NOT NULL,
 	category_name	varchar2(30)	NOT NULL
 );
+ALTER TABLE tbl_category ADD UNIQUE(category_no,category_class);
+CREATE SEQUENCE seq_category;
+    
+
 CREATE TABLE tbl_product (
 	product_no	number(3) primary key,
 	category_no	number(2) default 10 NOT NULL,
@@ -139,7 +147,7 @@ CREATE TABLE tbl_review (
     
 );
 ALTER TABLE tbl_review ADD UNIQUE(order_detail_no);
-
+commit;
 
 
 CREATE TABLE tbl_review_comment (
@@ -181,10 +189,29 @@ CREATE TABLE tbl_qna (
 	qna_hit	number		NULL
 );
 
-CREATE TABLE tbl_qna_catecory (
-	qna_cate_no	varchar2(13) primary key,
-	qna_cate_name	varchar2(50)		NULL
+
+CREATE TABLE tbl_faq (
+	faq_no	number(3) primary key,
+	category_no	number(2)		NOT NULL,
+	faq_title	varchar2(100)		NULL,
+	faq_content	varchar2(1000)		NULL,
+	faq_hit	number DEFAULT 0 	NOT NULL
 );
+CREATE SEQUENCE seq_faq;
+
+CREATE TABLE tbl_notice (
+	notice_no	number(3) primary key,
+	notice_title	varchar2(100)	NOT NULL,
+	notice_content	varchar2(1000)	NOT NULL,
+    notice_writer varchar2(30) NOT NULL,
+    notice_date DATE DEFAULT sysdate NOT NULL,
+	notice_hit	number DEFAULT 0 	NOT NULL
+);
+
+
+
+CREATE SEQUENCE seq_notice;
+
 
 CREATE TABLE tbl_qna_comment (
 	qna_com_no	varchar2(13) primary key,
@@ -195,8 +222,9 @@ CREATE TABLE tbl_qna_comment (
 );
 
 drop table tbl_qna_comment;
-drop table tbl_qna_catecory;
 drop table tbl_qna;
+drop table tbl_notice;
+drop table tbl_faq;
 drop table tbl_review_comment;
 drop table tbl_review;
 drop table tbl_order_detail;

@@ -86,18 +86,7 @@
                     </div>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#cateManage"
-                    aria-expanded="true" aria-controls="productManage">
-                    <span>상품카테고리관리</span>
-                </a>
-                <div id="cateManage" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/admin/categoryList">상품카테고리조회</a>
-                        <a class="collapse-item" href="/admin/categoryRegister">상품카테고리생성</a>
-                    </div>
-                </div>
-            </li>
+            
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#productManage"
                     aria-expanded="true" aria-controls="productManage">
@@ -105,8 +94,10 @@
                 </a>
                 <div id="productManage" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+                    	<a class="collapse-item" href="/admin/categoryList?category_class=product">상품카테고리조회</a>
+                        <!-- <a class="collapse-item" href="/admin/categoryRegister?category_class=product">상품카테고리생성</a> -->
                         <a class="collapse-item" href="/admin/productList">상품조회</a>
-                        <a class="collapse-item" href="/admin/productRegister">상품등록</a>
+                        <!-- <a class="collapse-item" href="/admin/productRegister">상품등록</a> -->
                     </div>
                 </div>
             </li>
@@ -118,8 +109,11 @@
                 <div id="qnaManage" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="/admin/noticeList">공지사항조회</a>
-                        <a class="collapse-item" href="/admin/faqList">자주묻는질문조회</a>
-                        <a class="collapse-item" href="/admin/inquiryList">1:1문의 조회</a>
+                        <a class="collapse-item" href="/admin/categoryList?category_class=faq">FAQ 카테고리조회</a>
+                        <a class="collapse-item" href="/admin/faqList?category_no=0">FAQ 조회</a>
+                        <!-- <a class="collapse-item" href="/admin/categoryRegister?category_class=faq">FAQ 카테고리생성</a> -->
+
+                        <a class="collapse-item" href="/admin/qnaList">QNA 조회</a>
                     </div>
                 </div>
             </li>

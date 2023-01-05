@@ -18,21 +18,5 @@
 		WHERE product_no=#{product_no} AND mem_id=#{mem_id}
 	</delete>
 	
-	<!-- <select id="cartList" resultType="com.sian.domain.CartListDTO">
- 		SELECT pro.product_image1,pro.product_no,pro.product_name,pro.product_price,cart.cart_qty,cart.sub_total
-		FROM tbl_product pro,tbl_cart cart
-		WHERE pro.product_no=cart.product_no AND cart.mem_id=#{mem_id}
- 	</select>
- 	
- 	
- 	<update id="cartModify" >
- 		UPDATE tbl_cart
-		SET cart_qty=#{cart_qty},
-		sub_total=((SELECT product_price FROM tbl_product WHERE product_no=#{product_no} )*#{cart_qty})
-		WHERE product_no=#{product_no} AND mem_id=#{mem_id}
- 	</update>
-	<delete id="cartDelete">
-		DELETE FROM tbl_cart
-		WHERE product_no=#{product_no} AND mem_id=#{mem_id}
-	</delete> -->
+	
 </mapper>

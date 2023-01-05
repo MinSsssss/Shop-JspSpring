@@ -11,12 +11,7 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<div class="pageHead">
-		<h1 class="h3 mb-2 text-gray-800">${title}카테고리조회</h1>
-		<div>
-			<a class="btn btn-link" href="/admin/categoryRegister?category_class=${category_class}">등록하기</a>
-		</div>
-	</div>
+	<h1 class="h3 mb-2 text-gray-800">공지사항조회</h1>
 
 	<!-- DataTales Example -->
 
@@ -24,54 +19,64 @@
 
 		<div class="card-body">
 			<div class="table-responsive">
+				<form action="/admin/noticeDeleteProc" method="post" id="deleteForm">
+					<input type="hidden" name="notice_no" value="${notice.notice_no}">
+				</form>
 				<table class="table table-bordered" id="dataTable" width="100%"
 					cellspacing="0">
-					<thead>
-						<tr>
-							<th>카테고리번호</th>
-							<th>카테고리이름</th>
-
-						</tr>
-					</thead>
 
 					<tbody>
-						<c:forEach items="${categoryList }" var="category">
-							<tr>
-								<td class="align-middle"><a id="categoryMove"
-									href='/admin/categoryRead?category_no=${category.category_no}'>
-										${category.category_no}</a></td>
+						<tr>
+							<th>번호</th>
+							<td class="align-middle">
+								<input class="readOnlyText" type="text" value="${notice.notice_no}" readonly="readonly">
+							</td>
 
-								<td class="align-middle">${category.category_name }</td>
-							</tr>
-						</c:forEach>
+						</tr>
+						
+						<tr>
+							<th>제목</th>
+							<td class="align-middle readOnlyText">
+								<input class="readOnlyText" type="text" value="${notice.notice_title}" readonly="readonly">
+							</td>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<td> 
+							<textarea class="readOnlyText "
+							rows="10" cols="30" readonly="readonly">${notice.notice_content}</textarea> 
+							</td>
+						</tr>		
+						
 
-
+							
 					</tbody>
 				</table>
+				
+				
 			</div>
+			<a href="/admin/noticeModify?notice_no=${notice.notice_no}" class="btn btn-primary btn-sm" id="noticeModyfyBtn">수정</a>
+			<button class="btn btn-secondary btn-sm"
+			data-toggle="modal" data-target="#noticeDeleteModal">삭제</button>
+			
 		</div>
-		<form id='actionForm' action="/admin/categoryList" method='get'>
-
-		</form>
 		<!--Category Modal -->
-		<div class="modal fade" id="categoryDropModal" tabindex="-1"
-			role="dialog" aria-labelledby="categoryDropCenterTitle"
+		<div class="modal fade" id="noticeDeleteModal" tabindex="-1"
+			role="dialog" aria-labelledby="noticeDeleteCenterTitle"
 			aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="categoryDropModalTitle">카테고리삭제</h5>
+						<h5 class="modal-title" id="noticeDeleteModalTitle">공지사항삭제</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">삭제하시겠습니까?</div>
-					<div class="modal-body">
-						카테고리번호를 입력해주세요. <input type="text" id="" name="category_no">
-					</div>
+					
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" id="categoryDropBtn">삭제</button>
+						<button type="button" class="btn btn-primary" id="deleteBtn">삭제</button>
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">취소</button>
 
@@ -81,8 +86,6 @@
 		</div>
 		<!--End Category Modal -->
 	</div>
-
-
 
 
 
@@ -96,7 +99,3 @@
 
 <!-- End of Main Content -->
 <jsp:include page="./includes/adminFooter.jsp"></jsp:include>
-<script>
-	let result = '${msg}';
-	successFun(result);
-</script> 

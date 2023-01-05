@@ -9,3 +9,9 @@
 .table-bordered .thWidth15{
 	width:15%;
 }
+
+.readOnlyText{
+	border: none; 
+	resize: none; 
+	outline: none;
+}

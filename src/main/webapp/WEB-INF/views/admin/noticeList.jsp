@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 	<jsp:include page="./includes/adminHeader.jsp"></jsp:include>
 	
@@ -28,18 +30,14 @@
                                     </thead>
                                     
                                     <tbody>
-                                    <c:forEach items="${productList }" var="product">
-                                    	<tr>
-                                            <td><c:out value= "${product.product_no }" /></td>
-                                            <td><c:out value= "${product.product_name }" /></td>
-                                            <td><fmt:formatDate pattern="yyyy-MM-dd" value = "${product.product_regdate }"/></td>
-                                            
-                                             
-                                        </tr>
-                                    
-                                    </c:forEach>
-                                        
-                                        
+                                    	<c:forEach items="${noticeList}" var="notice">
+	                                    	<tr>
+	                                            <td>${notice.notice_no}</td>
+	                                            <td><a href="/admin/noticeRead?notice_no=${notice.notice_no}">${notice.notice_title }</a></td>
+	                                            <td><fmt:formatDate pattern="yyyy.MM.dd" value = "${notice.notice_date }"/></td>
+  
+	                                        </tr>
+ 										</c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -51,6 +49,9 @@
 
             </div>
             <!-- End of Main Content -->
+         
 	<jsp:include page="./includes/adminFooter.jsp"></jsp:include>
-</body>
-</html>
+<script>
+	let result = '${msg}';
+	successFun(result);
+</script>   

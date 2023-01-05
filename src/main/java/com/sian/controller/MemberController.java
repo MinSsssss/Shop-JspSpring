@@ -53,7 +53,7 @@ public class MemberController {
 
 	@GetMapping("/")
 	public String memberIndex(Model model) throws Exception {
-		model.addAttribute("categoryList", adminService.getCategoryList());
+		model.addAttribute("categoryList", adminService.getCategoryList("product"));
 
 		return "/member/index";
 	}
@@ -172,7 +172,7 @@ public class MemberController {
 	// http://localhost:8090/member/productList?category_no=12
 	@GetMapping("/productList")
 	public void productList(@RequestParam("category_no") int category_no, Model model) throws Exception {
-		model.addAttribute("categoryList", adminService.getCategoryList());
+		model.addAttribute("categoryList", adminService.getCategoryList("product"));
 		model.addAttribute("category", adminService.categoryRead(category_no));
 		System.out.println(category_no);
 		model.addAttribute("productList", memberService.memberProductList(category_no));
@@ -181,7 +181,7 @@ public class MemberController {
 	@GetMapping("productRead")
 	public void productRead(@RequestParam("product_no") int product_no, Model model) throws Exception {
 		
-		model.addAttribute("categoryList", adminService.getCategoryList());
+		model.addAttribute("categoryList", adminService.getCategoryList("product"));
 		
 		model.addAttribute("product", memberService.getProduct(product_no));
 		
