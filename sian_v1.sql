@@ -74,8 +74,9 @@ create table tbl_member_auth(
 CREATE TABLE tbl_category (
 	category_no	number,
     category_class varchar2(30) NOT NULL,
-	category_name	varchar2(30)	NOT NULL
+	category_name	varchar2(30) unique	NOT NULL
 );
+
 ALTER TABLE tbl_category ADD UNIQUE(category_no,category_class);
 CREATE SEQUENCE seq_category;
     
@@ -105,7 +106,7 @@ CREATE TABLE tbl_order (
     order_status varchar2(20) default '결제 완료' NOT NULL,
     constraint fk_order_mem_id foreign key(mem_id) references tbl_member(mem_id)
 );
-
+commit;
 CREATE TABLE tbl_order_detail (
 	order_detail_no	varchar2(13) primary key,
 	order_no	varchar2(16)		NOT NULL,
@@ -132,7 +133,7 @@ CREATE SEQUENCE seq_tbl_product_no
     NOORDER;
 
 
-ALTER TABLE tbl_product ADD CONSTRAINT tbl_cate_no_pk FOREIGN KEY(category_no) REFERENCES tbl_category(category_no);
+--ALTER TABLE tbl_product ADD CONSTRAINT tbl_cate_no_pk FOREIGN KEY(category_no) REFERENCES tbl_category(category_no);
 
 CREATE SEQUENCE seq_review_no;
 CREATE TABLE tbl_review (

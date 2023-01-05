@@ -43,4 +43,4 @@
 
 <!-- End of Main Content -->
 <jsp:include page="./includes/adminFooter.jsp"></jsp:include>
-<script src="/resources/admin/js/admin.js"></script>
+

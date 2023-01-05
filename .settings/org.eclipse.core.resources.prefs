@@ -1,3 +1,8 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/sian/controller/AdminController.java=UTF-8
+encoding//src/main/java/com/sian/controller/CommonController.java=UTF-8
+encoding//src/main/java/com/sian/controller/HomeController.java=UTF-8
 encoding//src/main/java/com/sian/controller/MemberController.java=UTF-8
 encoding//src/main/java/com/sian/service/MemberServiceImpl.java=UTF-8
+encoding/<project>=UTF-8
+separateDerivedEncodings=true
