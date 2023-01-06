@@ -6,13 +6,13 @@ import com.sian.domain.ProductDTO;
 
 
 public interface ProductMapper {
-	public void insert(ProductDTO productDTO) throws Exception;
+	public void insert(ProductDTO productDTO) ;
 	
-	public List<ProductDTO> getList() throws Exception;
+	public List<ProductDTO> getList() ;
 
-	public List<ProductDTO> memberProductList(int category_no) throws Exception;
+	public List<ProductDTO> memberProductList(int category_no) ;
 	
-	public ProductDTO getProduct(int product_no) throws Exception;
+	public ProductDTO getProduct(int product_no) ;
 	
 	public int getProductNo(String product_name);
 }

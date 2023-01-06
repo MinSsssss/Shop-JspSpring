@@ -16,21 +16,25 @@
  		#{product_detail},#{product_image1})
  	</insert>
  	<select id="getList" resultType="com.sian.domain.ProductDTO">
-			SELECT * 
-			<!-- product_no,product_name,product_price,product_hit,
-			product_regdate,product_updatedate -->
-			FROM tbl_product
-			<!--  FROM tbl_product pro LEFT OUTER JOIN tbl_category cate ON pro.category_no = cate.category_no-->
+		SELECT * 
+		FROM tbl_product	
 	</select>
-	<select id="memberProductList" resultType="com.sian.domain.ProductDTO" parameterType="int">
+	<select id="memberProductList" resultType="com.sian.domain.ProductDTO">
 		SELECT * 
 		FROM tbl_product
 		WHERE category_no=#{category_no}
 	</select>
-	<select id="getProduct" resultType="com.sian.domain.ProductDTO" parameterType="int">
-		SELECT * 
-		FROM tbl_product
+	<select id="getProduct" resultType="com.sian.domain.ProductDTO">
+		SELECT pro.product_no,cate.category_no,cate.category_name,
+		pro.product_name,pro.product_price,pro.product_detail,
+		pro.product_detail,pro.product_image1,pro.product_regdate,
+		pro.product_updateDate,pro.product_hit
+		
+		FROM tbl_product pro FULL JOIN tbl_category cate
+		ON pro.category_no=cate.category_no
 		WHERE product_no = #{product_no}
+		<!-- WHERE NVL(pro.category_no,0)=NVL(cate.category_no,0)
+		AND product_no = #{product_no} -->
 	</select>
  	<select id="getProductNo" resultType="int">
  		SELECT product_no

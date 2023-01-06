@@ -4,6 +4,9 @@ package com.sian.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +31,7 @@ public class AdminController {
 	private AdminService adminService;
 	
 	@GetMapping("/memberList")
-	public void memberList(Model model) throws Exception{
+	public void memberList(Model model) {
 		model.addAttribute("memberList",adminService.getMemberList());
 	}
 	@GetMapping("/categoryRegister")
@@ -45,7 +48,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("/categoryList")
-	public void categoryList(Model model,@RequestParam("category_class") String category_class)throws Exception {
+	public void categoryList(Model model,@RequestParam("category_class") String category_class) {
 		System.out.println(category_class);
 		if(category_class.equals("product")) {
 			model.addAttribute("title", "상품");
@@ -59,10 +62,21 @@ public class AdminController {
 	}
 
 	@PostMapping("/categoryRegisterProc")
-	public String catrgoryRegisterProc(CategoryDTO categoryDTO) throws Exception {
-		System.out.println(categoryDTO.getCategory_name());
-		adminService.categoryRegister(categoryDTO);
-		return "redirect:/admin";
+	public String catrgoryRegisterProc(CategoryDTO categoryDTO,RedirectAttributes rttr){
+		String category_class=categoryDTO.getCategory_class();
+		try {
+			adminService.categoryRegister(categoryDTO);
+			rttr.addFlashAttribute("msg","successRegister");
+			return "redirect:/admin/categoryList?category_class="+category_class;
+			
+		} catch (DataIntegrityViolationException e) {
+			e.printStackTrace();
+			rttr.addFlashAttribute("msg","uniqueRegister");
+			return "redirect:/admin/categoryRegister?category_class="+category_class;
+		}
+		
+		
+		
 	}
 
 	
@@ -81,7 +95,7 @@ public class AdminController {
 	 }
 	
 	@GetMapping("/categoryRead")
-	public void categoryRead(@RequestParam("category_no")int category_no, Model model) throws Exception {
+	public void categoryRead(@RequestParam("category_no")int category_no, Model model)  {
 		System.out.println(category_no);
 		model.addAttribute("category", adminService.categoryRead(category_no));
 	}
@@ -89,20 +103,30 @@ public class AdminController {
 	
 	
 	@GetMapping("/productRegister")
-	public void productRegister(Model model) throws Exception{
+	public void productRegister(Model model) {
 		model.addAttribute("categoryList",adminService.getCategoryList("product"));
 	}
 	
 	 @PostMapping("/productRegisterProc") 
-	 public String productRegisterProc(ProductDTO productDTO) throws Exception{
+	 public String productRegisterProc(ProductDTO productDTO) {
+		 
 		 adminService.productRegister(productDTO);
-		 return "redirect:/admin";
+		 return "redirect:/admin/productList";
 	 }
 	 @GetMapping("/productList")
-	 public void productList(Model model)throws Exception {
+	 public void productList(Model model) {
 		 model.addAttribute("productList",adminService.getProductList());
 	 }
-	
+	 @GetMapping({"/productRead","/productModify"})
+	 public void productRead(@RequestParam("product_no")int product_no,Model model) {
+		 ProductDTO product = adminService.getProduct(product_no);
+		 if(product.getCategory_name()==null) {
+			 product.setCategory_name("카테고리없음");
+		 }
+		 model.addAttribute("product",product);
+		 model.addAttribute("category",adminService.getCategoryList("product"));
+		 
+	 }
 
 	 
 	 
@@ -114,7 +138,7 @@ public class AdminController {
 
 	 
 	 @GetMapping("/faqList")
-	 public String faqList(@RequestParam("category_no")int category_no ,Model model) throws Exception{
+	 public String faqList(@RequestParam("category_no")int category_no ,Model model) {
 		 
 		 if(category_no==0) {
 			 model.addAttribute("faqList",adminService.faqList());
@@ -128,7 +152,7 @@ public class AdminController {
 		 
 	 }
 	 @GetMapping({"/faqRead","/faqModify"})
-	 public void faqRead(@RequestParam("faq_no")int faq_no,Model model) throws Exception {
+	 public void faqRead(@RequestParam("faq_no")int faq_no,Model model)  {
 		 
 		 model.addAttribute("faq",adminService.getFaq(faq_no));
 		 model.addAttribute("category",adminService.getCategoryList("faq"));
@@ -136,7 +160,7 @@ public class AdminController {
 	 
 	 
 	 @GetMapping("/faqRegister")
-	 public void faqRegister(Model model) throws Exception {
+	 public void faqRegister(Model model)  {
 		 
 		 model.addAttribute("category",adminService.getCategoryList("faq"));
 	 }
@@ -179,20 +203,18 @@ public class AdminController {
 	 }
 	 
 	 @GetMapping("/noticeList")
-	 public String noticeList(Model model) {
+	 public void noticeList(Model model) {
 		 
 		 model.addAttribute("noticeList", adminService.noticeList());
-		 
-		 return "/admin/noticeList";
 	 }
 	 @GetMapping("/noticeRegister")
 	 public void noticeRegister() {
 		 
 	 }
-	 @GetMapping("/noticeRead")
-	 public String noticeRead(@RequestParam("notice_no") int notice_no,Model model) {
+	 @GetMapping({"/noticeRead","/noticeModify"})
+	 public void noticeRead(@RequestParam("notice_no") int notice_no,Model model) {
 		 model.addAttribute("notice", adminService.getNotice(notice_no));
-		 return "/admin/noticeRead";
+		 
 	 }
 	 
 	 @PostMapping("/noticeRegisterProc")
@@ -216,6 +238,9 @@ public class AdminController {
 		 return "redirect:/admin/noticeList";
 	 }
 	 
+	 
+	 
+
 	 @PostMapping("/noticeDeleteProc")
 	 public String noticeDeleteProc(int notice_no,RedirectAttributes rttr) {
 		 

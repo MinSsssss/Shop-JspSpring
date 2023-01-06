@@ -2,6 +2,14 @@ $(document).ready(function() {
 	$("#cateBtnSubmit").on("click",function(){
 			
 	})
+	$("#cateBtnSubmit").on("click",function(){
+		if($("#category_name").val()==''){
+			alert("카테고리 이름을 입력해주세요");
+			return false;
+		}
+		
+	})
+	
 	$("#faqRegBtn").on("click",function(){
 		if($("#faq_title").val()==""){
 			alert("제목을 입력해주세요");
@@ -12,7 +20,7 @@ $(document).ready(function() {
 			alert("내용을 입력해주세요");
 			$("#faq_content").focus();
 			return false;
-		}
+		}	
 	})
 	
 	
@@ -65,6 +73,8 @@ $(document).ready(function() {
 	
 	
 })
+$("#regModal").modal('hide');
+
 
 function successFun(result){
 	
@@ -85,5 +95,12 @@ function successFun(result){
 	} 
 	if(result == 'failDelete'){
 		alert("삭제에 실패하였습니다.")
+	}
+	if(result == 'uniqueRegister'){
+		
+		alert("중복된 이름입니다.");
+	
+		window.location = document.referrer;
+		history.back();
 	}
 }

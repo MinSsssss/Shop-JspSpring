@@ -9,21 +9,23 @@ import com.sian.domain.NoticeDTO;
 import com.sian.domain.ProductDTO;
 
 public interface AdminService {
-	public List<MemberDTO> getMemberList() throws Exception;
+	public List<MemberDTO> getMemberList() ;
 	
-	public void categoryRegister(CategoryDTO categoryDTO) throws Exception;
+	public void categoryRegister(CategoryDTO categoryDTO) ;
 	
-	public List<CategoryDTO> getCategoryList(String category_class) throws Exception;
+	public List<CategoryDTO> getCategoryList(String category_class) ;
 	
 	public int categoryDelete(int category_no);
 	
 	public String getCategoryClass(int category_no);
 	
-	public CategoryDTO categoryRead(int category_no) throws Exception;
+	public CategoryDTO categoryRead(int category_no) ;
 	
-	public void productRegister(ProductDTO productDTO) throws Exception;
+	public void productRegister(ProductDTO productDTO) ;
 	
-	public List<ProductDTO> getProductList() throws Exception;
+	public ProductDTO getProduct(int product_no);
+	
+	public List<ProductDTO> getProductList() ;
 	
 	public int faqRegister(FaqDTO faqDTO);
 	

@@ -31,19 +31,19 @@ public class AdminServiceImpl implements AdminService{
 	@Setter(onMethod_ = @Autowired)
 	private NoticeMapper noticeMapper;
 	@Override
-	public List<MemberDTO> getMemberList() throws Exception {
+	public List<MemberDTO> getMemberList()  {
 		return memberMapper.getList();
 		
 	}
 
 	@Override
-	public void categoryRegister(CategoryDTO categoryDTO) throws Exception {
+	public void categoryRegister(CategoryDTO categoryDTO)  {
 		categoryMapper.insert(categoryDTO);
 		
 	}
 
 	@Override
-	public List<CategoryDTO> getCategoryList(String category_class) throws Exception {
+	public List<CategoryDTO> getCategoryList(String category_class)  {
 		
 		return categoryMapper.getList(category_class);
 	}
@@ -55,7 +55,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public CategoryDTO categoryRead(int category_no) throws Exception {
+	public CategoryDTO categoryRead(int category_no)  {
 		
 		return categoryMapper.categoryRead(category_no);
 	}
@@ -67,15 +67,20 @@ public class AdminServiceImpl implements AdminService{
 	
 
 	@Override
-	public void productRegister(ProductDTO productDTO) throws Exception {
+	public void productRegister(ProductDTO productDTO)  {
 		productMapper.insert(productDTO);
 		
 	}
 
 	@Override
-	public List<ProductDTO> getProductList() throws Exception {
+	public List<ProductDTO> getProductList()  {
 		
 		return productMapper.getList();
+	}
+	@Override
+	public ProductDTO getProduct(int product_no){
+		
+		return productMapper.getProduct(product_no);
 	}
 
 	@Override

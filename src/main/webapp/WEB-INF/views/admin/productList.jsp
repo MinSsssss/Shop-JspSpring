@@ -36,12 +36,17 @@
                                     <tbody>
                                     <c:forEach items="${productList }" var="product">
                                     	<tr>
-                                            <td><c:out value= "${product.product_no }" /></td>
-                                            <td><c:out value= "${product.product_name }" /></td>
-                                            <td><c:out value= "${product.product_price }" /></td>
-                                            <td><c:out value= "${product.product_hit }" /></td>
-                                            <td><fmt:formatDate pattern="yyyy-MM-dd" value = "${product.product_regdate }"/></td>
-                                            <td><fmt:formatDate pattern="yyyy-MM-dd" value = "${product.product_updateDate }"/></td>
+                                            <td class="align-middle">${product.product_no }</td>
+                                            <td class="align-middle">
+                                            <div><img  class="productListImage" alt="" src="/resources/member/img/${product.product_image1}">
+                                            	<span><a href="/admin/productRead?product_no=${product.product_no}">${product.product_name}</a></span>
+                                            </div>
+                                            
+                                            </td>
+                                            <td class="align-middle">${product.product_price }</td>
+                                            <td class="align-middle">${product.product_hit }</td>
+                                            <td class="align-middle"><fmt:formatDate pattern="yyyy-MM-dd" value = "${product.product_regdate }"/></td>
+                                            <td class="align-middle"><fmt:formatDate pattern="yyyy-MM-dd" value = "${product.product_updateDate }"/></td>
                                              
                                         </tr>
                                     

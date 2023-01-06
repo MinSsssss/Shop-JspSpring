@@ -11,19 +11,19 @@ public interface MemberMapper {
 	
 	public MemberDTO read(String mem_id);
 	
-	public void register(MemberDTO member,AuthVO authVO) throws Exception;
+	public void register(MemberDTO member,AuthVO authVO) ;
 	
-	public int idChk(MemberDTO memberDTO) throws Exception;
+	public int idChk(MemberDTO memberDTO) ;
 	
-	public String getPwd(String mem_id) throws Exception;
+	public String getPwd(String mem_id) ;
 	
-	public int memberDrop(MemberDTO memberDTO)throws Exception;
+	public int memberDrop(MemberDTO memberDTO);
 	
-	public int memberModify(MemberDTO memberDTO) throws Exception;
+	public int memberModify(MemberDTO memberDTO) ;
 	
-	public int insert(MemberDTO memberDTO) throws Exception;
+	public int insert(MemberDTO memberDTO) ;
 	
-	public List<MemberDTO> getList() throws Exception;
+	public List<MemberDTO> getList() ;
 	
 	
 	

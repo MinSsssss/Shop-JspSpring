@@ -11,7 +11,7 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800">상품 등록</h1>
+	<h1 class="h3 mb-2 text-gray-800">상품 수정</h1>
 
 	<!-- DataTales Example -->
 
@@ -20,8 +20,8 @@
 		<div class="card-body">
 			<div class="table-responsive">
 
-				<form action="/admin/productRegisterProc" method="post"
-					id="productRegisterForm">
+				<form action="/admin/productModifyProc" method="post"
+					id="productModifyForm">
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
 
@@ -29,6 +29,7 @@
 							<tr>
 								<td>카테고리</td>
 								<td><select name="category_name" id="category_name">
+											<option id="categorySelect" >${product.category_name }</option>
 											<option id="categorySelect">카테고리없음</option>
 										<c:forEach items="${categoryList }" var="category">
 											<option id="categorySelect">
@@ -46,22 +47,24 @@
 							<tr>
 								<td>상품이름</td>
 								<td><input type="text" name="product_name"
-									id="product_name"></td>
+									id="product_name" value="${product.product_name }"></td>
 							</tr>
 
 							<tr>
 								<td>상품설명</td>
 								<td><textarea rows="10" cols="20" name="product_detail"
-										id="product_detail"></textarea></td>
+										id="product_detail">${product.product_detail }</textarea></td>
 							</tr>
 							<tr>
 								<td>가격</td>
 								<td><input type="text" name="product_price"
-									id="product_price"></td>
+									id="product_price" value="${product.product_price }"></td>
 							</tr>
 							<tr>
 								<td>이미지 첨부</td>
-								<td><input type="file" name="product_image1"
+								<td>
+								<div><img alt="" src="/resources/member/img/${product.product_image1}"></div>
+								<input type="file" name="product_image1"
 									id="product_image1" accept="image/*" onchange="loadFile(this)"></td>
 							</tr>
 

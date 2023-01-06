@@ -7,9 +7,9 @@ import com.sian.domain.CategoryDTO;
 public interface CategoryMapper {
 	public void insert(CategoryDTO categoryDTO);
 	
-	public List<CategoryDTO> getList(String category_class) throws Exception;
+	public List<CategoryDTO> getList(String category_class) ;
 	
-	public CategoryDTO categoryRead(int category_no) throws Exception;
+	public CategoryDTO categoryRead(int category_no) ;
 	
 	public int categoryDelete(int category_no);
 	
