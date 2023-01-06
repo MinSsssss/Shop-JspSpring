@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sian.domain.CategoryDTO;
-import com.sian.domain.FaqDTO;
-import com.sian.domain.NoticeDTO;
-import com.sian.domain.ProductDTO;
+import com.sian.category.dto.CategoryDTO;
+import com.sian.faq.dto.FaqDTO;
+import com.sian.notice.dto.NoticeDTO;
+import com.sian.product.dto.ProductDTO;
 import com.sian.service.AdminService;
 import com.sian.service.MemberService;
 

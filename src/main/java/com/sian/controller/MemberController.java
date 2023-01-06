@@ -24,17 +24,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sian.domain.CartProductDTO;
-import com.sian.domain.MemberDTO;
-import com.sian.domain.OrderDTO;
-import com.sian.domain.OrderDetailDTO;
-import com.sian.domain.ProductDTO;
-import com.sian.domain.ReviewDTO;
-import com.sian.domain.WishListDTO;
+import com.sian.cart.dto.CartProductDTO;
+import com.sian.member.dto.MemberDTO;
+import com.sian.order.dto.OrderDTO;
+import com.sian.order.dto.OrderDetailDTO;
+import com.sian.product.dto.ProductDTO;
+import com.sian.review.dto.ReviewDTO;
+import com.sian.review.service.ReviewService;
 import com.sian.service.AdminService;
 import com.sian.service.MemberService;
-import com.sian.service.ReviewService;
-import com.sian.service.WishListService;
+import com.sian.wish.dto.WishListDTO;
+import com.sian.wish.service.WishListService;
 
 import lombok.AllArgsConstructor;
 

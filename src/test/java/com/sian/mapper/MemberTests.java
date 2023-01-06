@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.sian.domain.MemberDTO;
+import com.sian.member.dto.MemberDTO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;

@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sian.domain.AuthVO;
-
-import com.sian.domain.MemberDTO;
-
+import com.sian.member.dto.AuthVO;
+import com.sian.member.dto.MemberDTO;
 import com.sian.service.MemberService;
 
 import lombok.Setter;

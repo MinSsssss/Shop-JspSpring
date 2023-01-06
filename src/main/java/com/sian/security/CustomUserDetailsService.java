@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.sian.domain.MemberDTO;
-import com.sian.mapper.MemberMapper;
+import com.sian.member.dao.MemberDAO;
+import com.sian.member.dto.MemberDTO;
 import com.sian.security.domain.CustomUser;
 
 import lombok.Getter;
@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Setter(onMethod_ =  {@Autowired} )
-	private MemberMapper memberMapper;
+	private MemberDAO memberMapper;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

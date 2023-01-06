@@ -12,8 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
-import com.sian.domain.MemberDTO;
+import com.sian.member.dao.MemberDAO;
+import com.sian.member.dto.MemberDTO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -25,7 +25,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class MemberMapperTests {
 	@Setter(onMethod_ = @Autowired)
-	private MemberMapper mapper;
+	private MemberDAO mapper;
 	
 	@Setter(onMethod_ = @Autowired)
 	  private PasswordEncoder pwencoder;
@@ -61,10 +61,10 @@ public class MemberMapperTests {
 		memberDTO.setMem_id("cda01");
 		
 		 if(passwordEncoder.matches("vlsltl12",memberDTO.getMem_pwd())) {
-		 log.info("È¸¿øÅ»Åð!!!!!!!!!!!"+ mapper.memberDrop(memberDTO)); 
+		 log.info("È¸ï¿½ï¿½Å»ï¿½ï¿½!!!!!!!!!!!"+ mapper.memberDrop(memberDTO)); 
 		 }
 		 
-//		log.info("È¸¿øÅ»Åð!!!!!!!!!!!"+ mapper.memberDrop(memberDTO));
+//		log.info("È¸ï¿½ï¿½Å»ï¿½ï¿½!!!!!!!!!!!"+ mapper.memberDrop(memberDTO));
 		
 		
 	}
