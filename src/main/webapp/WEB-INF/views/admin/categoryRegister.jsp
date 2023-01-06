@@ -43,7 +43,11 @@
 
 <!-- End of Main Content -->
 <jsp:include page="./includes/adminFooter.jsp"></jsp:include>
+<<<<<<< HEAD
 <script>
 	let result = '${msg}';
 	successFun(result);
 </script>   
+=======
+
+>>>>>>> f04a97b6eb63b118e6f42b19e989b60e67a0e12c
