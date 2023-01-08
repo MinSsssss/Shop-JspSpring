@@ -1,24 +1,24 @@
 $(document).ready(function() {
 	$("#orderList").on("click", function() {
-		location.href = "/member/auth/orderList"
+		location.href = "/order/orderList"
 	})
 	$("#wishList").on("click", function() {
-		location.href = "/member/auth/wishListView"
+		location.href = "/wish/wishListView"
 	})
 	$("#cart").on("click", function() {
-		location.href = "/member/auth/cartView"
+		location.href = "/cart/cartView"
 	})
 	$("#qnaList").on("click", function() {
-		location.href = "/member/auth/qnaList"
+		location.href = "/qna/qnaList"
 	})
 	$("#reviewList").on("click", function() {
-		location.href = "/member/auth/reviewList"
+		location.href = "/review/reviewList"
 	})
 	$("#memberModify").on("click", function() {
-		location.href = "/member/auth/memberModify"
+		location.href = "/member/memberModify"
 	})
 	$("#memberDrop").on("click", function() {
-		location.href = "/member/auth/memberDrop"
+		location.href = "/member/memberDrop"
 	})
 
 	$("#logoutBtn").on("click", function() {
@@ -26,7 +26,7 @@ $(document).ready(function() {
 	})
 
 	$("#pwChkCancleBtn").on("click", function() {
-		location.href = "/member/auth/orderList";
+		location.href = "/order/orderList";
 	})
 	$("#pwChkSubmitBtn").on("click", function() {
 		let mem_id = $("#mem_id").val();
@@ -42,7 +42,7 @@ $(document).ready(function() {
 			return false();
 		} else {
 			$.ajax({
-				url : "/member/auth/pwdChk",
+				url : "/member/pwdChk",
 				async : true,
 				type : "post",
 				dataType : "json",
@@ -81,7 +81,7 @@ $(document).ready(function() {
 			}
 			console.log(param);
 			$.ajax({
-				url : "/member/auth/pwdChk",
+				url : "/member/pwdChk",
 				async : true,
 				type : "post",
 				dataType : "json",
@@ -123,7 +123,7 @@ $(document).ready(function() {
 			return false();
 		} else {
 			$.ajax({
-				url : "/member/auth/pwdChk",
+				url : "/member/pwdChk",
 				async : true,
 				type : "post",
 				dataType : "json",

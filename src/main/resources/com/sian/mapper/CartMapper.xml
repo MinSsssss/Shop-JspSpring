@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sian.mapper.CartMapper">
+<mapper namespace="com.sian.cart.dao.CartDAO">
  	<insert id="insert">
  		INSERT INTO tbl_cart(product_no,mem_id,cart_qty,sub_total)
  		VALUES (#{product_no},#{mem_id},#{cart_qty},
@@ -13,7 +13,7 @@
 	
 	
  	
-	<select id="cartList" resultType="com.sian.domain.CartListDTO">
+	<select id="cartList" resultType="com.sian.cart.dto.CartListDTO">
  		SELECT pro.product_image1,pro.product_no,pro.product_name,pro.product_price,cart.cart_qty,cart.sub_total
 		FROM tbl_product pro,tbl_cart cart
 		WHERE pro.product_no=cart.product_no AND cart.mem_id=#{mem_id}

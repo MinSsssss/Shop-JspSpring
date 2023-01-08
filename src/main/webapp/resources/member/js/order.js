@@ -13,7 +13,7 @@ $(document).ready(function() {
 			"order_request_msg": order_request_msg
 		}
 		$.ajax({
-			url: "/member/auth/checkout",
+			url: "/order/checkout",
 			async: true,
 			type: "post",
 			dataType: "json",
@@ -58,9 +58,9 @@ $(document).ready(function() {
 				$.ajax({
 
 					type: "POST",
-					url: "/member/auth/orderDetails",
+					url: "/order/orderDetails",
 					data: paramList,
-					success: window.location.replace('/member')
+					success: window.location.replace('/order/orderList')
 
 				})
 			}
@@ -136,7 +136,7 @@ function orderDeleteFun(order_status, order_no) {
 		if (order_status.value == "배송 완료") {
 			let param = { "order_no": order_no.value }
 			$.ajax({
-				url: "/member/auth/orderDelete",
+				url: "/order/orderDelete",
 				type: "POST",
 				data: param,
 				success: function(data) {

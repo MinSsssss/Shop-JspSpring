@@ -2,17 +2,21 @@ package com.sian.notice.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
+
 
 import com.sian.notice.dao.NoticeDAO;
 import com.sian.notice.dto.NoticeDTO;
 
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
+
+
+@RequiredArgsConstructor
 @Service
 public class NoticeServiceImpl implements NoticeService{
-	@Setter(onMethod_ = @Autowired)
-	private NoticeDAO noticeDAO;
+	
+	private final NoticeDAO noticeDAO;
 
 	@Override
 	public int noticeRegister(NoticeDTO noticeDTO) {

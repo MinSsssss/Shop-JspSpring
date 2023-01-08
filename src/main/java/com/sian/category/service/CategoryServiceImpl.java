@@ -8,11 +8,14 @@ import org.springframework.stereotype.Service;
 import com.sian.category.dao.CategoryDAO;
 import com.sian.category.dto.CategoryDTO;
 
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+
+@RequiredArgsConstructor
 @Service
 public class CategoryServiceImpl implements CategoryService{
-	@Setter(onMethod_ = @Autowired)
-	private CategoryDAO categoryDAO;
+	
+	private final CategoryDAO categoryDAO;
 	
 	
 	@Override

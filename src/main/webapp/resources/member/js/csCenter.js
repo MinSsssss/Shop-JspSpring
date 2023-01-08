@@ -1,12 +1,12 @@
 $(document).ready(function() {
 	$("#noticeList").on("click", function() {
-		location.href = "/member/noticeList";
+		location.href = "/notice/noticeList";
 	})
 	$("#faqList").on("click", function() {
-		location.href = "/member/faqList";
+		location.href = "/faq/faqList";
 	})
 	$("#inquiry").on("click", function() {
-		location.href = "/member/inquiry";
+		location.href = "/inquiry/inquiry";
 	})
 
 	

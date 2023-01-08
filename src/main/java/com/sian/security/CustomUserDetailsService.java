@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Setter(onMethod_ =  {@Autowired} )
-	private MemberDAO memberMapper;
+	private MemberDAO memberDAO;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -26,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		log.warn("Load User By UserName : " + username);
 
 		
-		MemberDTO dto = memberMapper.read(username);
+		MemberDTO dto = memberDAO.read(username);
 
 		
 		log.warn("queried by member mapper: " + dto);

@@ -53,7 +53,7 @@ function reviewDeleteFun(count) {
 
 		let param = { "review_no": review_no }
 		$.ajax({
-			url: "/member/auth/reviewDelete",
+			url: "/review/reviewDelete",
 			type: "POST",
 			data: param,
 			success: function() {

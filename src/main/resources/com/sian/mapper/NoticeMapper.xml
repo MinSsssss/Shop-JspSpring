@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sian.mapper.NoticeMapper">
+<mapper namespace="com.sian.notice.dao.NoticeDAO">
  	<insert id="noticeRegister">
  		INSERT INTO tbl_notice(notice_no,notice_title,
  		notice_content,notice_writer)
@@ -8,12 +8,12 @@
  		#{notice_content},#{notice_writer}) 
  	</insert>
 	
-	<select id="noticeList" resultType="com.sian.domain.NoticeDTO">
+	<select id="noticeList" resultType="com.sian.notice.dto.NoticeDTO">
 		SELECT *
 		FROM tbl_notice
 	</select>
 	
-	<select id="getNotice" resultType="com.sian.domain.NoticeDTO">
+	<select id="getNotice" resultType="com.sian.notice.dto.NoticeDTO">
 		SELECT *
 		FROM tbl_notice
 		WHERE notice_no=#{notice_no}

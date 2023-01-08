@@ -54,17 +54,14 @@ create table tbl_member_auth(
 CREATE TABLE tbl_category (
 	category_no	number,
     category_class varchar2(30) NOT NULL,
-<<<<<<< HEAD
 	category_name	varchar2(30) UNIQUE	NOT NULL
 );
 
 ALTER TABLE tbl_category ADD UNIQUE(category_name,category_class);
-=======
-	category_name	varchar2(30) unique	NOT NULL
-);
+
 
 ALTER TABLE tbl_category ADD UNIQUE(category_no,category_class);
->>>>>>> f04a97b6eb63b118e6f42b19e989b60e67a0e12c
+
 CREATE SEQUENCE seq_category;
     
 

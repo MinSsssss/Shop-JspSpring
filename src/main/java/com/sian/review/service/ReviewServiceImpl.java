@@ -5,15 +5,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sian.cart.service.CartService;
+import com.sian.member.service.MemberService;
+import com.sian.product.service.ProductService;
 import com.sian.review.dao.ReviewDAO;
 import com.sian.review.dto.ReviewDTO;
 
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+
+@RequiredArgsConstructor
 @Service
 public class ReviewServiceImpl implements ReviewService{
 	
-	@Setter(onMethod_ = @Autowired)
-	private ReviewDAO reviewMapper;
+	
+	private final ReviewDAO reviewMapper;
 	
 	@Override
 	public void reviewRegister(ReviewDTO reviewDTO) {

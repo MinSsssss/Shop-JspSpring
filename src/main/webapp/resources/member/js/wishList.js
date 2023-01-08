@@ -20,7 +20,7 @@ $(document).ready(function() {
 			};
 
 			$.ajax({
-				url : "/member/auth/addWishList",
+				url : "/wish/addWishList",
 				async : true,
 				type : "post",
 				dataType : "json",
@@ -58,7 +58,7 @@ function wishDelete(product_no) {
 		console.log(product_no);
 		let param = { "product_no": product_no.value };
 		$.ajax({
-			url: "/member/auth/wishDelete",
+			url: "/wish/wishDelete",
 			type: "post",
 			dataType : "json",
 			data: JSON.stringify(param),

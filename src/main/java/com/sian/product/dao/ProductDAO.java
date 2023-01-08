@@ -15,4 +15,6 @@ public interface ProductDAO {
 	public ProductDTO getProduct(int product_no) ;
 	
 	public int getProductNo(String product_name);
+	
+	public int productModify(ProductDTO productDTO);
 }

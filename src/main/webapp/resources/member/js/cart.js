@@ -15,7 +15,7 @@ $(document).ready(function() {
 
 		console.log("제품번호" + product_no);
 		$.ajax({
-			url: "/member/auth/addCart",
+			url: "/cart/addCart",
 			async: true,
 			type: "post",
 			dataType: "json",
@@ -38,10 +38,7 @@ $(document).ready(function() {
 		})
 	})
 
-	/*	$("#cartDeleteBtn").on("click", function() {
-	
-			$("#cartDeleteForm").submit();
-		})*/
+
 
 	$("#seleteDeleteBtn").on("click", function() {
 		let eachLength = $(".cart_info_td").length;
@@ -67,7 +64,7 @@ $(document).ready(function() {
 
 				const form = document.createElement('form');
 				form.setAttribute('method', 'post');        //Post 메소드 적용
-				form.setAttribute('action', '/member/auth/cartSelectDelete');
+				form.setAttribute('action', 'cart/cartSelectDelete');
 
 				var input1 = document.createElement('input');
 				input1.setAttribute("type", "hidden");
@@ -203,7 +200,7 @@ function cartDelete(product_no) {
 		console.log(product_no);
 		let param = { "product_no": product_no.value };
 		$.ajax({
-			url: "/member/auth/cartDelete",
+			url: "/cart/cartDelete",
 			type: "post",
 			dataType : "json",
 			data: JSON.stringify(param),

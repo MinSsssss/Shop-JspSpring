@@ -31,6 +31,7 @@
     </bean>
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
    		 <property name="dataSource" ref="dataSource"></property>
+   		 <property name="mapperLocations" value="classpath:/com/sian/mapper/*.xml"/> 
 	</bean>
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
@@ -42,9 +43,27 @@
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 	
-	<mybatis-spring:scan base-package="com.sian.mapper"/>
 	
-	<context:component-scan base-package="com.sian.service"></context:component-scan>	
+	<mybatis-spring:scan base-package="com.sian.category.dao"/>
+	<mybatis-spring:scan base-package="com.sian.faq.dao"/>
+	<mybatis-spring:scan base-package="com.sian.member.dao"/>
+	<mybatis-spring:scan base-package="com.sian.notice.dao"/>
+	<mybatis-spring:scan base-package="com.sian.order.dao"/>
+	<mybatis-spring:scan base-package="com.sian.product.dao"/>
+	<mybatis-spring:scan base-package="com.sian.review.dao"/>
+	<mybatis-spring:scan base-package="com.sian.wish.dao"/>
+	<mybatis-spring:scan base-package="com.sian.cart.dao"/>
+	
+	
+	<context:component-scan base-package="com.sian.category.service"></context:component-scan>
+	<context:component-scan base-package="com.sian.faq.service"></context:component-scan>
+	<context:component-scan base-package="com.sian.member.service"></context:component-scan>
+	<context:component-scan base-package="com.sian.notice.service"></context:component-scan>
+	<context:component-scan base-package="com.sian.order.service"></context:component-scan>
+	<context:component-scan base-package="com.sian.product.service"></context:component-scan>
+	<context:component-scan base-package="com.sian.review.service"></context:component-scan>
+	<context:component-scan base-package="com.sian.wish.service"></context:component-scan>
+	<context:component-scan base-package="com.sian.cart.service"></context:component-scan>
 	
 	
 </beans>

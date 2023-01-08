@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sian.mapper.ReviewMapper">
+<mapper namespace="com.sian.review.dao.ReviewDAO">
 	<insert id="reviewRegister">
 		INSERT INTO tbl_review(review_no,order_detail_no,
 		mem_id,review_title,review_content,review_star)
@@ -8,7 +8,7 @@
 		#{mem_id},#{review_title},#{review_content},#{review_star})
 	</insert>
 	
-	<select id="reviewList" resultType="com.sian.domain.ReviewDTO">
+	<select id="reviewList" resultType="com.sian.review.dto.ReviewDTO">
 		SELECT re.review_no, od.order_detail_no, re.review_star,
 		re.review_title, re.review_content, re.review_date,
 		pro.product_image1, pro.product_name, re.mem_id
@@ -26,7 +26,7 @@
 		WHERE order_detail_no=#{order_detail_no}
 	</select>
 	
-	<select id="getReview" resultType="com.sian.domain.ReviewDTO">
+	<select id="getReview" resultType="com.sian.review.dto.ReviewDTO">
 		SELECT re.review_no, od.order_detail_no, re.review_star,
 		re.review_title, re.review_content, re.review_date,
 		pro.product_image1, pro.product_name, re.mem_id
@@ -56,7 +56,7 @@
 	</delete>
 	
 	
-	<select id="getReviewList" resultType="com.sian.domain.ReviewDTO">
+	<select id="getReviewList" resultType="com.sian.review.dto.ReviewDTO">
 SELECT re.review_no, re.review_star,
 		re.review_title, re.review_content, re.review_date,
 		pro.product_image1, pro.product_name, re.mem_id

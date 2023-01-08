@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sian.mapper.OrderMapper">
+<mapper namespace="com.sian.order.dao.OrderDAO">
 
 	<insert id="orderInsert">
 		<!-- <selectKey keyProperty="order_no" resultType="Long" order="BEFORE"> 
@@ -32,19 +32,19 @@
 		WHERE ROWNUM=1 AND mem_id=#{mem_id}
 	</select>
 	
-	<select id="getOrder" resultType="com.sian.domain.OrderDTO">
+	<select id="getOrder" resultType="com.sian.order.dto.OrderDTO">
 		SELECT *
 		FROM tbl_order
 		WHERE order_no=#{order_no}
 	</select>
 	
-	<select id="getOrderList" resultType="com.sian.domain.OrderDTO">
+	<select id="getOrderList" resultType="com.sian.order.dto.OrderDTO">
 		SELECT *
 		FROM tbl_order
 		WHERE mem_id=#{mem_id}
 	</select>
 	
-	<select id="getOrderDetailList" resultType="com.sian.domain.OrderDetailDTO">
+	<select id="getOrderDetailList" resultType="com.sian.order.dto.OrderDetailDTO">
 		SELECT od.order_detail_no,od.order_no,
 		od.order_qty,od.sub_total,
 		pro.product_no,pro.product_name,
@@ -57,7 +57,7 @@
 		DELETE FROM tbl_order
 		WHERE order_no = #{order_no}
 	</delete>
-	<select id="getReviewView" resultType="com.sian.domain.OrderDetailDTO">
+	<select id="getReviewView" resultType="com.sian.order.dto.OrderDetailDTO">
 		SELECT pro.product_name,pro.product_image1,od.order_detail_no
 		FROM tbl_product pro,tbl_order_detail od
 		WHERE pro.product_no = od.product_no

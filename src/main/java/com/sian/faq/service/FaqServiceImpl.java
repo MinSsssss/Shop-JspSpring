@@ -2,17 +2,22 @@ package com.sian.faq.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
+
 
 import com.sian.faq.dao.FaqDAO;
 import com.sian.faq.dto.FaqDTO;
 
-import lombok.Setter;
+
+import lombok.RequiredArgsConstructor;
+
+
+@RequiredArgsConstructor
 @Service
 public class FaqServiceImpl implements FaqService{
-	@Setter(onMethod_ = @Autowired)
-	private FaqDAO faqDAO;
+	
+	private final FaqDAO faqDAO;
 	
 	
 	@Override

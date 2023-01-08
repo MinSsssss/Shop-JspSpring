@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sian.mapper.FaqMapper">
+<mapper namespace="com.sian.faq.dao.FaqDAO">
  	<insert id="faqRegister">
  		INSERT INTO tbl_faq(faq_no,category_no,faq_title,
  		faq_content)
@@ -11,19 +11,19 @@
  		#{faq_title},
  		#{faq_content})
  	</insert>
- 	<select id="faqList" resultType="com.sian.domain.FaqDTO">
+ 	<select id="faqList" resultType="com.sian.faq.dto.FaqDTO">
  		SELECT faq.faq_no,cate.category_no,cate.category_name,faq.faq_title,faq.faq_content,faq.faq_hit
  		FROM tbl_faq faq, tbl_category cate
  		WHERE faq.category_no=cate.category_no
  	</select>
- 	 	<select id="selectFaqList" resultType="com.sian.domain.FaqDTO">
+ 	 	<select id="selectFaqList" resultType="com.sian.faq.dto.FaqDTO">
  		SELECT faq.faq_no,cate.category_no,cate.category_name,faq.faq_title,faq.faq_content,faq.faq_hit
  		FROM tbl_faq faq, tbl_category cate
  		WHERE faq.category_no=cate.category_no
  		AND faq.category_no=#{category_no}
  	</select>
  	
- 	<select id="getFaq" resultType="com.sian.domain.FaqDTO">
+ 	<select id="getFaq" resultType="com.sian.faq.dto.FaqDTO">
  		SELECT faq.faq_no,cate.category_no,cate.category_name,faq.faq_title,faq.faq_content,faq.faq_hit
  		FROM tbl_faq faq, tbl_category cate
  		WHERE faq.category_no=cate.category_no

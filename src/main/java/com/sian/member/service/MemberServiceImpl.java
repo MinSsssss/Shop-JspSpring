@@ -11,21 +11,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.sian.cart.service.CartService;
 import com.sian.member.dao.MemberDAO;
 import com.sian.member.dto.AuthVO;
 import com.sian.member.dto.MemberDTO;
+import com.sian.product.service.ProductService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+@RequiredArgsConstructor
 @Service
 public class MemberServiceImpl implements MemberService{
-	@Setter(onMethod_ = @Autowired)
-	private MemberDAO memberDAO;
 	
-	@Setter(onMethod_ = @Autowired)
-	private BCryptPasswordEncoder passwordEncoder;
+	private final MemberDAO memberDAO;
+	
+	
+	private final BCryptPasswordEncoder passwordEncoder;
 
-	@Setter(onMethod_ = @Autowired)
-	private PasswordEncoder pswordEncoder;
+	
+	private final PasswordEncoder pswordEncoder;
 	
 	
 	@Override
@@ -62,7 +66,7 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.memberDrop(memberDTO) == 1;
 	}
 	
-	//현재 사용자의 비밀번호를 가져옴
+	
 	@Override
 	public String getPwd(Authentication authentication)  {
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -72,7 +76,7 @@ public class MemberServiceImpl implements MemberService{
 		String thisMemPwd = memberDAO.getPwd(thisMemId);
 		return thisMemPwd;
 	}
-	//getPwd() 로 사용자의 비밀번호를 가져와서 입력한 비밀번호와 비교.
+	
 	@Override
 	public boolean pwdChk(MemberDTO memberDTO,Authentication authentication)  {
 

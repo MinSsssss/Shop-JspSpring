@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sian.mapper.MemberMapper">
+<mapper namespace="com.sian.member.dao.MemberDAO">
 
-<resultMap type="com.sian.domain.MemberDTO" id="memberMap">
+<resultMap type="com.sian.member.dto.MemberDTO" id="memberMap">
 	<id property="mem_id" column="mem_id"/>
 	<result property="mem_id" column="mem_id"/>
 	<result property="mem_pwd" column="mem_pwd"/>
@@ -16,7 +16,7 @@
 	<result property="full_address" column="full_address"/>
 	<collection property="authList" resultMap="authMap"></collection>
 </resultMap>
-<resultMap type="com.sian.domain.AuthVO" id="authMap">
+<resultMap type="com.sian.member.dto.AuthVO" id="authMap">
 	<result property="mem_id" column="mem_id"/>
 	<result property="auth" column="auth"/>
 </resultMap>
@@ -37,7 +37,7 @@
 			SELECT * FROM dual
 	</insert>
 	
-	<delete id="memberDrop" parameterType="com.sian.domain.MemberDTO">
+	<delete id="memberDrop" parameterType="com.sian.member.dto.MemberDTO">
 		DELETE FROM tbl_member 
 		WHERE mem_id=#{mem_id}
 	</delete>
