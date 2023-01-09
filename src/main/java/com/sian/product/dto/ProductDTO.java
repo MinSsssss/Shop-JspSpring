@@ -1,6 +1,7 @@
 package com.sian.product.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -28,5 +29,6 @@ public class ProductDTO {
 	
 	private Long product_hit;
 	
+	private List<ProductAttachDTO> attachList;
 	
 }

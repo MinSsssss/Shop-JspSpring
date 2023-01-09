@@ -23,6 +23,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,197 +38,198 @@ import net.coobird.thumbnailator.Thumbnailator;
 import net.coobird.thumbnailator.Thumbnails;
 @Controller
 public class UploadFileController {
-
-
-	@PostMapping(value="/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<ProductAttachDTO>> uploadAjaxActionPOST(MultipartFile[] uploadFile) {
-		
-		for(MultipartFile multipartFile: uploadFile) {
-			
-			File checkfile = new File(multipartFile.getOriginalFilename());
-			String type = null;
-			
-			try {
-				type = Files.probeContentType(checkfile.toPath());
-				
-				System.out.println("MIME TYPE : " + type);
-			} catch (IOException e) {
-				
-				e.printStackTrace();
-			}
-			
-			if(!type.startsWith("image")) {
-				
-				List<ProductAttachDTO> list = null;
-				return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
-				
-			}
-			
-		}
-		
-		String uploadFolder = "C:\\upload";
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Date date = new Date();
-		
-		String str = sdf.format(date);
-		
-		String datePath = str.replace("-", File.separator);
-		
-		/* 폴더 생성 */
-		File uploadPath = new File(uploadFolder, datePath);
-		
-		if(uploadPath.exists() == false) {
-			uploadPath.mkdirs();
-		}
-		List<ProductAttachDTO> list = new ArrayList();
-		
-		for (MultipartFile multipartFile : uploadFile) {
-			ProductAttachDTO proAtt = new ProductAttachDTO();
-			
-			
-			
-			
-			
-			
-			String uploadFileName = multipartFile.getOriginalFilename();			
-			
-			proAtt.setFileName(uploadFileName);
-			proAtt.setUploadPath(datePath);
-			
-			String uuid = UUID.randomUUID().toString();
-			proAtt.setUuid(uuid);
-			
-			uploadFileName = uuid + "_" + uploadFileName;
-			
-			/* 파일 위치, 파일 이름을 합친 File 객체 */
-			File saveFile = new File(uploadPath, uploadFileName);
-			
-			System.out.println(saveFile.canRead());
-			/* 파일 저장 */
-			try {
-//				
-				
-				File thumbnailFile = new File(uploadPath, "s_" + uploadFileName);				
-				
-				BufferedImage bo_image = ImageIO.read(saveFile);
-				
-				
-				
-				//비율 
-				double ratio = 3;
-				//넓이 높이
-				int width = (int) (bo_image.getWidth() / ratio);
-				int height = (int) (bo_image.getHeight() / ratio);			
-				
-				Thumbnails.of(saveFile)
-				 .size(width, height)
-			     .toFile(thumbnailFile);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-			list.add(proAtt);
-		}
-		ResponseEntity<List<ProductAttachDTO>> result = 
-				new ResponseEntity<List<ProductAttachDTO>>(list,HttpStatus.OK);
-		
-		return result;
-		
-	}
 	
-	
-	
-//	private String getFolder() {
-//
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//
-//		Date date = new Date();
-//
-//		String str = sdf.format(date);
-//
-//		return str.replace("-", File.separator);
-//	}
-//
-//
-//	private boolean checkImageType(File file) {
-//
-//		try {
-//			String contentType = Files.probeContentType(file.toPath());
-//
-//			return contentType.startsWith("image");
-//
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		return false;
-//	}
-//
-//
-//
-//	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//	@PreAuthorize("hasRole('ROLE_ADMIN')")
 //	@ResponseBody
-//	public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
-//
-//		List<AttachFileDTO> list = new ArrayList<>();
-//		String uploadFolder = "C:\\upload";
-//
-//		String uploadFolderPath = getFolder();
-//		// make folder --------
-//		File uploadPath = new File(uploadFolder, uploadFolderPath);
-//
-//		if (uploadPath.exists() == false) {
-//			uploadPath.mkdirs();
-//		}
-//		// make yyyy/MM/dd folder
-//
-//		for (MultipartFile multipartFile : uploadFile) {
-//
-//			AttachFileDTO attachDTO = new AttachFileDTO();
-//
-//			String uploadFileName = multipartFile.getOriginalFilename();
-//
-//			// IE has file path
-//			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
+//	@PostMapping(value="/admin/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//	public ResponseEntity<List<ProductAttachDTO>> uploadAjaxActionPOST(MultipartFile[] uploadFile) {
+//		
+//		for(MultipartFile multipartFile: uploadFile) {
 //			
-//			attachDTO.setFileName(uploadFileName);
-//
-//			UUID uuid = UUID.randomUUID();
-//
-//			uploadFileName = uuid.toString() + "_" + uploadFileName;
-//
+//			File checkfile = new File(multipartFile.getOriginalFilename());
+//			String type = null;
+//			
 //			try {
-//				File saveFile = new File(uploadPath, uploadFileName);
-//				multipartFile.transferTo(saveFile);
-//
-//				attachDTO.setUuid(uuid.toString());
-//				attachDTO.setUploadPath(uploadFolderPath);
-//
-//				// check image type ile
-//				if (checkImageType(saveFile)) {
-//f
-//					attachDTO.setImage(true);
-//
-//					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-//
-//					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
-//
-//					thumbnail.close();
-//				}
-//
-//				// add to List
-//				list.add(attachDTO);
-//
-//			} catch (Exception e) {
+//				type = Files.probeContentType(checkfile.toPath());
+//				
+//				System.out.println("MIME TYPE : " + type);
+//			} catch (IOException e) {
+//				
 //				e.printStackTrace();
 //			}
-//
-//		} // end for
-//		return new ResponseEntity<>(list, HttpStatus.OK);
+//			
+//			if(!type.startsWith("image")) {
+//				
+//				List<ProductAttachDTO> list = null;
+//				return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
+//				
+//			}
+//			
+//		}
+//		
+//		String uploadFolder = "C:\\upload";
+//		
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		
+//		Date date = new Date();
+//		
+//		String str = sdf.format(date);
+//		
+//		String datePath = str.replace("-", File.separator);
+//		
+//		/* �대�� ���� */
+//		File uploadPath = new File(uploadFolder, datePath);
+//		
+//		if(uploadPath.exists() == false) {
+//			uploadPath.mkdirs();
+//		}
+//		List<ProductAttachDTO> list = new ArrayList<ProductAttachDTO>();
+//		
+//		for (MultipartFile multipartFile : uploadFile) {
+//			ProductAttachDTO proAtt = new ProductAttachDTO();
+//			
+//			
+//			
+//			
+//			
+//			
+//			String uploadFileName = multipartFile.getOriginalFilename();			
+//			
+//			proAtt.setFileName(uploadFileName);
+//			proAtt.setUploadPath(datePath);
+//			
+//			String uuid = UUID.randomUUID().toString();
+//			proAtt.setUuid(uuid);
+//			
+//			uploadFileName = uuid + "_" + uploadFileName;
+//			
+//			/* ���� ��移�, ���� �대��� �⑹� File 媛�泥� */
+//			File saveFile = new File(uploadPath, uploadFileName);
+//			
+//			System.out.println(saveFile.canRead());
+//			/* ���� ���� */
+//			try {
+////				
+//				
+//				File thumbnailFile = new File(uploadPath, "s_" + uploadFileName);				
+//				
+//				BufferedImage bo_image = ImageIO.read(saveFile);
+//				
+//				
+//				
+//				//鍮��� 
+//				double ratio = 3;
+//				//���� ����
+//				int width = (int) (bo_image.getWidth() / ratio);
+//				int height = (int) (bo_image.getHeight() / ratio);			
+//				
+//				Thumbnails.of(saveFile)
+//				 .size(width, height)
+//			     .toFile(thumbnailFile);
+//				
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			} 
+//			list.add(proAtt);
+//		}
+//		ResponseEntity<List<ProductAttachDTO>> result = 
+//				new ResponseEntity<List<ProductAttachDTO>>(list,HttpStatus.OK);
+//		
+//		return result;
+//		
 //	}
+	
+	
+	
+	private String getFolder() {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date date = new Date();
+
+		String str = sdf.format(date);
+
+		return str.replace("-", File.separator);
+	}
+
+
+	private boolean checkImageType(File file) {
+
+		try {
+			String contentType = Files.probeContentType(file.toPath());
+
+			return contentType.startsWith("image");
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+//
+//
+//
+	@PostMapping(value = "/admin/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<ProductAttachDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
+
+		List<ProductAttachDTO> list = new ArrayList<>();
+		String uploadFolder = "C:\\upload";
+
+		String uploadFolderPath = getFolder();
+		// make folder --------
+		File uploadPath = new File(uploadFolder, uploadFolderPath);
+
+		if (uploadPath.exists() == false) {
+			uploadPath.mkdirs();
+		}
+		// make yyyy/MM/dd folder
+
+		for (MultipartFile multipartFile : uploadFile) {
+
+			ProductAttachDTO attachDTO = new ProductAttachDTO();
+
+			String uploadFileName = multipartFile.getOriginalFilename();
+
+			// IE has file path
+			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
+			
+			attachDTO.setFileName(uploadFileName);
+
+			UUID uuid = UUID.randomUUID();
+
+			uploadFileName = uuid.toString() + "_" + uploadFileName;
+
+			try {
+				File saveFile = new File(uploadPath, uploadFileName);
+				multipartFile.transferTo(saveFile);
+
+				attachDTO.setUuid(uuid.toString());
+				attachDTO.setUploadPath(uploadFolderPath);
+
+				// check image type ile
+				if (checkImageType(saveFile)) {
+
+					attachDTO.setFileType(true);
+
+					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+
+					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
+
+					thumbnail.close();
+				}
+
+				// add to List
+				list.add(attachDTO);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} // end for
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 //
 //	@GetMapping("/display")	
 //	@ResponseBody

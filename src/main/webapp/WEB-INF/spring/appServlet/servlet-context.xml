@@ -18,7 +18,8 @@
 	<resources mapping="/member/**" location="/resources/member" />
 
  <!-- 파일 업로드 객체 설정 -->
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
+	<beans:bean id="multipartResolver" 
+	class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
 	    
 	
 

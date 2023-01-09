@@ -20,7 +20,6 @@ import com.sian.product.service.ProductService;
 import com.sian.review.service.ReviewService;
 import com.sian.wish.service.WishService;
 
-import jdk.internal.org.jline.utils.Log;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 

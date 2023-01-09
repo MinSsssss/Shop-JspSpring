@@ -64,8 +64,14 @@
 							</tr>
 							<tr>
 								<td>이미지 첨부</td>
-								<td><input type="file" name="uploadFile"
+								<td class="uploadTd"><input type="file" name="uploadFile"
 									id="fileItem" multiple>
+									<div class="uploadResult">
+										<ul>
+										
+										</ul>
+									</div>
+								</td>
 									
 							</tr>
 
