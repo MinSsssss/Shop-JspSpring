@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.sian.common.page.Criteria;
+import com.sian.common.page.PageDTO;
 import com.sian.notice.dto.NoticeDTO;
 import com.sian.notice.service.NoticeService;
 
@@ -22,12 +23,22 @@ public class NoticeController {
 	/*
 	 * ALL
 	 */
+//	@GetMapping({"/admin/notice/noticeList","/notice/noticeList"})
+//	 public void noticeList(Model model) {
+//		 
+//		 model.addAttribute("noticeList", noticeService.noticeList());
+//	 }
 	@GetMapping({"/admin/notice/noticeList","/notice/noticeList"})
-	 public void noticeList(Model model) {
+	 public void noticeList(Model model,Criteria cri) {
 		 
-		 model.addAttribute("noticeList", noticeService.noticeList());
+		model.addAttribute("noticeList", noticeService.getListPaging(cri));
+		
+		int totaol = noticeService.getTotal();
+		
+		PageDTO page = new PageDTO(cri, totaol);
+		
+		model.addAttribute("page",page);
 	 }
-
 	
 	/*
 	 * ADMIN ONLY
@@ -52,6 +63,8 @@ public class NoticeController {
 		 }
 		 return "redirect:/admin/notice/noticeList";
 	 }
+	 
+	 
 	 @PostMapping("/admin/notice/noticeModifyProc")
 	 public String noticeModifyProc(NoticeDTO noticeDTO,RedirectAttributes rttr) {
 		 if(noticeService.noticeModify(noticeDTO)==1) {

@@ -40,6 +40,8 @@
  										</c:forEach>
                                     </tbody>
                                 </table>
+                                <jsp:include page="/WEB-INF/views/admin/includes/pageInclude.jsp"></jsp:include>
+                                <input type="hidden" id="pageId" value="notice">
                             </div>
                         </div>
                     </div>

@@ -21,7 +21,7 @@
 			<div class="table-responsive">
 
 				<form action="/admin/product/productRegisterProc" method="post"
-					id="productRegisterForm">
+					id="productRegisterForm" enctype="multipart/form-data">
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
 
@@ -53,6 +53,9 @@
 								<td>상품설명</td>
 								<td><textarea rows="10" cols="20" name="product_detail"
 										id="product_detail"></textarea></td>
+						<!-- 		<td><div contentEditable="true">
+  									<img alt="" src="/resources/member/img/menu4.png">
+								</div></td> -->
 							</tr>
 							<tr>
 								<td>가격</td>
@@ -61,17 +64,19 @@
 							</tr>
 							<tr>
 								<td>이미지 첨부</td>
-								<td><input type="file" name="product_image1"
-									id="product_image1" accept="image/*" onchange="loadFile(this)"></td>
+								<td><input type="file" name="uploadFile"
+									id="fileItem" multiple>
+									
 							</tr>
 
 						</tbody>
 					</table>
-
+					
 				</form>
 				<button class="btn btn-primary btn-sm" data-toggle="modal"
 					data-target="#productRegModal" id="productRegBtn">등록</button>
 				<button class="btn btn-secondary btn-sm" id="productRegCencleBtn">취소</button>
+				 
 
 
 			</div>

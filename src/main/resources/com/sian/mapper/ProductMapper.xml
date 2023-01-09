@@ -11,6 +11,7 @@
  		product_detail,product_image1)
  		VALUES (seq_tbl_product_no.nextval,(
  		SELECT category_no FROM tbl_category WHERE category_name=#{category_name}
+ 		AND category_class='product'
  		)
  		,#{product_name},#{product_price},
  		#{product_detail},#{product_image1})
@@ -19,6 +20,26 @@
 		SELECT * 
 		FROM tbl_product	
 	</select>
+	
+	<select id="getTotal" resultType="int">
+		SELECT COUNT(*) from tbl_product
+	</select>
+	
+	<select id="getListPaging" resultType="com.sian.product.dto.ProductDTO">
+		<![CDATA[
+			SELECT product_no,product_name,
+			product_price,product_image1,product_hit,product_regdate,product_updatedate FROM(
+			SELECT ROWNUM AS rn,product_no,product_name,
+			product_price,product_image1,product_hit,product_regdate,product_updatedate
+			FROM tbl_product WHERE ROWNUM <= #{pageNum} * #{amount})
+			WHERE rn > (#{pageNum}-1) * #{amount}
+			
+		]]>
+	</select>
+	
+	
+	
+	
 	<select id="memberProductList" resultType="com.sian.product.dto.ProductDTO">
 		SELECT * 
 		FROM tbl_product
@@ -42,7 +63,5 @@
  		WHERE product_name=#{product_name}
  	</select> 
 	
-	<update id="">
 	
-	</update>
 </mapper>

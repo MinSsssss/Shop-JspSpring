@@ -20,9 +20,13 @@ public class ProductDTO {
 	
 	private String product_image1;
 	
+	private String product_thumb_img;
+	
 	private Date product_regdate;
 	
 	private Date product_updateDate;
 	
 	private Long product_hit;
+	
+	
 }

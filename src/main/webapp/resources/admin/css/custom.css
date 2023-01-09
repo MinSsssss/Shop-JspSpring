@@ -19,3 +19,22 @@
 .productListImage{
 	width:50px;
 }
+
+
+/* 페이징 */
+.pageInfo{
+      list-style : none;
+      display: inline-block;
+    margin: 50px 0 0 100px;      
+  }
+  .pageInfo li{
+      float: left;
+    font-size: 20px;
+    margin-left: 18px;
+    padding: 7px;
+    font-weight: 500;
+  }
+
+   .active{
+      background-color: #cdd5ec;
+  }

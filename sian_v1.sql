@@ -54,16 +54,25 @@ create table tbl_member_auth(
 CREATE TABLE tbl_category (
 	category_no	number,
     category_class varchar2(30) NOT NULL,
-	category_name	varchar2(30) UNIQUE	NOT NULL
+	category_name	varchar2(30) NOT NULL
 );
 
 ALTER TABLE tbl_category ADD UNIQUE(category_name,category_class);
 
 
-ALTER TABLE tbl_category ADD UNIQUE(category_no,category_class);
-
 CREATE SEQUENCE seq_category;
     
+CREATE TABLE tbl_attach(
+    uuid varchar2(100) not null,
+    uploadPath varchar2(200) not null,
+    fileName varchar2(100) not null,
+    filetype char(1) default 'i',
+    product_no number
+);
+ALTER TABLE tbl_attach ADD CONSTRAINT pk_attach primary key(uuid);
+ALTER TABLE tbl_attach ADD CONSTRAINT fk_product_attach foreign key(product_no)
+REFERENCES tbl_product(product_no);
+
 
 CREATE TABLE tbl_product (
 	product_no	number primary key,
@@ -73,10 +82,12 @@ CREATE TABLE tbl_product (
 	product_detail	varchar2(1000)		NOT NULL,
 	product_image1	varchar2(1000) NOT NULL,
 	--product_image2	varchar2(1000)		NULL,
+    product_thumb_img varchar2(200),
 	product_regdate	date default sysdate NOT NULL,
     product_updatedate	date default sysdate NOT NULL,
 	product_hit	number default 0 NOT NULL
 );
+alter table tbl_product add (product_thumb_img varchar2(200));
 --배송완료 전에는 회원탈퇴 불가능
 CREATE TABLE tbl_order (
 	order_no varchar2(13) primary key,
@@ -165,6 +176,7 @@ create table tbl_wishlist(
 );
 
 ALTER TABLE tbl_wishlist ADD UNIQUE(product_no,mem_id);
+
 
 
 commit;

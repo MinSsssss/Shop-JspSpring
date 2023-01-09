@@ -1,20 +1,26 @@
 package com.sian.product.controller;
 
+import java.io.File;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sian.cart.service.CartService;
 import com.sian.category.service.CategoryService;
+import com.sian.common.page.Criteria;
+import com.sian.common.page.PageDTO;
 import com.sian.member.service.MemberService;
 import com.sian.product.dto.ProductDTO;
 import com.sian.product.service.ProductService;
 import com.sian.review.service.ReviewService;
 import com.sian.wish.service.WishService;
 
+import jdk.internal.org.jline.utils.Log;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +42,7 @@ public class ProductController {
 		System.out.println(category_no);
 		model.addAttribute("productList", productService.memberProductList(category_no));
 	}
+	
 	 @GetMapping({"/product/productRead","/admin/product/productRead","/admin/product/productModify"})
 	 public void productRead(@RequestParam("product_no")int product_no,Model model) {
 		 ProductDTO product = productService.getProduct(product_no);
@@ -54,26 +61,56 @@ public class ProductController {
 	/*
 	 * ADMIN ONLY
 	 */
+//	@GetMapping("/admin/product/productList")
+//	public void adminProductList(Model model)  {
+//		model.addAttribute("categoryList", categoryService.getCategoryList("product"));
+//	
+//		model.addAttribute("productList", productService.getProductList());
+//	}
 	@GetMapping("/admin/product/productList")
-	public void adminProductList(
-			/* @RequestParam(value="category_no",required = false) int category_no, */Model model)  {
+	public void adminProductList(Model model,Criteria cri)  {
 		model.addAttribute("categoryList", categoryService.getCategoryList("product"));
-	
-		model.addAttribute("productList", productService.getProductList());
+		
+		model.addAttribute("productList", productService.getListPaging(cri));
+		
+		int totaol = productService.getTotal();
+		
+		PageDTO page = new PageDTO(cri, totaol);
+		
+		model.addAttribute("page",page);
 	}
+	
 	
 	@GetMapping("/admin/product/productRegister")
 	public void productRegister(Model model) {
 		model.addAttribute("categoryList",categoryService.getCategoryList("product"));
 	}
 	
+	
 	 @PostMapping("/admin/product/productRegisterProc") 
-	 public String productRegisterProc(ProductDTO productDTO) {
+		public String productRegisterProc(/* ProductDTO productDTO, */MultipartFile[] uploadImages) {
 		 
-		 productService.productRegister(productDTO);
+		 String uploadFolder = "C:\\upload";
+		 
+		 for(MultipartFile multipartFile :uploadImages) {
+			 System.out.println("UploadFileName:" + multipartFile.getOriginalFilename());
+			 System.out.println("UploadFileName:" + multipartFile.getSize());
+			 
+			 File saveFile = new File(uploadFolder,multipartFile.getOriginalFilename());
+			 
+			 try {
+				multipartFile.transferTo(saveFile);
+				 
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		 }
+		 
+			/* productService.productRegister(productDTO); */
 		 return "redirect:/admin/product/productList";
 	 }
 
+	 
 //	 @GetMapping({"/admin/product/productRead","/admin/product/productModify"})
 //	 public void productRead(@RequestParam("product_no")int product_no,Model model) {
 //		 ProductDTO product = productService.getProduct(product_no);

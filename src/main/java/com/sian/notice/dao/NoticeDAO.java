@@ -2,10 +2,17 @@ package com.sian.notice.dao;
 
 import java.util.List;
 
+import com.sian.common.page.Criteria;
 import com.sian.notice.dto.NoticeDTO;
 
 public interface NoticeDAO {
 	public int noticeRegister(NoticeDTO noticeDTO);
+	
+	
+	
+	public List<NoticeDTO> getListPaging(Criteria cri);
+	
+	public int getTotal();
 	
 	public List<NoticeDTO> noticeList();
 	

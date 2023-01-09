@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sian.cart.service.CartService;
+import com.sian.common.page.Criteria;
 import com.sian.member.service.MemberService;
 import com.sian.product.dao.ProductDAO;
 import com.sian.product.dto.ProductDTO;
@@ -25,6 +26,17 @@ public class ProductServiceImpl implements ProductService {
 		
 		return productDAO.memberProductList(category_no);
 	}
+	@Override
+	public int getTotal() {
+		
+		return productDAO.getTotal();
+	}
+	@Override
+	public List<ProductDTO> getListPaging(Criteria cri) {
+		
+		return productDAO.getListPaging(cri);
+	}
+	
 	@Override
 	public ProductDTO getProduct(int product_no) {
 		
@@ -47,6 +59,8 @@ public class ProductServiceImpl implements ProductService {
 		
 		return productDAO.getList();
 	}
+	
+	
 	
 
 }

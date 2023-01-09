@@ -88,17 +88,17 @@ public class MemberController {
 			memberDTO.setMem_id(memberService.getId(authentication));
 			if (memberService.memberDrop(memberDTO)) {
 
-				System.out.println("¼º°ø");
+				
 				return "redirect:/member";
 			} else {
-				System.out.println("½ÇÆÐ");
+				
 
 				return "redirect:/member/memberDrop";
 			}
 
 		} else {
-			System.out.println("½ÇÆÐ ºñ¹øÆ²¸²");
-			rttr.addFlashAttribute("msg", "ºñ¹Ð¹øÈ£°¡ Æ²·È½À´Ï´Ù.");
+			
+			rttr.addFlashAttribute("msg", "ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤.");
 			return "redirect:/member/memberDrop";
 		}
 	}
@@ -108,7 +108,7 @@ public class MemberController {
 	public String memberModifyPwdChk(MemberDTO memberDTO, Authentication authentication, RedirectAttributes rttr)
 			 {
 		if (!memberService.pwdChk(memberDTO, authentication)) {
-			rttr.addFlashAttribute("msg", "ºñ¹Ð¹øÈ£°¡ Æ²·È½À´Ï´Ù.");
+			rttr.addFlashAttribute("msg", "ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤.");
 			return "redirect:/member/memberModify";
 		} else {
 
@@ -141,10 +141,10 @@ public class MemberController {
 		result = memberService.pwdChk(memberDTO, authentication);
 
 		if (result) {
-			System.out.println("¼º°ø");
+			
 			return 0;
 		}
-		System.out.println("½ÇÆÐ");
+		
 		return 1;
 	}
 	
