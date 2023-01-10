@@ -206,7 +206,7 @@ $(document).ready(function() {
 				str += "<img src='/display?fileName="+fileCallPath+"'>";
 				str += "</div>";
 				str +="</li>";
-				alert(fileCallPath);
+				
 			}else{
 				var fileCallPath =  encodeURIComponent( obj.uploadPath+"/"+ obj.uuid +"_"+obj.fileName);			      
 			    var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");

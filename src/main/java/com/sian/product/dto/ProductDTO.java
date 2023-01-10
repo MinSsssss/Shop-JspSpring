@@ -32,4 +32,6 @@ public class ProductDTO {
 	private List<ProductAttachDTO> attachList;
 	
 	private String product_thumb_img;
+	
+	private List<String> product_imgs;
 }

@@ -13,7 +13,7 @@
 		DELETE FROM tbl_product_images WHERE uuid=#{uuid}
 	</delete>
 	
-	<select id="findBiProduct_no" resultType="com.sian.product.dto.ProductAttachDTO">
+	<select id="findByProduct_no" resultType="com.sian.product.dto.ProductAttachDTO">
 		SELECT * FROM tbl_product_images WHERE product_no=#{product_no}
 		
 	</select>

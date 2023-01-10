@@ -59,10 +59,22 @@
 							</td>
 						</tr>
 						<tr>
-							<th>이미지</th>
+							<th>대표사진</th>
 							<td class="align-middle readOnlyText">
-								<div><img alt="" src="/resources/member/img/${product.product_image1}"></div>
-								<input class="readOnlyText" type="text" value="${product.product_image1}" readonly="readonly">
+								<div><img alt="" src="/display?fileName=${product.product_thumb_img}"></div>
+								
+								<%-- <input class="readOnlyText" type="text" value="${product.product_thumb_img}" readonly="readonly"> --%>
+							</td>
+						</tr>
+						<tr>
+							<th>사진</th>
+							<td class="align-middle readOnlyText">
+								 <c:forEach items="${product.attachList}" var="images" varStatus="status">
+									<div><img alt="" src="/display?fileName=${product.product_thumb_img}"></div>
+									${images}
+								</c:forEach> 
+								<%-- <input class="readOnlyText" type="text" value="${product.product_thumb_img}" readonly="readonly"> --%>
+								
 							</td>
 						</tr>
 						<tr>

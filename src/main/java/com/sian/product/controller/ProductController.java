@@ -47,6 +47,9 @@ public class ProductController {
 	 @GetMapping({"/product/productRead","/admin/product/productRead","/admin/product/productModify"})
 	 public void productRead(@RequestParam("product_no")int product_no,Model model) {
 		 ProductDTO product = productService.getProduct(product_no);
+		 
+		 product.setAttachList(productService.getAttachList(product_no));
+		 
 		 if(product.getCategory_name()==null) {
 			 product.setCategory_name("카테고리없음");
 		 }
@@ -56,6 +59,7 @@ public class ProductController {
 		 
 		 model.addAttribute("reviewList", reviewService.getReviewList(product_no));
 		 
+//		 model.addAttribute("images",productService.getAttachList(product_no));
 	 }
 
 	
@@ -73,7 +77,7 @@ public class ProductController {
 		model.addAttribute("categoryList", categoryService.getCategoryList("product"));
 		
 		model.addAttribute("productList", productService.getListPaging(cri));
-		
+		//System.out.println("썸네일"+productService.getListPaging(cri).get(0).getProduct_thumb_img());
 		int totaol = productService.getTotal();
 		
 		PageDTO page = new PageDTO(cri, totaol);
@@ -90,7 +94,7 @@ public class ProductController {
 	
 	 @PostMapping("/admin/product/productRegisterProc") 
 		public String productRegisterProc(ProductDTO productDTO) {
-		 	System.out.println(productDTO.getProduct_thumb_img());
+		 	System.out.println("썸네일!!!!"+productDTO.getProduct_thumb_img());
 		 	
 		 	if(productDTO.getAttachList() != null) {
 		 		productDTO.getAttachList().forEach(attach -> System.out.println(attach));
@@ -98,16 +102,7 @@ public class ProductController {
 		 		
 		 	}
 		 	
-		 	try {
-				String deCoderThumbURL = URLDecoder.decode(productDTO.getProduct_thumb_img(),"UTF-8");
-				
-				productDTO.setProduct_thumb_img(deCoderThumbURL);
-				productService.productRegister(productDTO);
-				
-			} catch (UnsupportedEncodingException e) {
-				
-				e.printStackTrace();
-			}
+		 	productService.productRegister(productDTO);
 		 	
 		 	
 			 

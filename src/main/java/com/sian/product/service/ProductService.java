@@ -3,6 +3,7 @@ package com.sian.product.service;
 import java.util.List;
 
 import com.sian.common.page.Criteria;
+import com.sian.product.dto.ProductAttachDTO;
 import com.sian.product.dto.ProductDTO;
 
 public interface ProductService {
@@ -22,5 +23,5 @@ public interface ProductService {
 	
 	public List<ProductDTO> getProductList() ;
 	
-	
+	public List<ProductAttachDTO> getAttachList(int product_no);
 }

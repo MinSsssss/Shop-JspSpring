@@ -38,11 +38,12 @@
                                     	<tr>
                                             <td class="align-middle">${product.product_no }</td>
                                             <td class="align-middle">
-                                            <div><img  class="productListImage" alt="" src="/display?fileName=${product.product_thumb_img }">
+                                            <div><img  class="productListImage" alt="" src="/display?fileName=${product.product_thumb_img}">
                                             	<span><a href="/admin/product/productRead?product_no=${product.product_no}">${product.product_name}</a></span>
                                             </div>
                                             
                                             </td>
+                                            
                                             <td class="align-middle">${product.product_price }</td>
                                             <td class="align-middle">${product.product_hit }</td>
                                             <td class="align-middle"><fmt:formatDate pattern="yyyy-MM-dd" value = "${product.product_regdate }"/></td>
@@ -55,7 +56,7 @@
                                         
                                     </tbody>
                                 </table>
-                                
+                                <h1></h1>
                               <jsp:include page="/WEB-INF/views/admin/includes/pageInclude.jsp"></jsp:include>
                               <input type="hidden" id="pageId" value="product">
                                

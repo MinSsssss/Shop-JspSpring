@@ -11,6 +11,8 @@ DELETE FROM tbl_cart
 WHERE product_no=(SELECT product_no FROM tbl_product WHERE product_name='고고고고');
 --create SEQUENCE seq_tbl_member;
 
+
+
 select * from tbl_member;
 select * from tbl_member_auth;
 select * from tbl_category;
@@ -26,7 +28,6 @@ select * from tbl_qna;
 select * from tbl_product_images;
 commit;
 
-select
 
 
 
@@ -67,9 +68,9 @@ ALTER TABLE tbl_category ADD UNIQUE(category_name,category_class);
 CREATE SEQUENCE seq_category;
     
 CREATE TABLE tbl_product_images(
-    uuid varchar2(100) not null,
-    uploadPath varchar2(200) not null,
-    fileName varchar2(100) not null,
+    uuid varchar2(500) not null,
+    uploadPath varchar2(500) not null,
+    fileName varchar2(500) not null,
     filetype char(1) default 'i',
     product_no number
 );
@@ -172,7 +173,7 @@ create table tbl_cart(
 ALTER TABLE tbl_cart ADD UNIQUE(product_no,mem_id);
 
 create table tbl_wishlist(
-    product_no, 
+    product_no number, 
     mem_id varchar2(50)  not null,
     constraint fk_wish_mem_id foreign key(mem_id) references tbl_member(mem_id)
     ON DELETE CASCADE,

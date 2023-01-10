@@ -11,6 +11,7 @@ import com.sian.common.page.Criteria;
 import com.sian.member.service.MemberService;
 import com.sian.product.dao.ProductAttachDAO;
 import com.sian.product.dao.ProductDAO;
+import com.sian.product.dto.ProductAttachDTO;
 import com.sian.product.dto.ProductDTO;
 
 import lombok.RequiredArgsConstructor;
@@ -68,9 +69,16 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductDTO> getProductList()  {
-		
+	
 		return productDAO.getList();
 	}
+	@Override
+	public List<ProductAttachDTO> getAttachList(int product_no) {
+		
+		return productAttachDAO.findByProduct_no(product_no);
+	}
+	
+	
 	
 	
 	

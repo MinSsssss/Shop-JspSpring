@@ -28,9 +28,9 @@
 	<select id="getListPaging" resultType="com.sian.product.dto.ProductDTO">
 		<![CDATA[
 			SELECT product_no,product_name,
-			product_price,product_hit,product_regdate,product_updatedate FROM(
+			product_price,product_hit,product_regdate,product_updatedate,product_thumb_img FROM(
 			SELECT ROWNUM AS rn,product_no,product_name,
-			product_price,product_hit,product_regdate,product_updatedate
+			product_price,product_hit,product_regdate,product_updatedate,product_thumb_img
 			FROM tbl_product WHERE ROWNUM <= #{pageNum} * #{amount})
 			WHERE rn > (#{pageNum}-1) * #{amount}
 			
@@ -45,18 +45,19 @@
 		FROM tbl_product
 		WHERE category_no=#{category_no}
 	</select>
+	
 	<select id="getProduct" resultType="com.sian.product.dto.ProductDTO">
 		SELECT pro.product_no,cate.category_no,cate.category_name,
 		pro.product_name,pro.product_price,pro.product_detail,
 		pro.product_detail,pro.product_regdate,
-		pro.product_updateDate,pro.product_hit
+		pro.product_updateDate,pro.product_hit,product_thumb_img
 		
 		FROM tbl_product pro FULL JOIN tbl_category cate
 		ON pro.category_no=cate.category_no
 		WHERE product_no = #{product_no}
-		<!-- WHERE NVL(pro.category_no,0)=NVL(cate.category_no,0)
-		AND product_no = #{product_no} -->
+		
 	</select>
+	
  	<select id="getProductNo" resultType="int">
  		SELECT product_no
  		FROM tbl_product
