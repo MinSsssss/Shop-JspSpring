@@ -38,7 +38,7 @@
                                     	<tr>
                                             <td class="align-middle">${product.product_no }</td>
                                             <td class="align-middle">
-                                            <div><img  class="productListImage" alt="" src="/resources/member/img/${product.product_image1}">
+                                            <div><img  class="productListImage" alt="" src="/display?fileName=${product.product_thumb_img }">
                                             	<span><a href="/admin/product/productRead?product_no=${product.product_no}">${product.product_name}</a></span>
                                             </div>
                                             

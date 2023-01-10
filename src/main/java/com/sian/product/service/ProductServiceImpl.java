@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sian.cart.service.CartService;
 import com.sian.common.page.Criteria;
 import com.sian.member.service.MemberService;
+import com.sian.product.dao.ProductAttachDAO;
 import com.sian.product.dao.ProductDAO;
 import com.sian.product.dto.ProductDTO;
 
@@ -20,6 +22,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	private final ProductDAO productDAO;
 	
+	private final ProductAttachDAO productAttachDAO;
 	
 	@Override
 	public List<ProductDTO> memberProductList(int category_no) {
@@ -48,9 +51,18 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.getProductNo(product_name);
 	}
 	
+	@Transactional
 	@Override
 	public void productRegister(ProductDTO productDTO)  {
 		productDAO.insert(productDTO);
+		System.out.println("product_no" + productDTO.getProduct_no());
+		if(productDTO.getAttachList() == null || productDTO.getAttachList().size() <= 0) {
+			return;
+		}
+		productDTO.getAttachList().forEach(attach -> {
+			attach.setProduct_no(productDTO.getProduct_no());
+			productAttachDAO.insert(attach);
+		});
 		
 	}
 

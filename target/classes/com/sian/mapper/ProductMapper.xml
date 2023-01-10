@@ -2,19 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sian.product.dao.ProductDAO">
  	<insert id="insert">
- 		<!-- <selectKey keyProperty="category_no" resultType="int" order="BEFORE">
-			select category_no from tbl_category 
-			where category_name=#{category_name} 
-		</selectKey> -->
+ 		<selectKey keyProperty="product_no" resultType="int" order="BEFORE">
+			select seq_tbl_product_no.nextval from dual 
+			
+		</selectKey>
  	
  		INSERT INTO tbl_product(product_no,category_no,product_name,product_price,
- 		product_detail,product_image1)
- 		VALUES (seq_tbl_product_no.nextval,(
+ 		product_detail,product_thumb_img)
+ 		VALUES (#{product_no},(
  		SELECT category_no FROM tbl_category WHERE category_name=#{category_name}
  		AND category_class='product'
  		)
  		,#{product_name},#{product_price},
- 		#{product_detail},#{product_image1})
+ 		#{product_detail},#{product_thumb_img})
  	</insert>
  	<select id="getList" resultType="com.sian.product.dto.ProductDTO">
 		SELECT * 
@@ -28,9 +28,9 @@
 	<select id="getListPaging" resultType="com.sian.product.dto.ProductDTO">
 		<![CDATA[
 			SELECT product_no,product_name,
-			product_price,product_image1,product_hit,product_regdate,product_updatedate FROM(
+			product_price,product_hit,product_regdate,product_updatedate FROM(
 			SELECT ROWNUM AS rn,product_no,product_name,
-			product_price,product_image1,product_hit,product_regdate,product_updatedate
+			product_price,product_hit,product_regdate,product_updatedate
 			FROM tbl_product WHERE ROWNUM <= #{pageNum} * #{amount})
 			WHERE rn > (#{pageNum}-1) * #{amount}
 			
@@ -48,7 +48,7 @@
 	<select id="getProduct" resultType="com.sian.product.dto.ProductDTO">
 		SELECT pro.product_no,cate.category_no,cate.category_name,
 		pro.product_name,pro.product_price,pro.product_detail,
-		pro.product_detail,pro.product_image1,pro.product_regdate,
+		pro.product_detail,pro.product_regdate,
 		pro.product_updateDate,pro.product_hit
 		
 		FROM tbl_product pro FULL JOIN tbl_category cate

@@ -1,6 +1,8 @@
 package com.sian.product.controller;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,25 +89,28 @@ public class ProductController {
 	
 	
 	 @PostMapping("/admin/product/productRegisterProc") 
-		public String productRegisterProc(/* ProductDTO productDTO, */MultipartFile[] uploadImages) {
-		 
-		 String uploadFolder = "C:\\upload";
-		 
-		 for(MultipartFile multipartFile :uploadImages) {
-			 System.out.println("UploadFileName:" + multipartFile.getOriginalFilename());
-			 System.out.println("UploadFileName:" + multipartFile.getSize());
-			 
-			 File saveFile = new File(uploadFolder,multipartFile.getOriginalFilename());
-			 
-			 try {
-				multipartFile.transferTo(saveFile);
-				 
-			} catch (Exception e) {
+		public String productRegisterProc(ProductDTO productDTO) {
+		 	System.out.println(productDTO.getProduct_thumb_img());
+		 	
+		 	if(productDTO.getAttachList() != null) {
+		 		productDTO.getAttachList().forEach(attach -> System.out.println(attach));
+		 		
+		 		
+		 	}
+		 	
+		 	try {
+				String deCoderThumbURL = URLDecoder.decode(productDTO.getProduct_thumb_img(),"UTF-8");
+				
+				productDTO.setProduct_thumb_img(deCoderThumbURL);
+				productService.productRegister(productDTO);
+				
+			} catch (UnsupportedEncodingException e) {
+				
 				e.printStackTrace();
 			}
-		 }
-		 
-			/* productService.productRegister(productDTO); */
+		 	
+		 	
+			 
 		 return "redirect:/admin/product/productList";
 	 }
 

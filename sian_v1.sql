@@ -23,8 +23,12 @@ select * from tbl_review;
 select * from tbl_faq;
 select * from tbl_notice;
 select * from tbl_qna;
-
+select * from tbl_product_images;
 commit;
+
+select
+
+
 
 update tbl_order
 set order_status = '배송 완료'
@@ -62,15 +66,16 @@ ALTER TABLE tbl_category ADD UNIQUE(category_name,category_class);
 
 CREATE SEQUENCE seq_category;
     
-CREATE TABLE tbl_attach(
+CREATE TABLE tbl_product_images(
     uuid varchar2(100) not null,
     uploadPath varchar2(200) not null,
     fileName varchar2(100) not null,
     filetype char(1) default 'i',
     product_no number
 );
-ALTER TABLE tbl_attach ADD CONSTRAINT pk_attach primary key(uuid);
-ALTER TABLE tbl_attach ADD CONSTRAINT fk_product_attach foreign key(product_no)
+
+ALTER TABLE tbl_product_images ADD CONSTRAINT pk_product_images primary key(uuid);
+ALTER TABLE tbl_product_images ADD CONSTRAINT fk_product_attach foreign key(product_no)
 REFERENCES tbl_product(product_no);
 
 
@@ -80,14 +85,14 @@ CREATE TABLE tbl_product (
 	product_name	varchar2(100)	UNIQUE NOT NULL,
 	product_price	number(6)		NOT NULL,
 	product_detail	varchar2(1000)		NOT NULL,
-	product_image1	varchar2(1000) NOT NULL,
+    product_thumb_img	varchar2(500),
 	--product_image2	varchar2(1000)		NULL,
-    product_thumb_img varchar2(200),
+    
 	product_regdate	date default sysdate NOT NULL,
     product_updatedate	date default sysdate NOT NULL,
 	product_hit	number default 0 NOT NULL
 );
-alter table tbl_product add (product_thumb_img varchar2(200));
+
 --배송완료 전에는 회원탈퇴 불가능
 CREATE TABLE tbl_order (
 	order_no varchar2(13) primary key,
@@ -223,6 +228,7 @@ CREATE TABLE tbl_qna_comment (
 	qna_com_writer	varchar2(12) NULL
 );
 
+drop table tbl_product_images;
 drop table tbl_qna_comment;
 drop table tbl_qna;
 drop table tbl_notice;

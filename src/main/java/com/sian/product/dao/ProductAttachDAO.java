@@ -10,4 +10,6 @@ public interface ProductAttachDAO {
 	public void delete(String uuid);
 	
 	public List<ProductAttachDTO> findByProduct_no(int product_no);
+	
+	public List<ProductAttachDTO> getOldFiles();
 }

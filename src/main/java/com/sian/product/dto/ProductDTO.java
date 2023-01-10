@@ -19,9 +19,9 @@ public class ProductDTO {
 	
 	private String product_detail;
 	
-	private String product_image1;
-	
-	private String product_thumb_img;
+//	private String product_image1;
+//	
+
 	
 	private Date product_regdate;
 	
@@ -31,4 +31,5 @@ public class ProductDTO {
 	
 	private List<ProductAttachDTO> attachList;
 	
+	private String product_thumb_img;
 }

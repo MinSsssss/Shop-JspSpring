@@ -20,7 +20,7 @@
 		<div class="card-body">
 			<div class="table-responsive">
 
-				<form action="/admin/product/productRegisterProc" method="post"
+				<form role="form"  action="/admin/product/productRegisterProc" method="post"
 					id="productRegisterForm" enctype="multipart/form-data">
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
@@ -62,8 +62,12 @@
 								<td><input type="text" name="product_price"
 									id="product_price"></td>
 							</tr>
+							
+							
 							<tr>
-								<td>이미지 첨부</td>
+								<td>이미지 첨부<br>
+									(대표사진설정)
+								</td>
 								<td class="uploadTd"><input type="file" name="uploadFile"
 									id="fileItem" multiple>
 									<div class="uploadResult">

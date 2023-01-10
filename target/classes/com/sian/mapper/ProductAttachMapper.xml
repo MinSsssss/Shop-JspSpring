@@ -5,20 +5,25 @@
 <mapper namespace="com.sian.product.dao.ProductAttachDAO">
 	
 	<insert id="insert">
-		INSERT INTO tbl_attach(uuid,uploadpath,filename,filetype,product_no)
+		INSERT INTO tbl_product_images(uuid,uploadpath,filename,filetype,product_no)
 		VALUES(#{uuid},#{uploadPath},#{fileName},#{fileType},#{product_no})
 	</insert>
 	
 	<delete id="delete">
-		DELETE FROM tbl_attach WHERE uuid=#{uuid}
+		DELETE FROM tbl_product_images WHERE uuid=#{uuid}
 	</delete>
 	
 	<select id="findBiProduct_no" resultType="com.sian.product.dto.ProductAttachDTO">
-		SELECT * FROM tbl_attach WHERE product_no=#{product_no}
+		SELECT * FROM tbl_product_images WHERE product_no=#{product_no}
 		
 	</select>
 
-	
+	<select id="getOldFiles"
+		resultType="com.sian.product.dto.ProductAttachDTO">
+
+		select * from tbl_attach where uploadpath = to_char(sysdate -1 ,'yyyy\mm\dd')
+
+	</select>
 	
 	
 </mapper>
