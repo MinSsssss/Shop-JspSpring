@@ -20,30 +20,40 @@
 		<div class="card-body">
 			<div class="table-responsive">
 
-				<form action="/admin/product/productModifyProc" method="post"
-					id="productModifyForm">
+				<form role="form"  action="/admin/product/productModifyProc" method="post"
+					id="productRegisterForm" enctype="multipart/form-data">
+					<input type="hidden" name="product_no" value="${product.product_no }">
+					
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
 
 						<tbody>
 							<tr>
 								<td>카테고리</td>
-								<td><select name="category_name" id="category_name">
-											<option id="categorySelect" >${product.category_name }</option>
-											<option id="categorySelect">카테고리없음</option>
-										<c:forEach items="${categoryList }" var="category">
-											<option id="categorySelect">
-												${category.category_name }
-											</option>
-
-										</c:forEach>
-								</select></td>
+								<td>
+									<select name="category_name" id="category_name">
+										
+											<c:choose >
+												<c:when test="${not empty product.category_name}">
+													<option id="categorySelect">${product.category_name}</option>
+													
+													<c:forEach items="${categoryList }" var="category">
+														<option id="categorySelect">${category.category_name }</option>
+													</c:forEach>
+												</c:when>
+												<c:when test="${empty product.category_name}">
+													<option id="categorySelect">카테고리없음</option>
+													<c:forEach items="${categoryList }" var="category">
+														<option id="categorySelect">${category.category_name }</option>
+													</c:forEach>
+												</c:when>
+										
+											</c:choose>
+										
+									</select>
+								</td>
 							</tr>
-							<!-- <tr>
-								<td>상품번호</td>
-								<td><input type="text" name="product_no" id="product_no"
-									readonly="readonly" value="#"></td>
-							</tr> -->
+
 							<tr>
 								<td>상품이름</td>
 								<td><input type="text" name="product_name"
@@ -60,21 +70,74 @@
 								<td><input type="text" name="product_price"
 									id="product_price" value="${product.product_price }"></td>
 							</tr>
+							
+							
 							<tr>
-								<td>이미지 첨부</td>
-								<td>
-								<div><img alt="" src="/resources/member/img/${product.product_image1}"></div>
-								<input type="file" name="product_image1"
-									id="product_image1" accept="image/*" onchange="loadFile(this)"></td>
+								<td>이미지 첨부<br>
+									(대표사진설정)
+								</td>
+								<td class="uploadTd"><input type="file" name="uploadFile"
+									id="fileItem" multiple>
+									<div class="uploadResult">
+										<ul>
+											
+											<c:forEach items="${product.product_s_imgs}" var="images" varStatus="status">
+												<c:set var="attach" value="${product.attachList[status.index]}"/>	
+												<c:if test="${images eq product.product_thumb_img }" >
+													<li data-path="${attach.uploadPath}" data-uuid="${attach.uuid}" 
+													data-filename="${attach.fileName}" data-type="${attach.fileType}">
+														
+														<div>
+															<span>${attach.fileName}</span>
+															<button  type='button' data-file="\'${images}'\"
+															data-type='image' class='btn btn-warning btn-circle'>
+															<i class='fa fa-times'></i>
+															</button><br>
+															
+																<input type='radio' name='product_thumb_img' value="${images}" checked="checked">
+															
+															<img src='/display?fileName=${images}'>	
+														</div>
+														
+													</li>
+												</c:if>
+												
+													
+												<c:if test="${images ne product.product_thumb_img }" >
+													<li data-path="${attach.uploadPath}" data-uuid="${attach.uuid}" 
+													data-filename="${attach.fileName}" data-type="${attach.fileType}">
+														
+														<div>
+															<span>${attach.fileName}</span>
+															<button  type='button' data-file="\'${images}'\"
+															data-type='image' class='btn btn-warning btn-circle'>
+															<i class='fa fa-times'></i>
+															</button><br>
+															
+																<input type='radio' name='product_thumb_img' value="${images }">
+															
+															<img src='/display?fileName=${images}'>	
+														</div>
+														
+													</li>
+												</c:if>
+												
+												
+											</c:forEach>
+										</ul>
+									</div>
+								</td>
+									
 							</tr>
 
 						</tbody>
 					</table>
-
+					
 				</form>
 				<button class="btn btn-primary btn-sm" data-toggle="modal"
 					data-target="#productRegModal" id="productRegBtn">등록</button>
 				<button class="btn btn-secondary btn-sm" id="productRegCencleBtn">취소</button>
+				 
 
 
 			</div>

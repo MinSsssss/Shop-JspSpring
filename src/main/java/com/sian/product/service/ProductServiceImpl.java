@@ -55,8 +55,12 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	@Override
 	public void productRegister(ProductDTO productDTO)  {
+		
+		productDTO.setProduct_thumb_img(productDTO.getProduct_s_thumb_img().replace("s_", ""));
+		
 		productDAO.insert(productDTO);
-		System.out.println("product_no" + productDTO.getProduct_no());
+		
+		
 		if(productDTO.getAttachList() == null || productDTO.getAttachList().size() <= 0) {
 			return;
 		}
@@ -76,6 +80,32 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductAttachDTO> getAttachList(int product_no) {
 		
 		return productAttachDAO.findByProduct_no(product_no);
+	}
+	@Transactional
+	@Override
+	public void productModify(ProductDTO productDTO) {
+		if(productDTO.getAttachList() == null || productDTO.getAttachList().size() <= 0) {
+			return;
+		}
+		System.out.println("productNO : " + productDTO.getProduct_no());
+		getAttachList(productDTO.getProduct_no())
+	 	.forEach(attach->{
+	 				productAttachDAO.delete(attach.getUuid());
+	 			}
+	 		);
+		
+//		productDTO.getAttachList().forEach(attach -> {
+//			attach.setProduct_no(productDTO.getProduct_no());
+//			productAttachDAO.delete(attach.getUuid());
+//			System.out.println("uuid : " + attach.getUuid());
+//		});
+		
+		productDTO.getAttachList().forEach(attach -> {
+			attach.setProduct_no(productDTO.getProduct_no());
+			productAttachDAO.insert(attach);
+		});
+		
+		productDAO.productModify(productDTO);
 	}
 	
 	

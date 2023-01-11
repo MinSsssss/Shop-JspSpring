@@ -26,6 +26,7 @@ select * from tbl_faq;
 select * from tbl_notice;
 select * from tbl_qna;
 select * from tbl_product_images;
+
 commit;
 
 
@@ -87,6 +88,7 @@ CREATE TABLE tbl_product (
 	product_price	number(6)		NOT NULL,
 	product_detail	varchar2(1000)		NOT NULL,
     product_thumb_img	varchar2(500),
+    product_s_thumb_img	varchar2(500),
 	--product_image2	varchar2(1000)		NULL,
     
 	product_regdate	date default sysdate NOT NULL,
@@ -182,7 +184,6 @@ create table tbl_wishlist(
 );
 
 ALTER TABLE tbl_wishlist ADD UNIQUE(product_no,mem_id);
-
 
 
 commit;

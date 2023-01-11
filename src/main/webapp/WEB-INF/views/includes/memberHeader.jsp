@@ -178,7 +178,7 @@
 	                            
 	                            <!-- mini-cart -->
 	                            <div class="mini-cart-icon">
-	                                <a href="/member/auth/cartView" >
+	                                <a href="/cart/carts" >
 	                                    <i class="icon-shopping-cart"></i>
 	                                    <sup>2</sup>
 	                                </a>

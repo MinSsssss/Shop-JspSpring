@@ -3,6 +3,9 @@ package com.sian.product.controller;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,7 @@ import com.sian.category.service.CategoryService;
 import com.sian.common.page.Criteria;
 import com.sian.common.page.PageDTO;
 import com.sian.member.service.MemberService;
+import com.sian.product.dto.ProductAttachDTO;
 import com.sian.product.dto.ProductDTO;
 import com.sian.product.service.ProductService;
 import com.sian.review.service.ReviewService;
@@ -40,23 +44,52 @@ public class ProductController {
 	public void productList(@RequestParam(value="category_no",required = false) int category_no, Model model)  {
 		model.addAttribute("categoryList", categoryService.getCategoryList("product"));
 		model.addAttribute("category", categoryService.categoryRead(category_no));
-		System.out.println(category_no);
+		
 		model.addAttribute("productList", productService.memberProductList(category_no));
 	}
 	
 	 @GetMapping({"/product/productRead","/admin/product/productRead","/admin/product/productModify"})
 	 public void productRead(@RequestParam("product_no")int product_no,Model model) {
 		 ProductDTO product = productService.getProduct(product_no);
+	
+		 String imgRealPath="";
+		 
+		 List<ProductAttachDTO> paDTO = productService.getAttachList(product_no);
+		 List<String> images = new ArrayList<String>();
+		 List<String> s_images = new ArrayList<String>();
+		 for(int i=0; i<paDTO.size(); i++) {
+			
+			try {
+				imgRealPath = URLEncoder.encode(
+						paDTO.get(i).getUploadPath()+ "/"
+				+paDTO.get(i).getUuid()+"_"
+				+paDTO.get(i).getFileName(), "UTF-8");
+				
+				images.add(imgRealPath);
+				product.setProduct_imgs(images);
+				
+				
+				imgRealPath = URLEncoder.encode(
+						paDTO.get(i).getUploadPath()+ "/s_"
+				+paDTO.get(i).getUuid()+"_"
+				+paDTO.get(i).getFileName(), "UTF-8");
+				
+				s_images.add(imgRealPath);
+				
+				product.setProduct_s_imgs(s_images);
+			} catch (UnsupportedEncodingException e) {
+				
+				e.printStackTrace();
+			}
+		 }
 		 
 		 product.setAttachList(productService.getAttachList(product_no));
 		 
-		 if(product.getCategory_name()==null) {
-			 product.setCategory_name("카테고리없음");
-		 }
 		 model.addAttribute("product",product);
 		 
-		 model.addAttribute("category",categoryService.getCategoryList("product"));
+		 model.addAttribute("categoryList",categoryService.getCategoryList("product"));
 		 
+		 System.out.println(categoryService.getCategoryList("product"));
 		 model.addAttribute("reviewList", reviewService.getReviewList(product_no));
 		 
 //		 model.addAttribute("images",productService.getAttachList(product_no));
@@ -77,7 +110,7 @@ public class ProductController {
 		model.addAttribute("categoryList", categoryService.getCategoryList("product"));
 		
 		model.addAttribute("productList", productService.getListPaging(cri));
-		//System.out.println("썸네일"+productService.getListPaging(cri).get(0).getProduct_thumb_img());
+		
 		int totaol = productService.getTotal();
 		
 		PageDTO page = new PageDTO(cri, totaol);
@@ -94,21 +127,27 @@ public class ProductController {
 	
 	 @PostMapping("/admin/product/productRegisterProc") 
 		public String productRegisterProc(ProductDTO productDTO) {
-		 	System.out.println("썸네일!!!!"+productDTO.getProduct_thumb_img());
 		 	
 		 	if(productDTO.getAttachList() != null) {
 		 		productDTO.getAttachList().forEach(attach -> System.out.println(attach));
-		 		
-		 		
 		 	}
 		 	
 		 	productService.productRegister(productDTO);
 		 	
-		 	
-			 
 		 return "redirect:/admin/product/productList";
 	 }
 
+	 
+	 @PostMapping("/admin/product/productModifyProc")
+	 public String productModifyProc(ProductDTO productDTO) {
+		 
+		 productService.productModify(productDTO);
+
+		 
+		 return "redirect:/admin/product/productList";
+		 
+	 }
+	 
 	 
 //	 @GetMapping({"/admin/product/productRead","/admin/product/productModify"})
 //	 public void productRead(@RequestParam("product_no")int product_no,Model model) {

@@ -62,7 +62,7 @@
 					class="ltn__gallery-item filter_category_3 col-lg-3 col-md-4 col-sm-6 col-12">
 					<div class="ltn__product-item ltn__product-item-3 text-center">
 						<div class="product-img">
-							<a href="product-details.html"><img src="/resources/member/img/${product.product_image1 }"
+							<a href="product-details.html"><img src="/display?fileName=${product.product_thumb_img}"
 								alt="#"></a>
 						</div>
 						<div class="product-info">

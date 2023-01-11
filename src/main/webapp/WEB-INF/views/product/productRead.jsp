@@ -44,65 +44,35 @@
 						<div class="col-md-6">
 							<div class="ltn__shop-details-img-gallery">
 								<div class="ltn__shop-details-large-img">
+								
+									
+									
+									
 									<div class="single-large-img">
-										<a href="img/product/1.png" data-rel="lightcase:myCollection">
-											<img src="/resources/member/img/${product.product_image1 }"
+										<a href="/display?fileName=${product.product_thumb_img}" data-rel="lightcase:myCollection">
+											<img src="/display?fileName=${product.product_thumb_img}"
 											alt="Image">
 										</a>
 									</div>
-									<div class="single-large-img">
-										<a href="img/product/2.png" data-rel="lightcase:myCollection">
-											<img src="img/product/2.png" alt="Image">
-										</a>
-									</div>
-									<div class="single-large-img">
-										<a href="img/product/3.png" data-rel="lightcase:myCollection">
-											<img src="img/product/3.png" alt="Image">
-										</a>
-									</div>
-									<div class="single-large-img">
-										<a href="img/product/4.png" data-rel="lightcase:myCollection">
-											<img src="img/product/4.png" alt="Image">
-										</a>
-									</div>
-									<div class="single-large-img">
-										<a href="img/product/5.png" data-rel="lightcase:myCollection">
-											<img src="img/product/5.png" alt="Image">
-										</a>
-									</div>
-									<div class="single-large-img">
-										<a href="img/product/6.png" data-rel="lightcase:myCollection">
-											<img src="img/product/6.png" alt="Image">
-										</a>
-									</div>
-									<div class="single-large-img">
-										<a href="img/product/7.png" data-rel="lightcase:myCollection">
-											<img src="img/product/7.png" alt="Image">
-										</a>
-									</div>
+									<c:forEach items="${product.product_imgs}" var="images">
+										<div class="single-large-img">
+											<a href="/display?fileName=${images}" data-rel="lightcase:myCollection">
+												<img src="/display?fileName=${images}" alt="Image">
+											</a>
+										</div>
+									</c:forEach>
+									
+									
 								</div>
 								<div class="ltn__shop-details-small-img slick-arrow-2">
 									<div class="single-small-img">
-										<img src="img/product/1.png" alt="Image">
+										<img src="/display?fileName=${product.product_thumb_img}" alt="Image">
 									</div>
-									<div class="single-small-img">
-										<img src="img/product/2.png" alt="Image">
-									</div>
-									<div class="single-small-img">
-										<img src="img/product/3.png" alt="Image">
-									</div>
-									<div class="single-small-img">
-										<img src="img/product/4.png" alt="Image">
-									</div>
-									<div class="single-small-img">
-										<img src="img/product/5.png" alt="Image">
-									</div>
-									<div class="single-small-img">
-										<img src="img/product/6.png" alt="Image">
-									</div>
-									<div class="single-small-img">
-										<img src="img/product/7.png" alt="Image">
-									</div>
+									<c:forEach items="${product.product_imgs}" var="images">
+										<div class="single-small-img">
+											<img src="/display?fileName=${images}" alt="Image">
+										</div>
+									</c:forEach>
 								</div>
 							</div>
 						</div>

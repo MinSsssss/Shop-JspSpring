@@ -21,7 +21,7 @@ public interface ProductDAO {
 	
 	public int getProductNo(String product_name);
 	
-	public int productModify(ProductDTO productDTO);
+	public void productModify(ProductDTO productDTO);
 	
 	
 }

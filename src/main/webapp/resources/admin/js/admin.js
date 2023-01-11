@@ -199,14 +199,15 @@ $(document).ready(function() {
 				str += "<li data-path='"+obj.uploadPath+"'";
 				str +=" data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'"
 				str +=" ><div>";
+				alert(obj.image);
 				str += "<span> "+ obj.fileName+"</span>";
 				str += "<button type='button' data-file=\'"+fileCallPath+"\' "
 				str += "data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
-				str += "<input type='radio' name='product_thumb_img' value='"+fileCallPath+ "'>";
+				str += "<input type='radio' name='product_s_thumb_img' value='"+fileCallPath+ "'>";
 				str += "<img src='/display?fileName="+fileCallPath+"'>";
 				str += "</div>";
 				str +="</li>";
-				
+			
 			}else{
 				var fileCallPath =  encodeURIComponent( obj.uploadPath+"/"+ obj.uuid +"_"+obj.fileName);			      
 			    var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
@@ -216,7 +217,7 @@ $(document).ready(function() {
 				str += "<span> "+ obj.fileName+"</span>";
 				str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='file' " 
 				str += "class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
-				str += "<img src='/resources/img/attach.png'></a>";
+				str += "<img src='/display?fileName="+fileCallPath+"'>";
 				str += "</div>";
 				str +="</li>";
 			}

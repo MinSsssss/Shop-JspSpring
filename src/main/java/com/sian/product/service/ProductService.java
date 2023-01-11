@@ -24,4 +24,6 @@ public interface ProductService {
 	public List<ProductDTO> getProductList() ;
 	
 	public List<ProductAttachDTO> getAttachList(int product_no);
+	
+	public void productModify(ProductDTO productDTO);
 }
