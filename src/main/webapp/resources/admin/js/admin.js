@@ -199,7 +199,6 @@ $(document).ready(function() {
 				str += "<li data-path='"+obj.uploadPath+"'";
 				str +=" data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'"
 				str +=" ><div>";
-				alert(obj.image);
 				str += "<span> "+ obj.fileName+"</span>";
 				str += "<button type='button' data-file=\'"+fileCallPath+"\' "
 				str += "data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
@@ -226,7 +225,7 @@ $(document).ready(function() {
 	}
 	$(".uploadResult").on("click", "button", function(e){
 	    
-	    console.log("delete file");
+	    
 	      
 	    var targetFile = $(this).data("file");
 	    var type = $(this).data("type");

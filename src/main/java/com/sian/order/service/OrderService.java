@@ -7,7 +7,8 @@ import com.sian.order.dto.OrderDTO;
 import com.sian.order.dto.OrderDetailDTO;
 
 public interface OrderService {
-public void orderInsert(OrderDTO orderDTO);
+	
+	public void orderInsert(OrderDTO orderDTO);
 	
 	public void orderDetailInsert(OrderDetailDTO orderDetailDTO);
 	

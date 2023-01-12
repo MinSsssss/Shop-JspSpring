@@ -61,7 +61,7 @@
 											</h4>
 											<div class="reviewWrapTop">
 												<div class="productInfo">
-													<div><img  class="product_image" alt="" src="/resources/member/img/${review.product_image1 }"></div>
+													<div><img  class="product_image" alt="" src="/display?fileName=${review.product_s_thumb_img}"></div>
 													
 													<div class="productName">${review.product_name }
 														

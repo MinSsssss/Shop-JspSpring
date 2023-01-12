@@ -35,67 +35,77 @@ public class ProductController {
 	private final ProductService productService;
 	private final CategoryService categoryService;
 	private final ReviewService reviewService;
-	
-	
+
 	/*
 	 * ALL
 	 */
 	@GetMapping("/product/productList")
-	public void productList(@RequestParam(value="category_no",required = false) int category_no, Model model)  {
+	public void productList(@RequestParam(value = "category_no", required = false) int category_no, Model model) {
 		model.addAttribute("categoryList", categoryService.getCategoryList("product"));
 		model.addAttribute("category", categoryService.categoryRead(category_no));
-		
+
 		model.addAttribute("productList", productService.memberProductList(category_no));
 	}
-	
-	 @GetMapping({"/product/productRead","/admin/product/productRead","/admin/product/productModify"})
-	 public void productRead(@RequestParam("product_no")int product_no,Model model) {
-		 ProductDTO product = productService.getProduct(product_no);
-	
-		 String imgRealPath="";
-		 
-		 List<ProductAttachDTO> paDTO = productService.getAttachList(product_no);
-		 List<String> images = new ArrayList<String>();
-		 List<String> s_images = new ArrayList<String>();
-		 for(int i=0; i<paDTO.size(); i++) {
-			
+
+	@GetMapping({ "/product/productRead", "/admin/product/productRead", "/admin/product/productModify" })
+	public void productRead(@RequestParam("product_no") int product_no, Model model) {
+		ProductDTO product = productService.getProduct(product_no);
+		String thumbImg = product.getProduct_thumb_img();
+		String sThumbImg = product.getProduct_s_thumb_img();
+		String imgRealPath = "";
+
+		List<ProductAttachDTO> paDTO = productService.getAttachList(product_no);
+		List<String> images = new ArrayList<String>();
+		List<String> s_images = new ArrayList<String>();
+		System.out.println("padtosize : " + paDTO.size());
+		for (int i = 0; i < paDTO.size(); i++) {
+
 			try {
 				imgRealPath = URLEncoder.encode(
-						paDTO.get(i).getUploadPath()+ "/"
-				+paDTO.get(i).getUuid()+"_"
-				+paDTO.get(i).getFileName(), "UTF-8");
-				
-				images.add(imgRealPath);
-				product.setProduct_imgs(images);
-				
-				
-				imgRealPath = URLEncoder.encode(
-						paDTO.get(i).getUploadPath()+ "/s_"
-				+paDTO.get(i).getUuid()+"_"
-				+paDTO.get(i).getFileName(), "UTF-8");
-				
-				s_images.add(imgRealPath);
-				
-				product.setProduct_s_imgs(s_images);
-			} catch (UnsupportedEncodingException e) {
-				
-				e.printStackTrace();
-			}
-		 }
-		 
-		 product.setAttachList(productService.getAttachList(product_no));
-		 
-		 model.addAttribute("product",product);
-		 
-		 model.addAttribute("categoryList",categoryService.getCategoryList("product"));
-		 
-		 System.out.println(categoryService.getCategoryList("product"));
-		 model.addAttribute("reviewList", reviewService.getReviewList(product_no));
-		 
-//		 model.addAttribute("images",productService.getAttachList(product_no));
-	 }
+						paDTO.get(i).getUploadPath() + "/" + paDTO.get(i).getUuid() + "_" + paDTO.get(i).getFileName(),
+						"UTF-8");
 
-	
+				images.add(imgRealPath);
+
+				/* ---------- */
+
+				imgRealPath = URLEncoder.encode(paDTO.get(i).getUploadPath() + "/s_" + paDTO.get(i).getUuid() + "_"
+						+ paDTO.get(i).getFileName(), "UTF-8");
+
+				s_images.add(imgRealPath);
+
+			} catch (UnsupportedEncodingException e) {
+
+				e.printStackTrace();
+			}	
+
+		}
+		
+		/*
+		 * 대표사진위치변경
+		 */
+		
+		images.remove(images.indexOf(thumbImg));
+		images.add(0, thumbImg);
+		product.setProduct_imgs(images);
+
+		s_images.remove(s_images.indexOf(sThumbImg));
+		s_images.add(0, sThumbImg);
+		product.setProduct_s_imgs(s_images);
+
+		
+		product.setAttachList(productService.getAttachList(product_no));
+
+		model.addAttribute("product", product);
+
+		model.addAttribute("categoryList", categoryService.getCategoryList("product"));
+
+		System.out.println(categoryService.getCategoryList("product"));
+		model.addAttribute("reviewList", reviewService.getReviewList(product_no));
+
+//		 model.addAttribute("images",productService.getAttachList(product_no));
+	}
+
 	/*
 	 * ADMIN ONLY
 	 */
@@ -106,49 +116,44 @@ public class ProductController {
 //		model.addAttribute("productList", productService.getProductList());
 //	}
 	@GetMapping("/admin/product/productList")
-	public void adminProductList(Model model,Criteria cri)  {
+	public void adminProductList(Model model, Criteria cri) {
 		model.addAttribute("categoryList", categoryService.getCategoryList("product"));
-		
+
 		model.addAttribute("productList", productService.getListPaging(cri));
-		
+
 		int totaol = productService.getTotal();
-		
+
 		PageDTO page = new PageDTO(cri, totaol);
-		
-		model.addAttribute("page",page);
+
+		model.addAttribute("page", page);
 	}
-	
-	
+
 	@GetMapping("/admin/product/productRegister")
 	public void productRegister(Model model) {
-		model.addAttribute("categoryList",categoryService.getCategoryList("product"));
+		model.addAttribute("categoryList", categoryService.getCategoryList("product"));
 	}
-	
-	
-	 @PostMapping("/admin/product/productRegisterProc") 
-		public String productRegisterProc(ProductDTO productDTO) {
-		 	
-		 	if(productDTO.getAttachList() != null) {
-		 		productDTO.getAttachList().forEach(attach -> System.out.println(attach));
-		 	}
-		 	
-		 	productService.productRegister(productDTO);
-		 	
-		 return "redirect:/admin/product/productList";
-	 }
 
-	 
-	 @PostMapping("/admin/product/productModifyProc")
-	 public String productModifyProc(ProductDTO productDTO) {
-		 
-		 productService.productModify(productDTO);
+	@PostMapping("/admin/product/productRegisterProc")
+	public String productRegisterProc(ProductDTO productDTO) {
 
-		 
-		 return "redirect:/admin/product/productList";
-		 
-	 }
-	 
-	 
+		if (productDTO.getAttachList() != null) {
+			productDTO.getAttachList().forEach(attach -> System.out.println(attach));
+		}
+
+		productService.productRegister(productDTO);
+
+		return "redirect:/admin/product/productList";
+	}
+
+	@PostMapping("/admin/product/productModifyProc")
+	public String productModifyProc(ProductDTO productDTO) {
+
+		productService.productModify(productDTO);
+
+		return "redirect:/admin/product/productList";
+
+	}
+
 //	 @GetMapping({"/admin/product/productRead","/admin/product/productModify"})
 //	 public void productRead(@RequestParam("product_no")int product_no,Model model) {
 //		 ProductDTO product = productService.getProduct(product_no);
@@ -165,9 +170,5 @@ public class ProductController {
 	/*
 	 * MEMBER ONLY @PreAuthorize("hasRole('ROLE_MEMBER')")
 	 */
-	
 
-	
-
-	
 }

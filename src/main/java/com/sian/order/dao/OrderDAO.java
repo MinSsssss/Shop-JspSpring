@@ -11,7 +11,7 @@ import com.sian.order.dto.OrderDetailDTO;
 public interface OrderDAO {
 
 	
-	public void orderInsert(OrderDTO orderDTO);
+	public Long orderInsert(OrderDTO orderDTO);
 	
 	public void orderDetailInsert(OrderDetailDTO orderDetailDTO);
 	

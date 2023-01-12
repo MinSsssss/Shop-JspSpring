@@ -44,30 +44,17 @@
 						<div class="col-md-6">
 							<div class="ltn__shop-details-img-gallery">
 								<div class="ltn__shop-details-large-img">
-								
-									
-									
-									
-									<div class="single-large-img">
-										<a href="/display?fileName=${product.product_thumb_img}" data-rel="lightcase:myCollection">
-											<img src="/display?fileName=${product.product_thumb_img}"
-											alt="Image">
-										</a>
-									</div>
+
 									<c:forEach items="${product.product_imgs}" var="images">
 										<div class="single-large-img">
-											<a href="/display?fileName=${images}" data-rel="lightcase:myCollection">
-												<img src="/display?fileName=${images}" alt="Image">
-											</a>
+											<img src="/display?fileName=${images}" alt="Image">
 										</div>
 									</c:forEach>
 									
 									
 								</div>
 								<div class="ltn__shop-details-small-img slick-arrow-2">
-									<div class="single-small-img">
-										<img src="/display?fileName=${product.product_thumb_img}" alt="Image">
-									</div>
+									
 									<c:forEach items="${product.product_imgs}" var="images">
 										<div class="single-small-img">
 											<img src="/display?fileName=${images}" alt="Image">
@@ -116,7 +103,10 @@
 												
 												
 											</form>
-											
+											<sec:authorize access="isAuthenticated()">
+												<input type="hidden" id="chk_mem_id" 
+												value="<sec:authentication property='principal.member.mem_id'/>">
+											</sec:authorize>
 										</li>
 									</ul>
 								</div>
@@ -125,10 +115,7 @@
 										<li><a href="#" class="" id="wishListBtn" title="Wishlist">
 											 <!-- data-toggle="modal" data-target="#liton_wishlist_modal" -->
 												<i class="far fa-heart"></i> <span>찜 하기</span>
-												<sec:authorize access="isAuthenticated()">
-												<input type="hidden" id="chk_mem_id" 
-												value="<sec:authentication property='principal.member.mem_id'/>">
-												</sec:authorize>
+												
 										</a></li>
 
 									</ul>

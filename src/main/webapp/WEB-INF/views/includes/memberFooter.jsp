@@ -328,6 +328,9 @@
 <!-- All JS Plugins -->
 
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+
+
+
 <script src="/resources/member/js/plugins.js"></script>
 
 <script src="/resources/member/js/main.js"></script>

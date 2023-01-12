@@ -1,9 +1,8 @@
 $(document).ready(function() {
 	$("#wishListBtn").on("click", function() {
-		console.log("하하하")
+		
 		let mem_id = $("#chk_mem_id").val();
-		console.log(mem_id);
-
+		
 		if (mem_id == undefined) {
 			let answer = confirm("로그인이 필요합니다." + "\r\n로그인 페이지로 이동하시겠습니까?");
 			if (answer) {
@@ -11,6 +10,7 @@ $(document).ready(function() {
 				window.location.replace('/login');
 				return false;
 			}
+			
 		} else {
 			let product_no = getParameter("product_no");
 				

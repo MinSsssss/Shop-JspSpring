@@ -4,12 +4,12 @@ $(document).ready(function() {
 		// $("#checkoutForm").submit();
 		let receiver_name = $("#receiver_name").val();
 		let receiver_tel = $("#receiver_tel").val();
-		let receiver_addr1 = $("#receiver_addr1").val();
+		let receiver_addr = $("#receiver_addr").val();
 		let order_request_msg = $("#order_request_msg").val();
 		let param = {
 			"receiver_name": receiver_name,
 			"receiver_tel": receiver_tel,
-			"receiver_addr1": receiver_addr1,
+			"receiver_addr": receiver_addr,
 			"order_request_msg": order_request_msg
 		}
 		$.ajax({

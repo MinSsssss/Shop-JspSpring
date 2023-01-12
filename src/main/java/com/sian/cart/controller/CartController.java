@@ -41,7 +41,7 @@ public class CartController {
 	 */
 	
 	@ResponseBody
-	@PostMapping("/add")
+	@PostMapping("/addCart")
 	public int addCart(@RequestBody CartProductDTO cartProductDTO, Authentication authentication
 			)  {
 
@@ -55,13 +55,13 @@ public class CartController {
 
 	}
 	
-	@GetMapping("/carts")
+	@GetMapping("/cartView")
 	public String carts(Authentication authentication, Model model)  {
 		
 
 		model.addAttribute("cartList", cartService.cartList(memberService.getId(authentication)));
 		
-		return "/cart/carts";
+		return "/cart/cartView";
 	}
 
 	@PostMapping("/cartModify")

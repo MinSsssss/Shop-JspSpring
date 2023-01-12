@@ -54,28 +54,28 @@
 										<label>이름</label>
 
 										<div class="input-item">
-											<input type="text" name="ltn__name" readonly="readonly"
+											<input type="text" id="mem_name"  readonly="readonly"
 												value="<sec:authentication property='principal.member.mem_name'/>">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<label>이메일</label>
 										<div class="input-item">
-											<input type="text" name="ltn__name" readonly="readonly"
+											<input type="text" id="mem_email" readonly="readonly"
 												value="<sec:authentication property='principal.member.mem_email'/>">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<label>휴대폰번호</label>
 										<div class="input-item">
-											<input type="text" name="ltn__name" readonly="readonly"
+											<input type="text" id="mem_tel" readonly="readonly"
 												value="<sec:authentication property='principal.member.mem_tel'/>">
 										</div>
 									</div>
 									<div class="col-md-6">
 										<label>주소</label>
 										<div class="input-item">
-											<input type="text" name="ltn__name" readonly="readonly"
+											<input type="text" id="full_address"  readonly="readonly"
 												value="<sec:authentication property='principal.member.full_address'/>">
 										</div>
 									</div>
@@ -104,7 +104,7 @@
 										<button type="button" data-toggle="modal"
 												data-target="#addressModifyModal">주소 변경</button>
 										<div class="input-item">
-											<input type="text" id="receiver_addr1" name="receiver_addr1" readonly="readonly"
+											<input type="text" id="receiver_addr" name="receiver_addr" readonly="readonly"
 											value="<sec:authentication property='principal.member.full_address'/>">
 											
 										</div>
@@ -151,7 +151,7 @@
 										placeholder="배송 요청 사항을 입력해주세요."></textarea>
 								</div>
 
-							<!-- </form> -->
+							
 						</div>
 					</div>
 				</div>
@@ -201,8 +201,9 @@
 						</div>
 					</div>
 					
-					<button class="btn theme-btn-1 btn-effect-1 text-uppercase"
-						id="checkoutBtn">결제하기</button>
+					<button onclick="requestPay()" class="btn theme-btn-1 btn-effect-1 text-uppercase">결제하기</button>
+					<!-- <button" class="btn theme-btn-1 btn-effect-1 text-uppercase"
+						id="checkoutBtn">결제하기</button> -->
 				</div>
 			</div>
 			<div class="col-lg-6">
@@ -239,7 +240,7 @@
 							</tr>
 							<tr>
 								<td><strong>Total</strong></td>
-								<td><strong class="finalTotalPrice"></strong></td>
+								<td><strong id="total_price" class="finalTotalPrice"></strong></td>
 							</tr>
 						</tbody>
 					</table>
@@ -258,3 +259,137 @@
 <script src="/resources/member/js/order.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/resources/member/js/address.js"></script>
+
+
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script>
+	let data = {
+			totalPrice : $('#total_price').text(),
+			buyer_name : $("#mem_name").val(),
+			buyer_email : $("#mem_email").val(),
+			buyer_tel : $("#mem_tel").val(),
+			delevery_addr : $("#receiver_addr").val(),
+			product_name : $("#product_name").val(),
+	}
+ 	let totalPrice = $('#total_price').text();
+	let buyer_name = $("#mem_name").val();
+ 	let buyer_email = $("#mem_email").val();
+ 	let buyer_tel = $("#mem_tel").val();
+ 	let buyer_addr = $("#full_address").val();
+ 	let product_name = $("#product_name").val(); 
+	// let form = document.getElementById("payment");
+
+	let IMP = window.IMP;
+	IMP.init('imp18760134');
+	
+	function requestPay() {
+        IMP.request_pay({
+            pg : 'kcp',
+            pay_method : 'card',
+            merchant_uid: 'merchant_' + new Date().getTime(),
+            name : data.product_name,
+            amount : data.totalPrice,
+            buyer_email : data.buyer_email,
+            buyer_name : data.buyer_name,
+            buyer_tel : data.buyer_tel,
+            buyer_addr : data.delevery_addr
+            
+        }, function(rsp) {
+			console.log(rsp);
+			// 결제검증
+			$.ajax({
+	        	type : "POST",
+	        	url : "/verifyIamport/" + rsp.imp_uid 
+	        }).done(function(data) {
+	        	
+	        	console.log(data);
+	        	console.log("data.response.amount : " + data.response.amount);
+	        	console.log("rsp.paid_amount : " + rsp.paid_amount);
+	        	// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
+	        	if(rsp.paid_amount == data.response.amount){
+	        		
+
+		        	alert("결제 및 결제검증완료");
+		        	
+		        	
+	        	} else {
+	        		alert("결제 실패");
+	        	}
+	        });
+		});
+	}
+	
+	
+	
+	/* function requestPay() {
+        IMP.request_pay({
+            pg : 'kcp',
+            pay_method : 'card',
+            merchant_uid: 'merchant_' + new Date().getTime(),
+            name : data.product_name,
+            amount : data.totalPrice,
+            buyer_email : data.buyer_email,
+            buyer_name : data.buyer_name,
+            buyer_tel : data.buyer_tel,
+            buyer_addr : data.delevery_addr
+            
+        }, function(rsp) {
+			console.log(rsp);
+			 if (rsp.success) {
+			      // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+			      // jQuery로 HTTP 요청
+			 	data.impUid = rsp.imp_uid;
+	        	data.merchant_uid = rsp.merchant_uid;
+	        	paymentComplete(data); 
+			      
+			    } else {
+			      alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+			    }
+		});
+    } */
+	
+	
+	
+	
+	function createOrderNum(){
+		const date = new Date();
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, "0");
+		const day = String(date.getDate()).padStart(2, "0");
+		
+		let orderNum = year + month + day;
+		for(let i=0;i<10;i++) {
+			orderNum += Math.floor(Math.random() * 8);	
+		}
+		return orderNum;
+	}
+	
+	function paymentComplete(data){
+		alert(data)
+		$.ajax({
+			url: "/order/payment/complete",
+			method: "POST",
+			data: data
+			
+		})
+		.done(function(result){
+			messageSend();
+			swal({
+				text: result,
+				closeOnClickOutside : false
+			})
+			.then(function(){
+				location.replace("/order/orderList");
+			})
+		})
+		.fail(function(){
+			alert("에러!");
+			location.replace("/")
+		})
+		
+		
+		
+		
+		
+	} 
+</script>

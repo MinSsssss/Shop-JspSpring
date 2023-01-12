@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sian.order.dao.OrderDAO">
 
-	<insert id="orderInsert">
-		<!-- <selectKey keyProperty="order_no" resultType="Long" order="BEFORE"> 
-			SELECT seq_order_no.nextval FROM DUAL </selectKey> -->
+	<insert id="orderInsert" useGeneratedKeys="true" keyProperty="order_no">
+		<selectKey keyProperty="order_no" resultType="Long" order="BEFORE"> 
+			SELECT seq_order_no.nextval FROM DUAL </selectKey>
 		INSERT INTO tbl_order(order_no,mem_id,receiver_name,
-		receiver_tel,receiver_addr1,order_request_msg)
-		VALUES (seq_order_no.nextval,#{mem_id},
-		#{receiver_name},#{receiver_tel},#{receiver_addr1},
-		#{order_request_msg}
+		receiver_tel,receiver_addr,order_request_msg,merchant_uid,imp_uid)
+		VALUES (#{order_no},#{mem_id},
+		#{receiver_name},#{receiver_tel},#{receiver_addr},
+		#{order_request_msg},#{merchant_uid},#{imp_uid}
 		)
 	</insert>
 	<insert id="orderDetailInsert">
@@ -48,7 +48,7 @@
 		SELECT od.order_detail_no,od.order_no,
 		od.order_qty,od.sub_total,
 		pro.product_no,pro.product_name,
-		pro.product_price,pro.product_thumb_img
+		pro.product_price,pro.product_thumb_img,pro.product_s_thumb_img
 		FROM tbl_order_detail od,tbl_product pro
 		WHERE od.product_no=pro.product_no AND 
 		order_no=#{order_no}
@@ -58,7 +58,7 @@
 		WHERE order_no = #{order_no}
 	</delete>
 	<select id="getReviewView" resultType="com.sian.order.dto.OrderDetailDTO">
-		SELECT pro.product_name,pro.product_thumb_img,od.order_detail_no
+		SELECT pro.product_name,pro.product_thumb_img,pro.product_s_thumb_img,od.order_detail_no
 		FROM tbl_product pro,tbl_order_detail od
 		WHERE pro.product_no = od.product_no
 		AND od.order_detail_no=#{order_detail_no}

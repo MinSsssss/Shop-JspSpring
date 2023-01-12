@@ -106,6 +106,10 @@ CREATE TABLE tbl_order (
     order_date	date	DEFAULT sysdate	 NOT NULL,
     order_request_msg varchar2(1000),
     order_status varchar2(20) default '결제 완료' NOT NULL,
+    
+    merchant_uid varchar2(100),
+    imp_uid varchar2(100),
+    
     constraint fk_order_mem_id foreign key(mem_id) references tbl_member(mem_id)
 );
 commit;
@@ -173,6 +177,7 @@ create table tbl_cart(
     ON DELETE CASCADE
 );
 ALTER TABLE tbl_cart ADD UNIQUE(product_no,mem_id);
+commit;
 
 create table tbl_wishlist(
     product_no number, 

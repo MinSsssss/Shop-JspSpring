@@ -116,7 +116,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="site-logo">
-                            <a href="../member"><img src="/resources/member/img/logo.png" alt="Logo"></a>
+                            <a href="/"><img src="/resources/member/img/logo.png" alt="Logo"></a>
                         </div>
                     </div>
                     <div class="col header-menu-column menu-color-white---">
@@ -178,7 +178,7 @@
 	                            
 	                            <!-- mini-cart -->
 	                            <div class="mini-cart-icon">
-	                                <a href="/cart/carts" >
+	                                <a href="/cart/cartView" >
 	                                    <i class="icon-shopping-cart"></i>
 	                                    <sup>2</sup>
 	                                </a>

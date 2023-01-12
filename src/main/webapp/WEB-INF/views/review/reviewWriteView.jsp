@@ -64,7 +64,7 @@
 											<div class="reviewInfo">
 												<div class="reviewImg">
 													<img alt=""
-														src="/resources/member/img/${reviewView.product_image1}">
+														src="/display?fileName=${reviewView.product_s_thumb_img}">
 												</div>
 												<div>
 													<p class="product_name">${reviewView.product_name}</p>
