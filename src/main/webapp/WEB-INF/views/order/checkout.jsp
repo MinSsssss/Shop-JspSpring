@@ -307,7 +307,7 @@
 	        	console.log("rsp.paid_amount : " + rsp.paid_amount);
 	        	// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
 	        	if(rsp.paid_amount == data.response.amount){
-	        		
+	        		// 여기서 db에 저장 ajax 추가
 
 		        	alert("결제 및 결제검증완료");
 		        	

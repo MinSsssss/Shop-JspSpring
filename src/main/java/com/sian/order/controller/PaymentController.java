@@ -36,7 +36,7 @@ private IamportClient api;
 			, HttpSession session
 			, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException
 	{		
-			System.out.println("금액"+api.paymentByImpUid(imp_uid));
+			
 			return api.paymentByImpUid(imp_uid);
 	}
 	
