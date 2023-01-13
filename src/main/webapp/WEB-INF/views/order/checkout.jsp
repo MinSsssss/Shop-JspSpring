@@ -226,10 +226,15 @@
 										<div class="productDetail">
 											<input type="hidden" id="product_name" value="${order.product_name }">
 											<input type="hidden" id="sub_total" value="${order.sub_total }">
-											<input type="hidden" id="order_qty" value="${order.order_qty }"> 
+											<input type="hidden" id="order_qty" value="${order.order_qty }">
+											<input type="hidden" id="product_no" value="${order.product_no }">
+											<input type="hidden" id="mem_id" 
+											value="<sec:authentication property='principal.member.mem_id'/>">
+											
 										</div>
 									</td>
 								</tr>
+								
 								
 									
 									
@@ -259,26 +264,21 @@
 <script src="/resources/member/js/order.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/resources/member/js/address.js"></script>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script>
-	let data = {
-			totalPrice : $('#total_price').text(),
-			buyer_name : $("#mem_name").val(),
-			buyer_email : $("#mem_email").val(),
-			buyer_tel : $("#mem_tel").val(),
-			delevery_addr : $("#receiver_addr").val(),
-			product_name : $("#product_name").val(),
-	}
- 	let totalPrice = $('#total_price').text();
+	
+ 	
 	let buyer_name = $("#mem_name").val();
- 	let buyer_email = $("#mem_email").val();
+ 	
  	let buyer_tel = $("#mem_tel").val();
  	let buyer_addr = $("#full_address").val();
  	let product_name = $("#product_name").val(); 
+ 	
+ 	let totalPrice = $("#total_price").text().replace(",","")
 	// let form = document.getElementById("payment");
-
+	let uid = '';
 	let IMP = window.IMP;
 	IMP.init('imp18760134');
 	
@@ -286,110 +286,158 @@
         IMP.request_pay({
             pg : 'kcp',
             pay_method : 'card',
-            merchant_uid: 'merchant_' + new Date().getTime(),
-            name : data.product_name,
-            amount : data.totalPrice,
-            buyer_email : data.buyer_email,
-            buyer_name : data.buyer_name,
-            buyer_tel : data.buyer_tel,
-            buyer_addr : data.delevery_addr
+            merchant_uid: createOrderNum(),
+            name : $("#product_name").val(),
+            amount : totalPrice,
+            buyer_email : $("#mem_email").val(),
+            buyer_name : $("#mem_name").val(),
+            buyer_tel : $("#mem_tel").val(),
+            //buyer_addr : $("#full_address").val()
             
         }, function(rsp) {
-			console.log(rsp);
-			// 결제검증
-			$.ajax({
-	        	type : "POST",
-	        	url : "/verifyIamport/" + rsp.imp_uid 
-	        }).done(function(data) {
-	        	
-	        	console.log(data);
-	        	console.log("data.response.amount : " + data.response.amount);
-	        	console.log("rsp.paid_amount : " + rsp.paid_amount);
-	        	// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
-	        	if(rsp.paid_amount == data.response.amount){
-	        		// 여기서 db에 저장 ajax 추가
-
-		        	alert("결제 및 결제검증완료");
-		        	
-		        	
-	        	} else {
-	        		alert("결제 실패");
-	        	}
-	        });
-		});
-	}
-	
-	
-	
-	/* function requestPay() {
-        IMP.request_pay({
-            pg : 'kcp',
-            pay_method : 'card',
-            merchant_uid: 'merchant_' + new Date().getTime(),
-            name : data.product_name,
-            amount : data.totalPrice,
-            buyer_email : data.buyer_email,
-            buyer_name : data.buyer_name,
-            buyer_tel : data.buyer_tel,
-            buyer_addr : data.delevery_addr
-            
-        }, function(rsp) {
-			console.log(rsp);
-			 if (rsp.success) {
-			      // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-			      // jQuery로 HTTP 요청
-			 	data.impUid = rsp.imp_uid;
-	        	data.merchant_uid = rsp.merchant_uid;
-	        	paymentComplete(data); 
-			      
-			    } else {
-			      alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
-			    }
-		});
-    } */
-	
-	
-	
-	
-	function createOrderNum(){
-		const date = new Date();
-		const year = date.getFullYear();
-		const month = String(date.getMonth() + 1).padStart(2, "0");
-		const day = String(date.getDate()).padStart(2, "0");
-		
-		let orderNum = year + month + day;
-		for(let i=0;i<10;i++) {
-			orderNum += Math.floor(Math.random() * 8);	
-		}
-		return orderNum;
-	}
-	
-	function paymentComplete(data){
-		alert(data)
-		$.ajax({
-			url: "/order/payment/complete",
-			method: "POST",
-			data: data
+        	if(rsp.success){
+        		
+        		uid = rsp.imp_uid;
+            	alert(rsp.imp_uid)
+    			
+    			// 결제검증
+    			$.ajax({
+    	        	type : "POST",
+    	        	url : "/order/verify_iamport/" + uid, 
+    	        })
+    	        .done(function(data) {
+    	    		console.log("totalprice :  "+totalPrice);
+    	    		console.log("amount : " + data.response.amount)
+    	        	
+    	        	if(totalPrice == data.response.amount){
+    	        		console.log("rsp.paidamount" + rsp.paid_amount);
+    	        		data = JSON.stringify({
+    		        		"order_no" : rsp.merchant_uid,
+    		        		"mem_id" : $("#mem_id").val(),
+    		        		"receiver_name" : $("#receiver_name").val(),
+    		        		"receiver_tel" : $("#receiver_tel").val(),
+    		        		"receiver_addr" : $("#receiver_addr").val(),
+    		        		"order_date" : new Date().getTime(),
+    		        		"order_request_msg" : $("#order_request_msg").val(),
+    		        		"total_price" : rsp.paid_amount,
+    		        		"imp_uid" : rsp.imp_uid
+    		        	});
+    	        		
+    	        		jQuery.ajax({
+    						url: "/order/complete",
+    						type: "POST",
+    						dataType: "json",
+    						contentType: "application/json",
+    						data: data
+    					})
+    					.done(function(res){
+    						console.log("res",res)
+    						if(res>0){
+    							swal("주문정보 저장 성공");
+    							createPayInfo(uid);
 			
+    						}
+    						else{
+    							swal("주문정보 저장 실패");
+    							
+    						}
+    					});
+    		        	
+    		        	} 
+    	        		else {
+    	        			alert("결제 실패");
+    	        		}
+    	        });
+        	}
+        	else{
+        		swal("결제에 실패하였습니다.","에러 내용 : " + rsp.error_msg,"error");
+        	}
+        	
+		});
+	}
+	
+	function createPayInfo(uid) {
+	    // 결제정보 생성 및 테이블 저장 후 결제완료 페이지로 이동 
+	    $.ajax({
+	        type: 'post',
+	        url: '/order/pay_info',
+	        data: {
+	            'imp_uid': uid,
+	        },
+	        done: function(data) {
+	            console.log(data);
+	        	createOrderDetails(data);
+	        	
+	           /*  swal('결제 성공 !',"결제완료 페이지로 이동합니다.","success").then(function(){
+	                
+	                결제완료 페이지로 이동
+	                
+	                location.replace('/order/complete?payNum='+data);
+
+	            }) */
+	        },
+	        error: function() {
+	            swal('결제정보 저장 통신 실패');
+	        }
+	    });
+	}
+	
+	
+	
+    function createOrderNum(){
+    	const date = new Date();
+    	const year = date.getFullYear();
+    	const month = String(date.getMonth() + 1).padStart(2, "0");
+    	const day = String(date.getDate()).padStart(2, "0");
+    	
+    	let orderNum = year + month + day;
+    	for(let i=0;i<10;i++) {
+    		orderNum += Math.floor(Math.random() * 8);	
+    	}
+    	return orderNum;
+    }
+    
+    function createOrderDetails(order_no){
+    	let chkAmount = $(".sub_total_td").length
+    	let count = 0;
+		let orderDetailArr = [];
+
+		let chkNameArr = new Array(chkAmount);
+		let chkQtyArr = new Array(chkAmount);
+		let chkTotalArr = new Array(chkAmount);
+		let form_content = ''
+		$(".productDetail").each(function(index, element) {
+			console.log("index : " + index);
+			console.log("count : " + count);
+			let chkProductName = $(element).find("#product_name").val();
+			let chkProductQty = $(element).find("#order_qty").val();
+			let chkSubTotal = $(element).find("#sub_total").val();
+
+			chkNameArr[count] = chkProductName;
+			chkQtyArr[count] = chkProductQty;
+			chkTotalArr[count] = chkSubTotal;
+			let params = {
+				"order_no": order_no,
+				"product_name": chkProductName,
+				"order_qty": chkProductQty,
+				"sub_total": chkSubTotal
+			}
+
+			orderDetailArr.push(params);
+			count++;
+
 		})
-		.done(function(result){
-			messageSend();
-			swal({
-				text: result,
-				closeOnClickOutside : false
-			})
-			.then(function(){
-				location.replace("/order/orderList");
-			})
+		let paramList = {
+			"paramList": JSON.stringify(orderDetailArr)
+		}
+		$.ajax({
+
+			type: "POST",
+			url: "/order/orderDetails",
+			data: paramList,
+			success: window.location.replace('/order/orderList')
+
 		})
-		.fail(function(){
-			alert("에러!");
-			location.replace("/")
-		})
-		
-		
-		
-		
-		
-	} 
+    }
+	
 </script>

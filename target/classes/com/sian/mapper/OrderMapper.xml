@@ -2,14 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sian.order.dao.OrderDAO">
 
-	<insert id="orderInsert" useGeneratedKeys="true" keyProperty="order_no">
-		<selectKey keyProperty="order_no" resultType="Long" order="BEFORE"> 
-			SELECT seq_order_no.nextval FROM DUAL </selectKey>
+	<insert id="orderInsert">	
 		INSERT INTO tbl_order(order_no,mem_id,receiver_name,
-		receiver_tel,receiver_addr,order_request_msg,merchant_uid,imp_uid)
+		receiver_tel,receiver_addr,order_request_msg,imp_uid)
 		VALUES (#{order_no},#{mem_id},
 		#{receiver_name},#{receiver_tel},#{receiver_addr},
-		#{order_request_msg},#{merchant_uid},#{imp_uid}
+		#{order_request_msg},#{imp_uid}
 		)
 	</insert>
 	<insert id="orderDetailInsert">
@@ -63,6 +61,25 @@
 		WHERE pro.product_no = od.product_no
 		AND od.order_detail_no=#{order_detail_no}
 		
+	</select>
+	
+	<insert id="insertPayInfo">
+		<selectKey keyProperty="pay_no" resultType="Long" order="BEFORE"> 
+			SELECT seq_pay_no.nextval FROM DUAL
+		 </selectKey>
+	
+		INSERT INTO tbl_payment(pay_no,mem_id,order_no,pay_method,
+		pay_name,pay_amount
+		)
+		VALUES(#{pay_no},#{mem_id},#{order_no},#{pay_method},
+		#{pay_name},#{pay_amount}
+		)
+		
+	</insert>
+	
+	<select id="getLastPay" resultType="com.sian.order.dto.PayInfoDTO">
+		SELECT * FROM tbl_payment
+		WHERE pay_no= #{pay_no}
 	</select>
 	
 </mapper>

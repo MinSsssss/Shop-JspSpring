@@ -3,9 +3,9 @@ package com.sian.order.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.sian.cart.dto.CartProductDTO;
 import com.sian.order.dto.OrderDTO;
 import com.sian.order.dto.OrderDetailDTO;
+import com.sian.order.dto.PayInfoDTO;
 
 
 public interface OrderDAO {
@@ -28,4 +28,8 @@ public interface OrderDAO {
 	public int orderDelete(Long order_id);
 	
 	public OrderDetailDTO getReviewView(Long order_detail_no);
+	
+	public void insertPayInfo(PayInfoDTO payDTO);
+	
+	public PayInfoDTO getLastPay(PayInfoDTO payDTO);
 }

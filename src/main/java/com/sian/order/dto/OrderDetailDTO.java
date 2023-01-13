@@ -19,5 +19,6 @@ public class OrderDetailDTO {
 	private String product_thumb_img;
 	private String product_s_thumb_img;
 	private int product_price;
+	
 
 }

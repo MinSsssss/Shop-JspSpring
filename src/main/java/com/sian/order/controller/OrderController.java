@@ -2,28 +2,30 @@ package com.sian.order.controller;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -32,19 +34,21 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sian.cart.service.CartService;
+
 import com.sian.member.service.MemberService;
 import com.sian.order.dto.OrderDTO;
 import com.sian.order.dto.OrderDetailDTO;
+import com.sian.order.dto.PayInfoDTO;
+
 import com.sian.order.service.OrderService;
-import com.sian.order.service.PaymentService;
+import com.sian.order.service.PayService;
 import com.sian.product.service.ProductService;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
-import lombok.AllArgsConstructor;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -57,46 +61,11 @@ public class OrderController {
 	
 	private final ProductService productService;
 	
-	private final PaymentService paymentService;
+	private final PayService payService;
 	
-	
+	private IamportClient client = new IamportClient("1473321038674052", "ZshfrZBon2Ia6H6FHhse0hxT9lX7LD9hP2I42Ocv1MOqHHTPO0nj7QStK44L1dvZ1r2P80yg6GpVeCm5");
 
 	
-
-//	@PostMapping("/order/payment/complete")
-//	public ResponseEntity<String> paymentComplete(HttpSession session, OrderInfo orderInfo, long totalPrice, @AuthenticationPrincipal LoginService user) throws IOException {
-//	    
-//	    String token = paymentService.getToken();
-//	    
-//	    System.out.println("토큰 : " + token);
-//	    // 결제 완료된 금액
-//	    int amount = paymentService.paymentInfo(orderInfo.getImpUid(), token);
-//	    
-//	    try {
-//	       
-//	        
-//	        CartList cartList = (CartList) session.getAttribute("cartList");
-//	        // 실제 계산 금액 가져오기
-//	        long orderPriceCheck = orderService.orderPriceCheck(cartList)  - usedPoint;
-//	        
-//	        // 계산 된 금액과 실제 금액이 다를 때
-//	        if (orderPriceCheck != amount) {
-//	            paymentService.payMentCancle(token, orderInfo.getImpUid(), amount, "결제 금액 오류");
-//	            return new ResponseEntity<String>("결제 금액 오류, 결제 취소", HttpStatus.BAD_REQUEST);
-//	        }
-//	        
-//	        orderService.order(cartList, orderInfo, user);
-//	        session.removeAttribute("cartList");
-//	        
-//	        return new ResponseEntity<>("주문이 완료되었습니다", HttpStatus.OK);
-//	        
-//	    } catch (Exception e) {
-//	        paymentService.payMentCancle(token, orderInfo.getImpUid(), amount, "결제 에러");
-//	        return new ResponseEntity<String>("결제 에러", HttpStatus.BAD_REQUEST);
-//	    }
-//	    
-//	    
-//	}
 	
 	 
 	/*
@@ -113,6 +82,66 @@ public class OrderController {
 	 * MEMBER ONLY @PreAuthorize("hasRole('ROLE_MEMBER')")
 	 */
 	
+	@ResponseBody
+	@PostMapping(value="/order/verify_iamport/{imp_uid}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public IamportResponse<Payment> verifyIamportPOST(@PathVariable(value = "imp_uid") String imp_uid) throws IamportResponseException, IOException {
+			System.out.println("imp_uid : " + imp_uid);
+			System.out.println(client.paymentByImpUid(imp_uid));
+			return client.paymentByImpUid(imp_uid);
+		}
+	
+	@PostMapping("/order/complete")
+	@ResponseBody
+	public int paymentComplete(String imp_uid, String merchant_uid,String total_price,HttpSession session
+			,@RequestBody OrderDTO orderDTO) throws Exception {
+		    
+		    String token = payService.getToken();
+		    
+		    // 결제 완료된 금액
+		    String amount = payService.paymentInfo(orderDTO.getImp_uid(), token);
+		    
+		    int res = 1;
+		    
+		    if (orderDTO.getTotal_price() != Long.parseLong(amount)) {
+				res = 0;
+				// 결제 취소
+				payService.payMentCancle(token, orderDTO.getImp_uid(), amount,"결제 금액 오류");
+				return res;
+			}
+		    System.out.println(orderDTO);
+			orderService.orderInsert(orderDTO);
+			System.out.println("res" + res);
+			return res;
+		 
+	}
+	
+	@PostMapping("/order/pay_info")
+	@ResponseBody
+	public Long payInfoPOST(Model model,HttpServletRequest request, HttpServletResponse response,
+		        @RequestParam String imp_uid,HttpSession session,
+		        Authentication authentication) throws Exception {
+			IamportResponse<Payment> result = client.paymentByImpUid(imp_uid);
+			PayInfoDTO payInfoDTO = new PayInfoDTO();
+			payInfoDTO.setMem_id(memberService.getId(authentication));
+			payInfoDTO.setOrder_no(Long.parseLong(result.getResponse().getMerchantUid()));
+			payInfoDTO.setPay_method(result.getResponse().getPayMethod());
+			payInfoDTO.setPay_name(result.getResponse().getName());
+			payInfoDTO.setPay_amount(result.getResponse().getAmount().longValue());
+			
+			orderService.insertPayInfo(payInfoDTO);
+			
+			
+			payInfoDTO = orderService.getLastPay(payInfoDTO);
+			System.out.println(payInfoDTO.getOrder_no());
+			
+			model.addAttribute("payInfoDTO", payInfoDTO);
+			
+			
+			return payInfoDTO.getOrder_no();
+	}
+	
+	
+	
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@PostMapping("/order/orderDetails")
 	public void orderDetails(@RequestParam HashMap<String, Object> orderDetailList,
@@ -120,7 +149,7 @@ public class OrderController {
 			Authentication authentication) throws JsonMappingException, JsonProcessingException{
 		String json = (String) orderDetailList.get("paramList");
 		ObjectMapper mapper = new ObjectMapper();
-
+		
 		List<OrderDetailDTO> orderDetails = mapper.readValue(json, new TypeReference<List<OrderDetailDTO>>() {
 		});
 		String mem_id = memberService.getId(authentication);
@@ -205,4 +234,15 @@ public class OrderController {
 		
 		return order_no;
 	}
+	
+//	public int orderCancle(OrderDTO orderDTO) throws Exception {
+//		if(!orderDTO.getImp_uid().equals("")) {
+//			String token = payService.getToken(); 
+//			Long price = orderDTO.getTotal_price();
+//			Long refundPrice = price ;
+//			payService.payMentCancle(token, orderDTO.getImp_uid(), refundPrice+"", "환불");
+//		}
+//		
+//		return adminDAO.orderCancle((orderList.getOrderNum()));
+//}
 }

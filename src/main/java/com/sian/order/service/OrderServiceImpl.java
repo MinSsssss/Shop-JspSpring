@@ -5,24 +5,24 @@ import java.util.List;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sian.cart.service.CartService;
-import com.sian.member.service.MemberService;
 import com.sian.order.dao.OrderDAO;
 import com.sian.order.dto.OrderDTO;
 import com.sian.order.dto.OrderDetailDTO;
-import com.sian.product.service.ProductService;
+import com.sian.order.dto.PayInfoDTO;
+
 
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+
 
 @RequiredArgsConstructor
 @Service
 public class OrderServiceImpl implements OrderService{
 	
 	private final OrderDAO orderDAO;
+	
+	
 	
 	@Override
 	public void orderInsert(OrderDTO orderDTO) {
@@ -72,4 +72,18 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.getReviewView(order_detail_no);
 		
 	}
+	
+	
+	@Override
+	public void insertPayInfo(PayInfoDTO payDTO) {
+		orderDAO.insertPayInfo(payDTO);
+		
+	}
+	@Override
+	public PayInfoDTO getLastPay(PayInfoDTO payInfoDTO) {
+		
+		return orderDAO.getLastPay(payInfoDTO);
+	}
+	
+	
 }	

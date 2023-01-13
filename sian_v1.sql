@@ -20,6 +20,7 @@ select * from tbl_product;
 select * from tbl_cart;
 select * from tbl_order;
 select * from tbl_order_detail;
+select * from tbl_payment;
 select * from tbl_wishlist;
 select * from tbl_review;
 select * from tbl_faq;
@@ -98,7 +99,7 @@ CREATE TABLE tbl_product (
 
 --배송완료 전에는 회원탈퇴 불가능
 CREATE TABLE tbl_order (
-	order_no varchar2(13) primary key,
+	order_no varchar2(18) primary key,
 	mem_id	varchar2(50)		NOT NULL,
 	receiver_name	varchar2(20)		NOT NULL,
 	receiver_tel	varchar2(20)		NOT NULL,
@@ -115,7 +116,7 @@ CREATE TABLE tbl_order (
 commit;
 CREATE TABLE tbl_order_detail (
 	order_detail_no	varchar2(13) primary key,
-	order_no	varchar2(16)		NOT NULL,
+	order_no	varchar2(18)		NOT NULL,
 	product_no	number(3)		NOT NULL,
 	order_qty	number(3) default 0 not null ,
     sub_total number default 0 not null, 
@@ -123,10 +124,23 @@ CREATE TABLE tbl_order_detail (
     ON DELETE CASCADE
 );
 
+CREATE TABLE tbl_payment(
+    pay_no number(18) primary key,
+    mem_id varchar2(50) NOT NULL,
+    order_no varchar2(18) NOT NULL,
+    pay_method varchar2(20) NOT NULL,
+    pay_name varchar2(100) NOT NULL,
+    pay_amount number
+);
+
+commit;
+
 CREATE SEQUENCE seq_order_no;
 CREATE SEQUENCE seq_order_detail_no;
+CREATE SEQUENCE seq_pay_no;
 DROP SEQUENCE seq_order_no;
 DROP SEQUENCE seq_order_detail_no;
+DROP SEQUENCE seq_pay_no;
 CREATE SEQUENCE seq_tbl_product_no
     INCREMENT BY 1
     START WITH 101
@@ -235,6 +249,8 @@ CREATE TABLE tbl_qna_comment (
 	qna_com_writer	varchar2(12) NULL
 );
 
+
+
 drop table tbl_product_images;
 drop table tbl_qna_comment;
 drop table tbl_qna;
@@ -242,6 +258,7 @@ drop table tbl_notice;
 drop table tbl_faq;
 drop table tbl_review_comment;
 drop table tbl_review;
+drop table tbl_payment;
 drop table tbl_order_detail;
 drop table tbl_order;
 drop table tbl_wishlist;

@@ -5,8 +5,12 @@ import java.util.Map;
 
 import com.sian.order.dto.OrderDTO;
 import com.sian.order.dto.OrderDetailDTO;
+import com.sian.order.dto.PayInfoDTO;
+
 
 public interface OrderService {
+	
+	
 	
 	public void orderInsert(OrderDTO orderDTO);
 	
@@ -25,4 +29,12 @@ public interface OrderService {
 	public int orderDelete(Long order_no);
 	
 	public OrderDetailDTO getReviewView(Long order_detail_no);
+	
+	
+	
+	
+	public void insertPayInfo(PayInfoDTO payDTO);
+	
+	public PayInfoDTO getLastPay(PayInfoDTO payInfoDTO);
+	
 }

@@ -20,9 +20,9 @@ public class OrderDTO {
 	private String order_request_msg;
 	private String order_status;
 	
-	private int total_price;
+	private Long total_price;
 	
-	private String merchant_uid;//주문id
+	
 	private String imp_uid;//결제id
 	
 	private List<OrderDetailDTO> orderDetailList;
