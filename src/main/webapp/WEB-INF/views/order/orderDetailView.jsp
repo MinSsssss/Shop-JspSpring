@@ -111,7 +111,7 @@
 											</tr>
 											<tr>
 												<td>받는 주소</td>
-												<td>${orderList.receiver_addr1 }</td>
+												<td>${orderList.receiver_addr }</td>
 											</tr>
 											<tr>
 												<td>배송요청사항</td>

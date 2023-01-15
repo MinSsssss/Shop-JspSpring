@@ -37,46 +37,60 @@
 <!-- BREADCRUMB AREA END -->
 
 <!-- SHOPING CART AREA START -->
-<div class="liton__shoping-cart-area mb-120">
+<div class="ltn__faq-area mb-120">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="csCenterNav">
-					<a data-toggle="tab" href="#" id="noticeList">공지사항 </a> 
-					<a data-toggle="tab" href="#" id="faqList">자주묻는질문</a> 
-					<a data-toggle="tab" href="#" id="inquiry">1:1문의하기 </a> 
-	 
+					<a data-toggle="tab" href="#" id="noticeList">공지사항 </a> <a
+						data-toggle="tab" href="#" id="faqList">자주묻는질문</a> <a
+						data-toggle="tab" href="#" id="inquiry">1:1문의하기 </a>
+
 				</div>
-				<div class="shoping-cart-inner">
-					<h2>자주묻는질문</h2>
-					<div class="table-responsive">
-						
-						<table class="allTable boardTable">
-							<thead>
-				
-								<tr>
-									<th class="thSize">번호</th>
-									<th>분류</th>
-									<th>내용</th>
-									
-								</tr>
-							</thead>
-								
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>주문/결제</td>
-									<td>내용내용내용내용내용내용내용내용내용내용내용내용내용내용</td>
-									
-								</tr>
-							</tbody>
-						</table>
+				<div class="ltn__faq-inner ltn__faq-inner-2">
+					<h2 class="csTitle">자주묻는질문</h2>
+
+					<div class="categoryNav">
+						<span><a href="/faq/faqList?category_no=0">전체</a></span>
+						<c:forEach items="${category}" var="cate">
+							<span> <a
+								href="/faq/faqList?category_no=${cate.category_no}">
+									${cate.category_name} </a>
+							</span>
+						</c:forEach>
 					</div>
-					
+					<div id="accordion_2">
+						<!-- card -->
+						<c:forEach items="${faqList }" var="faq" varStatus="status">
+							<div class="card">
+								<div class="collapsed ltn__card-title" data-toggle="collapse"
+									data-target="#faq-item-2-${status.count}" aria-expanded="false"><h6>${faq.faq_title }</h6></div>
+								<div id="faq-item-2-${status.count}" class="collapse"
+									data-parent="#accordion_2">
+									<div class="card-body">
+										<p>${faq.faq_content}</p>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+						
+						<!-- card -->
+
+					</div>
+				</div>
+				<div class="need-support text-center mt-100">
+					<h2>Still need help? Reach out to support 24/7:</h2>
+					<div class="btn-wrapper mb-30">
+						<a href="contact.html" class="theme-btn-1 btn">Contact Us</a>
+					</div>
+					<h3>
+						<i class="fas fa-phone"></i> +0123-456-789
+					</h3>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 <!-- SHOPING CART AREA END -->
 

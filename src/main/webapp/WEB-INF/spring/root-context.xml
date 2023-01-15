@@ -64,6 +64,7 @@
 	<mybatis-spring:scan base-package="com.sian.review.dao"/>
 	<mybatis-spring:scan base-package="com.sian.wish.dao"/>
 	<mybatis-spring:scan base-package="com.sian.cart.dao"/>
+	<mybatis-spring:scan base-package="com.sian.inquiry.dao"/>
 	
 	
 	<context:component-scan base-package="com.sian.category.service"></context:component-scan>
@@ -75,6 +76,7 @@
 	<context:component-scan base-package="com.sian.review.service"></context:component-scan>
 	<context:component-scan base-package="com.sian.wish.service"></context:component-scan>
 	<context:component-scan base-package="com.sian.cart.service"></context:component-scan>
+	<context:component-scan base-package="com.sian.inquiry.service"></context:component-scan>
 	<context:component-scan base-package="com.sian.common.upload"></context:component-scan>
 	
 	

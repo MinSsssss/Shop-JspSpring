@@ -40,6 +40,8 @@ public class NoticeController {
 		model.addAttribute("page",page);
 	 }
 	
+	
+	
 	/*
 	 * ADMIN ONLY
 	 */
@@ -47,7 +49,7 @@ public class NoticeController {
 	 public void noticeRegister() {
 		 
 	 }
-	 @GetMapping({"/admin/notice/noticeRead","/admin/notice/noticeModify"})
+	 @GetMapping({"/admin/notice/noticeRead","/admin/notice/noticeModify","/notice/noticeRead"})
 	 public void noticeRead(@RequestParam("notice_no") int notice_no,Model model) {
 		 model.addAttribute("notice", noticeService.getNotice(notice_no));
 		 

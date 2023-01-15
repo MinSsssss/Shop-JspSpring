@@ -3,7 +3,7 @@ $(document).ready(function() {
 		location.href = "/notice/noticeList";
 	})
 	$("#faqList").on("click", function() {
-		location.href = "/faq/faqList";
+		location.href = "/faq/faqList?category_no=0";
 	})
 	$("#inquiry").on("click", function() {
 		location.href = "/inquiry/inquiry";

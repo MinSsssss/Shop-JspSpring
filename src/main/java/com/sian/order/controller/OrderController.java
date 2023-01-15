@@ -115,9 +115,9 @@ public class OrderController {
 		 
 	}
 	
-	@PostMapping("/order/pay_info")
+	@GetMapping("/order/pay_info")
 	@ResponseBody
-	public Long payInfoPOST(Model model,HttpServletRequest request, HttpServletResponse response,
+	public ResponseEntity<Long> payInfoPOST(Model model,HttpServletRequest request, HttpServletResponse response,
 		        @RequestParam String imp_uid,HttpSession session,
 		        Authentication authentication) throws Exception {
 			IamportResponse<Payment> result = client.paymentByImpUid(imp_uid);
@@ -137,7 +137,7 @@ public class OrderController {
 			model.addAttribute("payInfoDTO", payInfoDTO);
 			
 			
-			return payInfoDTO.getOrder_no();
+			return new ResponseEntity<Long>(payInfoDTO.getPay_no(), HttpStatus.OK);
 	}
 	
 	
@@ -145,19 +145,22 @@ public class OrderController {
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@PostMapping("/order/orderDetails")
 	public void orderDetails(@RequestParam HashMap<String, Object> orderDetailList,
-			OrderDetailDTO orderDetailDTO,
 			Authentication authentication) throws JsonMappingException, JsonProcessingException{
+		System.out.println("orderDetailList : " + orderDetailList );
 		String json = (String) orderDetailList.get("paramList");
+		System.out.println("json : " + json);
 		ObjectMapper mapper = new ObjectMapper();
 		
 		List<OrderDetailDTO> orderDetails = mapper.readValue(json, new TypeReference<List<OrderDetailDTO>>() {
 		});
+		
+		System.out.println("orderDetails : " + orderDetails);
 		String mem_id = memberService.getId(authentication);
 
-		
+		Map<String,Object> map = new HashMap<String, Object>();
 		for (int i = 0; i < orderDetails.size(); i++) {
 			System.out.println(orderDetails.size());
-			Map<String,Object> map = new HashMap<String, Object>();
+			
 			int product_no = productService.getProductNo(orderDetails.get(i).getProduct_name());
 			
 			orderDetails.get(i).setProduct_no(product_no);
@@ -168,8 +171,11 @@ public class OrderController {
 			
 			orderService.orderDetailInsert(orderDetails.get(i));
 			orderService.orderCartDelete(map);
+			
 	
 		}
+		
+		
 		//return "redirect:/member/auth/cartView";
 	}
 
@@ -191,6 +197,9 @@ public class OrderController {
 			System.out.println(orderDetailList);
 			
 		}
+		
+		
+		
 		model.addAttribute("orderList", orderList);
 		return "/order/orderList";
 		

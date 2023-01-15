@@ -334,8 +334,14 @@
     						console.log("res",res)
     						if(res>0){
     							swal("주문정보 저장 성공");
+    							console.log("rsp.merchant_uid : "+rsp.merchant_uid)
+    							
+    							
+    							
+    							createOrderDetails(rsp.merchant_uid);
+    							
     							createPayInfo(uid);
-			
+    							
     						}
     						else{
     							swal("주문정보 저장 실패");
@@ -356,23 +362,25 @@
 		});
 	}
 	
+	
 	function createPayInfo(uid) {
 	    // 결제정보 생성 및 테이블 저장 후 결제완료 페이지로 이동 
+	    console.log(uid);
 	    $.ajax({
-	        type: 'post',
+	        type: 'get',
 	        url: '/order/pay_info',
 	        data: {
 	            'imp_uid': uid,
 	        },
-	        done: function(data) {
-	            console.log(data);
-	        	createOrderDetails(data);
+	        success: function(pay_no) {
+	            console.log("pay_no" + pay_no);
 	        	
+	        	location.replace('/order/orderList');
 	           /*  swal('결제 성공 !',"결제완료 페이지로 이동합니다.","success").then(function(){
 	                
 	                결제완료 페이지로 이동
 	                
-	                location.replace('/order/complete?payNum='+data);
+	                
 
 	            }) */
 	        },
@@ -382,33 +390,20 @@
 	    });
 	}
 	
-	
-	
-    function createOrderNum(){
-    	const date = new Date();
-    	const year = date.getFullYear();
-    	const month = String(date.getMonth() + 1).padStart(2, "0");
-    	const day = String(date.getDate()).padStart(2, "0");
-    	
-    	let orderNum = year + month + day;
-    	for(let i=0;i<10;i++) {
-    		orderNum += Math.floor(Math.random() * 8);	
-    	}
-    	return orderNum;
-    }
-    
+
     function createOrderDetails(order_no){
     	let chkAmount = $(".sub_total_td").length
     	let count = 0;
 		let orderDetailArr = [];
-
+		
 		let chkNameArr = new Array(chkAmount);
 		let chkQtyArr = new Array(chkAmount);
 		let chkTotalArr = new Array(chkAmount);
 		let form_content = ''
+		
+		console.log("order_no : " + order_no);
 		$(".productDetail").each(function(index, element) {
-			console.log("index : " + index);
-			console.log("count : " + count);
+			
 			let chkProductName = $(element).find("#product_name").val();
 			let chkProductQty = $(element).find("#order_qty").val();
 			let chkSubTotal = $(element).find("#sub_total").val();
@@ -416,11 +411,14 @@
 			chkNameArr[count] = chkProductName;
 			chkQtyArr[count] = chkProductQty;
 			chkTotalArr[count] = chkSubTotal;
+			
+			
+			
 			let params = {
-				"order_no": order_no,
-				"product_name": chkProductName,
-				"order_qty": chkProductQty,
-				"sub_total": chkSubTotal
+				"order_no" : order_no,
+				"product_name" : chkProductName,
+				"order_qty" : chkProductQty,
+				"sub_total" : chkSubTotal
 			}
 
 			orderDetailArr.push(params);
@@ -434,10 +432,22 @@
 
 			type: "POST",
 			url: "/order/orderDetails",
-			data: paramList,
-			success: window.location.replace('/order/orderList')
+			data: paramList
 
 		})
     }
+    function createOrderNum(){
+    	const date = new Date();
+    	const year = date.getFullYear();
+    	const month = String(date.getMonth() + 1).padStart(2, "0");
+    	const day = String(date.getDate()).padStart(2, "0");
+    	
+    	let orderNum = year + month + day;
+    	for(let i=0;i<10;i++) {
+    		orderNum += Math.floor(Math.random() * 8);	
+    	}
+    	return orderNum;
+    }
+    
 	
 </script>

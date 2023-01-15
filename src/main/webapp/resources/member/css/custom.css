@@ -370,10 +370,22 @@ html {
 	justify-content: space-around;
 	background-color: #ddd;
 	padding: 10px 0;
-	margin-bottom: 20px;
+	margin-bottom: 4rem;
+}
+.csTitle{
+	margin-bottom: 2rem
 }
 
+.categoryNav{
+	margin-bottom: 2rem;
+}
 
+.categoryNav span{
+	margin-right: 1rem;
+}
+.card h6{
+	margin: 0;
+}
 
 /* common board */
 .boardTable td,.boardTable th{
@@ -439,6 +451,42 @@ html {
 	margin: 0 10px;
 	border-radius: 5px; 
 }
+
+
+/* board read */
+
+
+.boardTitle{
+	background-color: #f7f7f7;
+	padding: 20px;
+	border-top: 2px solid #999999;
+	border-bottom : 1px solid #dbdbdb;
+}
+.boardTitle h4{
+	margin: 0;
+}
+.boardInfo{
+	display: flex;
+	justify-content: space-between;
+	margin-top:1rem;
+	margin-bottom:1rem;
+	padding-bottom:1rem;
+	border-bottom : 1px solid #dbdbdb;
+	padding-left: 1rem;
+	padding-right:1rem;
+}
+.boardInfo strong{
+	margin-right: 1rem;
+	padding-right: 1rem;
+	border-right: 1px solid #dbdbdb;
+
+}
+.boardContent{
+	padding:3rem 2rem;
+	border-bottom : 1px solid #dbdbdb;
+}
+
+
 
 
 

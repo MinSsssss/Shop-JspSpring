@@ -11,4 +11,5 @@ public class NoticeDTO {
 	private String notice_content;
 	private Date notice_date;
 	private String notice_writer;
+	private Long notice_hit;
 }

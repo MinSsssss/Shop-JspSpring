@@ -42,6 +42,7 @@
 	<context:component-scan base-package="com.sian.product.controller"/>
 	<context:component-scan base-package="com.sian.review.controller"/>
 	<context:component-scan base-package="com.sian.wish.controller"/>
+	<context:component-scan base-package="com.sian.inquiry.controller"/>
 	<context:component-scan base-package="com.sian.common.controller"/>
 	<context:component-scan base-package="com.sian.common.upload.controller"/>
 	

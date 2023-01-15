@@ -49,40 +49,22 @@
 		 
 				</div>
 				<div class="shoping-cart-inner">
-					
-					<div class="table-responsive">
-						<h2 class="csTitle">공지사항</h2>
-						<table class="allTable boardTable">
-							<thead>
-				
-								<tr>
-									<th class="thSize">번호</th>
-									<th>제목</th>
-									<th>날짜</th>
-									<th class="thSize">작성자</th>
-									<th class="thSize">조회</th>
-								</tr>
-							</thead>
-								
-							<tbody>
-								<c:forEach items="${noticeList }" var="notice">
-									<tr>
-										<td>${notice.notice_no}</td>
-										<td class="noticeTitle">
-											<a href="/notice/noticeRead?notice_no=${notice.notice_no}">${notice.notice_title }</a>
-										</td>
-										<td><fmt:formatDate pattern="yyyy.MM.dd" value="${notice.notice_date}"/>
-										</td>
-										<td>${notice.notice_writer }</td>
-										<td>${notice.notice_hit }</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-						<jsp:include page="/WEB-INF/views/admin/includes/pageInclude.jsp"></jsp:include>
-                        <input type="hidden" id="pageId" value="notice">
+					<h2>공지사항</h2>
+					<div class="boardWrap">
+						<div class="boardTitle">
+							<h4>${notice.notice_title }</h4>	
+						</div>
+						<div  class="boardInfo">
+							<div><strong>${notice.notice_writer }</strong>
+								<span><fmt:formatDate pattern="yyyy.MM.dd HH:mm:ss" value="${notice.notice_date }"/></span>
+							</div>
+							
+							<div>조회수 ${notice.notice_hit}</div>
+						</div>
+						<div class="boardContent">
+							${notice.notice_content}
+						</div>
 					</div>
-					
 				</div>
 			</div>
 		</div>
