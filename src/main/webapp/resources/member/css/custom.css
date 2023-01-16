@@ -454,7 +454,9 @@ html {
 
 
 /* board read */
-
+.boardWrap{
+	margin-bottom: 2rem;
+}
 
 .boardTitle{
 	background-color: #f7f7f7;
@@ -484,6 +486,7 @@ html {
 .boardContent{
 	padding:3rem 2rem;
 	border-bottom : 1px solid #dbdbdb;
+	
 }
 
 

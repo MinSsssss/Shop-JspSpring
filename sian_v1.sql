@@ -28,8 +28,27 @@ select * from tbl_notice;
 select * from tbl_qna;
 select * from tbl_product_images;
 
-commit;
+SELECT qna_no,qna_title,cate.category_name,
+		qna_status,qna_date,qna_writer,mem_id 
+		FROM(
+			SELECT ROWNUM AS rn,qna_no,qna_title,qna.category_no,cate.category_name,
+			qna_status,qna_date,qna_writer,mem_id
+			FROM tbl_qna qna,tbl_category cate 
+			 
+			where qna.category_no = cate.category_no)  qna,tbl_category cate
 
+		
+		where qna.category_no = cate.category_no
+        ORDER BY qna_date DESC;
+
+
+commit;
+SELECT qna_no,qna_title,cate.category_name,
+		qna_status,qna_date
+		FROM tbl_qna qna,tbl_category cate
+		WHERE mem_id = 'cda03'
+		AND qna.category_no = cate.category_no;
+	
 
 
 
@@ -206,15 +225,20 @@ ALTER TABLE tbl_wishlist ADD UNIQUE(product_no,mem_id);
 
 
 commit;
-
+CREATE SEQUENCE seq_qna_no;
 CREATE TABLE tbl_qna (
 	qna_no	number primary key,
 	category_no	number		NOT NULL,
+    order_no varchar2(18),
+    mem_id varchar2(50),
 	qna_title	varchar2(100)		NOT NULL,
+    qna_pwd varchar2(100) NOT NULL,
 	qna_writer	varchar2(12)		NOT NULL,
+    qna_tel varchar2(20) NOT NULL,
 	qna_content	varchar2(1000)		NOT NULL,
-	qna_date	date default sysdate	NOT NULL,
-	qna_hit	number default 0	NOT NULL
+    qna_status varchar2(20) DEFAULT '접수' NOT NULL,
+	qna_date	date default sysdate	NOT NULL
+	--qna_hit	number default 0	NOT NULL
 );
 
 

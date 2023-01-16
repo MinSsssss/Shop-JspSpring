@@ -33,9 +33,9 @@ public class NoticeController {
 		 
 		model.addAttribute("noticeList", noticeService.getListPaging(cri));
 		
-		int totaol = noticeService.getTotal();
+		int total = noticeService.getTotal();
 		
-		PageDTO page = new PageDTO(cri, totaol);
+		PageDTO page = new PageDTO(cri, total);
 		
 		model.addAttribute("page",page);
 	 }

@@ -39,6 +39,9 @@ public class CategoryController {
 		else if(category_class.equals("faq")) {
 			model.addAttribute("title", "FAQ");
 		}
+		else if(category_class.equals("qna")) {
+			model.addAttribute("title","QNA");
+		}
 		
 		model.addAttribute("category_class",category_class);
 		return "/admin/category/categoryRegister";
@@ -53,6 +56,9 @@ public class CategoryController {
 		}
 		else if(category_class.equals("faq")) {
 			model.addAttribute("title", "FAQ");
+		}
+		else if(category_class.equals("qna")) {
+			model.addAttribute("title","QNA");
 		}
 		model.addAttribute("category_class",category_class);
 		model.addAttribute("categoryList",categoryService.getCategoryList(category_class));

@@ -44,31 +44,41 @@
 				<div class="csCenterNav">
 					<a data-toggle="tab" href="#" id="noticeList">공지사항 </a> 
 					<a data-toggle="tab" href="#" id="faqList">자주묻는질문</a> 
-					<a data-toggle="tab" href="#" id="inquiry">1:1 문의하기 </a> 
+					<a data-toggle="tab" href="#" id="qna">1:1 문의하기 </a> 
 				
 				</div>
 				<div class="shoping-cart-inner">
 					<h2>1:1 문의하기</h2>
 					<div class="table-responsive">
-						<form>
+						<form action="/qna/qnaWriteProc" method="post">
 							<table class="inquiryTable">
 	
 								<tbody>
 									<tr>
 										<th>말머리</th>
 										<td>
-											<select class="inquirySelect tableMargin">
-												<option>문의내용1</option>
-												<option>문의내용2</option>
+											<select class="inquirySelect tableMargin" name="category_name" id="category_name">
+												<c:forEach items="${categoryList }" var="category">
+													<option id="categorySelect">
+														${category.category_name }
+													</option>
+												</c:forEach>
 											</select>
 										</td>
 									</tr>
+									
+									<!-- 회원전용 -->
+									<sec:authorize access="isAuthenticated()">
 									<tr>
 										<th>작성자</th>
 										<td>
-											<div class="tableMargin">크리링</div>
+											<input type="text" name="qna_writer" id="qna_writer"
+											value="<sec:authentication property='principal.member.mem_id'/>">
+											<input type="hidden" name="mem_id" id="mem_id"
+											value="<sec:authentication property='principal.member.mem_id'/>">
 										</td>
 									</tr>
+
 									<tr>
 										<th>주문내역</th>
 										<td>
@@ -78,32 +88,68 @@
 									<tr>
 										<th>휴대폰</th>
 										<td>
-											<input type="text" value="010-3501-7065">
+											<input type="text" name="qna_tel" id="qna_tel"
+											value="<sec:authentication property='principal.member.mem_tel'/>">
 										</td>
 									</tr>
 									<tr>
 										<th>이메일</th>
 										<td>
-											<input type="email" value="cda09@naver.com">
+											<input type="email" name="qna_email" id="qna_email"
+											value="<sec:authentication property='principal.member.mem_email'/>">
+											
 										</td>
 									</tr>
+									</sec:authorize>
+									
+									<!-- 비회원 -->
+									<sec:authorize access="isAnonymous()">
+										<tr>
+											<th>작성자</th>
+											<td>
+												<input type="text" name="qna_writer" id="qna_writer">
+											</td>
+										</tr>
+										
+										<tr>
+											<th>비밀번호</th>
+											<td>
+												<input type="password" name="qna_pwd" id="qna_pwd">
+											</td>
+										</tr>
+
+										<tr>
+											<th>휴대폰</th>
+											<td>
+												<input type="text" name="qna_tel" id="qna_tel">
+											</td>
+										</tr>
+										<tr>
+											<th>이메일</th>
+											<td>
+												<input type="email" name="qna_email" id="qna_email">
+											</td>
+										</tr>
+									</sec:authorize>
+									
+									
 									<tr>
 										<th>제목</th>
 										<td>
-											<input type="text">
+											<input type="text" name="qna_title" id="qna_title">
 										</td>
 									</tr>
 									<tr>
 										<th>본문</th>
 										<td>
-											<textarea rows="" cols=""></textarea>
+											<textarea rows="" cols="" name="qna_content" id="qna_content"></textarea>
 										</td>
 									</tr>
 								</tbody>
 							</table>
 							<div class="inquiryBtns">
-								<button class="btn btn-warning">제출</button>
-								<button class="btn btn-outline-dark">취소</button>
+								<button type="submit" class="btn btn-warning">제출</button>
+								<button type="button" class="btn btn-outline-dark">취소</button>
 							</div>
 						</form>
 					</div>

@@ -28,7 +28,8 @@
 	<select id="getListPaging" resultType="com.sian.product.dto.ProductDTO">
 		<![CDATA[
 			SELECT product_no,product_name,
-			product_price,product_hit,product_regdate,product_updatedate,product_thumb_img,product_s_thumb_img FROM(
+			product_price,product_hit,product_regdate,product_updatedate,product_thumb_img,product_s_thumb_img 
+			FROM(
 			SELECT ROWNUM AS rn,product_no,product_name,
 			product_price,product_hit,product_regdate,product_updatedate,product_thumb_img,product_s_thumb_img
 			FROM tbl_product WHERE ROWNUM <= #{pageNum} * #{amount})

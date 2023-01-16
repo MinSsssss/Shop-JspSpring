@@ -22,12 +22,12 @@
 				<div
 					class="ltn__breadcrumb-inner ltn__breadcrumb-inner-4 justify-content-between">
 					<div class="section-title-area">
-						<h1 class="section-title white-color">Cart</h1>
+						<h1 class="section-title white-color">마이페이지</h1>
 					</div>
 					<div class="ltn__breadcrumb-list">
 						<ul>
 							<li><a href="index.html">Home</a></li>
-							<li>Cart</li>
+							<li>My Account</li>
 						</ul>
 					</div>
 				</div>
@@ -37,32 +37,44 @@
 </div>
 <!-- BREADCRUMB AREA END -->
 
-<!-- SHOPING CART AREA START -->
-<div class="liton__shoping-cart-area mb-120">
+<!-- WISHLIST AREA START -->
+<div class="liton__wishlist-area pb-120">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="csCenterNav">
-					<a data-toggle="tab" href="#" id="noticeList">공지사항 </a> 
-					<a data-toggle="tab" href="#" id="faqList">자주묻는질문</a> 
-					<a data-toggle="tab" href="#" id="qnaBoard">고객게시판</a>  
-		 
-				</div>
-				<div class="shoping-cart-inner">
-					<h2>공지사항</h2>
-					<div class="boardWrap">
-						<div class="boardTitle">
-							<h4>${notice.notice_title }</h4>	
-						</div>
-						<div  class="boardInfo">
-							<div><strong>${notice.notice_writer }</strong>
-								<span><fmt:formatDate pattern="yyyy.MM.dd HH:mm:ss" value="${notice.notice_date }"/></span>
+				<div class="ltn__product-tab-area">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-4">
+
+								<!-- myPageListInclude.jsp -->
+								<jsp:include
+									page="/WEB-INF/views/includes/myPageListInclude.jsp"></jsp:include>
+
 							</div>
-							
-							<div>조회수 ${notice.notice_hit}</div>
-						</div>
-						<div class="boardContent">
-							${notice.notice_content}
+							<div class="col-lg-8">
+								<div class="tab-content">
+									<h2>1:1 문의</h2>
+									<div class="boardWrap">
+										<div class="boardTitle">
+											<h4>${qna.qna_title }</h4>
+										</div>
+										<div class="boardInfo">
+											<div>
+												<strong>${qna.qna_writer }</strong> <span><fmt:formatDate
+														pattern="yyyy.MM.dd HH:mm:ss" value="${qna.qna_date }" /></span>
+											</div>
+										</div>
+										<div class="boardContent">${qna.qna_content}</div>
+									</div>
+								</div>
+								<div class="boardReadBtns">
+									<button id="qnaModify">수정</button>
+									<button id="qnaDelete">삭제</button>
+									<button id="qnaList">목록</button>
+									<input type="hidden" id="qna_no" value="${qna.qna_no }">
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

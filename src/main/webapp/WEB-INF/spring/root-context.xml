@@ -37,6 +37,7 @@
     </bean>
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
    		 <property name="dataSource" ref="dataSource"></property>
+   		 <!-- <property name="configLocation" value="classpath:/mybatisConfig/mybatis-config.xml"></property> -->
    		 <property name="mapperLocations" value="classpath:/com/sian/mapper/*.xml"/> 
 	</bean>
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
@@ -64,7 +65,7 @@
 	<mybatis-spring:scan base-package="com.sian.review.dao"/>
 	<mybatis-spring:scan base-package="com.sian.wish.dao"/>
 	<mybatis-spring:scan base-package="com.sian.cart.dao"/>
-	<mybatis-spring:scan base-package="com.sian.inquiry.dao"/>
+	<mybatis-spring:scan base-package="com.sian.qna.dao"/>
 	
 	
 	<context:component-scan base-package="com.sian.category.service"></context:component-scan>
@@ -76,7 +77,7 @@
 	<context:component-scan base-package="com.sian.review.service"></context:component-scan>
 	<context:component-scan base-package="com.sian.wish.service"></context:component-scan>
 	<context:component-scan base-package="com.sian.cart.service"></context:component-scan>
-	<context:component-scan base-package="com.sian.inquiry.service"></context:component-scan>
+	<context:component-scan base-package="com.sian.qna.service"></context:component-scan>
 	<context:component-scan base-package="com.sian.common.upload"></context:component-scan>
 	
 	

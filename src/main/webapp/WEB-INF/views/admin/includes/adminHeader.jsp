@@ -114,7 +114,7 @@
                         <a class="collapse-item" href="/admin/category/categoryList?category_class=faq">FAQ 카테고리조회</a>
                         <a class="collapse-item" href="/admin/faq/faqList?category_no=0">FAQ 조회</a>
                         <!-- <a class="collapse-item" href="/admin/categoryRegister?category_class=faq">FAQ 카테고리생성</a> -->
-
+						<a class="collapse-item" href="/admin/category/categoryList?category_class=qna">QNA 카테고리조회</a>
                         <a class="collapse-item" href="/admin/qna/qnaList">QNA 조회</a>
                     </div>
                 </div>

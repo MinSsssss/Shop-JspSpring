@@ -28,9 +28,7 @@ public class MemberServiceImpl implements MemberService{
 	
 	private final BCryptPasswordEncoder passwordEncoder;
 
-	
-	private final PasswordEncoder pswordEncoder;
-	
+
 	
 	@Override
 	public void register(MemberDTO memberDTO, AuthVO authVO)  {

@@ -28,6 +28,30 @@ $(document).ready(function() {
 	$("#pwChkCancleBtn").on("click", function() {
 		location.href = "/order/orderList";
 	})
+	
+	$("#qnaModify").on("click",function(){
+		location.href="/qna/qnaModify";
+	})
+	$("#qnaDelete").on("click",function(){
+		let qna_no = $("#qna_no").val();
+		let answer = confirm("문의를 삭제 하시겠습니까?");
+		if (answer) {
+
+			let param = { "qna_no": qna_no}
+			$.ajax({
+				url: "/qna/qnaDelete",
+				type: "POST",
+				data: param,
+				success: function() {
+					alert("문의가 삭제되었습니다.");
+					location.reload();
+				}
+			})
+
+
+		}
+	})
+	
 	$("#pwChkSubmitBtn").on("click", function() {
 		let mem_id = $("#mem_id").val();
 		let mem_pwd = $("#mem_pwd").val();
@@ -112,12 +136,11 @@ $(document).ready(function() {
 	$("#memberDropBtn").on("click", function() {
 		
 		let mem_pwd = $("#mem_pwd").val();
-		console.log(mem_pwd);
+		
 		var param = {
-			
 			"mem_pwd" : mem_pwd
 		};
-		console.log(param);
+		
 		if (mem_pwd == "") {
 			alert("비밀번호를 입력해주세요.");
 			return false();

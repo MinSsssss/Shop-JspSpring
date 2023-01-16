@@ -13,6 +13,10 @@ let moveForm = $("#moveForm");
 			moveForm.attr("action", "/notice/noticeList");
 
 		}
+		if (pageId == "qnaBoard") {
+			moveForm.attr("action", "/qna/qnaBoard");
+
+		}
 		
 		moveForm.submit();
 

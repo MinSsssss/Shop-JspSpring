@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <jsp:include page="/WEB-INF/views/includes/memberHeader.jsp"></jsp:include>
@@ -49,39 +51,32 @@
 
 							</div>
 							<div class="col-lg-8">
+								
 								<div class="tab-content">
+									<h2>문의내역</h2>
 									<table class="table">
 										<thead>
 											<tr>
-												<th>Order</th>
-												<th>Date</th>
-												<th>Status</th>
-												<th>Total</th>
-												<th>Action</th>
+												
+												<th>분류</th>
+												<th>제목</th>
+												<th>날짜</th>
+												<th>상태</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>1</td>
-												<td>Jun 22, 2019</td>
-												<td>Pending</td>
-												<td>$3000</td>
-												<td><a href="cart.html">View</a></td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>Nov 22, 2019</td>
-												<td>Approved</td>
-												<td>$200</td>
-												<td><a href="cart.html">View</a></td>
-											</tr>
-											<tr>
-												<td>3</td>
-												<td>Jan 12, 2020</td>
-												<td>On Hold</td>
-												<td>$990</td>
-												<td><a href="cart.html">View</a></td>
-											</tr>
+											<c:forEach items="${qnaList}" var="qna">
+												<tr>
+													
+													<td>${qna.category_name}</td>
+													<td><a href="/qna/qnaRead?qna_no=${qna.qna_no}">${qna.qna_title }</a></td>
+													<td><fmt:formatDate pattern="yyyy.MM.dd" value="${qna.qna_date}"/></td>
+													<td>${qna.qna_status}</td>
+												</tr>
+											
+											</c:forEach>
+											
+											
 										</tbody>
 									</table>
 								</div>
@@ -96,7 +91,14 @@
 	</div>
 </div>
 <!-- WISHLIST AREA START -->
+<script>
 
+var result = '${msg}';
+if(result === 'successModify'){
+	
+	alert('수정이 완료되었습니다.');
+}
+</script>
 
 
 
