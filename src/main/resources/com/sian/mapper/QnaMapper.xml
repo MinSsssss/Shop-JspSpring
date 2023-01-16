@@ -25,7 +25,8 @@
 		SELECT qna_no,qna_title,cate.category_name,
 		qna_status,qna_date,qna_writer,mem_id 
 		FROM(
-			SELECT ROWNUM AS rn,qna_no,qna_title,qna.category_no,cate.category_name,
+			SELECT  /*+ INDEX_DESC(tbl_qna pk_qna) */ 
+			 ROWNUM AS rn,qna_no,qna_title,qna.category_no,cate.category_name,
 			qna_status,qna_date,qna_writer,mem_id
 			FROM tbl_qna qna,tbl_category cate 
 			WHERE ROWNUM <= #{pageNum} * #{amount}  
@@ -40,12 +41,22 @@
 	</select>
 	
 	<select id="qnaMemberList" resultType="com.sian.qna.dto.QnaDTO">
+		<![CDATA[
 		SELECT qna_no,qna_title,cate.category_name,
-		qna_status,qna_date,mem_id
-		FROM tbl_qna qna,tbl_category cate
-		WHERE mem_id = #{mem_id}
+		qna_status,qna_date,qna_writer,mem_id 
+		FROM(
+			SELECT  /*+ INDEX_DESC(tbl_qna pk_qna) */ 
+			 ROWNUM AS rn,qna_no,qna_title,qna.category_no,cate.category_name,
+			qna_status,qna_date,qna_writer,mem_id
+			FROM tbl_qna qna,tbl_category cate 
+			WHERE ROWNUM <= #{pageNum} * #{amount}  
+			AND qna.category_no = cate.category_no) qna,tbl_category cate
+			AND mem_id=#{mem_id}
+		WHERE rn > (#{pageNum}-1) * #{amount}
 		AND qna.category_no = cate.category_no
-		ORDER BY qna_no DESC
+		AND mem_id=#{mem_id}
+			
+		]]>
 	</select>
 	
 	<select id="getQna" resultType="com.sian.qna.dto.QnaDTO">

@@ -29,6 +29,10 @@ $(document).ready(function() {
 		location.href = "/order/orderList";
 	})
 	
+	$("#qnaList").on("click",function(){
+		location.href="/qna/qnaList";
+	})
+	
 	$("#qnaModify").on("click",function(){
 		location.href="/qna/qnaModify";
 	})

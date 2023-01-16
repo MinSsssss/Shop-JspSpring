@@ -65,9 +65,10 @@
 							</thead>
 								
 							<tbody>
+								<c:set var="num" value="${page.total-(page.cri.pageNum-1) * page.cri.amount}"/>
 								<c:forEach items="${noticeList }" var="notice">
 									<tr>
-										<td>${notice.notice_no}</td>
+										<td>${num}</td>
 										<td class="noticeTitle">
 											<a href="/notice/noticeRead?notice_no=${notice.notice_no}">${notice.notice_title }</a>
 										</td>
@@ -76,7 +77,9 @@
 										<td>${notice.notice_writer }</td>
 										<td>${notice.notice_hit }</td>
 									</tr>
+									<c:set var="num" value="${num-1}"/>
 								</c:forEach>
+								
 							</tbody>
 						</table>
 						<jsp:include page="/WEB-INF/views/admin/includes/pageInclude.jsp"></jsp:include>

@@ -15,7 +15,7 @@ public class QnaServiceImpl implements QnaService{
 	private final QnaDAO qnaDAO;
 	
 	public long insertQna(QnaDTO qnaDTO) {
-		System.out.println(qnaDAO.insertQna(qnaDTO));
+		
 		return qnaDAO.insertQna(qnaDTO);
 	}
 	

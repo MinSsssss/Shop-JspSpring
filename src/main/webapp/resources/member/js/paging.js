@@ -17,6 +17,10 @@ let moveForm = $("#moveForm");
 			moveForm.attr("action", "/qna/qnaBoard");
 
 		}
+		if (pageId == "qnaList") {
+			moveForm.attr("action", "/qna/qnaList");
+
+		}
 		
 		moveForm.submit();
 

@@ -25,7 +25,8 @@
 	
 	<select id="getListPaging" resultType="com.sian.notice.dto.NoticeDTO">
 		<![CDATA[
-			SELECT notice_no,notice_title,
+			SELECT /*+ INDEX_DESC(tbl_notice pk_notice) */
+			notice_no,notice_title,
 			notice_date,notice_writer,notice_hit FROM(
 			SELECT ROWNUM AS rn,notice_no,notice_title,
 			notice_date,notice_writer,notice_hit

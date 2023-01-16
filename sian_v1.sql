@@ -28,30 +28,6 @@ select * from tbl_notice;
 select * from tbl_qna;
 select * from tbl_product_images;
 
-SELECT qna_no,qna_title,cate.category_name,
-		qna_status,qna_date,qna_writer,mem_id 
-		FROM(
-			SELECT ROWNUM AS rn,qna_no,qna_title,qna.category_no,cate.category_name,
-			qna_status,qna_date,qna_writer,mem_id
-			FROM tbl_qna qna,tbl_category cate 
-			 
-			where qna.category_no = cate.category_no)  qna,tbl_category cate
-
-		
-		where qna.category_no = cate.category_no
-        ORDER BY qna_date DESC;
-
-
-commit;
-SELECT qna_no,qna_title,cate.category_name,
-		qna_status,qna_date
-		FROM tbl_qna qna,tbl_category cate
-		WHERE mem_id = 'cda03'
-		AND qna.category_no = cate.category_no;
-	
-
-
-
 update tbl_order
 set order_status = '배송 완료'
 where order_no = 45;
@@ -82,7 +58,6 @@ CREATE TABLE tbl_category (
     category_class varchar2(30) NOT NULL,
 	category_name	varchar2(30) NOT NULL
 );
-
 ALTER TABLE tbl_category ADD UNIQUE(category_name,category_class);
 
 
@@ -176,15 +151,17 @@ CREATE SEQUENCE seq_review_no;
 DROP SEQUENCE seq_review_no;
 --회원이 탈퇴해도 리뷰는 남아있어야함
 CREATE TABLE tbl_review (
-	review_no	number primary key,
+	review_no number,
 	order_detail_no	varchar2(13) UNIQUE NOT NULL,
     mem_id	varchar2(50) NOT NULL,
 	review_title	varchar2(300)	NOT NULL,
 	review_content	varchar2(1000),
 	review_date	DATE DEFAULT sysdate NOT NULL,
     review_star number(1) DEFAULT 0 NOT NULL,
-	review_hit	number DEFAULT 0	NOT NULL
+	review_hit	number DEFAULT 0	NOT NULL,
+    CONSTRAINT pk_review PRIMARY KEY(review_no)
 );
+
 
 
 
@@ -204,6 +181,7 @@ create table tbl_cart(
     mem_id varchar2(50)  not null,
     cart_qty number(3) default 0 not null ,
     sub_total number default 0 not null, 
+    cart_date date default sysdate not null,
     constraint fk_cart_mem_id foreign key(mem_id) references tbl_member(mem_id)
     ON DELETE CASCADE,
     constraint fk_cart_product_no foreign key(product_no) references tbl_product(product_no)
@@ -215,6 +193,7 @@ commit;
 create table tbl_wishlist(
     product_no number, 
     mem_id varchar2(50)  not null,
+    wish_date date default sysdate not null,
     constraint fk_wish_mem_id foreign key(mem_id) references tbl_member(mem_id)
     ON DELETE CASCADE,
     constraint fk_wish_product_no foreign key(product_no) references tbl_product(product_no)
@@ -227,7 +206,7 @@ ALTER TABLE tbl_wishlist ADD UNIQUE(product_no,mem_id);
 commit;
 CREATE SEQUENCE seq_qna_no;
 CREATE TABLE tbl_qna (
-	qna_no	number primary key,
+	qna_no	number,
 	category_no	number		NOT NULL,
     order_no varchar2(18),
     mem_id varchar2(50),
@@ -237,27 +216,30 @@ CREATE TABLE tbl_qna (
     qna_tel varchar2(20) NOT NULL,
 	qna_content	varchar2(1000)		NOT NULL,
     qna_status varchar2(20) DEFAULT '접수' NOT NULL,
-	qna_date	date default sysdate	NOT NULL
+	qna_date	date default sysdate	NOT NULL,
 	--qna_hit	number default 0	NOT NULL
+    CONSTRAINT pk_qna PRIMARY KEY(qna_no)
 );
-
+commit;
 
 CREATE TABLE tbl_faq (
-	faq_no	number primary key,
+	faq_no	number,
 	category_no	number		NOT NULL,
 	faq_title	varchar2(100)		NOT NULL,
 	faq_content	varchar2(1000)		NOT NULL,
-	faq_hit	number DEFAULT 0 	NOT NULL
+	faq_hit	number DEFAULT 0 	NOT NULL,
+    CONSTRAINT pk_faq PRIMARY KEY(faq_no)
 );
 CREATE SEQUENCE seq_faq;
 
 CREATE TABLE tbl_notice (
-	notice_no	number(3) primary key,
+	notice_no	number,
 	notice_title	varchar2(100)	NOT NULL,
 	notice_content	varchar2(1000)	NOT NULL,
     notice_writer varchar2(30) NOT NULL,
     notice_date DATE DEFAULT sysdate NOT NULL,
-	notice_hit	number DEFAULT 0 	NOT NULL
+	notice_hit	number DEFAULT 0 	NOT NULL,
+    CONSTRAINT pk_notice PRIMARY KEY(notice_no)
 );
 
 

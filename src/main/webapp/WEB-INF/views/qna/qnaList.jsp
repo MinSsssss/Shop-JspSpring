@@ -79,6 +79,9 @@
 											
 										</tbody>
 									</table>
+									<jsp:include page="/WEB-INF/views/includes/pageInclude.jsp"></jsp:include>
+									<input type="hidden" id="pageId" value="qnaList">
+									
 								</div>
 
 							</div>

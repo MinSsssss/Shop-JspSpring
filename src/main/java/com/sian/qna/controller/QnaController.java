@@ -1,5 +1,6 @@
 package com.sian.qna.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -43,18 +44,7 @@ public class QnaController {
 		model.addAttribute("qna", qnaService.getQna(qna_no));
 	}
 	
-	@GetMapping("/qna/qnaList")
-	public void qnaList(Authentication authentication,Model model,Criteria cri) {
-		
-		model.addAttribute("qnaList", 
-				qnaService.qnaMemberList(memberService.getId(authentication),cri));
-		
-		int total = qnaService.getTotal();
-		
-		PageDTO page = new PageDTO(cri, total);
-		
-		model.addAttribute("page",page);
-	}
+	
 	
 	
 	@GetMapping("/qna/qnaWrite")
@@ -113,6 +103,20 @@ public class QnaController {
 			rttr.addFlashAttribute("msg","false");
 			return "redirect:/qna/qnaBoard";
 		}
+	}
+	
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@GetMapping("/qna/qnaList")
+	public void qnaList(Authentication authentication,Model model,Criteria cri) {
+		System.out.println(memberService.getId(authentication));
+		model.addAttribute("qnaList", 
+				qnaService.qnaMemberList(memberService.getId(authentication),cri));
+		
+		int total = qnaService.getTotal();
+		
+		PageDTO page = new PageDTO(cri, total);
+		
+		model.addAttribute("page",page);
 	}
 	
 }

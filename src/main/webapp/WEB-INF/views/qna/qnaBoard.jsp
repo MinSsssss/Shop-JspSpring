@@ -66,9 +66,10 @@
 							</thead>
 
 							<tbody>
+								<c:set var="num" value="${page.total-(page.cri.pageNum-1) * page.cri.amount}"/>
 								<c:forEach items="${qnaList}" var="qna" varStatus="status">
 									<tr>
-										<td>${qna.qna_no}</td>
+										<td>${num}</td>
 										<td class="noticeTitle">
 										<a href="#" onclick="getQnaFun(${status.count})">${qna.qna_title}</a>
 											<input type="hidden" id="qna_no${status.count}" value="${qna.qna_no}">
@@ -79,6 +80,7 @@
 										<td>${qna.qna_writer}</td>
 
 									</tr>
+									<c:set var="num" value="${num-1}"/>
 								</c:forEach>
 							</tbody>
 						</table>
