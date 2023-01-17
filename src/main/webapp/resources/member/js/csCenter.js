@@ -12,7 +12,9 @@ $(document).ready(function() {
 	$("#qnaBoardRead").on("click",function(){
 		
 	})
-	
+	$("#qnaWrite").on("click",function(){
+		location.href="/qna/qnaWrite";
+	})
 	
 
 })

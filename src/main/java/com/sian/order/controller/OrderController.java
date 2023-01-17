@@ -36,10 +36,11 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.sian.member.service.MemberService;
+import com.sian.order.dto.CourierDTO;
 import com.sian.order.dto.OrderDTO;
 import com.sian.order.dto.OrderDetailDTO;
 import com.sian.order.dto.PayInfoDTO;
-
+import com.sian.order.service.CourierService;
 import com.sian.order.service.OrderService;
 import com.sian.order.service.PayService;
 import com.sian.product.service.ProductService;
@@ -63,10 +64,9 @@ public class OrderController {
 	
 	private final PayService payService;
 	
+	private final CourierService courierService;
+	
 	private IamportClient client = new IamportClient("1473321038674052", "ZshfrZBon2Ia6H6FHhse0hxT9lX7LD9hP2I42Ocv1MOqHHTPO0nj7QStK44L1dvZ1r2P80yg6GpVeCm5");
-
-	
-	
 	 
 	/*
 	 * ALL
@@ -77,6 +77,30 @@ public class OrderController {
 	/*
 	 * ADMIN ONLY
 	 */
+	@GetMapping("/admin/order/orderList")
+	public void orderList(Model model) {
+		
+		
+		List<OrderDTO> orderList = orderService.getOrderList();
+		
+//		Long order_no=0L;
+//		List<OrderDetailDTO> orderDetailList = null;
+//		for(int i=0; i<orderList.size(); i++) {
+//			order_no = orderList.get(i).getOrder_no();
+//			orderDetailList = orderService.getOrderDetailList(order_no);
+//			orderList.get(i).setOrderDetailList(orderDetailList);
+//			System.out.println(orderDetailList);
+//			
+//		}	
+
+		model.addAttribute("orderList", orderList);
+	}
+	
+	@GetMapping("/order/orderRead")
+	public void orderRead(@RequestParam("order_no") Long order_no, Model model) {
+		
+	}
+	
 	
 	/*
 	 * MEMBER ONLY @PreAuthorize("hasRole('ROLE_MEMBER')")
@@ -183,8 +207,6 @@ public class OrderController {
 	@GetMapping("/order/orderList")
 	public String orderList(Authentication authentication,Model model) throws IOException {
 		
-
-		
 		String mem_id = memberService.getId(authentication);
 		List<OrderDTO> orderList = orderService.getOrderList(mem_id);
 		
@@ -206,18 +228,22 @@ public class OrderController {
 		
 	}
 	
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
-	@PostMapping("/order/orderDetailView")
-	public String orderDetailView(Long order_no,Model model,
-			Authentication authentication) {
+	@PreAuthorize("hasRole('ROLE_MEMBER') || hasRole('ROLE_ADMIN')")
+	@GetMapping({"/order/orderDetailView","/admin/order/orderDetailView"})
+	public void orderDetailView(Long order_no,Model model) {
+		
+		CourierDTO courierDTO = courierService.get(order_no);
 		
 		OrderDTO orderDTO = orderService.getOrder(order_no);
 		List<OrderDetailDTO> orderDetailList = orderService.getOrderDetailList(order_no);
 		orderDTO.setOrderDetailList(orderDetailList);
 		
 		model.addAttribute("orderList", orderDTO);
-
-		return "/order/orderDetailView";
+		
+		if(courierDTO != null) {
+			model.addAttribute("courier",courierDTO);
+		}
+		
 	}
 	
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
@@ -243,6 +269,9 @@ public class OrderController {
 		
 		return order_no;
 	}
+	
+	
+	
 	
 //	public int orderCancle(OrderDTO orderDTO) throws Exception {
 //		if(!orderDTO.getImp_uid().equals("")) {

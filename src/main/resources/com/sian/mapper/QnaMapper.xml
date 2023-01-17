@@ -20,6 +20,11 @@
 		SELECT COUNT(*) from tbl_qna
 	</select>
 	
+	<select id="getMemberTotal" resultType="int">
+		SELECT COUNT(*) from tbl_qna
+		WHERE mem_id=#{mem_id}
+	</select>
+	
 	<select id="getQnaList" resultType="com.sian.qna.dto.QnaDTO">
 	<![CDATA[
 		SELECT qna_no,qna_title,cate.category_name,
@@ -34,7 +39,7 @@
 
 		WHERE rn > (#{pageNum}-1) * #{amount}
 		AND qna.category_no = cate.category_no
-		ORDER BY qna_date DESC	
+		
 		]]>
 	
 		
@@ -50,8 +55,9 @@
 			qna_status,qna_date,qna_writer,mem_id
 			FROM tbl_qna qna,tbl_category cate 
 			WHERE ROWNUM <= #{pageNum} * #{amount}  
-			AND qna.category_no = cate.category_no) qna,tbl_category cate
-			AND mem_id=#{mem_id}
+			AND qna.category_no = cate.category_no
+			AND mem_id=#{mem_id}) qna,tbl_category cate
+			
 		WHERE rn > (#{pageNum}-1) * #{amount}
 		AND qna.category_no = cate.category_no
 		AND mem_id=#{mem_id}

@@ -26,4 +26,6 @@ public class OrderDTO {
 	private String imp_uid;//결제id
 	
 	private List<OrderDetailDTO> orderDetailList;
+	
+	 
 }

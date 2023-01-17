@@ -52,7 +52,11 @@
 				<div class="shoping-cart-inner">
 
 					<div class="table-responsive">
-						<h2 class="csTitle">고객게시판</h2>
+						<div class="boardTop">
+							<h2 class="csTitle">고객게시판</h2>
+							<button id="qnaWrite">글작성</button>
+						</div>
+						<div></div>
 						<table class="allTable boardTable">
 							<thead>
 

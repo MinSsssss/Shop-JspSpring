@@ -11,8 +11,23 @@ DELETE FROM tbl_cart
 WHERE product_no=(SELECT product_no FROM tbl_product WHERE product_name='고고고고');
 --create SEQUENCE seq_tbl_member;
 
+SELECT qna_no,qna_title,cate.category_name,
+		qna_status,qna_date,qna_writer,mem_id 
+		FROM(
+			SELECT  /*+ INDEX_DESC(tbl_qna pk_qna) */ 
+			 ROWNUM AS rn,qna_no,qna_title,qna.category_no,cate.category_name,
+			qna_status,qna_date,qna_writer,mem_id
+			FROM tbl_qna qna,tbl_category cate 
+			WHERE ROWNUM <= 3 * 4  
+			AND qna.category_no = cate.category_no
+            AND mem_id='cda03') qna,tbl_category cate
+			
+		WHERE rn > (2) * 4
+		AND qna.category_no = cate.category_no
+		AND mem_id='cda03';
 
-
+		
+	
 select * from tbl_member;
 select * from tbl_member_auth;
 select * from tbl_category;
@@ -27,13 +42,17 @@ select * from tbl_faq;
 select * from tbl_notice;
 select * from tbl_qna;
 select * from tbl_product_images;
+select * from tbl_courier;
 
 update tbl_order
 set order_status = '배송 완료'
 where order_no = 45;
 commit;
 
-
+SELECT ord.order_no,ord.mem_id, pay.pay_amount as total_price,
+		ord.order_status
+		FROM tbl_order ord,tbl_payment pay
+		where ord.order_no = pay.order_no;
 
 CREATE TABLE tbl_member (
 	--mem_no	varchar2(13) primary key,
@@ -117,6 +136,13 @@ CREATE TABLE tbl_order_detail (
     constraint fk_order_no foreign key(order_no) references tbl_order(order_no)
     ON DELETE CASCADE
 );
+CREATE TABLE tbl_courier(
+    order_no varchar2(18) UNIQUE,
+    courier_code varchar2(3),
+    courier_name varchar2(30),
+    invoice_no number
+);
+CREATE SEQUENCE seq_courier_no;
 
 CREATE TABLE tbl_payment(
     pay_no number(18) primary key,
@@ -256,7 +282,7 @@ CREATE TABLE tbl_qna_comment (
 );
 
 
-
+drop table tbl_courier;
 drop table tbl_product_images;
 drop table tbl_qna_comment;
 drop table tbl_qna;

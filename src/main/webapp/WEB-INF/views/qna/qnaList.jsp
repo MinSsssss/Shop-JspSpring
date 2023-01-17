@@ -79,11 +79,11 @@
 											
 										</tbody>
 									</table>
-									<jsp:include page="/WEB-INF/views/includes/pageInclude.jsp"></jsp:include>
-									<input type="hidden" id="pageId" value="qnaList">
+									
 									
 								</div>
-
+								<jsp:include page="/WEB-INF/views/includes/pageInclude.jsp"></jsp:include>
+								<input type="hidden" id="pageId" value="qnaMemberList">
 							</div>
 						</div>
 					</div>
@@ -107,3 +107,4 @@ if(result === 'successModify'){
 
 
 <jsp:include page="/WEB-INF/views/includes/memberFooter.jsp"></jsp:include>
+<script src="/resources/member/js/paging.js"></script>

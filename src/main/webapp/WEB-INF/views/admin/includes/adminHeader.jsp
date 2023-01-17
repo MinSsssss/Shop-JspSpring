@@ -83,7 +83,7 @@
                 </a>
                 <div id="orderManage" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="./orderList.html">주문조회</a>
+                        <a class="collapse-item" href="/admin/order/orderList">주문조회</a>
                         <a class="collapse-item" href="#">배송조회</a>
                     </div>
                 </div>

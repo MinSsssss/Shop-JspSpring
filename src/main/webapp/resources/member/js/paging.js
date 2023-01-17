@@ -17,7 +17,7 @@ let moveForm = $("#moveForm");
 			moveForm.attr("action", "/qna/qnaBoard");
 
 		}
-		if (pageId == "qnaList") {
+		if (pageId == "qnaMemberList") {
 			moveForm.attr("action", "/qna/qnaList");
 
 		}

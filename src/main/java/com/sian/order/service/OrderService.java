@@ -24,6 +24,8 @@ public interface OrderService {
 	
 	public List<OrderDTO> getOrderList(String mem_id);
 	
+	public List<OrderDTO> getOrderList();
+	
 	public List<OrderDetailDTO> getOrderDetailList(Long order_no);
 	
 	public int orderDelete(Long order_no);

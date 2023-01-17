@@ -71,7 +71,7 @@
 								<div class="boardReadBtns">
 									<button id="qnaModify">수정</button>
 									<button id="qnaDelete">삭제</button>
-									<button id="qnaList">목록</button>
+									<button id="qnaList2">목록</button>
 									<input type="hidden" id="qna_no" value="${qna.qna_no }">
 								</div>
 							</div>
@@ -94,4 +94,3 @@
 
 <jsp:include page="/WEB-INF/views/includes/memberFooter.jsp"></jsp:include>
 <script src="/resources/member/js/paging.js"></script>
-<script src="/resources/member/js/csCenter.js"></script>

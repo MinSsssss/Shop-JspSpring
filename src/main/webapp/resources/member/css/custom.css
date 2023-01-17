@@ -1,9 +1,12 @@
 @charset "utf-8";
 /* 페이징 */
+.pageInfo_area{
+	text-align: center;
+}
 .pageInfo{
       list-style : none;
       display: inline-block;
-    margin: 50px 0 0 100px;      
+    margin: 50px 0 0 0px;      
   }
   .pageInfo li{
       float: left;
@@ -405,6 +408,14 @@ html {
 }
 
 /* common board */
+.boardTop{
+	display: flex;
+	justify-content: space-between;
+}
+.boardTop button{
+	height : 3rem;
+	margin-top:2.5rem;
+}
 .boardTable td,.boardTable th{
 	font-size:1.5rem;
 	padding:3px;

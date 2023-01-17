@@ -9,7 +9,7 @@ import com.sian.order.dto.PayInfoDTO;
 
 
 public interface OrderDAO {
-
+	public List<OrderDTO> orderListAll();
 	
 	public Long orderInsert(OrderDTO orderDTO);
 	
@@ -22,6 +22,8 @@ public interface OrderDAO {
 	public OrderDTO getOrder(Long order_no);
 	
 	public List<OrderDTO> getOrderList(String mem_id);
+	
+	public List<OrderDTO> getOrderListAll();
 	
 	public List<OrderDetailDTO> getOrderDetailList(Long order_no);
 	

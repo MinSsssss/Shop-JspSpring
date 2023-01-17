@@ -69,7 +69,7 @@
 														<button class="btn btn-link" id="orderDetailView" onclick="orderDetailViewFun(${status.count})"
 															>주문상세보기</button>
 													</p>
-													<form action="/order/orderDetailView" method="post" id="orderDetailViewForm${status.count}">
+													<form action="/order/orderDetailView" method="get" id="orderDetailViewForm${status.count}">
 														<input type="hidden" name="order_no" value="${orderList.order_no}">
 													</form>
 

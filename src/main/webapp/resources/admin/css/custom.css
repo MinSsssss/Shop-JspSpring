@@ -38,3 +38,119 @@
    .active{
       background-color: #cdd5ec;
   }
+  
+  
+  
+.tab-content {
+	margin-top: 20px;
+}
+
+.orderFor p {
+	margin: 0;
+	font-size: 1.6rem;
+}
+
+.orderFor {
+	width: 95%;
+	margin-top: 2rem;
+	border: 1px solid #ddd;
+	padding: 2rem;
+	border-radius: 1rem;
+}
+
+.orderForDisplay {
+	display: flex;
+	justify-content: space-between;
+}
+
+.orderForDisplay .btn-link {
+	padding: 5px;
+}
+
+.orderForDisplay h3, h5 {
+	margin-bottom: 5px;
+}
+
+.orderForDisplay .displayBot{
+
+	margin-top:2rem;
+}
+
+.orderInfo {
+	/* border-right: 1px solid #ddd; */
+	padding: 2rem;
+	width: 90%;
+}
+
+.orderProductFor {
+	border: 1px solid #ddd;
+	margin-top: 1rem;
+	border-radius: 1rem;
+	display: flex;
+	justify-content: space-between;
+}
+
+.orderDisplay .product_img {
+	width: 6rem;
+	height: 6rem;
+}
+.orderDisplay {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+
+.orderDisplay .productInfo {
+	width: 100%;
+	margin-left: 2rem;
+}
+
+.orderDisplay .productInfo p {
+	width: 100%;
+	margin: 0;
+}
+
+
+
+.orderQty {
+	margin-left: 1rem;
+}
+
+.orderBtns {
+	text-align: center;
+	margin: auto;
+	width: 50%;
+}
+
+.orderBtns button {
+	font-size: 1.3rem;
+	text-align: center;
+	height: 4rem;
+	/* display: inline-block; */
+	margin: 0.5rem;
+	width: 80%;
+	border-radius: 1rem;
+}
+
+/* orderDetailView */
+.orderDateStrong {
+	font-size: 2rem;
+	margin-right: 10px;
+}
+
+.receiverInfo {
+	padding-bottom: 10px;
+	border-bottom: 1px solid #999;
+	margin-top: 30px;
+}
+
+.receiverInfo h5 {
+	padding-bottom: 10px;
+	border-bottom: 3px solid black;
+}
+
+.tableInfoFtd {
+	width: 12rem;
+	margin-right: 20px;
+}  

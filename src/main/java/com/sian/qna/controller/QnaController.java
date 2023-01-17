@@ -49,7 +49,7 @@ public class QnaController {
 	
 	@GetMapping("/qna/qnaWrite")
 	public void qnaWriteView(Model model) {
-		model.addAttribute("categoryList", categoryService.getCategoryList("qna"));
+		model.addAttribute("qnaCategoryList", categoryService.getCategoryList("qna"));
 	}
 	
 	@PostMapping("/qna/qnaWriteProc")
@@ -107,14 +107,18 @@ public class QnaController {
 	
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@GetMapping("/qna/qnaList")
-	public void qnaList(Authentication authentication,Model model,Criteria cri) {
-		System.out.println(memberService.getId(authentication));
-		model.addAttribute("qnaList", 
-				qnaService.qnaMemberList(memberService.getId(authentication),cri));
+	public void qnaList(Authentication authentication, Model model,Criteria cri) {
+		String mem_id= memberService.getId(authentication);
+		System.out.println(cri);
 		
-		int total = qnaService.getTotal();
+		model.addAttribute("qnaList", 
+				qnaService.qnaMemberList(mem_id,cri));
+		
+		int total = qnaService.getTotal(mem_id);
 		
 		PageDTO page = new PageDTO(cri, total);
+		
+		System.out.println(page);
 		
 		model.addAttribute("page",page);
 	}

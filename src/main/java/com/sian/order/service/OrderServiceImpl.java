@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService{
 	
 	private final OrderDAO orderDAO;
 	
-	
+
 	
 	@Override
 	public void orderInsert(OrderDTO orderDTO) {
@@ -56,6 +56,13 @@ public class OrderServiceImpl implements OrderService{
 		
 		return orderDAO.getOrderList(mem_id);
 	}
+	
+	@Override
+	public List<OrderDTO> getOrderList() {
+		
+		return orderDAO.getOrderListAll();
+	}
+	
 	@Override
 	public List<OrderDetailDTO> getOrderDetailList(Long order_no) {
 		
@@ -84,6 +91,7 @@ public class OrderServiceImpl implements OrderService{
 		
 		return orderDAO.getLastPay(payInfoDTO);
 	}
+	
 	
 	
 }	

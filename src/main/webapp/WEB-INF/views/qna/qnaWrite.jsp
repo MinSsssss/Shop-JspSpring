@@ -44,7 +44,7 @@
 				<div class="csCenterNav">
 					<a data-toggle="tab" href="#" id="noticeList">공지사항 </a> 
 					<a data-toggle="tab" href="#" id="faqList">자주묻는질문</a> 
-					<a data-toggle="tab" href="#" id="qna">1:1 문의하기 </a> 
+					<a data-toggle="tab" href="#" id="qnaBoard">고객게시판</a> 
 				
 				</div>
 				<div class="shoping-cart-inner">
@@ -58,7 +58,7 @@
 										<th>말머리</th>
 										<td>
 											<select class="inquirySelect tableMargin" name="category_name" id="category_name">
-												<c:forEach items="${categoryList }" var="category">
+												<c:forEach items="${qnaCategoryList}" var="category">
 													<option id="categorySelect">
 														${category.category_name }
 													</option>

@@ -8,9 +8,7 @@ $(document).ready(function() {
 	$("#cart").on("click", function() {
 		location.href = "/cart/cartView"
 	})
-	$("#qnaList").on("click", function() {
-		location.href = "/qna/qnaList"
-	})
+	
 	$("#reviewList").on("click", function() {
 		location.href = "/review/reviewList"
 	})
@@ -30,6 +28,9 @@ $(document).ready(function() {
 	})
 	
 	$("#qnaList").on("click",function(){
+		location.href="/qna/qnaList";
+	})
+	$("#qnaList2").on("click",function(){
 		location.href="/qna/qnaList";
 	})
 	
