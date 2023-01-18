@@ -54,7 +54,7 @@
 		SELECT od.order_detail_no,od.order_no,
 		od.order_qty,od.sub_total,
 		pro.product_no,pro.product_name,
-		pro.product_price,pro.product_thumb_img,pro.product_s_thumb_img
+		pro.product_price,pro.product_thumb_img,pro.product_thumb_img
 		FROM tbl_order_detail od,tbl_product pro
 		WHERE od.product_no=pro.product_no AND 
 		order_no=#{order_no}
@@ -64,7 +64,7 @@
 		WHERE order_no = #{order_no}
 	</delete>
 	<select id="getReviewView" resultType="com.sian.order.dto.OrderDetailDTO">
-		SELECT pro.product_name,pro.product_thumb_img,pro.product_s_thumb_img,od.order_detail_no
+		SELECT pro.product_name,pro.product_thumb_img,pro.product_thumb_img,od.order_detail_no
 		FROM tbl_product pro,tbl_order_detail od
 		WHERE pro.product_no = od.product_no
 		AND od.order_detail_no=#{order_detail_no}

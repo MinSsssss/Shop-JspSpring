@@ -113,9 +113,7 @@ CREATE TABLE tbl_product (
 	product_price	number(6)		NOT NULL,
 	product_detail	varchar2(1000)		NOT NULL,
     product_thumb_img	varchar2(500),
-    product_s_thumb_img	varchar2(500),
-	--product_image2	varchar2(1000)		NULL,
-    
+
 	product_regdate	date default sysdate NOT NULL,
     product_updatedate	date default sysdate NOT NULL,
 	product_hit	number default 0 NOT NULL

@@ -33,9 +33,7 @@ public class ProductDTO {
 	
 	private String product_thumb_img;
 	
-	private String product_s_thumb_img;
-	//큰이미지
 	private List<String> product_imgs;
-	//작은이미지
-	private List<String> product_s_imgs;
+	
+	
 }

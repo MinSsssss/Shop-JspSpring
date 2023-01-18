@@ -8,13 +8,13 @@
 		</selectKey>
  	
  		INSERT INTO tbl_product(product_no,category_no,product_name,product_price,
- 		product_detail,product_thumb_img,product_s_thumb_img)
+ 		product_detail,product_thumb_img)
  		VALUES (#{product_no},(
  		SELECT category_no FROM tbl_category WHERE category_name=#{category_name}
  		AND category_class='product'
  		)
  		,#{product_name},#{product_price},
- 		#{product_detail},#{product_thumb_img},#{product_s_thumb_img})
+ 		#{product_detail},#{product_thumb_img})
  	</insert>
  	<select id="getList" resultType="com.sian.product.dto.ProductDTO">
 		SELECT * 
@@ -28,10 +28,10 @@
 	<select id="getListPaging" resultType="com.sian.product.dto.ProductDTO">
 		<![CDATA[
 			SELECT product_no,product_name,
-			product_price,product_hit,product_regdate,product_updatedate,product_thumb_img,product_s_thumb_img 
+			product_price,product_hit,product_regdate,product_updatedate,product_thumb_img 
 			FROM(
 			SELECT ROWNUM AS rn,product_no,product_name,
-			product_price,product_hit,product_regdate,product_updatedate,product_thumb_img,product_s_thumb_img
+			product_price,product_hit,product_regdate,product_updatedate,product_thumb_img
 			FROM tbl_product WHERE ROWNUM <= #{pageNum} * #{amount})
 			WHERE rn > (#{pageNum}-1) * #{amount}
 			
@@ -44,7 +44,6 @@
 		product_price=#{product_price},
 		product_detail=#{product_detail},
 		product_thumb_img=#{product_thumb_img},
-		product_s_thumb_img=#{product_s_thumb_img},
 		product_updatedate=sysdate
 		
 		WHERE product_no=#{product_no}
@@ -63,7 +62,7 @@
 		SELECT pro.product_no,cate.category_no,cate.category_name,
 		pro.product_name,pro.product_price,pro.product_detail,
 		pro.product_detail,pro.product_regdate,
-		pro.product_updateDate,pro.product_hit,product_thumb_img,product_s_thumb_img
+		pro.product_updateDate,pro.product_hit,product_thumb_img
 		
 		FROM tbl_product pro FULL JOIN tbl_category cate
 		ON pro.category_no=cate.category_no

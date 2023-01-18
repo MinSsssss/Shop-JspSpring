@@ -56,8 +56,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void productRegister(ProductDTO productDTO)  {
 		
-		productDTO.setProduct_thumb_img(productDTO.getProduct_s_thumb_img().replace("s_", ""));
-		
 		productDAO.insert(productDTO);
 		
 		

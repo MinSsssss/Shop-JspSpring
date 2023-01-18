@@ -1,4 +1,27 @@
 $(document).ready(function() {
+	let moveForm = $("#moveForm");
+	let pageId = $("#pageId").val();
+
+	$(".pageInfo a").on("click", function(e) {
+		e.preventDefault();
+
+		moveForm.find("input[name='pageNum']").val($(this).attr("href"));
+
+		if (pageId == "notice") {
+			moveForm.attr("action", "/admin/notice/noticeList");
+
+		}
+		else if (pageId == "product") {
+			moveForm.attr("action", "/admin/product/productList");
+
+		}
+		moveForm.submit();
+
+
+
+	});
+	
+	
 	$("#qnaAnswerBtn").on("click",function(){
 
 		let qna_no = $("#qna_no").val();
@@ -95,12 +118,16 @@ $(document).ready(function() {
 		$("#productRegModal").modal();
 		
 		
+	
+		
+		
+		
 		let formObj = $("form[role='form']");
 		$("#productRegModalBtn").on("click", function(e) {
 			
 			e.preventDefault();
 		    
-		    console.log("submit clicked");
+		    
 		    
 		    var str = "";
 		    
@@ -126,40 +153,16 @@ $(document).ready(function() {
 		    
 		    formObj.append(str).submit();
 			
-
-			//$("#productRegisterForm").submit();
 			alert("상품등록이 완료되었습니다.")
 		})
 
 
 	})
-
-	let moveForm = $("#moveForm");
-	let pageId = $("#pageId").val();
-
-	$(".pageInfo a").on("click", function(e) {
-		e.preventDefault();
-
-		moveForm.find("input[name='pageNum']").val($(this).attr("href"));
-
-		if (pageId == "notice") {
-			moveForm.attr("action", "/admin/notice/noticeList");
-
-		}
-		else if (pageId == "product") {
-			moveForm.attr("action", "/admin/product/productList");
-
-		}
-		moveForm.submit();
-
-
-
-	});
 	
 	let csrfHeaderName = "${_csrf.headerName}";
 	let csrfTokenValue = "${_csrf.token}";
 	$("input[type='file']").change(function(e) {
-
+		
 		var formData = new FormData();
 
 		var inputFile = $("input[name='uploadFile']");
@@ -172,10 +175,10 @@ $(document).ready(function() {
 				return false;
 			}
 			formData.append("uploadFile", files[i]);
-
+			
 		}
 
-
+		console.log(formData);
 		$.ajax({
 			url: '/admin/uploadAjaxAction',
 			processData: false,
@@ -188,17 +191,16 @@ $(document).ready(function() {
 			type: 'POST',
 			dataType: 'json',
 			success: function(result) {
-				console.log(result);
+				
 				showUploadResult(result); //업로드 결과 처리 함수 
-				
-				
+						
 			}
-			
-
-
 		}); //$.ajax
 
 	});
+	
+	
+	
 
 
 	let regex = new RegExp("(.*?)\.(jpg|png)$");
@@ -221,6 +223,7 @@ $(document).ready(function() {
 	}
 	
 	function showUploadResult(uploadResultArr){
+		console.log(uploadResultArr);
 		if(!uploadResultArr || uploadResultArr.length == 0 ){
 			return;
 		}
@@ -231,13 +234,14 @@ $(document).ready(function() {
 			
 			if(obj.image){
 				var fileCallPath =  encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid +"_"+obj.fileName);
+				
 				str += "<li data-path='"+obj.uploadPath+"'";
 				str +=" data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'"
 				str +=" ><div>";
 				str += "<span> "+ obj.fileName+"</span>";
 				str += "<button type='button' data-file=\'"+fileCallPath+"\' "
 				str += "data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
-				str += "<input type='radio' name='product_s_thumb_img' value='"+fileCallPath+ "'>";
+				str += "<input type='radio' name='product_thumb_img' value='"+fileCallPath+ "'>";
 				str += "<img src='/display?fileName="+fileCallPath+"'>";
 				str += "</div>";
 				str +="</li>";
@@ -251,7 +255,7 @@ $(document).ready(function() {
 				str += "<span> "+ obj.fileName+"</span>";
 				str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='file' " 
 				str += "class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
-				str += "<img src='/display?fileName="+fileCallPath+"'>";
+				str += "<img src='/resources/img/attach.png'></a>";
 				str += "</div>";
 				str +="</li>";
 			}

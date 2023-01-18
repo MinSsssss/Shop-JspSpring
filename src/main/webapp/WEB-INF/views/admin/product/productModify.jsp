@@ -81,7 +81,7 @@
 									<div class="uploadResult">
 										<ul>
 											
-											<c:forEach items="${product.product_s_imgs}" var="images" varStatus="status">
+											<c:forEach items="${product.product_imgs}" var="images" varStatus="status">
 												<c:set var="attach" value="${product.attachList[status.index]}"/>	
 												<c:if test="${images eq product.product_thumb_img }" >
 													<li data-path="${attach.uploadPath}" data-uuid="${attach.uuid}" 
