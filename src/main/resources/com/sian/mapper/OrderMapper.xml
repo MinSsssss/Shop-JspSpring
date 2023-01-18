@@ -92,7 +92,7 @@
 	
 	<update id="updateStatus">
 		UPDATE tbl_order
-		set order_status = '배송시작'
+		set order_status = #{order_status}
 		WHERE order_no = #{order_no}
 	</update>
 </mapper>

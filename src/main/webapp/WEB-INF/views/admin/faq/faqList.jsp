@@ -33,8 +33,8 @@
                                     <thead>
                                         <tr>
                                             <th class="thWidth10">번호</th>
-                                            <th>분류</th>
-                                            <th class="thWidth15">제목</th>             
+                                            <th >제목</th>
+                                            <th class="thWidth15">분류</th>             
                                         </tr>
                                     </thead>
                                     
@@ -43,8 +43,9 @@
                                     	
                                     	<tr>
                                             <td>${faq.faq_no }</td>
+                                            <td><a href="/admin/faq/faqRead?faq_no=${faq.faq_no}">${faq.faq_title }</a></td>
                                             <td>${faq.category_name }</td>
-                                            <td><a href="/admin/faq/faqRead?faq_no=${faq.faq_no}">${faq.faq_title }</a></td> 
+                                             
                                         </tr>
                                         
                                     	</c:forEach>

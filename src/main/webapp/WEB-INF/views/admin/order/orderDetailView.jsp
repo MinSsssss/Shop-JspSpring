@@ -98,12 +98,20 @@ tr:nth-child(even) {
 								<div class="displayBot">
 									
 									<c:choose>
+										<c:when test="${orderList.order_status eq '배송완료'}">
+									   		
+									    </c:when>
+									
 									    <c:when test="${not empty courier}">
 									   		<button id="invoiceModify">운송장수정</button>
+									   		<button id="deliveryComplete">배송완료</button>
+									   		<input type="hidden" id="order_no" value="${orderList.order_no}">
+									   		<input type="hidden" id="order_status" value="배송완료">
 									    </c:when>
-									    <c:otherwise>
-											 <button id="invoiceRegister">운송장등록</button>
-									    </c:otherwise>
+									    <c:when test="${empty courier}">
+									   		<button id="invoiceRegister">운송장등록</button>
+									    </c:when>
+									    
 									</c:choose>
 								</div>
 							</div>
@@ -232,6 +240,33 @@ tr:nth-child(even) {
 <jsp:include page="/WEB-INF/views/admin/includes/adminFooter.jsp"></jsp:include>
 <script>
 $(document).ready(function(){
+	$("#deliveryComplete").on("click",function(){
+		let order_no = $("#order_no").val();
+		let order_status = $("#order_status").val();
+		let param = {
+				"order_no" : order_no,
+				"order_status" : order_status
+		}
+		
+		$.ajax({
+			
+	         type:"POST",
+	         dataType : "json",
+	         url:"/admin/order/deliveryComplete",
+	         data: JSON.stringify(param),
+	         contentType: "application/json; charset=UTF-8",
+	         success:function(data){
+	                if(data){
+	                	alert("배송 정보가 변경되었습니다.")
+	                	location.reload();
+	                }
+	                else{
+	                	alert("배송 정보 변경이 실패하였습니다.")
+	                }
+	         }
+	     });
+	})
+	
 	var myKey = "bxF4okBn1zOznPasDxit3w"; // sweet tracker에서 발급받은 자신의 키 넣는다.
 	getTekbeCompnayList(myKey,0);
 	

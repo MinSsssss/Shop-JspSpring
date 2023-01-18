@@ -45,14 +45,15 @@
 				<div class="csCenterNav">
 					<a data-toggle="tab" href="#" id="noticeList">공지사항 </a> 
 					<a data-toggle="tab" href="#" id="faqList">자주묻는질문</a> 
-					<a data-toggle="tab" href="#" id="qnaBoard">고객게시판</a> 
+					<a data-toggle="tab" href="#" id="qnaBoard">1:1 문의</a> 
 		 
 				</div>
 				<div class="shoping-cart-inner">
-					<h2>고객게시판</h2>
+					<h2>1:1 문의</h2>
 					<div class="boardWrap">
 						<div class="boardTitle">
-							<h4>${qna.qna_title }</h4>	
+							<h4>${qna.qna_title }</h4>
+							<div>${qna.qna_status}</div>	
 						</div>
 						<div  class="boardInfo">
 							<div><strong>${qna.qna_writer }</strong>
@@ -60,9 +61,13 @@
 							</div>
 							
 						</div>
-						<div class="boardContent">
-							${qna.qna_content}
-						</div>
+						<div class="boardContent">${qna.qna_content}</div>
+						<c:if test="${not empty qna.qna_answer }">
+							<div class="boardContent">
+								<p>답변내용</p>
+								<div>${qna.qna_answer}</div>
+							</div>
+						</c:if>
 					</div>
 				</div>
 			</div>

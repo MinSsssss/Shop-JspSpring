@@ -24,5 +24,5 @@ public interface QnaDAO {
 	
 	public int qnaDelete(Long qna_no);
 	
-	
+	public int qnaAnswerRegister(QnaDTO qnaDTO);
 }

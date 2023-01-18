@@ -1,5 +1,11 @@
 package com.sian.member.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -11,11 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.sian.category.dto.CategoryDTO;
 import com.sian.category.service.CategoryService;
 import com.sian.member.dto.MemberDTO;
 import com.sian.member.service.MemberService;
-
+import com.sian.product.dto.ProductDTO;
+import com.sian.product.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,14 +32,28 @@ public class MemberController {
 	private final MemberService memberService;
 	
 	private final CategoryService categoryService;
-
+	
+	private final ProductService productService;
 	/*
 	 * ALL
 	 */
 	@GetMapping("/")
 	public String memberIndex(Model model)  {
-		model.addAttribute("categoryList", categoryService.getCategoryList("product"));
-
+		List<CategoryDTO> categoryList = categoryService.getCategoryList("product");
+		int category_no = 0;
+		CategoryDTO category = null;
+		for(int i=0; i< categoryList.size(); i++) {
+			
+			category = categoryList.get(i);
+			category_no = category.getCategory_no();
+			category.setProductList(productService.memberProductList(category_no));
+			
+			
+		}
+		System.out.println(categoryList);
+		model.addAttribute("categoryList", categoryList);
+		
+		
 		return "/index";
 	}
 	

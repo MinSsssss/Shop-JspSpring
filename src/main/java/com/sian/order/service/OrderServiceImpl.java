@@ -91,6 +91,15 @@ public class OrderServiceImpl implements OrderService{
 		
 		return orderDAO.getLastPay(payInfoDTO);
 	}
+	@Override
+	public boolean updateStatus(OrderDTO orderDTO) {
+		if(orderDAO.updateStatus(orderDTO)==0) {
+			return false;
+		}
+		return true;
+		
+	}
+	
 	
 	
 	

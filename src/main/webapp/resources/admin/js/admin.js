@@ -1,4 +1,39 @@
 $(document).ready(function() {
+	$("#qnaAnswerBtn").on("click",function(){
+
+		let qna_no = $("#qna_no").val();
+		let qna_answer = $("#qna_answer").val();
+
+		if(qna_answer==''){
+			alert("답변을 입력해주세요.");
+			return false;
+		}
+		
+		let param = {
+				"qna_no" : qna_no,
+				"qna_answer" : qna_answer
+		}
+		
+		$.ajax({
+			
+	         type:"POST",
+	         dataType : "json",
+	         url:"/admin/qna/qnaAnswerRegister",
+	         data: JSON.stringify(param),
+	         contentType: "application/json; charset=UTF-8",
+	         success:function(data){
+	                if(data){
+	                	alert("답변이 등록되었습니다.")
+	                	location.reload();
+	                }
+	                else{
+	                	alert("답변 등록에 실패하였습니다.")
+	                }
+	         }
+	     });
+	})
+	
+	
 	$("#cateBtnSubmit").on("click", function() {
 
 	})

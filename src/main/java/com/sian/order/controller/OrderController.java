@@ -270,6 +270,13 @@ public class OrderController {
 		return order_no;
 	}
 	
+	@ResponseBody
+	@PostMapping("/admin/order/deliveryComplete")
+	public boolean deliveryComplete(@RequestBody OrderDTO orderDTO) {
+		
+		return orderService.updateStatus(orderDTO);
+	}
+	
 	
 	
 	

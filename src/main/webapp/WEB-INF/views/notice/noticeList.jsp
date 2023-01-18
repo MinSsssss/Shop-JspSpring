@@ -45,7 +45,7 @@
 				<div class="csCenterNav">
 					<a data-toggle="tab" href="#" id="noticeList">공지사항 </a> 
 					<a data-toggle="tab" href="#" id="faqList">자주묻는질문</a> 
-					<a data-toggle="tab" href="#" id="qnaBoard">고객게시판</a> 
+					<a data-toggle="tab" href="#" id="qnaBoard">1:1 문의</a> 
 		 
 				</div>
 				<div class="shoping-cart-inner">

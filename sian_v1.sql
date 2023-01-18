@@ -4,7 +4,18 @@ WHERE mem_id = 'cda01';
 insert into tbl_member_auth(mem_id,auth)
 values('cda010','ROLE_ADMIN');
 
+SELECT qna_no,qna_title,cate.category_name,
+		qna_status,qna_date,qna_writer,mem_id 
+		FROM(
+			SELECT  /*+ INDEX_DESC(tbl_qna pk_qna) */ 
+			 ROWNUM AS rn,qna_no,qna_title,qna.category_no,cate.category_name,
+			qna_status,qna_date,qna_writer,mem_id
+			FROM tbl_qna qna,tbl_category cate 
+			WHERE ROWNUM <= 1 * 4  
+			AND qna.category_no = cate.category_no) qna,tbl_category cate
 
+		WHERE rn > 0 * 4
+		AND qna.category_no = cate.category_no;
 commit;
 
 DELETE FROM tbl_cart   
@@ -243,6 +254,7 @@ CREATE TABLE tbl_qna (
 	qna_content	varchar2(1000)		NOT NULL,
     qna_status varchar2(20) DEFAULT '접수' NOT NULL,
 	qna_date	date default sysdate	NOT NULL,
+    qna_answer varchar2(1000),
 	--qna_hit	number default 0	NOT NULL
     CONSTRAINT pk_qna PRIMARY KEY(qna_no)
 );

@@ -39,4 +39,6 @@ public interface OrderService {
 	
 	public PayInfoDTO getLastPay(PayInfoDTO payInfoDTO);
 	
+	public boolean updateStatus(OrderDTO orderDTO);
+	
 }

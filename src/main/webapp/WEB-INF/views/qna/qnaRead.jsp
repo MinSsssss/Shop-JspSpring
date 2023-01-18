@@ -58,7 +58,9 @@
 									<div class="boardWrap">
 										<div class="boardTitle">
 											<h4>${qna.qna_title }</h4>
+											<div>${qna.qna_status}</div>
 										</div>
+										
 										<div class="boardInfo">
 											<div>
 												<strong>${qna.qna_writer }</strong> <span><fmt:formatDate
@@ -66,6 +68,13 @@
 											</div>
 										</div>
 										<div class="boardContent">${qna.qna_content}</div>
+										<c:if test="${not empty qna.qna_answer }">
+											<div class="boardContent">
+												<p>답변내용</p>
+												<div>${qna.qna_answer}</div>
+											</div>
+										</c:if>
+										
 									</div>
 								</div>
 								<div class="boardReadBtns">

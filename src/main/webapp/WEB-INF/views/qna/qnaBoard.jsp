@@ -46,15 +46,15 @@
 				<div class="csCenterNav">
 					<a data-toggle="tab" href="#" id="noticeList">공지사항 </a> <a
 						data-toggle="tab" href="#" id="faqList">자주묻는질문</a> <a
-						data-toggle="tab" href="#" id="qnaBoard">고객게시판</a>
+						data-toggle="tab" href="#" id="qnaBoard">1:1 문의</a>
 
 				</div>
 				<div class="shoping-cart-inner">
 
 					<div class="table-responsive">
 						<div class="boardTop">
-							<h2 class="csTitle">고객게시판</h2>
-							<button id="qnaWrite">글작성</button>
+							<h2 class="csTitle">1:1문의</h2>
+							<button id="qnaWrite">문의하기</button>
 						</div>
 						<div></div>
 						<table class="allTable boardTable">
@@ -62,10 +62,10 @@
 
 								<tr>
 									<th class="thSize">번호</th>
+									<th>카테고리</th>
 									<th>제목</th>
 									<th>날짜</th>
 									<th class="thSize">작성자</th>
-
 								</tr>
 							</thead>
 
@@ -74,6 +74,7 @@
 								<c:forEach items="${qnaList}" var="qna" varStatus="status">
 									<tr>
 										<td>${num}</td>
+										<td>${qna.category_name}</td>
 										<td class="noticeTitle">
 										<a href="#" onclick="getQnaFun(${status.count})">${qna.qna_title}</a>
 											<input type="hidden" id="qna_no${status.count}" value="${qna.qna_no}">

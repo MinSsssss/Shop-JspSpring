@@ -21,7 +21,10 @@ let moveForm = $("#moveForm");
 			moveForm.attr("action", "/qna/qnaList");
 
 		}
-		
+		if (pageId == "qnaList") {
+			moveForm.attr("action", "/admin/qna/qnaList");
+
+		}
 		moveForm.submit();
 
 

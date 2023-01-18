@@ -34,4 +34,6 @@ public interface OrderDAO {
 	public void insertPayInfo(PayInfoDTO payDTO);
 	
 	public PayInfoDTO getLastPay(PayInfoDTO payDTO);
+	
+	public int updateStatus(OrderDTO orderDTO);
 }

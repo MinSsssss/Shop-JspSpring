@@ -59,6 +59,14 @@ public class QnaServiceImpl implements QnaService{
 		
 	}
 
+	@Override
+	public boolean qnaAnswerRegister(QnaDTO qnaDTO) {
+		if(qnaDAO.qnaAnswerRegister(qnaDTO)==0) {
+			return false;
+		}
+		return true;
+	}
+
 	
 
 	

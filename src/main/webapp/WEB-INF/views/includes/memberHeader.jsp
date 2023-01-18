@@ -44,8 +44,8 @@
         <div class="top-bar">
 	        
 	        <sec:authorize access="isAnonymous()">
-	            <button>로그인</button>
-	            <button>회원가입</button>
+	            <a href="/login">로그인</a>
+	            <a href="/register">회원가입</a>
 	        </sec:authorize>
 	        
 	        <sec:authorize access="isAuthenticated()">

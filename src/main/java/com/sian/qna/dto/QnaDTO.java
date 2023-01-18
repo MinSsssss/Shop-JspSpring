@@ -19,4 +19,5 @@ public class QnaDTO {
 	private String qna_content;
 	private String qna_status;
 	private Date qna_date;
+	private String qna_answer;
 }

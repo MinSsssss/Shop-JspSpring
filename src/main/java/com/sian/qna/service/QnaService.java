@@ -20,5 +20,5 @@ public interface QnaService {
 	
 	public boolean qnaDelete(Long qna_no);
 	
-	
+	public boolean qnaAnswerRegister(QnaDTO qnaDTO);
 }

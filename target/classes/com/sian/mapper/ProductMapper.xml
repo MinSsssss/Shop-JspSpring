@@ -77,5 +77,10 @@
  		WHERE product_name=#{product_name}
  	</select> 
 	
+	<update id="productReadCount">
+		UPDATE tbl_product
+		SET product_hit = product_hit + 1
+		WHERE product_no = #{product_no}
+	</update>
 	
 </mapper>

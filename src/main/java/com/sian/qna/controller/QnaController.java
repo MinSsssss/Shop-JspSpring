@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -27,10 +28,10 @@ public class QnaController {
 	private final QnaService qnaService;
 	private final MemberService memberService;
 	
-	@GetMapping("/qna/qnaBoard")
+	@GetMapping({"/qna/qnaBoard","/admin/qna/qnaList"})
 	public void qnaBoard(Model model,Criteria cri) {
 		
-		model.addAttribute("qnaList",qnaService.getQnaList(cri)); 
+		model.addAttribute("qnaList",qnaService.getQnaList(cri));
 		
 		int total = qnaService.getTotal();
 		
@@ -72,7 +73,7 @@ public class QnaController {
 	}
 	
 	
-	@GetMapping("/qna/qnaRead")
+	@GetMapping({"/qna/qnaRead","/admin/qna/qnaRead"})
 	public void qnaRead(@RequestParam("qna_no") Long qna_no,Model model) {
 		model.addAttribute("qna", qnaService.getQna(qna_no));
 	}
@@ -121,6 +122,17 @@ public class QnaController {
 		System.out.println(page);
 		
 		model.addAttribute("page",page);
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/qna/qnaAnswerRegister")
+	public boolean qnaAnswerRegister(@RequestBody QnaDTO qnaDTO) {
+		QnaDTO qna = qnaService.getQna(qnaDTO.getQna_no());
+		System.out.println(qnaDTO.getQna_answer());
+		qna.setQna_answer(qnaDTO.getQna_answer());
+		qna.setQna_status("답변 완료");
+		
+		return qnaService.qnaAnswerRegister(qna);
 	}
 	
 }
