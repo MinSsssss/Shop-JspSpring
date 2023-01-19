@@ -7,7 +7,9 @@
 	<!-- Begin Page Content -->
 	<div class="container-fluid">
 		<p>최근 주문 내역</p>
-	
+		<div>
+			1234
+		</div>
 		<p>최근 문의 내역</p>
 	
 	

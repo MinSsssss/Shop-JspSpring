@@ -30,6 +30,8 @@
 </footer>
 <!-- FOOTER AREA END -->
 
+
+
 <!-- MODAL AREA START (Quick View Modal) -->
 <div class="ltn__modal-area ltn__quick-view-modal-area">
 	<div class="modal fade" id="quick_view_modal" tabindex="-1">
@@ -134,6 +136,32 @@
 <!-- MODAL AREA START (Add To Cart Modal) -->
 
 <!-- MODAL AREA END -->
+<!--logout Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+	aria-labelledby="logoutModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="logoutModalTitle">로그아웃</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">로그아웃 하시겠습니까?</div>
+			<div class="modal-footer">
+				<form action="/logout" id="logoutForm" method="post">
+					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+					<button type="submit" class="btn btn-primary" id="logoutBtn">로그아웃</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+				</form>	
+			</div>
+		</div>
+	</div>
+</div>
+<!--End Logout Modal -->
+
+
 
 <!-- MODAL AREA START (Wishlist Modal) -->
 
@@ -213,5 +241,6 @@
 
 <script src="/resources/member/js/myPage.js"></script>
 
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.4.js"></script>
 </body>
 </html>

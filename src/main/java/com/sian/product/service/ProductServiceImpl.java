@@ -1,5 +1,8 @@
 package com.sian.product.service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,12 +95,6 @@ public class ProductServiceImpl implements ProductService {
 	 			}
 	 		);
 		
-//		productDTO.getAttachList().forEach(attach -> {
-//			attach.setProduct_no(productDTO.getProduct_no());
-//			productAttachDAO.delete(attach.getUuid());
-//			System.out.println("uuid : " + attach.getUuid());
-//		});
-		
 		productDTO.getAttachList().forEach(attach -> {
 			attach.setProduct_no(productDTO.getProduct_no());
 			productAttachDAO.insert(attach);
@@ -105,8 +102,61 @@ public class ProductServiceImpl implements ProductService {
 		
 		productDAO.productModify(productDTO);
 	}
-	
-	
+	@Override
+	public List<String> imgList(int product_no){
+	 	
+		String imgFullPath = "";
+
+		List<ProductAttachDTO> paDTO = getAttachList(product_no);
+		List<String> images = new ArrayList<String>();
+		List<String> originImages = new ArrayList<String>();
+		
+		for (int i = 0; i < paDTO.size(); i++) {
+
+			try {
+				imgFullPath = URLEncoder.encode(paDTO.get(i).getUploadPath() + "/s_" + paDTO.get(i).getUuid() + "_"
+						+ paDTO.get(i).getFileName(), "UTF-8");
+
+				images.add(imgFullPath);
+				
+				imgFullPath = URLEncoder.encode(paDTO.get(i).getUploadPath() + paDTO.get(i).getUuid() + "_"
+						+ paDTO.get(i).getFileName(), "UTF-8");
+
+				originImages.add(imgFullPath);
+				
+			} catch (UnsupportedEncodingException e) {
+
+				e.printStackTrace();
+			}	
+
+		}
+		return images;
+ }
+	@Override
+	public List<String> originImgList(int product_no){
+	 	
+		String imgFullPath = "";
+
+		List<ProductAttachDTO> paDTO = getAttachList(product_no);
+		List<String> originImages = new ArrayList<String>();
+		
+		for (int i = 0; i < paDTO.size(); i++) {
+
+			try {
+
+				imgFullPath = URLEncoder.encode(paDTO.get(i).getUploadPath() + "/" + paDTO.get(i).getUuid() + "_"
+						+ paDTO.get(i).getFileName(), "UTF-8");
+
+				originImages.add(imgFullPath);
+				
+			} catch (UnsupportedEncodingException e) {
+
+				e.printStackTrace();
+			}	
+
+		}
+		return originImages;
+ }
 	
 	
 	

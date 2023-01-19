@@ -1,4 +1,12 @@
 @charset "utf-8";
+/* .product-img img{
+	width: 300px;
+	image-rendering: -webkit-optimize-contrast;
+	transform:translateZ(0);
+	backface-visibility:hidden;
+} */
+
+
 /* 페이징 */
 .pageInfo_area{
 	text-align: center;

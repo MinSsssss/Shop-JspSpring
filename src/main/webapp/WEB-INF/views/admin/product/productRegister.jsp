@@ -51,11 +51,16 @@
 
 							<tr>
 								<td>상품설명</td>
+								<td><textarea rows="10" cols="20" name="product_content"
+										id="product_content"></textarea></td>
+						
+							</tr>
+							<tr>
+								<td>상세설명</td>
 								<td><textarea rows="10" cols="20" name="product_detail"
-										id="product_detail"></textarea></td>
-						<!-- 		<td><div contentEditable="true">
-  									<img alt="" src="/resources/member/img/menu4.png">
-								</div></td> -->
+										id="product_detail"></textarea>
+								</td>
+						
 							</tr>
 							<tr>
 								<td>가격</td>

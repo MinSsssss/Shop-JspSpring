@@ -40,17 +40,23 @@ public class MemberController {
 	@GetMapping("/")
 	public String memberIndex(Model model)  {
 		List<CategoryDTO> categoryList = categoryService.getCategoryList("product");
+		
 		int category_no = 0;
 		CategoryDTO category = null;
+		List<ProductDTO> productList = null;
+	
+		System.out.println(productList);
 		for(int i=0; i< categoryList.size(); i++) {
 			
 			category = categoryList.get(i);
 			category_no = category.getCategory_no();
-			category.setProductList(productService.memberProductList(category_no));
-			
-			
+			productList = productService.memberProductList(category_no);
+			for(ProductDTO product : productList) {
+				product.setProduct_thumb_img(product.getProduct_thumb_img().replace("s_",""));
+			}
+			category.setProductList(productList);
 		}
-		System.out.println(categoryList);
+		
 		model.addAttribute("categoryList", categoryList);
 		
 		

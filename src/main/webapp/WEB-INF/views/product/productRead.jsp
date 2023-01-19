@@ -45,7 +45,7 @@
 							<div class="ltn__shop-details-img-gallery">
 								<div class="ltn__shop-details-large-img">
 
-									<c:forEach items="${product.product_imgs}" var="images">
+									<c:forEach items="${product.origin_imgs}" var="images">
 										<div class="single-large-img">
 											<img src="/display?fileName=${images}" alt="Image">
 										</div>

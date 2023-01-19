@@ -31,20 +31,20 @@
 							<tr>
 								<td>카테고리</td>
 								<td>
-									<select name="category_name" id="category_name">
+									<select name="category_no" id="category_name">
 										
 											<c:choose >
 												<c:when test="${not empty product.category_name}">
 													<option id="categorySelect">${product.category_name}</option>
 													
 													<c:forEach items="${categoryList }" var="category">
-														<option id="categorySelect">${category.category_name }</option>
+														<option id="categorySelect" value="${category.category_no}">${category.category_name }</option>
 													</c:forEach>
 												</c:when>
 												<c:when test="${empty product.category_name}">
 													<option id="categorySelect">카테고리없음</option>
 													<c:forEach items="${categoryList }" var="category">
-														<option id="categorySelect">${category.category_name }</option>
+														<option id="categorySelect" value="${category.category_no}">${category.category_name }</option>
 													</c:forEach>
 												</c:when>
 										
@@ -59,9 +59,13 @@
 								<td><input type="text" name="product_name"
 									id="product_name" value="${product.product_name }"></td>
 							</tr>
-
 							<tr>
 								<td>상품설명</td>
+								<td><textarea rows="10" cols="20" name="product_content"
+										id="product_content">${product.product_detail }</textarea></td>
+							</tr>
+							<tr>
+								<td>상세설명</td>
 								<td><textarea rows="10" cols="20" name="product_detail"
 										id="product_detail">${product.product_detail }</textarea></td>
 							</tr>

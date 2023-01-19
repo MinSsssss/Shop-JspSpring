@@ -112,12 +112,14 @@ CREATE TABLE tbl_product (
 	product_name	varchar2(100)	UNIQUE NOT NULL,
 	product_price	number(6)		NOT NULL,
 	product_detail	varchar2(1000)		NOT NULL,
+    product_content varchar2(1000),
     product_thumb_img	varchar2(500),
 
 	product_regdate	date default sysdate NOT NULL,
     product_updatedate	date default sysdate NOT NULL,
 	product_hit	number default 0 NOT NULL
 );
+commit;
 
 --배송완료 전에는 회원탈퇴 불가능
 CREATE TABLE tbl_order (
@@ -197,17 +199,6 @@ CREATE TABLE tbl_review (
     CONSTRAINT pk_review PRIMARY KEY(review_no)
 );
 
-
-
-
-CREATE TABLE tbl_review_comment (
-	review_com_no	number primary key,
-	review_no	number		NOT NULL,
-	review_com_date	DATE DEFAULT sysdate	NOT NULL,
-	review_com_content	varchar2(1000)		NULL,
-	review_com_writer	varchar2(12)		NULL,
-    constraint fk_review foreign key(review_no) references tbl_review(review_no)
-);
 
 --회원이 탈퇴하면 카트도 없어져야함
 --상품이 삭제되면 카트에 있던 상품도 삭제되야함

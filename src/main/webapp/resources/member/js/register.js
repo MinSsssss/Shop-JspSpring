@@ -1,4 +1,7 @@
 $(document).ready(function(){
+	
+	
+	
 	$("#cencleBtn").on("click", function(){
 		location.href = "/login";
 	})

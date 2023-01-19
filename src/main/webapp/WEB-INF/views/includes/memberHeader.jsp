@@ -38,11 +38,13 @@
 <!-- Body main wrapper start -->
 <div class="body-wrapper">
 
+
+
     <!-- HEADER AREA START (header-4) -->
     <header class="ltn__header-area ltn__header-4 ltn__header-6 ltn__header-transparent gradient-color-2---">
         <!-- ltn__header-top-area start -->
         <div class="top-bar">
-	        
+
 	        <sec:authorize access="isAnonymous()">
 	            <a href="/login">로그인</a>
 	            <a href="/register">회원가입</a>
@@ -50,7 +52,7 @@
 	        
 	        <sec:authorize access="isAuthenticated()">
 	            <div class=""><sec:authentication property="principal.member.mem_name"/>님</div>
-	            <button>로그아웃</button>
+	            <a href="#" data-toggle="modal" data-target="#logoutModal">로그아웃</a>
 	        </sec:authorize>
 	        <a href="/notice/noticeList">고객센터</a>
 	        

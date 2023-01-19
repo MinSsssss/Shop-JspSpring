@@ -66,7 +66,7 @@ public class OrderController {
 	
 	private final CourierService courierService;
 	
-	private IamportClient client = new IamportClient("1473321038674052", "ZshfrZBon2Ia6H6FHhse0hxT9lX7LD9hP2I42Ocv1MOqHHTPO0nj7QStK44L1dvZ1r2P80yg6GpVeCm5");
+	
 	 
 	/*
 	 * ALL
@@ -82,16 +82,6 @@ public class OrderController {
 		
 		
 		List<OrderDTO> orderList = orderService.getOrderList();
-		
-//		Long order_no=0L;
-//		List<OrderDetailDTO> orderDetailList = null;
-//		for(int i=0; i<orderList.size(); i++) {
-//			order_no = orderList.get(i).getOrder_no();
-//			orderDetailList = orderService.getOrderDetailList(order_no);
-//			orderList.get(i).setOrderDetailList(orderDetailList);
-//			System.out.println(orderDetailList);
-//			
-//		}	
 
 		model.addAttribute("orderList", orderList);
 	}
@@ -106,13 +96,7 @@ public class OrderController {
 	 * MEMBER ONLY @PreAuthorize("hasRole('ROLE_MEMBER')")
 	 */
 	
-	@ResponseBody
-	@PostMapping(value="/order/verify_iamport/{imp_uid}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public IamportResponse<Payment> verifyIamportPOST(@PathVariable(value = "imp_uid") String imp_uid) throws IamportResponseException, IOException {
-			System.out.println("imp_uid : " + imp_uid);
-			System.out.println(client.paymentByImpUid(imp_uid));
-			return client.paymentByImpUid(imp_uid);
-		}
+	
 	
 	@PostMapping("/order/complete")
 	@ResponseBody
@@ -139,30 +123,7 @@ public class OrderController {
 		 
 	}
 	
-	@GetMapping("/order/pay_info")
-	@ResponseBody
-	public ResponseEntity<Long> payInfoPOST(Model model,HttpServletRequest request, HttpServletResponse response,
-		        @RequestParam String imp_uid,HttpSession session,
-		        Authentication authentication) throws Exception {
-			IamportResponse<Payment> result = client.paymentByImpUid(imp_uid);
-			PayInfoDTO payInfoDTO = new PayInfoDTO();
-			payInfoDTO.setMem_id(memberService.getId(authentication));
-			payInfoDTO.setOrder_no(Long.parseLong(result.getResponse().getMerchantUid()));
-			payInfoDTO.setPay_method(result.getResponse().getPayMethod());
-			payInfoDTO.setPay_name(result.getResponse().getName());
-			payInfoDTO.setPay_amount(result.getResponse().getAmount().longValue());
-			
-			orderService.insertPayInfo(payInfoDTO);
-			
-			
-			payInfoDTO = orderService.getLastPay(payInfoDTO);
-			System.out.println(payInfoDTO.getOrder_no());
-			
-			model.addAttribute("payInfoDTO", payInfoDTO);
-			
-			
-			return new ResponseEntity<Long>(payInfoDTO.getPay_no(), HttpStatus.OK);
-	}
+	
 	
 	
 	

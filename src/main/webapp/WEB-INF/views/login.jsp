@@ -41,12 +41,12 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="account-login-inner">
-                        <form action="/loginProcess" role="form" method="post" class="ltn__form-box contact-form-box">
-                            <input type="text" name="mem_id" placeholder="아이디 ">
-                            <input type="password" name="mem_pwd" placeholder="비밀번호">
+                        <form action="/loginProcess" id="loginForm" role="form" method="post" class="ltn__form-box contact-form-box">
+                            <input type="text" id="memId" name="mem_id" placeholder="아이디 ">
+                            <input type="password" id="memPwd" name="mem_pwd" placeholder="비밀번호">
                             <div class="btn-wrapper mt-0">
                                 <!-- <input type='submit' class='btn-success' value="로그인"> -->
-                                   <a href="/member" class="btn btn-lg btn-success btn-block">Login</a>     
+                                   <button id="loginBtn" class="btn btn-lg btn-block theme-btn-1">로그인</button>     
                                 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
                             </div>
                             <div class="go-to-btn mt-20">
@@ -78,8 +78,26 @@
     
 <jsp:include page="/WEB-INF/views/includes/memberFooter.jsp"></jsp:include>
 <script>
-		$(".btn-success").on("click",function(e){
+
+		$("#loginBtn").on("click",function(e){
+			
 			e.preventDefault();
-			$("form").submit();
+			if($("#memId").val() == ''){
+				alert("아이디를 입력해주세요.");
+				return false;
+			}			
+			if($("#memPwd").val()==''){
+				alert("비밀번호를 입력해주세요.");
+				return false;
+			}
+			$("#loginForm").submit();
+			
 		})
-	</script>
+		let loginFailMsg = "${requestScope.loginFailMsg}";
+		if(loginFailMsg!=''){
+			alert(loginFailMsg)
+		}
+		
+
+			
+</script>

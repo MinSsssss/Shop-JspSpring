@@ -19,9 +19,9 @@ $(document).ready(function() {
 		location.href = "/member/memberDrop"
 	})
 
-	$("#logoutBtn").on("click", function() {
+/*	$("#logoutBtn").on("click", function() {
 		$("#logoutForm").submit();
-	})
+	})*/
 
 	$("#pwChkCancleBtn").on("click", function() {
 		location.href = "/order/orderList";

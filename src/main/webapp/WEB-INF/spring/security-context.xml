@@ -28,7 +28,7 @@
 		<security:intercept-url pattern="/login" access="isAnonymous()" />
 		<security:intercept-url pattern="/register" access="isAnonymous()" />
 		
-		<security:intercept-url pattern="/login" access="permitAll()" />
+		<!-- <security:intercept-url pattern="/login" access="permitAll()" /> -->
 		
 		<security:headers>
 			<security:frame-options policy="SAMEORIGIN"/>
@@ -57,8 +57,8 @@
 			username-parameter="mem_id" password-parameter="mem_pwd"
 			login-processing-url="/loginProcess" default-target-url="/"
 			
-			authentication-failure-url="/"
-			always-use-default-target='true' />
+			authentication-failure-handler-ref="userLoginFailHandler"
+			/>
 		<security:csrf disabled="true"/>
 
 		<!-- <security:logout logout-url="/logout"
@@ -69,7 +69,7 @@
 		<!-- <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800" /> -->
 		
 		<security:logout 
-			logout-url="/member/auth/logout"
+			logout-url="/logout"
 			logout-success-url="/"
 			invalidate-session="true"
 			delete-cookies="true" />

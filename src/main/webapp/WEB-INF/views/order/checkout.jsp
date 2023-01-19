@@ -266,7 +266,7 @@
 <script src="/resources/member/js/address.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
 <script>
 	
  	

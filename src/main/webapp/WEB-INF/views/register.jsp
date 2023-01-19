@@ -77,7 +77,7 @@
                         				<th>휴대전화</th>
                         				<td>
                         					<input type="text" id="mem_tel" name="mem_tel" placeholder="휴대전화">
-                        					<button>휴대폰 인증</button>
+                        					
                             			</td>
                         			</tr>
                         			<tr>
@@ -125,7 +125,10 @@
     
     
   <jsp:include page="/WEB-INF/views/includes/memberFooter.jsp"></jsp:include>
+  
 
+	
+<script src="/resources/member/js/register.js"></script>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 

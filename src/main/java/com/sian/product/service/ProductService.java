@@ -26,4 +26,8 @@ public interface ProductService {
 	public List<ProductAttachDTO> getAttachList(int product_no);
 	
 	public void productModify(ProductDTO productDTO);
+	
+	public List<String> imgList(int product_no);
+	
+	public List<String> originImgList(int product_no);
 }

@@ -67,7 +67,7 @@
 	<mybatis-spring:scan base-package="com.sian.cart.dao"/>
 	<mybatis-spring:scan base-package="com.sian.qna.dao"/>
 	
-	
+	<context:component-scan base-package="com.sian.security"></context:component-scan>
 	<context:component-scan base-package="com.sian.category.service"></context:component-scan>
 	<context:component-scan base-package="com.sian.faq.service"></context:component-scan>
 	<context:component-scan base-package="com.sian.member.service"></context:component-scan>

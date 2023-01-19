@@ -17,11 +17,10 @@ public class ProductDTO {
 	
 	private int product_price;
 	
+	private String product_content;
+	
 	private String product_detail;
 	
-//	private String product_image1;
-//	
-
 	
 	private Date product_regdate;
 	
@@ -35,5 +34,6 @@ public class ProductDTO {
 	
 	private List<String> product_imgs;
 	
+	private List<String> origin_imgs;
 	
 }

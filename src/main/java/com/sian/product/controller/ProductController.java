@@ -43,47 +43,34 @@ public class ProductController {
 	public void productList(@RequestParam(value = "category_no", required = false) int category_no, Model model) {
 		model.addAttribute("categoryList", categoryService.getCategoryList("product"));
 		model.addAttribute("category", categoryService.categoryRead(category_no));
-
-		model.addAttribute("productList", productService.memberProductList(category_no));
+		List<ProductDTO> productList = productService.memberProductList(category_no);
+		
+		for(ProductDTO product : productList) {
+			product.setProduct_thumb_img(product.getProduct_thumb_img().replace("s_",""));
+		}
+		model.addAttribute("productList", productList);
 	}
 
 	@GetMapping({ "/product/productRead"})
 	public void productRead(@RequestParam("product_no") int product_no, Model model) {
 		ProductDTO product = productService.getProduct(product_no);
+		
 		String thumbImg = product.getProduct_thumb_img();
-		String imgRealPath = "";
-		System.out.println("product : " + product);
-		List<ProductAttachDTO> paDTO = productService.getAttachList(product_no);
-		List<String> images = new ArrayList<String>();
+		String originImg = thumbImg.replace("s_","");
 		
-		System.out.println("padtosize : " + paDTO.size());
-		for (int i = 0; i < paDTO.size(); i++) {
+		List<String> images = productService.imgList(product_no);
+		List<String> originImages = productService.originImgList(product_no);
+		
+		product.setProduct_thumb_img(originImg);
 
-			try {
-				imgRealPath = URLEncoder.encode(paDTO.get(i).getUploadPath() + "/s_" + paDTO.get(i).getUuid() + "_"
-						+ paDTO.get(i).getFileName(), "UTF-8");
-
-				images.add(imgRealPath);
-
-			} catch (UnsupportedEncodingException e) {
-
-				e.printStackTrace();
-			}	
-
-		}
-		System.out.println(images);
-		System.out.println("여기부터?");
-		images.remove(images.indexOf(thumbImg));
-		images.add(0, thumbImg);
 		product.setProduct_imgs(images);
+		product.setOrigin_imgs(originImages);
 		
-		product.setAttachList(productService.getAttachList(product_no));
-		
-		 model.addAttribute("product",product);
+		model.addAttribute("product",product);
 		 
-		 model.addAttribute("category",categoryService.getCategoryList("product"));
+		model.addAttribute("category",categoryService.getCategoryList("product"));
 		 
-		 model.addAttribute("reviewList", reviewService.getReviewList(product_no));
+		model.addAttribute("reviewList", reviewService.getReviewList(product_no));
 	}
 
 	/*
@@ -122,7 +109,9 @@ public class ProductController {
 
 	@PostMapping("/admin/product/productModifyProc")
 	public String productModifyProc(ProductDTO productDTO) {
-
+		System.out.println("카테고리이름" + productDTO.getCategory_name());
+		System.out.println("카테고리번호" + productDTO.getCategory_no());
+		
 		productService.productModify(productDTO);
 
 		return "redirect:/admin/product/productList";
@@ -131,57 +120,35 @@ public class ProductController {
 
 	 @GetMapping({"/admin/product/productRead","/admin/product/productModify" })
 	 public void productModify(@RequestParam("product_no")int product_no,Model model) {
-		 
-		 ProductDTO product = productService.getProduct(product_no);
-			String thumbImg = product.getProduct_thumb_img();
-			
-			String imgRealPath = "";
+		ProductDTO product = productService.getProduct(product_no);
+		String thumbImg = product.getProduct_thumb_img();
+		 	
 
-			List<ProductAttachDTO> paDTO = productService.getAttachList(product_no);
-			List<String> images = new ArrayList<String>();
-			
-			System.out.println("padtosize : " + paDTO.size());
-			for (int i = 0; i < paDTO.size(); i++) {
-
-				try {
-					
-
-					imgRealPath = URLEncoder.encode(paDTO.get(i).getUploadPath() + "/s_" + paDTO.get(i).getUuid() + "_"
-							+ paDTO.get(i).getFileName(), "UTF-8");
-
-					images.add(imgRealPath);
-
-				} catch (UnsupportedEncodingException e) {
-
-					e.printStackTrace();
-				}	
-
-			}
-			
+		List<String> images = productService.imgList(product_no);
+		
+		
 			/*
-			 * 대표사진위치변경
+			 * productModify 대표사진위치변경
 			 */
 			
-			images.remove(images.indexOf(thumbImg));
-			images.add(0, thumbImg);
-			product.setProduct_imgs(images);
+		images.remove(images.indexOf(thumbImg));
+		images.add(0, thumbImg);
+		product.setProduct_imgs(images);
 
-			
-			product.setAttachList(productService.getAttachList(product_no));
+		product.setAttachList(productService.getAttachList(product_no));
 
-			model.addAttribute("product", product);
+		model.addAttribute("product", product);
 
-			model.addAttribute("categoryList", categoryService.getCategoryList("product"));
+		model.addAttribute("categoryList", categoryService.getCategoryList("product"));
 
-			System.out.println(categoryService.getCategoryList("product"));
-			model.addAttribute("reviewList", reviewService.getReviewList(product_no));
+		model.addAttribute("reviewList", reviewService.getReviewList(product_no));
 
-//			 model.addAttribute("images",productService.getAttachList(product_no));
-		 
-		 
-		
+	
 		 
 	 }
+	 
+	 
+	 
 	/*
 	 * MEMBER ONLY @PreAuthorize("hasRole('ROLE_MEMBER')")
 	 */
