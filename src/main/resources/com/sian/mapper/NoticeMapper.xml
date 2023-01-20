@@ -25,12 +25,12 @@
 	
 	<select id="getListPaging" resultType="com.sian.notice.dto.NoticeDTO">
 		<![CDATA[
-			SELECT /*+ INDEX_DESC(tbl_notice pk_notice) */
+			SELECT /*+ INDEX_DESC(notice pk_notice) */
 			notice_no,notice_title,
 			notice_date,notice_writer,notice_hit FROM(
 			SELECT ROWNUM AS rn,notice_no,notice_title,
 			notice_date,notice_writer,notice_hit
-			FROM tbl_notice WHERE ROWNUM <= #{pageNum} * #{amount})
+			FROM tbl_notice WHERE ROWNUM <= #{pageNum} * #{amount}) notice
 			WHERE rn > (#{pageNum}-1) * #{amount}	
 		]]>
 	</select>

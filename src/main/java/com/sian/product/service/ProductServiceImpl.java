@@ -39,9 +39,21 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.getTotal();
 	}
 	@Override
-	public List<ProductDTO> getListPaging(Criteria cri) {
+	public int getTotal(int category_no) {
+		System.out.println("category2 : " + category_no);
+		return productDAO.getCategoryTotal(category_no);
+	}
+	
+	@Override
+	public List<ProductDTO> productList(Criteria cri) {
 		
 		return productDAO.getListPaging(cri);
+	}
+	
+	@Override
+	public List<ProductDTO> productList(int category_no, Criteria cri) {
+		System.out.println("category3 : " + category_no);
+		return productDAO.selectProductList(category_no,cri.getPageNum(),cri.getAmount()) ;
 	}
 	
 	@Override
@@ -157,6 +169,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return originImages;
  }
+	
 	
 	
 	

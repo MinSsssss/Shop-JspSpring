@@ -20,10 +20,10 @@ public class PageDTO {
 		this.total = total;
 		
 		//페이징의 끝번호 계산
-		this.endPage = (int)(Math.ceil(cri.getPageNum()/10.0))*10;
+		this.endPage = (int)(Math.ceil(cri.getPageNum()/5.0))*5;
 		
 		//페이징의 시작번호 계산
-		this.startPage = this.endPage-9;
+		this.startPage = this.endPage-4;
 		
 		//페이징의 마지막번호
 		int realEnd = (int)(Math.ceil((total *1.0)/cri.getAmount()));

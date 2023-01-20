@@ -78,16 +78,25 @@ public class ProductController {
 	 */
 
 	@GetMapping("/admin/product/productList")
-	public void adminProductList(Model model, Criteria cri) {
-		model.addAttribute("categoryList", categoryService.getCategoryList("product"));
-
-		model.addAttribute("productList", productService.getListPaging(cri));
-
-		int totaol = productService.getTotal();
-
-		PageDTO page = new PageDTO(cri, totaol);
-
-		model.addAttribute("page", page);
+	public void adminProductList(@RequestParam("category_no")int category_no,Criteria cri,Model model) {
+		 int total = 0;
+		 if(category_no==0) {
+			 model.addAttribute("productList",productService.productList(cri));
+			 total = productService.getTotal();
+		 }
+		 else {
+			 System.out.println("category : " + category_no);
+			 model.addAttribute("productList",productService.productList(category_no,cri));
+			 System.out.println("category : " + category_no);
+			 total = productService.getTotal(category_no);
+			 System.out.println("category : " + category_no);
+			 
+		 }
+		 model.addAttribute("category",categoryService.getCategoryList("product"));
+		
+		PageDTO page = new PageDTO(cri, total);
+			
+		model.addAttribute("page",page);
 	}
 
 	@GetMapping("/admin/product/productRegister")

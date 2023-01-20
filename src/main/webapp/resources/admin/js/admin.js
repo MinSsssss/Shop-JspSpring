@@ -1,3 +1,22 @@
+
+
+function fnMoveCategory(category_no){
+		
+		let moveCategoryForm = $("#moveCategoryForm");
+		let categoryInput = '<input type="hidden" name="category_no" value="'+category_no+'">'
+		moveCategoryForm.append(categoryInput);
+		moveCategoryForm.submit();
+
+}
+
+$.urlParam = function(name) {
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null) {
+        return null;
+    } else {
+        return results[1] || 0;
+    }
+}
 $(document).ready(function() {
 	let moveForm = $("#moveForm");
 	let pageId = $("#pageId").val();
@@ -12,14 +31,30 @@ $(document).ready(function() {
 
 		}
 		else if (pageId == "product") {
+			let category_no = $.urlParam('category_no');
+			let categoryInput = '<input type="hidden" name="category_no" value="'+category_no+'">'
+			moveForm.append(categoryInput);
 			moveForm.attr("action", "/admin/product/productList");
+
+		}
+		else if (pageId == "adminFaqList") {
+			let category_no = $.urlParam('category_no');
+			let categoryInput = '<input type="hidden" name="category_no" value="'+category_no+'">'
+			moveForm.append(categoryInput);
+			moveForm.attr("action", "/admin/faq/faqList");
 
 		}
 		moveForm.submit();
 
-
-
 	});
+	
+
+/*	let moveCategoryForm = $("#moveCategoryForm");
+	$(".moveCategory a").on("click",function(e){
+		e.preventDefault();
+		moveCategoryForm.submit();
+	})*/
+	
 	
 	
 	$("#qnaAnswerBtn").on("click",function(){

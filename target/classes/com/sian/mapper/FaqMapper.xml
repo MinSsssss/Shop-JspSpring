@@ -12,16 +12,49 @@
  		#{faq_title},
  		#{faq_content})
  	</insert>
+ 	
+ 	<select id="getTotal" resultType="int">
+		SELECT COUNT(*) from tbl_faq
+	</select>
+	<select id="getCategoryTotal" resultType="int">
+		SELECT COUNT(*) from tbl_faq
+		WHERE category_no = #{category_no}
+	</select>
+ 	
  	<select id="faqList" resultType="com.sian.faq.dto.FaqDTO">
- 		SELECT faq.faq_no,cate.category_no,cate.category_name,faq.faq_title,faq.faq_content,faq.faq_hit
- 		FROM tbl_faq faq, tbl_category cate
- 		WHERE faq.category_no=cate.category_no
+ 		<![CDATA[
+ 		SELECT faq.faq_no,cate.category_no,cate.category_name,
+ 		faq.faq_title,faq.faq_content,faq.faq_hit
+ 		FROM 
+ 		(SELECT /*+ INDEX_DESC(faq pk_faq) */
+ 		ROWNUM AS rn, faq.faq_no,cate.category_no,cate.category_name,
+ 		faq.faq_title,faq.faq_content,faq.faq_hit
+ 		FROM tbl_faq faq,tbl_category cate
+ 		WHERE ROWNUM <= #{pageNum} * #{amount}
+ 		AND faq.category_no = cate.category_no
+ 		) faq, tbl_category cate
+ 		WHERE rn > (#{pageNum}-1) * #{amount}
+		AND faq.category_no = cate.category_no
+ 		]]>
  	</select>
- 	 	<select id="selectFaqList" resultType="com.sian.faq.dto.FaqDTO">
- 		SELECT faq.faq_no,cate.category_no,cate.category_name,faq.faq_title,faq.faq_content,faq.faq_hit
- 		FROM tbl_faq faq, tbl_category cate
- 		WHERE faq.category_no=cate.category_no
- 		AND faq.category_no=#{category_no}
+ 	
+ 	<select id="selectFaqList" resultType="com.sian.faq.dto.FaqDTO">
+ 		<![CDATA[
+ 		SELECT faq.faq_no,cate.category_no,cate.category_name,
+ 		faq.faq_title,faq.faq_content,faq.faq_hit
+ 		FROM 
+ 		(SELECT /*+ INDEX_DESC(faq pk_faq) */
+ 		ROWNUM AS rn, faq.faq_no,cate.category_no,cate.category_name,
+ 		faq.faq_title,faq.faq_content,faq.faq_hit
+ 		FROM tbl_faq faq,tbl_category cate
+ 		WHERE ROWNUM <= #{pageNum} * #{amount}
+ 		AND faq.category_no = cate.category_no
+ 		AND faq.category_no = #{category_no}
+ 		) faq, tbl_category cate
+ 		WHERE rn > (#{pageNum}-1) * #{amount}
+		AND faq.category_no = cate.category_no
+		AND faq.category_no = #{category_no}
+ 		]]>
  	</select>
  	
  	<select id="getFaq" resultType="com.sian.faq.dto.FaqDTO">

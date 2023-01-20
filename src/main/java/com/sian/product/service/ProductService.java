@@ -13,7 +13,11 @@ public interface ProductService {
 	
 	public int getTotal();
 	
-	public List<ProductDTO> getListPaging(Criteria cri);
+	public int getTotal(int category_no);
+	
+	public List<ProductDTO> productList(Criteria cri);
+	
+	public List<ProductDTO> productList(int category_no,Criteria cri);
 	
 	public ProductDTO getProduct(int product_no);
 	
@@ -21,7 +25,7 @@ public interface ProductService {
 	
 	public void productRegister(ProductDTO productDTO) ;
 	
-	public List<ProductDTO> getProductList() ;
+	public List<ProductDTO> getProductList();
 	
 	public List<ProductAttachDTO> getAttachList(int product_no);
 	

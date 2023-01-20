@@ -2,6 +2,8 @@ package com.sian.product.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.sian.common.page.Criteria;
 import com.sian.product.dto.ProductDTO;
 
@@ -13,7 +15,12 @@ public interface ProductDAO {
 
 	public int getTotal();
 	
+	public int getCategoryTotal(int category_no);
+	
 	public List<ProductDTO> getListPaging(Criteria cri);
+	
+	public List<ProductDTO> selectProductList(@Param("category_no")int category_no,
+			@Param("pageNum") int pageNum,@Param("amount") int amount);
 	
 	public List<ProductDTO> memberProductList(int category_no) ;
 	

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import com.sian.member.service.MemberService;
-
+import com.sian.order.service.OrderService;
 import com.sian.review.dto.ReviewDTO;
 import com.sian.review.service.ReviewService;
 
@@ -27,7 +27,7 @@ public class ReviewController {
 	
 	private final MemberService memberService;
 	
-	
+	private final OrderService orderService;
 	/*
 	 * ALL
 	 */
@@ -46,13 +46,15 @@ public class ReviewController {
 	@PostMapping("/review/reviewWriteView")
 	public String reviweWriteView(Long order_detail_no,
 			Model model,RedirectAttributes rttr ) {
+		System.out.println("orderDetail : " + order_detail_no);
 		System.out.println(reviewService.findReview(order_detail_no));
 		if(reviewService.findReview(order_detail_no)!=0) {
 			rttr.addFlashAttribute("msg","already");
 			return "redirect:/order/orderList";
 		}
 		else {
-			//model.addAttribute("reviewView",reviewService.getReviewView(order_detail_no));
+			model.addAttribute("reviewView",orderService.getReviewView(order_detail_no));
+			
 			return "/review/reviewWriteView";
 		}
 

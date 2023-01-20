@@ -133,7 +133,7 @@ function orderDeleteFun(order_status, order_no) {
 
 	let answer = confirm("선택하신 주문내역을 삭제하시겠습니까?");
 	if (answer) {
-		if (order_status.value == "배송 완료") {
+		if (order_status.value == "배송완료") {
 			let param = { "order_no": order_no.value }
 			$.ajax({
 				url: "/order/orderDelete",

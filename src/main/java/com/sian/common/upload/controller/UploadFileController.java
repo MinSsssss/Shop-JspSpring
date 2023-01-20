@@ -125,7 +125,8 @@ public class UploadFileController {
 	public ResponseEntity<byte[]> getFile(String fileName) {
 
 		File file = new File("c:\\upload\\" + fileName);
-		System.out.println(file);
+		
+		
 		ResponseEntity<byte[]> result = null;
 
 		try {

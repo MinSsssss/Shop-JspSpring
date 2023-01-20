@@ -5,7 +5,14 @@
 	transform:translateZ(0);
 	backface-visibility:hidden;
 } */
-
+.readOnlyText{
+	border: none; 
+	resize: none; 
+	outline: none;
+}
+.pWidth{
+	width: 90%;
+}
 
 /* 페이징 */
 .pageInfo_area{
@@ -253,7 +260,9 @@ html {
 	width: 10rem;
 	margin-right: 5rem;
 }
-
+.reviewTable{
+	width:100%;
+}
 
 
 
@@ -311,9 +320,10 @@ html {
 	box-sizing: border-box;
 	border: solid 1.5px #D3D3D3;
 	border-radius: 0.5rem;
-	font-size: 1rem;
+	font-size: 1.6rem;
 	resize: none;
 	margin-bottom: 2rem;
+	margin-top: 2rem;
 }
 .reviewFooter{
 	display: flex;

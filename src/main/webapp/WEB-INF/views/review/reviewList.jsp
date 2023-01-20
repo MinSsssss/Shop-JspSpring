@@ -61,7 +61,7 @@
 											</h4>
 											<div class="reviewWrapTop">
 												<div class="productInfo">
-													<div><img  class="product_image" alt="" src="/display?fileName=${review.product_s_thumb_img}"></div>
+													<div><img  class="product_image" alt="" src="/display?fileName=${review.product_thumb_img}"></div>
 													
 													<div class="productName">${review.product_name }
 														
@@ -102,12 +102,21 @@
 													</div>
 													
 												</div>
-												<div>
-													${review.review_title }
-												</div>
-												<div>
-													${review.review_content }
-												</div>
+												<table class="reviewTable">
+													<tr>
+														<th style="width:5rem;">제목</th>
+														<td>${review.review_title }</td>
+													</tr>
+													<tr>
+														<th>내용</th>
+														<td>
+															<textarea class="readOnlyText" 
+															id="review_content" readonly="readonly">${review.review_content }</textarea>
+														</td>
+													</tr>
+													
+												</table>
+												
 											</div>
 										</div>
 									</c:forEach>

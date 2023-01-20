@@ -21,10 +21,28 @@
                         
                         <div class="card-body">
                             <div class="table-responsive">
+                            	<div>
+                            		<span><a href="/admin/product/productList?category_no=0">전체</a></span>
+                            		<c:forEach items="${category}" var="cate" varStatus="status">
+                            			<span class="moveCategory">
+                            				<a href="#" onclick="fnMoveCategory(${cate.category_no})">
+                            					${cate.category_name}
+                            				</a>
+                            			</span> 
+                            			
+                            		</c:forEach>
+                            		<form id="moveCategoryForm" method="get"
+                            			action="/admin/product/productList">
+											<input type="hidden" name="pageNum" value="1">
+											<input type="hidden" name="amount" value="${page.cri.amount}">
+											
+									</form>
+                            	</div>
+                            
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>상품번호</th>
+                                            <th>번호</th>
                                             <th>상품이름</th>
                                             <th>가격</th>
                                             <th>조회수</th>
@@ -34,29 +52,30 @@
                                     </thead>
                                     
                                     <tbody>
-                                    <c:forEach items="${productList }" var="product">
-                                    	<tr>
-                                            <td class="align-middle">${product.product_no }</td>
-                                            <td class="align-middle">
-                                            <div><img  class="productListImage" alt="" src="/display?fileName=${product.product_thumb_img}">
-                                            	<span><a href="/admin/product/productRead?product_no=${product.product_no}">${product.product_name}</a></span>
-                                            </div>
-                                            
-                                            </td>
-                                            
-                                            <td class="align-middle">${product.product_price }</td>
-                                            <td class="align-middle">${product.product_hit }</td>
-                                            <td class="align-middle"><fmt:formatDate pattern="yyyy-MM-dd" value = "${product.product_regdate }"/></td>
-                                            <td class="align-middle"><fmt:formatDate pattern="yyyy-MM-dd" value = "${product.product_updateDate }"/></td>
-                                             
-                                        </tr>
-                                    
-                                    </c:forEach>
+                                   		<c:set var="num" value="${page.total-(page.cri.pageNum-1) * page.cri.amount}"/>
+	                                    <c:forEach items="${productList }" var="product">
+	                                    	<tr>
+	                                            <td class="align-middle">${num}</td>
+	                                            <td class="align-middle">
+		                                            <div><img  class="productListImage" alt="" src="/display?fileName=${product.product_thumb_img}">
+		                                            	<span><a href="/admin/product/productRead?product_no=${product.product_no}">${product.product_name}</a></span>
+		                                            </div>
+	                                            
+	                                            </td>
+	                                            
+	                                            <td class="align-middle">${product.product_price }</td>
+	                                            <td class="align-middle">${product.product_hit }</td>
+	                                            <td class="align-middle"><fmt:formatDate pattern="yyyy-MM-dd" value = "${product.product_regdate }"/></td>
+	                                            <td class="align-middle"><fmt:formatDate pattern="yyyy-MM-dd" value = "${product.product_updateDate }"/></td>
+	                                             
+	                                        </tr>
+	                                    	<c:set var="num" value="${num-1}"/>
+	                                    </c:forEach>
                                         
                                         
                                     </tbody>
                                 </table>
-                                <h1></h1>
+                                
                               <jsp:include page="/WEB-INF/views/admin/includes/pageInclude.jsp"></jsp:include>
                               <input type="hidden" id="pageId" value="product">
                                

@@ -149,7 +149,7 @@ var result = '${msg}';
 if(result === 'already'){
 	console.log(result);
 	alert('이미 리뷰를 작성하셨습니다.');
-	location.href="/member/auth/orderList";
+	location.href="/order/orderList";
 }
 </script>
 

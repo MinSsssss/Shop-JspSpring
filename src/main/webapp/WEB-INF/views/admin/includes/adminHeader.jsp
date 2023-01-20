@@ -98,7 +98,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                     	<a class="collapse-item" href="/admin/category/categoryList?category_class=product">상품카테고리조회</a>
                         <!-- <a class="collapse-item" href="/admin/categoryRegister?category_class=product">상품카테고리생성</a> -->
-                        <a class="collapse-item" href="/admin/product/productList">상품조회</a>
+                        <a class="collapse-item" href="/admin/product/productList?category_no=0">상품조회</a>
                         <!-- <a class="collapse-item" href="/admin/productRegister">상품등록</a> -->
                     </div>
                 </div>

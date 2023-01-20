@@ -110,7 +110,6 @@ public class QnaController {
 	@GetMapping("/qna/qnaList")
 	public void qnaList(Authentication authentication, Model model,Criteria cri) {
 		String mem_id= memberService.getId(authentication);
-		System.out.println(cri);
 		
 		model.addAttribute("qnaList", 
 				qnaService.qnaMemberList(mem_id,cri));

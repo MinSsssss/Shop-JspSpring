@@ -10,6 +10,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import com.sian.category.service.CategoryService;
+import com.sian.common.page.Criteria;
+import com.sian.common.page.PageDTO;
 import com.sian.faq.dto.FaqDTO;
 import com.sian.faq.service.FaqService;
 
@@ -28,17 +30,24 @@ public class FaqController {
 	 * ALL
 	 */
 	@GetMapping({"/faq/faqList","/admin/faq/faqList"})
-	 public void faqList(@RequestParam("category_no")int category_no ,Model model) {
-		 
+	 public void faqList(@RequestParam("category_no")int category_no,Criteria cri,Model model) {
+		
+		 int total = 0;
 		 if(category_no==0) {
-			 model.addAttribute("faqList",faqService.faqList());
+			 model.addAttribute("faqList",faqService.faqList(cri));
+			 total = faqService.getTotal();
 		 }
 		 else {
-			 model.addAttribute("faqList",faqService.selectFaqList(category_no));
+			 
+			 model.addAttribute("faqList",faqService.faqList(category_no,cri));
+			 total = faqService.getTotal(category_no);
+			 
 		 }
 		 model.addAttribute("category",categoryService.getCategoryList("faq"));
 		
-		 
+		PageDTO page = new PageDTO(cri, total);
+			
+		model.addAttribute("page",page);
 	 }
 
 	

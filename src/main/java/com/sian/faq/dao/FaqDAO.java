@@ -2,14 +2,22 @@ package com.sian.faq.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.sian.common.page.Criteria;
 import com.sian.faq.dto.FaqDTO;
 
 public interface FaqDAO {
 	public int faqRegister(FaqDTO faqDTO);
 	
-	public List<FaqDTO> faqList();
+	public int getTotal();
 	
-	public List<FaqDTO> selectFaqList(int catrgory_no);
+	public int getCategoryTotal(int category_no);
+	
+	public List<FaqDTO> faqList(Criteria cri);	
+	
+	public List<FaqDTO> selectFaqList(@Param("category_no")int catrgory_no,
+			@Param("pageNum") int pageNum,@Param("amount") int amount);
 	
 	public FaqDTO getFaq(int faq_no);
 	

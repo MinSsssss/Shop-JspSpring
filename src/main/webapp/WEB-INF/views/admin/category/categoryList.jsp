@@ -28,18 +28,18 @@
 					cellspacing="0">
 					<thead>
 						<tr>
-							<th>카테고리번호</th>
+							<th>번호</th>
 							<th>카테고리이름</th>
 
 						</tr>
 					</thead>
 
 					<tbody>
-						<c:forEach items="${categoryList }" var="category">
+						<c:forEach items="${categoryList }" var="category" varStatus="status">
 							<tr>
 								<td class="align-middle"><a id="categoryMove"
 									href='/admin/category/categoryRead?category_no=${category.category_no}'>
-										${category.category_no}</a></td>
+										${status.count }</a></td>
 
 								<td class="align-middle">${category.category_name }</td>
 							</tr>
