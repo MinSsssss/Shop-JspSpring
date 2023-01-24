@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sian.product.dao.ProductDAO">
+	<sql id="criteria">
+		<if test="keyword!=null">
+			product_name like '%' || #{keyword} || '%' AND
+		</if>
+	</sql>
+
+
  	<insert id="insert">
  		<selectKey keyProperty="product_no" resultType="int" order="BEFORE">
 			select seq_tbl_product_no.nextval from dual 
@@ -23,6 +30,9 @@
 	
 	<select id="getTotal" resultType="int">
 		SELECT COUNT(*) from tbl_product
+		WHERE 
+		<include refid="criteria"></include>
+		product_no > 0
 	</select>
 	<select id="getCategoryTotal" resultType="int">
 		SELECT COUNT(*) from tbl_product
@@ -30,23 +40,34 @@
 	</select>
 	<select id="getListPaging" resultType="com.sian.product.dto.ProductDTO">
 		<![CDATA[
-			SELECT product_no,product_name,
-			product_price,product_hit,product_regdate,product_updatedate,product_thumb_img 
-			FROM(
-			SELECT /*+ INDEX_DESC(pro pk_product) */
-			ROWNUM AS rn,product_no,product_name,
-			product_price,product_hit,product_regdate,product_updatedate,product_thumb_img
-			FROM tbl_product WHERE ROWNUM <= #{pageNum} * #{amount}) pro
-			WHERE rn > (#{pageNum}-1) * #{amount}
+			SELECT product_no,category_no,category_name,
+	 		product_name,product_price,product_hit,product_regdate,
+	 		product_updatedate,product_thumb_img
+	 		FROM 
+	 		(SELECT /*+ INDEX_DESC(pro pk_product) */
+	 		ROWNUM AS rn, pro.product_no,cate.category_no,cate.category_name,
+	 		pro.product_name,pro.product_price,pro.product_hit,pro.product_regdate,
+	 		pro.product_updatedate,pro.product_thumb_img
+	 		FROM tbl_product pro,tbl_category cate
+	 		WHERE 
+	 		]]>
+	 		<include refid="criteria"></include>
+	 		
+	 	<![CDATA[
+	 		ROWNUM <= #{pageNum} * #{amount} 
+	 		AND pro.category_no = cate.category_no 
+	 		) pro
+	 		WHERE rn > (#{pageNum}-1) * #{amount}
+	 		
 			
 		]]>
 	</select>
 	
 	<select id="selectProductList" resultType="com.sian.product.dto.ProductDTO">
 		<![CDATA[
-			SELECT pro.product_no,cate.category_no,cate.category_name,
-	 		pro.product_name,pro.product_price,pro.product_hit,pro.product_regdate,
-	 		pro.product_updatedate,pro.product_thumb_img
+			SELECT product_no,category_no,category_name,
+	 		product_name,product_price,product_hit,product_regdate,
+	 		product_updatedate,product_thumb_img
 	 		FROM 
 	 		(SELECT /*+ INDEX_DESC(pro pk_product) */
 	 		ROWNUM AS rn, pro.product_no,cate.category_no,cate.category_name,
@@ -54,12 +75,11 @@
 	 		pro.product_updatedate,pro.product_thumb_img
 	 		
 	 		FROM tbl_product pro,tbl_category cate
-	 		WHERE ROWNUM <= #{pageNum} * #{amount}
-	 		AND pro.category_no = cate.category_no
+	 		WHERE pro.category_no = cate.category_no 
 	 		AND pro.category_no = #{category_no}
-	 		) pro, tbl_category cate
+	 		AND ROWNUM <= #{pageNum} * #{amount} 
+			) pro
 	 		WHERE rn > (#{pageNum}-1) * #{amount}
-			AND pro.category_no = cate.category_no
 			AND pro.category_no = #{category_no}
 		]]>
 	</select>

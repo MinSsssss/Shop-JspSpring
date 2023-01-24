@@ -61,10 +61,24 @@ public class WishController {
 		try {
 			return wishService.wishListInsert(wishListDTO);
 		} catch (DataIntegrityViolationException e) {
+			wishService.wishDelete(wishListDTO);
+			return 0;
+		}
+	}
+	
+	@ResponseBody
+	@PostMapping("/wishChk")
+	public int wishChk(@RequestBody WishDTO wishListDTO, Authentication authentication) {
+		try {
+			wishListDTO.setMem_id(memberService.getId(authentication));
+			
+			return wishService.wishChk(wishListDTO);
+		} catch (DataIntegrityViolationException e) {
 			
 			return 0;
 		}
 	}
+	
 	@ResponseBody
 	@PostMapping("/wishDelete")
 	public int wishDelete(@RequestBody WishDTO wishListDTO,

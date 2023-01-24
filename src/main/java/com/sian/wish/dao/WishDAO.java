@@ -10,6 +10,8 @@ public interface WishDAO {
 	public List<WishDTO> wishList(String mem_id);
 	
 	public int wishDelete(WishDTO wishDTO);
+	
+	public int wishChk(WishDTO wishDTO);
 //	
 //	
 //

@@ -11,7 +11,7 @@ public interface ProductService {
 	
 	public List<ProductDTO> memberProductList(int category_no);
 	
-	public int getTotal();
+	public int getTotal(Criteria cri);
 	
 	public int getTotal(int category_no);
 	

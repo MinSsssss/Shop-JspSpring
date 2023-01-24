@@ -23,37 +23,38 @@
  	
  	<select id="faqList" resultType="com.sian.faq.dto.FaqDTO">
  		<![CDATA[
- 		SELECT faq.faq_no,cate.category_no,cate.category_name,
- 		faq.faq_title,faq.faq_content,faq.faq_hit
+
+ 		SELECT faq_no,category_no,category_name,
+ 		faq_title,faq_content,faq_hit
  		FROM 
  		(SELECT /*+ INDEX_DESC(faq pk_faq) */
  		ROWNUM AS rn, faq.faq_no,cate.category_no,cate.category_name,
  		faq.faq_title,faq.faq_content,faq.faq_hit
+ 		
  		FROM tbl_faq faq,tbl_category cate
- 		WHERE ROWNUM <= #{pageNum} * #{amount}
- 		AND faq.category_no = cate.category_no
- 		) faq, tbl_category cate
+ 		WHERE faq.category_no = cate.category_no 
+ 		AND ROWNUM <= #{pageNum} * #{amount}
+ 		) faq
  		WHERE rn > (#{pageNum}-1) * #{amount}
-		AND faq.category_no = cate.category_no
  		]]>
  	</select>
  	
  	<select id="selectFaqList" resultType="com.sian.faq.dto.FaqDTO">
  		<![CDATA[
- 		SELECT faq.faq_no,cate.category_no,cate.category_name,
- 		faq.faq_title,faq.faq_content,faq.faq_hit
+ 		SELECT faq_no,category_no,category_name,
+ 		faq_title,faq_content,faq_hit
  		FROM 
  		(SELECT /*+ INDEX_DESC(faq pk_faq) */
  		ROWNUM AS rn, faq.faq_no,cate.category_no,cate.category_name,
  		faq.faq_title,faq.faq_content,faq.faq_hit
+ 		
  		FROM tbl_faq faq,tbl_category cate
  		WHERE ROWNUM <= #{pageNum} * #{amount}
  		AND faq.category_no = cate.category_no
- 		AND faq.category_no = #{category_no}
- 		) faq, tbl_category cate
+ 		AND faq.category_no = ${category_no}
+ 		) faq
  		WHERE rn > (#{pageNum}-1) * #{amount}
-		AND faq.category_no = cate.category_no
-		AND faq.category_no = #{category_no}
+		AND category_no = ${category_no}
  		]]>
  	</select>
  	

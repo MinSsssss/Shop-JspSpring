@@ -19,35 +19,35 @@ import lombok.Setter;
 public class ReviewServiceImpl implements ReviewService{
 	
 	
-	private final ReviewDAO reviewMapper;
+	private final ReviewDAO reviewDAO;
 	
 	@Override
 	public void reviewRegister(ReviewDTO reviewDTO) {
-		reviewMapper.reviewRegister(reviewDTO);
+		reviewDAO.reviewRegister(reviewDTO);
 		
 	}
 
 	@Override
 	public List<ReviewDTO> reviewList(String mem_id) {
 		
-		return reviewMapper.reviewList(mem_id);
+		return reviewDAO.reviewList(mem_id);
 	}
 
 	@Override
 	public int findReview(Long order_detail_no) {
 		
-		return reviewMapper.findReview(order_detail_no);
+		return reviewDAO.findReview(order_detail_no);
 	}
 
 	@Override
 	public ReviewDTO getReview(ReviewDTO reviewDTO) {
 		
-		return reviewMapper.getReview(reviewDTO);
+		return reviewDAO.getReview(reviewDTO);
 	}
 
 	@Override
 	public boolean reviewModify(ReviewDTO reviewDTO) {
-		if(reviewMapper.reviewModify(reviewDTO)==0) {
+		if(reviewDAO.reviewModify(reviewDTO)==0) {
 			return false;
 		}
 		return true;
@@ -56,7 +56,7 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public boolean reviewDelete(Long review_no) {
-		if(reviewMapper.reviewDelete(review_no)==0) {
+		if(reviewDAO.reviewDelete(review_no)==0) {
 			return false;
 		}
 		return true;
@@ -65,7 +65,19 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public List<ReviewDTO> getReviewList(int product_no) {
 		
-		return reviewMapper.getReviewList(product_no);
+		return reviewDAO.getReviewList(product_no);
+	}
+
+	@Override
+	public int reviewCount(int product_no) {
+		
+		return reviewDAO.reviewCount(product_no);
+	}
+
+	@Override
+	public double reviewAvg(int product_no) {
+		
+		return reviewDAO.reviewAvg(product_no);
 	}
 
 }

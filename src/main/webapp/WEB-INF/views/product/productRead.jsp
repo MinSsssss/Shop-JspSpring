@@ -66,13 +66,35 @@
 						<div class="col-md-6">
 							<div class="modal-product-info shop-details-info pl-0">
 								<div class="product-ratting">
+								
+								<c:set var="avg" value="${product.reviewAvg}"></c:set>
+									
+								
+									<fmt:parseNumber var="avg2" integerOnly="true" value="${avg}"/>
+									
 									<ul>
-										<li><a href="#"><i class="fas fa-star"></i></a></li>
-										<li><a href="#"><i class="fas fa-star"></i></a></li>
-										<li><a href="#"><i class="fas fa-star"></i></a></li>
-										<li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-										<li><a href="#"><i class="far fa-star"></i></a></li>
-										<li class="review-total"><a href="#"> ( 95 Reviews )</a></li>
+										<c:forEach var="star" begin="0" end="4" varStatus="status">		
+											<c:choose>
+												<c:when test="${avg2 ge status.count}">
+													<li><a><i class="fas fa-star"></i></a></li>
+												</c:when>
+												
+												<c:when test="${avg-status.index lt 1 && avg-status.index gt 0}">
+													<li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
+												</c:when>
+												
+												<c:otherwise>
+													<li><a><i class="far fa-star"></i></a></li>
+												</c:otherwise>
+											</c:choose>
+											
+										</c:forEach>
+										<li class="review-total">
+										<a>
+										 <c:if test="${empty product.reviewCount}">( 0 )</c:if>
+										 <c:if test="${not empty product.reviewCount }">( ${product.reviewCount} )</c:if>
+										 </a>
+										 </li>
 									</ul>
 								</div>
 
@@ -114,14 +136,14 @@
 									<ul>
 										<li><a href="#" class="" id="wishListBtn" title="Wishlist">
 											 <!-- data-toggle="modal" data-target="#liton_wishlist_modal" -->
-												<i class="far fa-heart"></i> <span>찜 하기</span>
-												
+												<i id="wishHeart" class="far fa-heart" style="color:red;"></i> <span>찜 하기</span>
+												<input type="hidden" id="product_no" value="${product.product_no}">
 										</a></li>
-
+										
 									</ul>
 								</div>
 								<hr>
-
+								
 
 							</div>
 						</div>
@@ -161,6 +183,7 @@
 									<ul>
 										<li><a href="#"><i class="far fa-star">avg/10</i></a></li>
 										<li class="review-total"><a href="#"> ( 95 Reviews )</a></li>
+										
 									</ul>
 								</div>
 								<hr>
@@ -168,7 +191,7 @@
 								<div class="ltn__comment-area mb-30">
 									<div class="ltn__comment-inner">
 										<ul>
-											<c:forEach items="${reviewList }" var="review">
+											<c:forEach items="${product.reviewList}" var="review">
 												<li>
 													<div class="ltn__comment-item clearfix">
 														
@@ -176,12 +199,23 @@
 															<div>
 																<h6>
 																	<a href="#">${review.review_title }</a>
-																	<small>작성자 : 1234</small>
+																	<small>작성자 : ${review.mem_id }</small>
 																</h6>
-																
 															
 															</div>
-															<a href="#"><i class="far fa-star">${review.review_star }</i></a>
+															
+															<div class="product-ratting">
+																<ul>
+																	<c:forEach var="star" begin="1" end="${review.review_star}">
+																		<li><a><i class="fas fa-star" style=""></i></a></li>
+																	</c:forEach>
+																	<c:forEach var="star" begin="1" end="${5-review.review_star}">
+																		<li><a><i class="far fa-star"></i></a></li>
+																	</c:forEach>
+																	
+																</ul>
+															</div>
+															
 															<p>${review.review_content }</p>
 															
 															<span class="ltn__comment-reply-btn"><fmt:formatDate pattern="yyyy.MM.dd" value="${review.review_date}" /></span>
@@ -257,7 +291,48 @@
 		</div>
 	</div>
 </div>
+<!-- MODAL AREA START (Wishlist Modal) -->
 
+	<div class="ltn__modal-area ltn__add-to-cart-modal-area">
+		<div class="modal fade" id="liton_wishlist_modal" tabindex="-1">
+			<div class="modal-dialog modal-md" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="ltn__quick-view-modal-inner">
+							<div class="modal-product-item">
+								<div class="row">
+									<div class="col-12">
+										<div class="modal-product-img">
+											<img src="/resources/member/img/product/7.png" alt="#">
+										</div>
+										<div class="modal-product-info">
+											<h5>찜하기</h5>
+											<p class="added-cart">
+												<i class="fa fa-check-circle"></i> 찜하기 완료
+											</p>
+											<div class="btn-wrapper">
+												<a href="/wish/wishListView" class="theme-btn-1 btn btn-effect-1">찜
+													목록으로 이동</a>
+											</div>
+										</div>
+									
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- MODAL AREA END -->
 
 
 

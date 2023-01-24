@@ -77,11 +77,15 @@
 										</td>
 										
 
-										<td class="cart-product-image"><a
-											href="product-details.html"><img
-												src="/display?fileName=${cart.product_s_thumb_img}" alt="#"></a></td>
-										<td class="cart-product-info"><a
-											href="product-details.html">${cart.product_name }</a></td>
+										<td class="cart-product-image">
+											<a href="/product/productRead?product_no=${cart.product_no}">
+											<img src="/display?fileName=${cart.product_thumb_img}" alt="#"></a>
+										</td>
+										
+										<td class="cart-product-info">
+											<a href="/product/productRead?product_no=${cart.product_no}">${cart.product_name }</a>
+										</td>
+										
 										<td class="cart-product-price">${cart.product_price }</td>
 										<td class="cart-product-quantity">
 										

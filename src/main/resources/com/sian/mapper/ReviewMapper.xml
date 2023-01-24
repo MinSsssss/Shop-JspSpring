@@ -57,7 +57,7 @@
 	
 	
 	<select id="getReviewList" resultType="com.sian.review.dto.ReviewDTO">
-SELECT re.review_no, re.review_star,
+		SELECT re.review_no, re.review_star,
 		re.review_title, re.review_content, re.review_date,
 		pro.product_thumb_img,pro.product_thumb_img, pro.product_name, re.mem_id
 	
@@ -66,5 +66,19 @@ SELECT re.review_no, re.review_star,
 		WHERE re.order_detail_no = od.order_detail_no
 		AND od.product_no = pro.product_no
 		AND pro.product_no = #{product_no}	
+	</select>
+	
+	<select id="reviewCount" resultType="int">
+		SELECT COUNT(*)
+		FROM tbl_review re, tbl_order_detail od
+		WHERE re.order_detail_no = od.order_detail_no
+		AND od.product_no = #{product_no}
+	</select>
+	
+	<select id="reviewAvg" resultType="double">
+		SELECT AVG(review_star)
+		FROM tbl_review re, tbl_order_detail od
+		WHERE re.order_detail_no = od.order_detail_no
+		AND od.product_no= #{product_no}
 	</select>
 </mapper>

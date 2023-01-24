@@ -87,7 +87,7 @@
 
 														<td class="cart-product-image">
 															<a href="/product/productRead?product_no=${wish.product_no}">
-																<img src="/display?fileName=${wish.product_s_thumb_img}" alt="#">
+																<img src="/display?fileName=${wish.product_thumb_img}" alt="#">
 															</a>
 														</td>
 														<td class="cart-product-info">

@@ -11,4 +11,6 @@ public interface WishService {
 	public List<WishDTO> wishList(String mem_id);
 	
 	public int wishDelete(WishDTO wishListDTO);
+	
+	public int wishChk(WishDTO wishDTO);
 }

@@ -27,18 +27,19 @@
 	
 	<select id="getQnaList" resultType="com.sian.qna.dto.QnaDTO">
 	<![CDATA[
-		SELECT qna_no,qna_title,cate.category_name,
+		SELECT qna_no,qna_title,category_no,category_name,
 		qna_status,qna_date,qna_writer,mem_id 
-		FROM(
-			SELECT  /*+ INDEX_DESC(qna pk_qna) */ 
-			 ROWNUM AS rn,qna_no,qna_title,qna.category_no,cate.category_name,
-			qna_status,qna_date,qna_writer,mem_id
-			FROM tbl_qna qna,tbl_category cate 
-			WHERE ROWNUM <= #{pageNum} * #{amount}  
-			AND qna.category_no = cate.category_no) qna,tbl_category cate
+		FROM
+		(SELECT  /*+ INDEX_DESC(qna pk_qna) */ 
+		ROWNUM AS rn,qna_no,qna_title,qna.category_no,cate.category_name,
+		qna_status,qna_date,qna_writer,mem_id
+		FROM tbl_qna qna,tbl_category cate 
+		WHERE ROWNUM <= #{pageNum} * #{amount}  
+		AND qna.category_no = cate.category_no
+		) qna
 
 		WHERE rn > (#{pageNum}-1) * #{amount}
-		AND qna.category_no = cate.category_no
+		
 		
 		]]>
 	

@@ -13,7 +13,7 @@ public interface ProductDAO {
 	
 	public List<ProductDTO> getList();
 
-	public int getTotal();
+	public int getTotal(Criteria cri);
 	
 	public int getCategoryTotal(int category_no);
 	

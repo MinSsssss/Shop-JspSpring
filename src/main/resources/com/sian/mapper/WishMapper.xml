@@ -18,5 +18,10 @@
 		WHERE product_no=#{product_no} AND mem_id=#{mem_id}
 	</delete>
 	
-	
+	<select id="wishChk" resultType="int">
+		SELECT COUNT(*)
+		FROM tbl_wishlist
+		WHERE mem_id=#{mem_id}
+		AND product_no = #{product_no}
+	</select>
 </mapper>

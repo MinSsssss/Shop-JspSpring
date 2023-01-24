@@ -25,6 +25,13 @@ let moveForm = $("#moveForm");
 			moveForm.attr("action", "/admin/qna/qnaList");
 
 		}
+		if (pageId == "faqList") {
+			let category_no = $.urlParam('category_no');
+			let categoryInput = '<input type="hidden" name="category_no" value="'+category_no+'">'
+			moveForm.append(categoryInput);
+			moveForm.attr("action", "/faq/faqList");
+
+		}
 		moveForm.submit();
 
 
@@ -33,4 +40,20 @@ let moveForm = $("#moveForm");
 
 	
 });
+$.urlParam = function(name) {
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null) {
+        return null;
+    } else {
+        return results[1] || 0;
+    }
+}
+
+function fnMoveCategory(category_no){
+		
+		let moveCategoryForm = $("#moveCategoryForm");
+		let categoryInput = '<input type="hidden" name="category_no" value="'+category_no+'">'
+		moveCategoryForm.append(categoryInput);
+		moveCategoryForm.submit();
+}
 

@@ -52,12 +52,20 @@
 
 					<div class="categoryNav">
 						<span><a href="/faq/faqList?category_no=0">전체</a></span>
-						<c:forEach items="${category}" var="cate">
-							<span> <a
-								href="/faq/faqList?category_no=${cate.category_no}">
-									${cate.category_name} </a>
-							</span>
-						</c:forEach>
+						<c:forEach items="${category}" var="cate" varStatus="status">
+                        	<span class="moveCategory">
+                        		<a href="#" onclick="fnMoveCategory(${cate.category_no})">
+                        			${cate.category_name}
+                        		</a>
+                        	</span> 
+                        			
+                        </c:forEach>
+                        
+                    	<form id="moveCategoryForm" method="get" action="/faq/faqList">
+							<input type="hidden" name="pageNum" value="1">
+							<input type="hidden" name="amount" value="${page.cri.amount}">
+						
+						</form>
 					</div>
 					<div id="accordion_2">
 						<!-- card -->
@@ -73,7 +81,8 @@
 								</div>
 							</div>
 						</c:forEach>
-						
+						<jsp:include page="/WEB-INF/views/includes/pageInclude.jsp"></jsp:include>
+						<input type="hidden" id="pageId" value="faqList">
 						<!-- card -->
 
 					</div>
@@ -105,3 +114,4 @@
 <jsp:include page="/WEB-INF/views/includes/memberFooter.jsp"></jsp:include>
 
 <script src="/resources/member/js/csCenter.js"></script>
+<script src="/resources/member/js/paging.js"></script>

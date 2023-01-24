@@ -4,55 +4,33 @@ WHERE mem_id = 'cda01';
 insert into tbl_member_auth(mem_id,auth)
 values('cda010','ROLE_ADMIN');
 
-SELECT qna_no,qna_title,cate.category_name,
-		qna_status,qna_date,qna_writer,mem_id 
-		FROM(
-			SELECT  /*+ INDEX_DESC(tbl_qna pk_qna) */ 
-			 ROWNUM AS rn,qna_no,qna_title,qna.category_no,cate.category_name,
-			qna_status,qna_date,qna_writer,mem_id
-			FROM tbl_qna qna,tbl_category cate 
-			WHERE ROWNUM <= 1 * 4  
-			AND qna.category_no = cate.category_no) qna,tbl_category cate
 
-		WHERE rn > 0 * 4
-		AND qna.category_no = cate.category_no;
-commit;
-
-SELECT faq.faq_no,cate.category_no,cate.category_name,
- 		faq.faq_title,faq.faq_content,faq.faq_hit
- 		FROM 
- 		(SELECT /*+ INDEX_DESC(faq faq_no) */
- 		ROWNUM AS rn, faq.faq_no,cate.category_no,cate.category_name,
- 		faq.faq_title,faq.faq_content,faq.faq_hit
-        FROM tbl_faq faq,tbl_category cate
- 		WHERE ROWNUM <= 1 * 5
- 		AND faq.category_no = cate.category_no
- 		AND faq.category_no = 123
- 		) faq, tbl_category cate
- 		WHERE rn > 0 * 5
-		AND faq.category_no = cate.category_no
-		AND faq.category_no = 123;
+SELECT product_no,category_no,category_name,
+	 		product_name,product_price,product_hit,product_regdate,
+	 		product_updatedate,product_thumb_img
+	 		FROM 
+	 		(SELECT /*+ INDEX_DESC(pro pk_product) */
+	 		ROWNUM AS rn, pro.product_no,cate.category_no,cate.category_name,
+	 		pro.product_name,pro.product_price,pro.product_hit,pro.product_regdate,
+	 		pro.product_updatedate,pro.product_thumb_img
+	 		FROM tbl_product pro,tbl_category cate
+	 		WHERE 
+	 		
+	 		product_name like '%' || 1 || '%' AND
+	 		
+	 	
+	 		ROWNUM <= 1* 5
+	 		AND pro.category_no = cate.category_no 
+	 		) pro
+	 		WHERE rn > 0 * 5;
+SELECT COUNT(*) from tbl_product
+		WHERE 
+		product_name like '%' || 1 || '%' AND
+		product_no > 0;
 
 
 
-DELETE FROM tbl_cart   
-WHERE product_no=(SELECT product_no FROM tbl_product WHERE product_name='고고고고');
---create SEQUENCE seq_tbl_member;
 
-SELECT qna_no,qna_title,cate.category_name,
-		qna_status,qna_date,qna_writer,mem_id 
-		FROM(
-			SELECT  /*+ INDEX_DESC(tbl_qna pk_qna) */ 
-			 ROWNUM AS rn,qna_no,qna_title,qna.category_no,cate.category_name,
-			qna_status,qna_date,qna_writer,mem_id
-			FROM tbl_qna qna,tbl_category cate 
-			WHERE ROWNUM <= 3 * 4  
-			AND qna.category_no = cate.category_no
-            AND mem_id='cda03') qna,tbl_category cate
-			
-		WHERE rn > (2) * 4
-		AND qna.category_no = cate.category_no
-		AND mem_id='cda03';
 
 
 
@@ -78,6 +56,10 @@ update tbl_order
 set order_status = '배송 완료'
 where order_no = 45;
 commit;
+SELECT AVG(review_star)
+FROM tbl_review re, tbl_order_detail od
+WHERE re.order_detail_no = od.order_detail_no
+AND od.product_no= 143;
 
 SELECT ord.order_no,ord.mem_id, pay.pay_amount as total_price,
 		ord.order_status
@@ -125,13 +107,11 @@ ALTER TABLE tbl_product_images ADD CONSTRAINT fk_product_attach foreign key(prod
 REFERENCES tbl_product(product_no);
 
 SELECT *
-
 FROM USER_CONSTRAINTS
-
 WHERE TABLE_NAME = 'TBL_PRODUCT';
 
 CREATE TABLE tbl_product (
-	product_no	number primary key,
+	product_no	number,
 	category_no	number,
 	product_name	varchar2(100)	UNIQUE NOT NULL,
 	product_price	number(6)		NOT NULL,
@@ -146,9 +126,11 @@ CREATE TABLE tbl_product (
 );
 commit;
 
-SELECT pro.product_no,cate.category_no,cate.category_name,
-	 		pro.product_name,pro.product_price,pro.product_hit,pro.product_regdate,
-	 		pro.product_updatedate,pro.product_thumb_img
+
+            SELECT 
+            product_no,category_no,category_name,
+	 		product_name,product_price,product_hit,product_regdate,
+	 		product_updatedate,product_thumb_img
 	 		FROM 
 	 		(SELECT /*+ INDEX_DESC(pro pk_product) */
 	 		ROWNUM AS rn, pro.product_no,cate.category_no,cate.category_name,
@@ -158,11 +140,25 @@ SELECT pro.product_no,cate.category_no,cate.category_name,
 	 		FROM tbl_product pro,tbl_category cate
 	 		WHERE ROWNUM <= 1 * 5
 	 		AND pro.category_no = cate.category_no
-            AND pro.category_no = 104
-	 		) pro, tbl_category cate
-	 		WHERE rn > 0 * 5
-			AND pro.category_no = cate.category_no
-			AND pro.category_no = 104;
+	 		) pro
+	 		WHERE rn > 0 * 5;
+            
+        SELECT product_no,category_no,category_name,
+	 		product_name,product_price,product_hit,product_regdate,
+	 		product_updatedate,product_thumb_img
+ 		FROM 
+ 		(SELECT /*+ INDEX_DESC(pro pk_product) */
+ 		ROWNUM AS rn,  pro.product_no,cate.category_no,cate.category_name,
+	 		pro.product_name,pro.product_price,pro.product_hit,pro.product_regdate,
+	 		pro.product_updatedate,pro.product_thumb_img
+ 		
+ 		FROM tbl_product pro,tbl_category cate
+ 		WHERE ROWNUM <= 1 * 5
+ 		AND pro.category_no = cate.category_no
+ 		) pro
+ 		WHERE rn > 0 * 5;
+        
+
 --배송완료 전에는 회원탈퇴 불가능
 CREATE TABLE tbl_order (
 	order_no varchar2(18) primary key,
@@ -290,6 +286,9 @@ CREATE TABLE tbl_qna (
     CONSTRAINT pk_qna PRIMARY KEY(qna_no)
 );
 commit;
+insert into tbl_qna(qna_no,category_no,qna_title,qna_pwd,qna_writer,qna_tel,qna_content)
+values(seq_qna_no.nextval,25,'몰로로로',1234,'g','1234','22');
+
 
 CREATE TABLE tbl_faq (
 	faq_no	number,
@@ -299,8 +298,9 @@ CREATE TABLE tbl_faq (
 	faq_hit	number DEFAULT 0 	NOT NULL,
     CONSTRAINT pk_faq PRIMARY KEY(faq_no)
 );
+commit;
 insert into tbl_faq(faq_no,category_no,faq_title,faq_content)
-VALUES(seq_faq.nextval,123,'1','2234');
+VALUES(seq_faq.nextval,21,'2-1','2234');
 CREATE SEQUENCE seq_faq;
 commit;
 CREATE TABLE tbl_notice (
@@ -330,11 +330,9 @@ CREATE TABLE tbl_qna_comment (
 
 drop table tbl_courier;
 drop table tbl_product_images;
-drop table tbl_qna_comment;
 drop table tbl_qna;
 drop table tbl_notice;
 drop table tbl_faq;
-drop table tbl_review_comment;
 drop table tbl_review;
 drop table tbl_payment;
 drop table tbl_order_detail;

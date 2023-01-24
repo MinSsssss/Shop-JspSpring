@@ -19,24 +19,29 @@ import lombok.Setter;
 @Service
 public class WishServiceImpl implements WishService {
 	
-	private final WishDAO wishListMapper;
+	private final WishDAO wishDAO;
 	
 	
 	@Override
 	public int wishListInsert(WishDTO wishListDTO) {
 		
-		return wishListMapper.insert(wishListDTO);
+		return wishDAO.insert(wishListDTO);
 	}
 	@Override
 	public List<WishDTO> wishList(String mem_id) {
 		
-		return wishListMapper.wishList(mem_id);
+		return wishDAO.wishList(mem_id);
 	}
 	@Override
 	public int wishDelete(WishDTO wishListDTO) {
 		
 		
-		return wishListMapper.wishDelete(wishListDTO);
+		return wishDAO.wishDelete(wishListDTO);
 		
+	}
+	@Override
+	public int wishChk(WishDTO wishDTO) {
+		
+		return wishDAO.wishChk(wishDTO);
 	}
 }

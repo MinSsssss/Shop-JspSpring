@@ -36,6 +36,7 @@ public class FaqController {
 		 if(category_no==0) {
 			 model.addAttribute("faqList",faqService.faqList(cri));
 			 total = faqService.getTotal();
+			 
 		 }
 		 else {
 			 

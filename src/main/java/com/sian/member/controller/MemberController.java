@@ -19,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sian.category.dto.CategoryDTO;
 import com.sian.category.service.CategoryService;
+import com.sian.common.page.Criteria;
+import com.sian.common.page.PageDTO;
 import com.sian.member.dto.MemberDTO;
 import com.sian.member.service.MemberService;
 import com.sian.product.dto.ProductDTO;
@@ -38,14 +40,13 @@ public class MemberController {
 	 * ALL
 	 */
 	@GetMapping("/")
-	public String memberIndex(Model model)  {
+	public String memberIndex(Model model,Criteria cri)  {
 		List<CategoryDTO> categoryList = categoryService.getCategoryList("product");
 		
 		int category_no = 0;
 		CategoryDTO category = null;
 		List<ProductDTO> productList = null;
-	
-		System.out.println(productList);
+
 		for(int i=0; i< categoryList.size(); i++) {
 			
 			category = categoryList.get(i);
@@ -57,9 +58,8 @@ public class MemberController {
 			category.setProductList(productList);
 		}
 		
+
 		model.addAttribute("categoryList", categoryList);
-		
-		
 		return "/index";
 	}
 	

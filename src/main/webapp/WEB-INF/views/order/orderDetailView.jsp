@@ -73,7 +73,7 @@
 														<a
 															href='/product/productRead?product_no=${orderDetailList.product_no}'>
 															<img class="product_img"
-															src="/display?fileName=${orderDetailList.product_s_thumb_img}"
+															src="/display?fileName=${orderDetailList.product_thumb_img}"
 															alt="">
 														</a>
 														<div class="productInfo">

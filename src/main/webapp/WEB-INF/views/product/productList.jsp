@@ -42,21 +42,26 @@
 			<div class="col-lg-12">
 				<div class="section-title-area text-center">
 					<h1 class="section-title ">
-						<c:out value="${category.category_name }" />
-						
+						<c:if test="${empty category}">
+							검색결과
+						</c:if>
+						${category.category_name }	
 					</h1>
-					
+					<p>${searchNull}</p>
 				</div>
 
 			</div>
 		</div>
 		<!-- Portfolio Wrapper Start -->
 		<!-- (ltn__gallery-info-hide) Class for 'ltn__gallery-item-info' not showing -->
+		
+		
 		<div
 			class="ltn__gallery-active row ltn__gallery-style-2 ltn__gallery-info-hide---">
 			<div class="ltn__gallery-sizer col-1"></div>
-
+			
 			<!-- gallery-item -->
+			
 			<c:forEach items="${productList }" var="product">
 				<div
 					class="ltn__gallery-item filter_category_3 col-lg-3 col-md-4 col-sm-6 col-12">

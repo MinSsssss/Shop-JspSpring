@@ -18,4 +18,8 @@ public interface ReviewDAO {
 	public int reviewDelete(Long review_no);
 	
 	public List<ReviewDTO> getReviewList(int product_no);
+	
+	public int reviewCount(int product_no);
+	
+	public double reviewAvg(int product_no);
 }

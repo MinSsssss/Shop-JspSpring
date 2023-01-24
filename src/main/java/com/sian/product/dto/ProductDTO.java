@@ -3,6 +3,8 @@ package com.sian.product.dto;
 import java.util.Date;
 import java.util.List;
 
+import com.sian.review.dto.ReviewDTO;
+
 import lombok.Data;
 
 @Data
@@ -35,5 +37,12 @@ public class ProductDTO {
 	private List<String> product_imgs;
 	
 	private List<String> origin_imgs;
+
+	private List<ReviewDTO> reviewList;
+	
+	private double reviewAvg;
+	
+	private int reviewCount;
 	
 }
+

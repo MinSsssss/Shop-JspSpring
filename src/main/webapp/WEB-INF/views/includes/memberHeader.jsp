@@ -156,12 +156,18 @@
                                     </div>
                                 </div>
                                 <div class="header-search-1-form">
-                                    <form id="#" method="get"  action="#">
-                                        <input type="text" name="search" value="" placeholder="Search here..."/>
+                                    <form action="/product/productList" id="searchForm" method="get">
+                                      
+                                         <input type="text" name="keyword" placeholder="Search...">
+					                    <!-- <input type="hidden" name="type" value="TC">
+					                   	<input type="hidden" name="pageNum" value="1">
+					                   	<input type="hidden" name="amount" value="5"> -->
+					                   	<input type="hidden" name="category_no" value="0">
                                         <button type="submit">
                                             <span><i class="icon-search"></i></span>
                                         </button>
                                     </form>
+                                    
                                 </div>
                             </div>
                             <!-- user-menu -->
@@ -224,8 +230,11 @@
                 <button class="ltn__utilize-close">×</button>
             </div>
             <div class="ltn__utilize-menu-search-form">
-                <form action="#">
-                    <input type="text" placeholder="Search...">
+                <form action="/product/productList" id="searchForm" method="get">
+                    <input type="text" name="keyword" placeholder="Search...">
+                    <input type="hidden" name="type" value="TC">
+                   	<input type="hidden" name="pageNum" value="1">
+                   	<input type="hidden" name="amount" value="5">
                     <button><i class="fas fa-search"></i></button>
                 </form>
             </div>

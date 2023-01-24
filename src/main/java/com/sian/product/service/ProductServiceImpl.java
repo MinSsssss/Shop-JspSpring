@@ -34,9 +34,9 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.memberProductList(category_no);
 	}
 	@Override
-	public int getTotal() {
+	public int getTotal(Criteria cri) {
 		
-		return productDAO.getTotal();
+		return productDAO.getTotal(cri);
 	}
 	@Override
 	public int getTotal(int category_no) {
@@ -70,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	@Override
 	public void productRegister(ProductDTO productDTO)  {
-		
+		int i=0;
 		productDAO.insert(productDTO);
 		
 		
@@ -81,6 +81,10 @@ public class ProductServiceImpl implements ProductService {
 			attach.setProduct_no(productDTO.getProduct_no());
 			productAttachDAO.insert(attach);
 		});
+		i++;
+		if(i==2) {
+			System.out.println("두번실행되나?"+i);
+		}
 		
 	}
 
