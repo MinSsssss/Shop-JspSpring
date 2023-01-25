@@ -48,14 +48,17 @@
 	 		ROWNUM AS rn, pro.product_no,cate.category_no,cate.category_name,
 	 		pro.product_name,pro.product_price,pro.product_hit,pro.product_regdate,
 	 		pro.product_updatedate,pro.product_thumb_img
-	 		FROM tbl_product pro,tbl_category cate
+	 		FROM tbl_product pro LEFT JOIN
+	 		tbl_category cate
+	 		ON pro.category_no = cate.category_no
 	 		WHERE 
 	 		]]>
 	 		<include refid="criteria"></include>
 	 		
 	 	<![CDATA[
 	 		ROWNUM <= #{pageNum} * #{amount} 
-	 		AND pro.category_no = cate.category_no 
+	 		
+	 		
 	 		) pro
 	 		WHERE rn > (#{pageNum}-1) * #{amount}
 	 		

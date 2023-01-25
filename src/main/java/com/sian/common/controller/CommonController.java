@@ -1,5 +1,7 @@
 package com.sian.common.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ public class CommonController {
 	@Setter (onMethod_ = @Autowired)
 	private MemberService memberService;
 	
+	
 
 	
 	@GetMapping("/accessError")
@@ -34,11 +37,15 @@ public class CommonController {
 	}
 
 	@GetMapping("/login")
-	public void loginInput(String error, String logout, Model model) {
+	public void loginInput(HttpServletRequest request,
+			String error, String logout, Model model) {
 
 		log.info("error: " + error);
 		log.info("logout: " + logout);
-
+		String referrer = request.getHeader("Referer");
+		request.getSession().setAttribute("prevPage", referrer);
+		
+		
 		if (error != null) {
 			model.addAttribute("error", "Login Error Check Your Account");
 		}

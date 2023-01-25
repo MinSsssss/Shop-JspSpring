@@ -3,6 +3,10 @@ package com.sian.product.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,14 +66,51 @@ public class ProductController {
 	}
 
 	@GetMapping({ "/product/productRead"})
-	public void productRead(@RequestParam("product_no") int product_no, Model model) {
+	public void productRead(@RequestParam("product_no") int product_no, Model model,
+			   HttpServletRequest request,
+               HttpServletResponse response) {
+		
+		Cookie oldCookie = null;
+	    Cookie[] cookies = request.getCookies();
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	            if (cookie.getName().equals("postView")) {
+	                oldCookie = cookie;
+	            }
+	        }
+	    }
+
+	    if (oldCookie != null) {
+	        if (!oldCookie.getValue().contains("[" + product_no + "]")) {
+	            productService.productReadCount(product_no);
+	            oldCookie.setValue(oldCookie.getValue() + "_[" + product_no + "]");
+	            oldCookie.setPath("/");
+	            oldCookie.setMaxAge(60 * 60 * 24);
+	            response.addCookie(oldCookie);
+	        }
+	    } else {
+	    	productService.productReadCount(product_no);
+	        Cookie newCookie = new Cookie("postView","[" + product_no + "]");
+	        newCookie.setPath("/");
+	        newCookie.setMaxAge(60 * 60 * 24);
+	        response.addCookie(newCookie);
+	    }
+		
+		
+		
 		ProductDTO product = productService.getProduct(product_no);
 		
 		String thumbImg = product.getProduct_thumb_img();
+		System.out.println(thumbImg);
 		String originImg = thumbImg.replace("s_","");
 		
 		List<String> images = productService.imgList(product_no);
 		List<String> originImages = productService.originImgList(product_no);
+		images.remove(images.indexOf(thumbImg));
+		images.add(0, thumbImg);
+		
+		originImages.remove(originImages.indexOf(originImg));
+		originImages.add(0, originImg);
 		
 		product.setProduct_thumb_img(originImg);
 
@@ -88,11 +129,6 @@ public class ProductController {
 		if(reviewList.size()!=0) {
 			
 			product.setReviewAvg((double)(total/reviewList.size()));
-			System.out.println("total : "+total);
-			System.out.println("review : "+reviewList.size());
-			System.out.println("avg : " + (double)total/reviewList.size());
-			System.out.println("avg : " + total/reviewList.size());
-			
 		}
 		
 		
@@ -100,7 +136,7 @@ public class ProductController {
 		 
 		model.addAttribute("category",categoryService.getCategoryList("product"));
 		
-		
+		 
 		
 		
 	}
@@ -137,10 +173,10 @@ public class ProductController {
 
 	@PostMapping("/admin/product/productRegisterProc")
 	public String productRegisterProc(ProductDTO productDTO) {
-
-		if (productDTO.getAttachList() != null) {
-			productDTO.getAttachList().forEach(attach -> System.out.println(attach));
-		}
+		
+//		if (productDTO.getAttachList() != null) {
+//			productDTO.getAttachList().forEach(attach -> System.out.println(attach));
+//		}
 
 		productService.productRegister(productDTO);
 
@@ -149,7 +185,7 @@ public class ProductController {
 
 	@PostMapping("/admin/product/productModifyProc")
 	public String productModifyProc(ProductDTO productDTO) {
-		
+		System.out.println(productDTO);
 		productService.productModify(productDTO);
 
 		return "redirect:/admin/product/productList?category_no=0";

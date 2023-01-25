@@ -155,25 +155,15 @@
 					<div class="ltn__shop-details-tab-menu">
 						<div class="nav">
 							<a class="active show" data-toggle="tab"
-								href="#liton_tab_details_1_1">Description</a> <a
-								data-toggle="tab" href="#liton_tab_details_1_2" class="">Reviews</a>
+								href="#liton_tab_details_1_1">상세설명</a> <a
+								data-toggle="tab" href="#liton_tab_details_1_2" class="">리뷰</a>
 						</div>
 					</div>
 					<div class="tab-content">
 						<div class="tab-pane fade active show" id="liton_tab_details_1_1">
 							<div class="ltn__shop-details-tab-content-inner">
 								<h4 class="title-2">Lorem ipsum dolor sit amet elit.</h4>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-									riatur. Excepteur sint occaecat
-									cupidatat non proident.</p>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-									sed do eiusmod tempor incididunt ut labore et dolore magna
-									quia consequuntur magni
-									dolores eos qui ratione voluptatem sequi nesciunt. Neque porro
-									quisquam est, qui dolorem ipsum quia dolor sit amet,
-									consectetur, adipisci velit, sed quia non numquam eius modi
-									tempora incidunt ut labore et dolore magnam aliquam quaerat
-									voluptatem.</p>
+								<p>상세설명~~~</p>
 							</div>
 						</div>
 						<div class="tab-pane fade" id="liton_tab_details_1_2">
@@ -259,7 +249,7 @@
 							<div class="row">
 								<div class="col-12">
 									<div class="modal-product-img">
-										<img src="/resources/member/img/product/1.png" alt="#">
+										<img src="/display?fileName=${product.product_thumb_img}" alt="Image">
 									</div>
 									<div class="modal-product-info">
 										<h5>장바구니</h5>
@@ -272,16 +262,7 @@
 												href="checkout.html" class="theme-btn-2 btn btn-effect-2">구매하기</a>
 										</div>
 									</div>
-									<!-- additional-info -->
-									<div class="additional-info d-none">
-										<p>
-											We want to give you <b>10% discount</b> for your first order,
-											<br> Use discount code at checkout
-										</p>
-										<div class="payment-method">
-											<img src="/resources/member/img/icons/payment.png" alt="#">
-										</div>
-									</div>
+									
 								</div>
 							</div>
 						</div>

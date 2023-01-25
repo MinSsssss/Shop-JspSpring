@@ -38,11 +38,7 @@
 										</c:forEach>
 								</select></td>
 							</tr>
-							<!-- <tr>
-								<td>상품번호</td>
-								<td><input type="text" name="product_no" id="product_no"
-									readonly="readonly" value="#"></td>
-							</tr> -->
+							
 							<tr>
 								<td>상품이름</td>
 								<td><input type="text" name="product_name"

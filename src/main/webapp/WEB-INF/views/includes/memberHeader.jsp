@@ -130,7 +130,7 @@
                                         	
                                         		<li>
                                         			<a class="menu-icon" id="productMove"
-                                        			href='/product/productList?category_no=<c:out value="${category.category_no}"/>'>
+                                        			href='/product/productList?category_no=${category.category_no}'>
                                         			
                                         			${category.category_name }</a>
                                         		</li>
@@ -159,9 +159,7 @@
                                     <form action="/product/productList" id="searchForm" method="get">
                                       
                                          <input type="text" name="keyword" placeholder="Search...">
-					                    <!-- <input type="hidden" name="type" value="TC">
-					                   	<input type="hidden" name="pageNum" value="1">
-					                   	<input type="hidden" name="amount" value="5"> -->
+					                   
 					                   	<input type="hidden" name="category_no" value="0">
                                         <button type="submit">
                                             <span><i class="icon-search"></i></span>
@@ -229,19 +227,24 @@
                 </div>
                 <button class="ltn__utilize-close">×</button>
             </div>
+            
+            
+            
             <div class="ltn__utilize-menu-search-form">
                 <form action="/product/productList" id="searchForm" method="get">
                     <input type="text" name="keyword" placeholder="Search...">
-                    <input type="hidden" name="type" value="TC">
-                   	<input type="hidden" name="pageNum" value="1">
-                   	<input type="hidden" name="amount" value="5">
+                    <input type="hidden" name="category_no" value="0">
+                
                     <button><i class="fas fa-search"></i></button>
                 </form>
             </div>
             <div class="ltn__utilize-menu">
                 <ul>
                     <c:forEach items="${categoryList }" var="category">
-                        <li><a class="menu-icon" href="#"><c:out value="${category.category_name }"/></a></li>
+                        <li><a class="menu-icon" id="productMove"
+                                        			href='/product/productList?category_no=${category.category_no}'>
+                                        			
+                                        			${category.category_name }</a></li>
                     </c:forEach>
                 </ul>
             </div>
@@ -265,7 +268,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/cart/cart" title="Shoping Cart">
+                        <a href="/cart/cartView" title="Shoping Cart">
                             <span class="utilize-btn-icon">
                                 <i class="fas fa-shopping-cart"></i>
                                 <sup>5</sup>

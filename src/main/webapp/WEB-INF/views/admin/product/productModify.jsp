@@ -20,35 +20,35 @@
 		<div class="card-body">
 			<div class="table-responsive">
 
-				<form role="form"  action="/admin/product/productModifyProc" method="post"
-					id="productRegisterForm" enctype="multipart/form-data">
+				<form action="/admin/product/productModifyProc" method="post"
+					id="productModifyForm" enctype="multipart/form-data">
 					<input type="hidden" name="product_no" value="${product.product_no }">
 					
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
 
 						<tbody>
-							<tr>
+							 <tr>
 								<td>카테고리</td>
 								<td>
 									<select name="category_no" id="category_name">
 										
-											<c:choose >
+											<c:choose>
 												<c:when test="${not empty product.category_name}">
-													<option id="categorySelect">${product.category_name}</option>
+													
 													
 													<c:forEach items="${categoryList }" var="category">
 														<option id="categorySelect" value="${category.category_no}">${category.category_name }</option>
 													</c:forEach>
-												</c:when>
+												</c:when> 
 												<c:when test="${empty product.category_name}">
-													<option id="categorySelect">카테고리없음</option>
+													<option id="categorySelect" value="0">카테고리없음</option>
 													<c:forEach items="${categoryList }" var="category">
 														<option id="categorySelect" value="${category.category_no}">${category.category_name }</option>
 													</c:forEach>
 												</c:when>
 										
-											</c:choose>
+											</c:choose> 
 										
 									</select>
 								</td>
@@ -62,7 +62,7 @@
 							<tr>
 								<td>상품설명</td>
 								<td><textarea rows="10" cols="20" name="product_content"
-										id="product_content">${product.product_detail }</textarea></td>
+										id="product_content">${product.product_content }</textarea></td>
 							</tr>
 							<tr>
 								<td>상세설명</td>
@@ -139,8 +139,8 @@
 					
 				</form>
 				<button class="btn btn-primary btn-sm" data-toggle="modal"
-					data-target="#productRegModal" id="productRegBtn">등록</button>
-				<button class="btn btn-secondary btn-sm" id="productRegCencleBtn">취소</button>
+					data-target="#productModifyModal" id="productModifyBtn">등록</button>
+				<button class="btn btn-secondary btn-sm" id="productModifyCencleBtn">취소</button>
 				 
 
 
@@ -149,22 +149,22 @@
 
 		</div>
 		<!--Product Modal -->
-		<div class="modal fade" id="productRegModal" tabindex="-1"
-			role="dialog" aria-labelledby="productRegCenterTitle"
+		<div class="modal fade" id="productModifyModal" tabindex="-1"
+			role="dialog" aria-labelledby="productModifyCenterTitle"
 			aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="productRegModalTitle">카테고리등록</h5>
+						<h5 class="modal-title" id="productModifyModalTitle">상품 수정</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body">상품을 등록하시겠습니까?</div>
+					<div class="modal-body">상품을 수정하시겠습니까?</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" id="productRegModalBtn">등록</button>
+						<button type="button" class="btn btn-primary" id="productModifyModalBtn">등록</button>
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">취소</button>
 

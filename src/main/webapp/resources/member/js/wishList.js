@@ -1,20 +1,21 @@
 $(document).ready(function() {
 	
-	let product_no = $("#product_no").val();
-
-	wishChk(product_no);
+	
 
 
 	$("#wishListBtn").on("click", function() {
-
+		
 		let mem_id = $("#chk_mem_id").val();
 
 		if (mem_id == undefined) {
 			let answer = confirm("로그인이 필요합니다." + "\r\n로그인 페이지로 이동하시겠습니까?");
 			if (answer) {
 
-				window.location.replace('/login');
+				//window.location.replace('/login');
+				location.href="/login";
 				return false;
+				
+				
 			}
 
 		} else {
@@ -41,12 +42,18 @@ $(document).ready(function() {
 	})
 
 
-
+	let product_no = $("#product_no").val();
+	let mem_id = $("#chk_mem_id").val();
+	
+	
+	
+	wishChk(product_no,mem_id);
 })
 
-function wishChk(product_no) {
+function wishChk(product_no,mem_id) {
 	let param = {
-		"product_no": product_no
+		"product_no": product_no,
+		"mem_id" : mem_id
 
 	}
 	$.ajax({
@@ -58,8 +65,8 @@ function wishChk(product_no) {
 		success: function(data) {
 			if (data == 1) {
 
-				$("#wishHeart").removeClass("far")
-				$("#wishHeart").addClass("fas")
+				$("#wishHeart").removeClass("far");
+				$("#wishHeart").addClass("fas");
 			}
 		}
 	})

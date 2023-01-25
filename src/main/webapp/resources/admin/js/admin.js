@@ -194,6 +194,63 @@ $(document).ready(function() {
 
 	})
 	
+	$("#productModifyBtn").on("click", function() {
+
+		if ($("#product_name").val() == "") {
+			alert("상품 이름을 입력해주세요.");
+			$("#product_name").focus();
+			return false;
+		}
+		if ($("#product_detail").val() == "") {
+			alert("상품 설명을 입력해주세요.");
+			$("#product_detail").focus();
+			return false;
+		}
+		if ($("#product_price").val() == "") {
+			alert("상품 가격을 입력해주세요.");
+			$("#product_price").focus();
+			return false;
+		}
+		$("#productModifyModal").modal();
+		
+
+		let formObj = $("#productModifyForm");
+		$("#productModifyModalBtn").on("click", function(e) {
+			
+			//e.preventDefault();
+		    
+		    
+		    
+		    var str = "";
+		    
+		    $(".uploadResult ul li").each(function(i, obj){
+		      
+		    	console.log("obj" + $(obj).data("fileName"));
+		    	
+		      var jobj = $(obj);
+		      
+		      console.dir(jobj);
+		      console.log("-------------------------");
+		      console.log(jobj.data("filename"));
+		      
+		      
+		      str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
+		      str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
+		      str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
+		      str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+ jobj.data("type")+"'>";
+		      
+		    });
+		    
+		    console.log(str);
+		    
+		    formObj.append(str).submit();
+			
+			//alert("상품수정이 완료되었습니다.")
+		})
+
+
+	})
+	
 	let csrfHeaderName = "${_csrf.headerName}";
 	let csrfTokenValue = "${_csrf.token}";
 	$("input[type='file']").change(function(e) {

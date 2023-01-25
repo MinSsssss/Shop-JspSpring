@@ -5,36 +5,6 @@ insert into tbl_member_auth(mem_id,auth)
 values('cda010','ROLE_ADMIN');
 
 
-SELECT product_no,category_no,category_name,
-	 		product_name,product_price,product_hit,product_regdate,
-	 		product_updatedate,product_thumb_img
-	 		FROM 
-	 		(SELECT /*+ INDEX_DESC(pro pk_product) */
-	 		ROWNUM AS rn, pro.product_no,cate.category_no,cate.category_name,
-	 		pro.product_name,pro.product_price,pro.product_hit,pro.product_regdate,
-	 		pro.product_updatedate,pro.product_thumb_img
-	 		FROM tbl_product pro,tbl_category cate
-	 		WHERE 
-	 		
-	 		product_name like '%' || 1 || '%' AND
-	 		
-	 	
-	 		ROWNUM <= 1* 5
-	 		AND pro.category_no = cate.category_no 
-	 		) pro
-	 		WHERE rn > 0 * 5;
-SELECT COUNT(*) from tbl_product
-		WHERE 
-		product_name like '%' || 1 || '%' AND
-		product_no > 0;
-
-
-
-
-
-
-
-		
 	
 select * from tbl_member;
 select * from tbl_member_auth;
@@ -52,20 +22,10 @@ select * from tbl_qna;
 select * from tbl_product_images;
 select * from tbl_courier;
 
-update tbl_order
-set order_status = '배송 완료'
-where order_no = 45;
+
+INSERT INTO tbl_category(category_no,category_class,category_name)
+VALUES(0,'product','카테고리없음');
 commit;
-SELECT AVG(review_star)
-FROM tbl_review re, tbl_order_detail od
-WHERE re.order_detail_no = od.order_detail_no
-AND od.product_no= 143;
-
-SELECT ord.order_no,ord.mem_id, pay.pay_amount as total_price,
-		ord.order_status
-		FROM tbl_order ord,tbl_payment pay
-		where ord.order_no = pay.order_no;
-
 CREATE TABLE tbl_member (
 	--mem_no	varchar2(13) primary key,
 	mem_id	varchar2(50) primary key	 NOT NULL,
@@ -127,36 +87,7 @@ CREATE TABLE tbl_product (
 commit;
 
 
-            SELECT 
-            product_no,category_no,category_name,
-	 		product_name,product_price,product_hit,product_regdate,
-	 		product_updatedate,product_thumb_img
-	 		FROM 
-	 		(SELECT /*+ INDEX_DESC(pro pk_product) */
-	 		ROWNUM AS rn, pro.product_no,cate.category_no,cate.category_name,
-	 		pro.product_name,pro.product_price,pro.product_hit,pro.product_regdate,
-	 		pro.product_updatedate,pro.product_thumb_img
-	 		
-	 		FROM tbl_product pro,tbl_category cate
-	 		WHERE ROWNUM <= 1 * 5
-	 		AND pro.category_no = cate.category_no
-	 		) pro
-	 		WHERE rn > 0 * 5;
-            
-        SELECT product_no,category_no,category_name,
-	 		product_name,product_price,product_hit,product_regdate,
-	 		product_updatedate,product_thumb_img
- 		FROM 
- 		(SELECT /*+ INDEX_DESC(pro pk_product) */
- 		ROWNUM AS rn,  pro.product_no,cate.category_no,cate.category_name,
-	 		pro.product_name,pro.product_price,pro.product_hit,pro.product_regdate,
-	 		pro.product_updatedate,pro.product_thumb_img
- 		
- 		FROM tbl_product pro,tbl_category cate
- 		WHERE ROWNUM <= 1 * 5
- 		AND pro.category_no = cate.category_no
- 		) pro
- 		WHERE rn > 0 * 5;
+  
         
 
 --배송완료 전에는 회원탈퇴 불가능

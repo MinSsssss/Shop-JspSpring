@@ -173,6 +173,11 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return originImages;
  }
+	@Override
+	public long productReadCount(int product_no) {
+		
+		return productDAO.productReadCount(product_no);
+	}
 	
 	
 	

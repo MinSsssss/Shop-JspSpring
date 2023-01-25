@@ -26,13 +26,7 @@
 					cellspacing="0">
 
 					<tbody>
-						<tr>
-							<th>번호</th>
-							<td class="align-middle">
-								<input class="readOnlyText" type="text" value="${product.product_no}" readonly="readonly">
-							</td>
-
-						</tr>
+						
 						<tr>
 							<th>분류</th>
 							<td class="align-middle readOnlyText">

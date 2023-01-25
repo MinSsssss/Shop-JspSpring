@@ -72,7 +72,7 @@
                 <div id="memberManage" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="/admin/member/memberList">회원조회</a>
-                        <a class="collapse-item" href="#">회원정보</a>
+                       <!--  <a class="collapse-item" href="#">회원정보</a> -->
                     </div>
                 </div>
             </li>
@@ -84,7 +84,7 @@
                 <div id="orderManage" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="/admin/order/orderList">주문조회</a>
-                        <a class="collapse-item" href="#">배송조회</a>
+                        <!-- <a class="collapse-item" href="#">배송조회</a> -->
                     </div>
                 </div>
             </li>
@@ -97,9 +97,9 @@
                 <div id="productManage" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                     	<a class="collapse-item" href="/admin/category/categoryList?category_class=product">상품카테고리조회</a>
-                        <!-- <a class="collapse-item" href="/admin/categoryRegister?category_class=product">상품카테고리생성</a> -->
+                      
                         <a class="collapse-item" href="/admin/product/productList?category_no=0">상품조회</a>
-                        <!-- <a class="collapse-item" href="/admin/productRegister">상품등록</a> -->
+                      
                     </div>
                 </div>
             </li>
@@ -113,7 +113,7 @@
                         <a class="collapse-item" href="/admin/notice/noticeList">공지사항조회</a>
                         <a class="collapse-item" href="/admin/category/categoryList?category_class=faq">FAQ 카테고리조회</a>
                         <a class="collapse-item" href="/admin/faq/faqList?category_no=0">FAQ 조회</a>
-                        <!-- <a class="collapse-item" href="/admin/categoryRegister?category_class=faq">FAQ 카테고리생성</a> -->
+                        
 						<a class="collapse-item" href="/admin/category/categoryList?category_class=qna">QNA 카테고리조회</a>
                         <a class="collapse-item" href="/admin/qna/qnaList">QNA 조회</a>
                     </div>
@@ -142,11 +142,7 @@
             </div>
 
             <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="/resources/admin/img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-            </div>
+            
 
         </ul>
         <!-- End of Sidebar -->
@@ -207,14 +203,14 @@
                         </li>
 
                         <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
+                        <!-- <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
+                                Counter - Alerts
                                 <span class="badge badge-danger badge-counter">3+</span>
                             </a>
-                            <!-- Dropdown - Alerts -->
+                            Dropdown - Alerts
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
@@ -257,15 +253,15 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Messages -->
+                        Nav Item - Messages
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
+                                Counter - Messages
                                 <span class="badge badge-danger badge-counter">7</span>
                             </a>
-                            <!-- Dropdown - Messages -->
+                            Dropdown - Messages
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="messagesDropdown">
                                 <h6 class="dropdown-header">
@@ -321,7 +317,7 @@
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
                             </div>
-                        </li>
+                        </li> -->
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -340,7 +336,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <!-- <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -351,11 +347,11 @@
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Activity Log
-                                </a>
+                                </a> -->
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    로그아웃
                                 </a>
                             </div>
                         </li>

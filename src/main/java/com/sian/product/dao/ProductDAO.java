@@ -30,5 +30,6 @@ public interface ProductDAO {
 	
 	public void productModify(ProductDTO productDTO);
 	
+	public Long productReadCount(int product_no);
 	
 }

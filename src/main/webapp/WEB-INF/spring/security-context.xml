@@ -10,6 +10,10 @@
 	<bean id="customAccessDenied"
 		class="com.sian.security.CustomAccessDeniedHandler"></bean>
 
+	<bean id="loginSuccessHandler" class="com.sian.security.CustomLoginSuccessHandler">
+	    <property name="loginId" value="mem_id"/>
+	    <property name="defaultUrl" value="/"/>
+	</bean>
 	
 	
 
@@ -40,10 +44,8 @@
 			access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/cart/**"
 			access="hasRole('ROLE_MEMBER')" />
-				<security:intercept-url pattern="/wish/**"
-			access="hasRole('ROLE_MEMBER')" />
-<!-- 		<security:intercept-url pattern="/member/auth/**"
-			access="hasRole('ROLE_MEMBER')" /> -->
+		<security:intercept-url pattern="/wish/**"
+			access="hasRole('ROLE_MEMBER')" /> 
 			
 		<!-- <security:intercept-url pattern="/member/**"
 			access="permitAll" /> -->
@@ -56,7 +58,7 @@
 		<security:form-login login-page="/login"
 			username-parameter="mem_id" password-parameter="mem_pwd"
 			login-processing-url="/loginProcess" default-target-url="/"
-			
+			authentication-success-handler-ref="loginSuccessHandler"
 			authentication-failure-handler-ref="userLoginFailHandler"
 			/>
 		<security:csrf disabled="true"/>

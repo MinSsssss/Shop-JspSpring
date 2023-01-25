@@ -3,6 +3,7 @@ package com.sian.wish.controller;
 import java.util.List;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,13 +69,13 @@ public class WishController {
 	
 	@ResponseBody
 	@PostMapping("/wishChk")
-	public int wishChk(@RequestBody WishDTO wishListDTO, Authentication authentication) {
+	public int wishChk(@RequestBody WishDTO wishListDTO) {
 		try {
-			wishListDTO.setMem_id(memberService.getId(authentication));
+			
 			
 			return wishService.wishChk(wishListDTO);
 		} catch (DataIntegrityViolationException e) {
-			
+			System.out.println("catch : " + wishService.wishChk(wishListDTO));
 			return 0;
 		}
 	}
