@@ -5,7 +5,8 @@ insert into tbl_member_auth(mem_id,auth)
 values('cda010','ROLE_ADMIN');
 
 
-	
+select product_name,product_hit
+from tbl_product;
 select * from tbl_member;
 select * from tbl_member_auth;
 select * from tbl_category;

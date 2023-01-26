@@ -42,7 +42,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>번호</th>
+                                            <th class="thWidth10">번호</th>
                                             <th>상품이름</th>
                                             <th>가격</th>
                                             <th>조회수</th>

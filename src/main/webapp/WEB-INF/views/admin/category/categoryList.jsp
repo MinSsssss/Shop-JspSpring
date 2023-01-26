@@ -28,7 +28,7 @@
 					cellspacing="0">
 					<thead>
 						<tr>
-							<th>번호</th>
+							<th class="thWidth10">번호</th>
 							<th>카테고리이름</th>
 
 						</tr>

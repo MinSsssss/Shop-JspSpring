@@ -1,7 +1,4 @@
 $(document).ready(function() {
-	
-	
-
 
 	$("#wishListBtn").on("click", function() {
 		
@@ -45,8 +42,6 @@ $(document).ready(function() {
 	let product_no = $("#product_no").val();
 	let mem_id = $("#chk_mem_id").val();
 	
-	
-	
 	wishChk(product_no,mem_id);
 })
 
@@ -72,20 +67,6 @@ function wishChk(product_no,mem_id) {
 	})
 }
 
-function wishDelete(product_no) {
 
-	let param = { "product_no": product_no.value };
-	$.ajax({
-		url: "/wish/wishDelete",
-		type: "post",
-		dataType: "json",
-		data: JSON.stringify(param),
-		contentType: "application/json; charset=UTF-8",
-		success: function(data) {
-			alert("삭제되었습니다.");
-			location.reload();
-		}
-	})
-}
 
 

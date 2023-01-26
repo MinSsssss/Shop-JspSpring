@@ -54,7 +54,7 @@
 								<div class="tab-content">
 									<c:forEach items="${orderList}" var="orderList"
 										varStatus="status">
-										<div class="orderFor">
+										 <div class="orderFor">
 
 											<div class="orderForDisplay">
 												<div>
@@ -80,7 +80,7 @@
 															id="order_no" value="${orderList.order_no}"> <input
 															type="hidden" name="thisStatus${status.count}"
 															id="order_status" value="${orderList.order_status }">
-														<button type="button" id="orderDeleteBtns"
+														<button type="button" id="orderDeleteBtns" class="btn btn-link"
 															onclick="orderDeleteFun(thisStatus${status.count},thisOrder_no${status.count})">주문내역삭제</button>
 													</form>
 												</div>

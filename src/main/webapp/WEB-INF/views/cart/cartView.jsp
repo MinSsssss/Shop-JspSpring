@@ -101,7 +101,7 @@
 													value="${cart.product_name }"> <input type="hidden"
 													name="product_price" value="${cart.product_price }">
 
-												<%-- <input type="hidden" name="sub_total" id="sub_total" value="${cart.sub_total }"> --%>
+												
 												<button id="cartModifyBtn" class="cartModifyBtn">수정</button>
 											</form>
 

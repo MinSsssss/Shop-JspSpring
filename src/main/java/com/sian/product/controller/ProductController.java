@@ -1,14 +1,18 @@
 package com.sian.product.controller;
 
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -66,36 +70,19 @@ public class ProductController {
 	}
 
 	@GetMapping({ "/product/productRead"})
-	public void productRead(@RequestParam("product_no") int product_no, Model model,
-			   HttpServletRequest request,
-               HttpServletResponse response) {
-		
-		Cookie oldCookie = null;
-	    Cookie[] cookies = request.getCookies();
-	    if (cookies != null) {
-	        for (Cookie cookie : cookies) {
-	            if (cookie.getName().equals("postView")) {
-	                oldCookie = cookie;
-	            }
-	        }
-	    }
-
-	    if (oldCookie != null) {
-	        if (!oldCookie.getValue().contains("[" + product_no + "]")) {
-	            productService.productReadCount(product_no);
-	            oldCookie.setValue(oldCookie.getValue() + "_[" + product_no + "]");
-	            oldCookie.setPath("/");
-	            oldCookie.setMaxAge(60 * 60 * 24);
-	            response.addCookie(oldCookie);
-	        }
-	    } else {
-	    	productService.productReadCount(product_no);
-	        Cookie newCookie = new Cookie("postView","[" + product_no + "]");
-	        newCookie.setPath("/");
-	        newCookie.setMaxAge(60 * 60 * 24);
-	        response.addCookie(newCookie);
-	    }
-		
+	public String productRead(
+			HttpServletResponse response,
+            @CookieValue(name = "view") String cookie,
+			@RequestParam("product_no") int product_no, Model model
+			) throws ClassNotFoundException, SQLException {
+	
+		if(!(cookie.contains(String.valueOf(product_no)))) {
+			cookie += product_no + "/";
+			productService.productReadCount(product_no);
+			System.out.println("");
+		}
+		response.addCookie(new Cookie("view",cookie));
+		System.out.println(cookie);
 		
 		
 		ProductDTO product = productService.getProduct(product_no);
@@ -136,9 +123,8 @@ public class ProductController {
 		 
 		model.addAttribute("category",categoryService.getCategoryList("product"));
 		
-		 
-		
-		
+		//response.sendRedirect("/product/productRead?product_no="+product_no);
+		return "/product/productRead";
 	}
 
 	/*

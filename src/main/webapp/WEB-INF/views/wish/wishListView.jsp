@@ -55,63 +55,46 @@
 							<div class="col-lg-8">
 								<div class="shoping-cart-inner">
 									<div class="shoping-cart-table table-responsive">
-										<button id="seleteDeleteBtn">선택삭제</button>
+										<!-- <button id="seleteDeleteBtn">선택삭제</button> -->
 
-										<table class="allTable">
-											<thead>
-
-												<tr>
-													<th><input type="checkbox" class="all_check_input"
-														checked="checked"><span class="all_chcek_span"></span></th>
-													<th>이미지</th>
-													<th>이름</th>
-													<th>버튼</th>
-
-
-												</tr>
-											</thead>
-
-											<tbody>
-
-												<c:forEach items="${wishList}" var="wish" varStatus="status">
-													<form action="/member/auth/cartSelectOrder" id="orderForm"
-														method="post"></form>
-													<tr>
-
-														<td class="cart_info_td"><input type="checkbox"
-															name="checkedCount" class="individual_cart_checkbox"
-															checked="checked"> <input type="hidden"
-															id="chkProductName" value="${wish.product_name }">
-														</td>
-
-
-														<td class="cart-product-image">
-															<a href="/product/productRead?product_no=${wish.product_no}">
-																<img src="/display?fileName=${wish.product_thumb_img}" alt="#">
-															</a>
-														</td>
-														<td class="cart-product-info">
-															<a href="/product/productRead?product_no=${wish.product_no}">${wish.product_name }</a>
-														</td>
-
-
-
-														<td class="cart-product-remove">
-															<form>
-																<input type="hidden"
-																	name="thisProduct_no${status.index}" id="product_no"
-																	value="${wish.product_no }">
-																<button type="button" id="cartDeleteBtn"
-																	onclick="wishDelete(thisProduct_no${status.index})">삭제</button>
-															</form>
-														</td>
-													</tr>
-
-
-												</c:forEach>
-
-											</tbody>
-										</table>
+										<c:forEach items="${wishList}"
+											var="wish" varStatus="status">
+											<div class="orderProductFor">
+												<div class="orderInfo">
+													<div class="orderDisplay">
+														<a
+															href='/product/productRead?product_no=${wish.product_no}'>
+															<img class="product_img"
+															src="/display?fileName=${wish.product_thumb_img}"
+															alt="">
+														</a>
+														<div class="productInfo">
+															<p>
+																<a
+																	href='/product/productRead?product_no=${wish.product_no}'>
+																	${wish.product_name } 
+																</a>
+															</p>
+															<span class="productPrice">${wish.product_price }원
+																
+																</span>
+														</div>
+													</div>
+												</div>
+												<div class="orderBtns">
+													
+													<form>
+														<input type="hidden"
+															name="thisProduct_no${status.index}" id="product_no"
+															value="${wish.product_no }">
+														<button type="button" class="btn btn-outline-info"
+															onclick="wishDelete(thisProduct_no${status.index})">삭제</button>
+													</form>
+													
+												</div>
+											</div>
+											
+										</c:forEach>
 									</div>
 
 								</div>
@@ -138,4 +121,3 @@
 
 <jsp:include page="/WEB-INF/views/includes/memberFooter.jsp"></jsp:include>
 
-<script src="/resources/member/js/wishList.js"></script>

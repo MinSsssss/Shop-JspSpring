@@ -71,9 +71,8 @@ public class WishController {
 	@PostMapping("/wishChk")
 	public int wishChk(@RequestBody WishDTO wishListDTO) {
 		try {
-			
-			
 			return wishService.wishChk(wishListDTO);
+			
 		} catch (DataIntegrityViolationException e) {
 			System.out.println("catch : " + wishService.wishChk(wishListDTO));
 			return 0;

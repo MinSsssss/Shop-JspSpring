@@ -74,18 +74,18 @@ $(document).ready(function() {
 				selectArr[count] = chkProductName;
 				count++;
 
-				console.log(selectArr);
+
 
 				const form = document.createElement('form');
 				form.setAttribute('method', 'post');        //Post 메소드 적용
-				form.setAttribute('action', 'cart/cartSelectDelete');
+				form.setAttribute('action', '/cart/cartSelectDelete');
 
 				var input1 = document.createElement('input');
 				input1.setAttribute("type", "hidden");
 				input1.setAttribute("name", "cartIds");
 				input1.setAttribute("value", selectArr);
 				form.appendChild(input1);
-				console.log(selectArr.length);
+
 				document.body.appendChild(form);
 				form.submit();
 

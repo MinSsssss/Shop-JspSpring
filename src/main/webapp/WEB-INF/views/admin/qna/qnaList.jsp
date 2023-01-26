@@ -32,12 +32,12 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th class="thSize">번호</th>
-											<th>카테고리</th>
+                                            <th class="thWidth10">번호</th>
+											<th class="thWidth10">카테고리</th>
 											<th>제목</th>
-											<th>날짜</th>
-											<th class="thSize">작성자</th>
-											<th class="thSize">처리상태</th>             
+											<th class="thWidth10">날짜</th>
+											<th class="thWidth10">작성자</th>
+											<th class="thWidth10">처리상태</th>             
                                         </tr>
                                     </thead>
                                     

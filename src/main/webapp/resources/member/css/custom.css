@@ -13,6 +13,13 @@
 .pWidth{
 	width: 90%;
 }
+.product-ratting{
+	display: flex;
+	justify-content: space-between;
+}
+.product-ratting .hit{
+	margin-right: 10rem;
+}
 
 /* 페이징 */
 .pageInfo_area{

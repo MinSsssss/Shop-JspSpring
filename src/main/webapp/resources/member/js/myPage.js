@@ -175,3 +175,19 @@ $(document).ready(function() {
 	})
 
 })
+
+function wishDelete(product_no) {
+	console.log("큐ㅜ큐큐")
+	let param = { "product_no": product_no.value };
+	$.ajax({
+		url: "/wish/wishDelete",
+		type: "post",
+		dataType: "json",
+		data: JSON.stringify(param),
+		contentType: "application/json; charset=UTF-8",
+		success: function(data) {
+			alert("삭제되었습니다.");
+			location.reload();
+		}
+	})
+}

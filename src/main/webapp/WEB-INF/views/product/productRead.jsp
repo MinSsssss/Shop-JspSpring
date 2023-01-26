@@ -67,7 +67,7 @@
 							<div class="modal-product-info shop-details-info pl-0">
 								<div class="product-ratting">
 								
-								<c:set var="avg" value="${product.reviewAvg}"></c:set>
+								<c:set var="avg" value="${product.reviewAvg}"/>
 									
 								
 									<fmt:parseNumber var="avg2" integerOnly="true" value="${avg}"/>
@@ -90,12 +90,17 @@
 											
 										</c:forEach>
 										<li class="review-total">
-										<a>
-										 <c:if test="${empty product.reviewCount}">( 0 )</c:if>
-										 <c:if test="${not empty product.reviewCount }">( ${product.reviewCount} )</c:if>
-										 </a>
+											<a>
+											 <c:if test="${empty product.reviewCount}">( 0 )</c:if>
+											 <c:if test="${not empty product.reviewCount }">( ${product.reviewCount} )</c:if>
+											 </a>
 										 </li>
+										 
 									</ul>
+									<ul class="hit">
+										<li><span>조회수 : ${product.product_hit }</span></li>
+									</ul>
+									
 								</div>
 
 								<h3 id="product_name">${product.product_name }</h3>
@@ -168,19 +173,14 @@
 						</div>
 						<div class="tab-pane fade" id="liton_tab_details_1_2">
 							<div class="ltn__shop-details-tab-content-inner">
-								<h4 class="title-2">Customer Reviews</h4>
-								<div class="product-ratting">
-									<ul>
-										<li><a href="#"><i class="far fa-star">avg/10</i></a></li>
-										<li class="review-total"><a href="#"> ( 95 Reviews )</a></li>
-										
-									</ul>
-								</div>
-								<hr>
+								
 								<!-- comment-area -->
 								<div class="ltn__comment-area mb-30">
 									<div class="ltn__comment-inner">
 										<ul>
+											<c:if test="${empty product.reviewList }">
+												<h4>작성된 리뷰가 없습니다.</h4>
+											</c:if>
 											<c:forEach items="${product.reviewList}" var="review">
 												<li>
 													<div class="ltn__comment-item clearfix">

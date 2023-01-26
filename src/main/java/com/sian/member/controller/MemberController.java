@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -40,8 +42,14 @@ public class MemberController {
 	 * ALL
 	 */
 	@GetMapping("/")
-	public String memberIndex(Model model,Criteria cri)  {
+	public String memberIndex(HttpServletResponse response, Model model,Criteria cri)  {
 		List<CategoryDTO> categoryList = categoryService.getCategoryList("product");
+		
+		Cookie cookie = new Cookie("view", null);
+		cookie.setComment("게시글 조회 확인");
+		cookie.setMaxAge(60*60*24);
+		response.addCookie(cookie);
+		
 		
 		int category_no = 0;
 		CategoryDTO category = null;
