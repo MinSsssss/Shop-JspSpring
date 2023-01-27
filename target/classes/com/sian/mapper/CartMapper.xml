@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sian.cart.dao.CartDAO">
+ 	<insert id="insert">
+ 		INSERT INTO tbl_cart(product_no,mem_id,cart_qty,sub_total)
+ 		VALUES (#{product_no},#{mem_id},#{cart_qty},
+ 		((SELECT product_price FROM tbl_product WHERE product_no=#{product_no})*#{cart_qty}))
+ 	</insert>
+<!-- 	<select id="findCart" resultType="int">
+		SELECT COUNT(*) FROM tbl_cart 
+		WHERE mem_id=#{mem_id} AND product_no=#{product_no}
+	</select> -->
+	
+	
+ 	
+	<select id="cartList" resultType="com.sian.cart.dto.CartListDTO">
+ 		SELECT pro.product_thumb_img,pro.product_thumb_img,pro.product_no,pro.product_name,pro.product_price,cart.cart_qty,cart.sub_total
+		FROM tbl_product pro,tbl_cart cart
+		WHERE pro.product_no=cart.product_no AND cart.mem_id=#{mem_id}
+ 	</select>
+ 	
+ 	
+ 	<update id="cartModify" >
+ 		UPDATE tbl_cart
+		SET cart_qty=#{cart_qty},
+		sub_total=((SELECT product_price FROM tbl_product WHERE product_no=#{product_no} )*#{cart_qty})
+		WHERE product_no=#{product_no} AND mem_id=#{mem_id}
+ 	</update>
+	<delete id="cartDelete">
+		DELETE FROM tbl_cart
+		WHERE product_no=#{product_no} AND mem_id=#{mem_id}
+	</delete>
+</mapper>

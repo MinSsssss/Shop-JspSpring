@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sian.review.dao.ReviewDAO">
+	<insert id="reviewRegister">
+		INSERT INTO tbl_review(review_no,order_detail_no,
+		mem_id,review_title,review_content,review_star)
+		VALUES(seq_review_no.nextval,#{order_detail_no},
+		#{mem_id},#{review_title},#{review_content},#{review_star})
+	</insert>
+	
+	<select id="reviewList" resultType="com.sian.review.dto.ReviewDTO">
+		SELECT re.review_no, od.order_detail_no, re.review_star,
+		re.review_title, re.review_content, re.review_date,
+		pro.product_thumb_img,pro.product_thumb_img, pro.product_name, re.mem_id
+		
+		FROM tbl_review re, tbl_order_detail od, tbl_product pro	
+		
+		WHERE re.order_detail_no = od.order_detail_no
+		AND od.product_no = pro.product_no
+		AND re.mem_id = #{mem_id} 		
+	</select>
+	
+	<select id="findReview" resultType="int">
+		SELECT COUNT(*)
+		FROM tbl_review
+		WHERE order_detail_no=#{order_detail_no}
+	</select>
+	
+	<select id="getReview" resultType="com.sian.review.dto.ReviewDTO">
+		SELECT re.review_no, od.order_detail_no, re.review_star,
+		re.review_title, re.review_content, re.review_date,
+		pro.product_thumb_img,pro.product_thumb_img, pro.product_name, re.mem_id
+		
+		FROM tbl_review re, tbl_order_detail od, tbl_product pro	
+		
+		WHERE re.order_detail_no = od.order_detail_no
+		AND od.product_no = pro.product_no
+		AND re.review_no = #{review_no} 	
+	</select>
+	
+
+	
+	
+	
+	<update id="reviewModify">
+		UPDATE tbl_review
+		SET review_title= #{review_title},
+		review_star= #{review_star},
+		review_content= #{review_content}
+		WHERE review_no= #{review_no}
+	</update>
+	
+	<delete id="reviewDelete">
+		DELETE tbl_review
+		WHERE review_no = #{review_no}
+	</delete>
+	
+	
+	<select id="getReviewList" resultType="com.sian.review.dto.ReviewDTO">
+		SELECT re.review_no, re.review_star,
+		re.review_title, re.review_content, re.review_date,
+		pro.product_thumb_img,pro.product_thumb_img, pro.product_name, re.mem_id
+	
+		FROM tbl_review re, tbl_product pro	,tbl_order_detail od
+		
+		WHERE re.order_detail_no = od.order_detail_no
+		AND od.product_no = pro.product_no
+		AND pro.product_no = #{product_no}	
+	</select>
+	
+	<select id="reviewCount" resultType="int">
+		SELECT COUNT(*)
+		FROM tbl_review re, tbl_order_detail od
+		WHERE re.order_detail_no = od.order_detail_no
+		AND od.product_no = #{product_no}
+	</select>
+	
+	<select id="reviewAvg" resultType="double">
+		SELECT AVG(review_star)
+		FROM tbl_review re, tbl_order_detail od
+		WHERE re.order_detail_no = od.order_detail_no
+		AND od.product_no= #{product_no}
+	</select>
+</mapper>

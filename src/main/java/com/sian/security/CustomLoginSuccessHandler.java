@@ -79,29 +79,25 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 	}
 	
 	
-	 protected void resultRedirectStrategy(HttpServletRequest request, HttpServletResponse response,
-	            Authentication authentication) throws IOException, ServletException {
-	        HttpSession session = request.getSession();
-	        SavedRequest savedRequest = requestCache.getRequest(request, response);
-	       
-	        if(savedRequest!=null) {
-	            String targetUrl = savedRequest.getRedirectUrl();
-	            if(targetUrl.contains("wishChk")) {
-	            	String prevPage = (String)session.getAttribute("prevPage");
-	            	
-	            	session.removeAttribute("prevPage");
-	            	redirectStratgy.sendRedirect(request, response, prevPage);
-	            }
-	            else {
-	            	redirectStratgy.sendRedirect(request, response, targetUrl);
-	            }
-	            
-	            
-	        } else {
-	            redirectStratgy.sendRedirect(request, response, defaultUrl);
-	        }
-	        
-	    }
+	
+	  protected void resultRedirectStrategy(HttpServletRequest request,
+	  HttpServletResponse response, Authentication authentication) throws
+	  IOException, ServletException { HttpSession session = request.getSession();
+	  SavedRequest savedRequest = requestCache.getRequest(request, response);
+	  
+	  if(savedRequest!=null) { String targetUrl = savedRequest.getRedirectUrl();
+	  if(targetUrl.contains("wishChk")) { String prevPage =
+	  (String)session.getAttribute("prevPage");
+	  
+	  session.removeAttribute("prevPage"); redirectStratgy.sendRedirect(request,
+	  response, prevPage); } else { redirectStratgy.sendRedirect(request, response,
+	  targetUrl); }
+	  
+	  
+	  } else { redirectStratgy.sendRedirect(request, response, defaultUrl); }
+	  
+	  }
+	 
 }
 
 

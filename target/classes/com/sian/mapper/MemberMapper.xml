@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sian.member.dao.MemberDAO">
+
+<resultMap type="com.sian.member.dto.MemberDTO" id="memberMap">
+	<id property="mem_id" column="mem_id"/>
+	<result property="mem_id" column="mem_id"/>
+	<result property="mem_pwd" column="mem_pwd"/>
+	<result property="mem_name" column="mem_name"/>
+	<result property="mem_email" column="mem_email"/>
+	<result property="mem_tel" column="mem_tel"/>
+	<result property="mem_joindate" column="mem_joindate"/>
+	<result property="enabled" column="enabled"/>
+	<result property="full_address" column="full_address"/>
+	<collection property="authList" resultMap="authMap"></collection>
+</resultMap>
+<resultMap type="com.sian.member.dto.AuthVO" id="authMap">
+	<result property="mem_id" column="mem_id"/>
+	<result property="auth" column="auth"/>
+</resultMap>
+
+
+	<select id="read" resultMap="memberMap">
+			SELECT mem.mem_id,mem_pwd,mem_name,mem_email,mem_tel,mem_joindate,enabled,full_address, auth
+			FROM tbl_member mem LEFT OUTER JOIN tbl_member_auth auth on mem.mem_id = auth.mem_id
+			WHERE mem.mem_id = #{mem_id}
+	</select>
+	
+	<insert id="insert">
+		INSERT ALL
+			INTO tbl_member(mem_id,mem_pwd,mem_name,mem_email,mem_tel,full_address)
+			VALUES (#{mem_id},#{mem_pwd},#{mem_name},#{mem_email},#{mem_tel},#{full_address})
+			INTO tbl_member_auth (mem_id) 
+			VALUES (#{mem_id})
+			SELECT * FROM dual
+	</insert>
+	
+	<delete id="memberDrop" parameterType="com.sian.member.dto.MemberDTO">
+		DELETE FROM tbl_member 
+		WHERE mem_id=#{mem_id}
+	</delete>
+	
+	<select id="idChk" resultType="int">
+		SELECT COUNT(*) FROM tbl_member
+		WHERE mem_id = #{mem_id}
+	</select>
+	
+	<!-- <select id="getId" resultType="String">
+		SELECT COUNT(*) FROM tbl_member
+		WHERE mem_id = #{mem_id}
+	</select> -->
+	
+	<select id="getPwd" resultType="String">
+		SELECT mem_pwd from tbl_member where mem_id = #{mem_id}
+	</select>
+	
+	<update id="memberModify">
+		UPDATE tbl_member
+		SET 
+		mem_email = #{mem_email},
+		mem_tel = #{mem_tel},
+		mem_pwd = #{mem_pwd}
+		WHERE mem_id = #{mem_id}
+	</update>
+	<select id="getList" resultMap="memberMap">
+			SELECT mem.mem_id,mem_pwd,mem_name,mem_email,mem_tel,mem_joindate,enabled, auth
+			FROM tbl_member mem LEFT OUTER JOIN tbl_member_auth auth on mem.mem_id = auth.mem_id
+	</select>
+	
+	
+	
+</mapper>
