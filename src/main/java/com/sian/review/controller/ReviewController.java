@@ -28,26 +28,22 @@ public class ReviewController {
 	private final MemberService memberService;
 	
 	private final OrderService orderService;
-	/*
-	 * ALL
-	 */
-	
 
-	
 	/*
 	 * ADMIN ONLY
 	 */
 	
 	/*
-	 * MEMBER ONLY @PreAuthorize("hasRole('ROLE_MEMBER')")
+	 * MEMBER ONLY 
 	 */
-	
+	/*
+	 * 리뷰 작성 페이지
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@PostMapping("/review/reviewWriteView")
 	public String reviweWriteView(Long order_detail_no,
 			Model model,RedirectAttributes rttr ) {
-		System.out.println("orderDetail : " + order_detail_no);
-		System.out.println(reviewService.findReview(order_detail_no));
+	
 		if(reviewService.findReview(order_detail_no)!=0) {
 			rttr.addFlashAttribute("msg","already");
 			return "redirect:/order/orderList";
@@ -59,6 +55,9 @@ public class ReviewController {
 		}
 
 	}
+	/*
+	 * 리뷰 수정 페이지
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@PostMapping("/review/reviewModifyView")
 	public String reviweModifyView(ReviewDTO reviewDTO,
@@ -68,20 +67,22 @@ public class ReviewController {
 
 	}
 	
-	
+	/*
+	 * 리뷰 작성
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@PostMapping("/review/reviewRegisterProc")
 	public String reviewRegisterProc(ReviewDTO reviewDTO,Authentication authentication) {
 		String mem_id = memberService.getId(authentication);
 		reviewDTO.setMem_id(mem_id);
 		
-		System.out.println(reviewDTO);
-		
 		reviewService.reviewRegister(reviewDTO);
 		
 		return "redirect:/order/orderList";
 	}
-	
+	/*
+	 * 본인이 작성한 리뷰 리스트 조회 
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@GetMapping("/review/reviewList")
 	public void reviewList(Authentication authentication,Model model) {
@@ -92,6 +93,9 @@ public class ReviewController {
 		
 	}
 	
+	/*
+	 * 리뷰 수정
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@PostMapping("/review/reviewModifyProc")
 	public String reviewModifyProc(ReviewDTO reviewDTO,RedirectAttributes rttr) {
@@ -105,6 +109,10 @@ public class ReviewController {
 		return "redirect:/review/reviewList";
 	}
 	
+	
+	/*
+	 * 리뷰 삭제
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@ResponseBody
 	@PostMapping("/review/reviewDelete")

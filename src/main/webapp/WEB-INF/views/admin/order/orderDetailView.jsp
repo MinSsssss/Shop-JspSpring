@@ -91,9 +91,9 @@ tr:nth-child(even) {
 											value="${orderList.order_date}" />
 									</h3>
 
-									<h5>${orderList.order_status }</h5>
-									<div>택배회사 : ${courier.courier_name}</div>
-									<div>운송장 번호 : ${courier.invoice_no}</div>
+									<h5><c:out value='${orderList.order_status}'/></h5>
+									<div>택배회사 : <c:out value='${courier.courier_name}'/></div>
+									<div>운송장 번호 : <c:out value='${courier.invoice_no}'/></div>
 								</div>
 								<div class="displayBot">
 									
@@ -105,7 +105,7 @@ tr:nth-child(even) {
 									    <c:when test="${not empty courier}">
 									   		<button id="invoiceModify">운송장수정</button>
 									   		<button id="deliveryComplete">배송완료</button>
-									   		<input type="hidden" id="order_no" value="${orderList.order_no}">
+									   		<input type="hidden" id="order_no" value="<c:out value='${orderList.order_no}'/>">
 									   		<input type="hidden" id="order_status" value="배송완료">
 									    </c:when>
 									    <c:when test="${empty courier}">
@@ -121,20 +121,24 @@ tr:nth-child(even) {
 								<div class="orderProductFor">
 									<div class="orderInfo">
 										<div class="orderDisplay">
-											<a
-												href='/product/productRead?product_no=${orderDetailList.product_no}'>
-												<img class="product_img" src="/display?fileName=${orderDetailList.product_thumb_img}"
-												alt="">
+											<a href="<c:url value='/product/productRead?product_no=${orderDetailList.product_no}'/>">
+												<img class="product_img" src="<c:url value='/display?fileName=${orderDetailList.product_thumb_img}'/>">
 											</a>
 											<div class="productInfo">
 												<p>
-													<a
-														href='/product/productRead?product_no=${orderDetailList.product_no}'>
-														${orderDetailList.product_name } </a>
+												<a href="<c:url value='/product/productRead?product_no=${orderDetailList.product_no}'/>">
+													<c:out value="${orderDetailList.product_name }"/>
+												</a>
 												</p>
-												<span class="productPrice">${orderDetailList.product_price }원
-													x</span> <span class="orderQty">${orderDetailList.order_qty }
-													= </span> <span>${orderDetailList.sub_total}</span>
+												<span class="productPrice">
+													<c:out value='${orderDetailList.product_price }'/>원 x
+												</span> 
+												<span class="orderQty">
+													<c:out value='${orderDetailList.order_qty}'/> = 
+												</span> 
+												<span>
+													<c:out value='${orderDetailList.sub_total}'/>
+												</span>
 											</div>
 										</div>
 									</div>
@@ -147,34 +151,34 @@ tr:nth-child(even) {
 							<table>
 								<tr>
 									<td class="tableInfoFtd">받는사람</td>
-									<td>${orderList.receiver_name }</td>
+									<td><c:out value='${orderList.receiver_name}'/></td>
 								</tr>
 								<tr>
 									<td>연락처</td>
-									<td>${orderList.receiver_tel }</td>
+									<td><c:out value='${orderList.receiver_tel}'/></td>
 								</tr>
 								<tr>
 									<td>받는 주소</td>
-									<td>${orderList.receiver_addr }</td>
+									<td><c:out value='${orderList.receiver_addr}'/></td>
 								</tr>
 								<tr>
 									<td>배송요청사항</td>
-									<td>${orderList.order_request_msg}</td>
+									<td><c:out value='${orderList.order_request_msg}'/></td>
 								</tr>
 							</table>
 
 						</div>
 						<div class="receiverInfo">
 							<h5>결제정보</h5>
-
 						</div>
 
 
-						<span id="tekbeCompnayName">택배회사명: </span> <select
-							id="tekbeCompnayList" name="tekbeCompnayList">
+						<span id="tekbeCompnayName">택배회사명: </span> 
+						<select id="tekbeCompnayList" name="tekbeCompnayList">
 
-						</select><br />
-						<br /> <span id="invoiceNumber">운송장번호: </span> <input type="text"
+						</select><br><br> 
+						
+						<span id="invoiceNumber">운송장번호: </span> <input type="text"
 							id="invoiceNumberText" name="invoiceNumberText"><br />
 						<br />
 						<button id="myButton1">택배 조회하기</button>
@@ -212,7 +216,7 @@ tr:nth-child(even) {
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="/admin/order/invoiceRegister" method="post" id="invoiceRegisterForm">
+				<form action="<c:url value='/admin/order/invoiceRegister'/>" method="post" id="invoiceRegisterForm">
 					<span id="tekbeCompnayName">택배회사명: </span> 
 					<select id="tekbeCompnayList1" name="courier_code">
 						<option value=""> </option>
@@ -221,7 +225,7 @@ tr:nth-child(even) {
 					<input type="text" id="invoiceNumberText1" name="invoice_no"><br />
 					<br />
 					<input type="hidden" id="courierName" name="courier_name">
-					<input type="hidden" name="order_no" value="${orderList.order_no}">
+					<input type="hidden" name="order_no" value="<c:out value='${orderList.order_no}'/>">
 				</form>
 			</div>
 			<div class="modal-footer">
@@ -316,24 +320,7 @@ $(document).ready(function(){
                     if(data.status == false){
                         myInvoiceData += ('<p>'+data.msg+'<p>');
                     }
-                    /* else{
-                        myInvoiceData += ('<tr>');                
-                        myInvoiceData += ('<th>'+"보내는사람"+'</td>');                     
-                        myInvoiceData += ('<th>'+data.senderName+'</td>');                     
-                        myInvoiceData += ('</tr>');     
-                        myInvoiceData += ('<tr>');                
-                        myInvoiceData += ('<th>'+"제품정보"+'</td>');                     
-                        myInvoiceData += ('<th>'+data.itemName+'</td>');                     
-                        myInvoiceData += ('</tr>');     
-                        myInvoiceData += ('<tr>');                
-                        myInvoiceData += ('<th>'+"송장번호"+'</td>');                     
-                        myInvoiceData += ('<th>'+data.invoiceNo+'</td>');                     
-                        myInvoiceData += ('</tr>');     
-                        myInvoiceData += ('<tr>');                
-                        myInvoiceData += ('<th>'+"송장번호"+'</td>');                     
-                        myInvoiceData += ('<th>'+data.receiverAddr+'</td>');                     
-                        myInvoiceData += ('</tr>');                                       
-                    } */
+                    
                     
                     
                     $("#myPtag").html(myInvoiceData)

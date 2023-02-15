@@ -1,12 +1,11 @@
 UPDATE tbl_member_auth
 SET auth = 'ROLE_ADMIN'
-WHERE mem_id = 'cda01';
+WHERE mem_id = 'admin';
 insert into tbl_member_auth(mem_id,auth)
 values('cda010','ROLE_ADMIN');
 
-
-select product_name,product_hit
-from tbl_product;
+SELECT mem_id FROM tbl_member
+		WHERE mem_id = 'cda01';
 select * from tbl_member;
 select * from tbl_member_auth;
 select * from tbl_category;
@@ -24,11 +23,11 @@ select * from tbl_product_images;
 select * from tbl_courier;
 
 
+
 INSERT INTO tbl_category(category_no,category_class,category_name)
 VALUES(0,'product','카테고리없음');
 commit;
 CREATE TABLE tbl_member (
-	--mem_no	varchar2(13) primary key,
 	mem_id	varchar2(50) primary key	 NOT NULL,
 	mem_pwd	varchar2(100)		NOT NULL,
 	mem_name	varchar2(100)	    NOT NULL,
@@ -38,7 +37,9 @@ CREATE TABLE tbl_member (
 	enabled char(1) default '1',
     full_address VARCHAR2(500) NOT NULL
 );
-
+insert into tbl_member
+values('cda01','1234','dd','dd','dd',sysdate,1,'123');
+commit;
 create table tbl_member_auth(
     mem_id varchar2(50) not null,
     auth varchar2(50)  default 'ROLE_MEMBER' not null,
@@ -53,31 +54,18 @@ CREATE TABLE tbl_category (
 ALTER TABLE tbl_category ADD UNIQUE(category_name,category_class);
 
 
-CREATE SEQUENCE seq_category;
-    
-CREATE TABLE tbl_product_images(
-    uuid varchar2(500) not null,
-    uploadPath varchar2(500) not null,
-    fileName varchar2(500) not null,
-    filetype char(1) default 'i',
-    product_no number
-);
-
-ALTER TABLE tbl_product_images ADD CONSTRAINT pk_product_images primary key(uuid);
-ALTER TABLE tbl_product_images ADD CONSTRAINT fk_product_attach foreign key(product_no)
-REFERENCES tbl_product(product_no);
 
 SELECT *
 FROM USER_CONSTRAINTS
-WHERE TABLE_NAME = 'TBL_PRODUCT';
+WHERE TABLE_NAME = 'TBL_FAQ';
 
 CREATE TABLE tbl_product (
 	product_no	number,
 	category_no	number,
 	product_name	varchar2(100)	UNIQUE NOT NULL,
 	product_price	number(6)		NOT NULL,
-	product_detail	varchar2(1000)		NOT NULL,
-    product_content varchar2(1000),
+	product_detail	varchar2(2000)		NOT NULL,
+    product_content varchar2(2000),
     product_thumb_img	varchar2(500),
 
 	product_regdate	date default sysdate NOT NULL,
@@ -85,6 +73,19 @@ CREATE TABLE tbl_product (
 	product_hit	number default 0 NOT NULL,
     CONSTRAINT pk_product PRIMARY KEY(product_no)
 );
+alter table tbl_product modify(product_detail varchar2(2000));
+alter table tbl_product modify(product_content varchar2(2000));
+
+CREATE TABLE tbl_product_images(
+    uuid varchar2(500) not null,
+    uploadPath varchar2(500) not null,
+    fileName varchar2(500) not null,
+    filetype char(1) default 'i',
+    product_no number
+);
+ALTER TABLE tbl_product_images ADD CONSTRAINT pk_product_images primary key(uuid);
+ALTER TABLE tbl_product_images ADD CONSTRAINT fk_product_attach foreign key(product_no)
+REFERENCES tbl_product(product_no);
 commit;
 
 
@@ -100,13 +101,15 @@ CREATE TABLE tbl_order (
 	receiver_addr	varchar2(100)		NOT NULL,
     order_date	date	DEFAULT sysdate	 NOT NULL,
     order_request_msg varchar2(1000),
-    order_status varchar2(20) default '결제 완료' NOT NULL,
+    order_status varchar2(20) default '결제완료' NOT NULL,
     
     merchant_uid varchar2(100),
     imp_uid varchar2(100),
     
     constraint fk_order_mem_id foreign key(mem_id) references tbl_member(mem_id)
 );
+select * from tbl_order
+where order_status = '결제완료';
 commit;
 CREATE TABLE tbl_order_detail (
 	order_detail_no	varchar2(13) primary key,
@@ -123,7 +126,7 @@ CREATE TABLE tbl_courier(
     courier_name varchar2(30),
     invoice_no number
 );
-CREATE SEQUENCE seq_courier_no;
+
 
 CREATE TABLE tbl_payment(
     pay_no number(18) primary key,
@@ -136,26 +139,9 @@ CREATE TABLE tbl_payment(
 
 commit;
 
-CREATE SEQUENCE seq_order_no;
-CREATE SEQUENCE seq_order_detail_no;
-CREATE SEQUENCE seq_pay_no;
-DROP SEQUENCE seq_order_no;
-DROP SEQUENCE seq_order_detail_no;
-DROP SEQUENCE seq_pay_no;
-CREATE SEQUENCE seq_tbl_product_no
-    INCREMENT BY 1
-    START WITH 101
-    MINVALUE 101
-    MAXVALUE 999
-    NOCYCLE
-    NOCACHE
-    NOORDER;
 
 
---ALTER TABLE tbl_product ADD CONSTRAINT tbl_cate_no_pk FOREIGN KEY(category_no) REFERENCES tbl_category(category_no);
 
-CREATE SEQUENCE seq_review_no;
-DROP SEQUENCE seq_review_no;
 --회원이 탈퇴해도 리뷰는 남아있어야함
 CREATE TABLE tbl_review (
 	review_no number,
@@ -200,7 +186,7 @@ ALTER TABLE tbl_wishlist ADD UNIQUE(product_no,mem_id);
 
 
 commit;
-CREATE SEQUENCE seq_qna_no;
+
 CREATE TABLE tbl_qna (
 	qna_no	number,
 	category_no	number		NOT NULL,
@@ -217,10 +203,6 @@ CREATE TABLE tbl_qna (
 	--qna_hit	number default 0	NOT NULL
     CONSTRAINT pk_qna PRIMARY KEY(qna_no)
 );
-commit;
-insert into tbl_qna(qna_no,category_no,qna_title,qna_pwd,qna_writer,qna_tel,qna_content)
-values(seq_qna_no.nextval,25,'몰로로로',1234,'g','1234','22');
-
 
 CREATE TABLE tbl_faq (
 	faq_no	number,
@@ -230,11 +212,7 @@ CREATE TABLE tbl_faq (
 	faq_hit	number DEFAULT 0 	NOT NULL,
     CONSTRAINT pk_faq PRIMARY KEY(faq_no)
 );
-commit;
-insert into tbl_faq(faq_no,category_no,faq_title,faq_content)
-VALUES(seq_faq.nextval,21,'2-1','2234');
-CREATE SEQUENCE seq_faq;
-commit;
+
 CREATE TABLE tbl_notice (
 	notice_no	number,
 	notice_title	varchar2(100)	NOT NULL,
@@ -244,11 +222,9 @@ CREATE TABLE tbl_notice (
 	notice_hit	number DEFAULT 0 	NOT NULL,
     CONSTRAINT pk_notice PRIMARY KEY(notice_no)
 );
-insert into tbl_notice(notice_no,notice_title,notice_content,notice_writer)
-values(seq_notice.nextval,'1','2','3');
-commit;
 
-CREATE SEQUENCE seq_notice;
+
+
 
 
 CREATE TABLE tbl_qna_comment (
@@ -258,8 +234,32 @@ CREATE TABLE tbl_qna_comment (
 	qna_com_content	varchar2(1000)	NULL,
 	qna_com_writer	varchar2(12) NULL
 );
+CREATE SEQUENCE seq_category;
+CREATE SEQUENCE seq_courier;
+CREATE SEQUENCE seq_faq;
+CREATE SEQUENCE seq_notice;
+CREATE SEQUENCE seq_order_detail;
+CREATE SEQUENCE seq_tbl_product;
+CREATE SEQUENCE seq_qna;
+CREATE SEQUENCE seq_review;
+CREATE SEQUENCE seq_pay;
 
 
+DROP SEQUENCE seq_faq;
+DROP SEQUENCE seq_order_detail;
+DROP SEQUENCE seq_pay_no;
+DROP SEQUENCE seq_tbl_product;
+DROP SEQUENCE seq_review;
+DROP SEQUENCE seq_courier;
+DROP SEQUENCE seq_category;
+DROP SEQUENCE seq_qna;
+DROP SEQUENCE seq_notice;
+DROP SEQUENCE seq_pay;
+
+CREATE SEQUENCE seq_order;
+DROP SEQUENCE seq_order;
+
+drop table tbl_qna_comment;
 drop table tbl_courier;
 drop table tbl_product_images;
 drop table tbl_qna;

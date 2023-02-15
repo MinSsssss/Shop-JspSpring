@@ -6,7 +6,7 @@ $(document).ready(function() {
 		location.href = "/faq/faqList?category_no=0";
 	})
 	$("#qnaBoard").on("click", function() {
-		location.href = "/qna/qnaBoard";
+		location.href = "/qna/qnaBoard?category_no=0";
 	})
 
 	$("#qnaBoardRead").on("click",function(){

@@ -13,22 +13,14 @@
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div
-	class="ltn__breadcrumb-area ltn__breadcrumb-area-4 bg-overlay-theme-10--- bg-image"
-	data-bg="img/bg/4.png">
+<div class="ltn__breadcrumb-area">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div
 					class="ltn__breadcrumb-inner ltn__breadcrumb-inner-4 justify-content-between">
 					<div class="section-title-area">
-						<h1 class="section-title white-color">Cart</h1>
-					</div>
-					<div class="ltn__breadcrumb-list">
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li>Cart</li>
-						</ul>
+						
 					</div>
 				</div>
 			</div>
@@ -70,12 +62,15 @@
 									<tr>
 										<td>${num}</td>
 										<td class="noticeTitle">
-											<a href="/notice/noticeRead?notice_no=${notice.notice_no}">${notice.notice_title }</a>
+											<a href="<c:url value='/notice/noticeRead?notice_no=${notice.notice_no}'/>">
+												<c:out value='${notice.notice_title}'/>
+											</a>
 										</td>
-										<td><fmt:formatDate pattern="yyyy.MM.dd" value="${notice.notice_date}"/>
+										<td>
+											<fmt:formatDate pattern="yyyy.MM.dd" value="${notice.notice_date}"/>
 										</td>
-										<td>${notice.notice_writer }</td>
-										<td>${notice.notice_hit }</td>
+										<td><c:out value='${notice.notice_writer }'/></td>
+										<td><c:out value='${notice.notice_hit }'/></td>
 									</tr>
 									<c:set var="num" value="${num-1}"/>
 								</c:forEach>
@@ -91,7 +86,7 @@
 		</div>
 	</div>
 </div>
-<!-- SHOPING CART AREA END -->
+
 
 
 

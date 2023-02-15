@@ -47,10 +47,7 @@
 		WHERE mem_id = #{mem_id}
 	</select>
 	
-	<!-- <select id="getId" resultType="String">
-		SELECT COUNT(*) FROM tbl_member
-		WHERE mem_id = #{mem_id}
-	</select> -->
+	
 	
 	<select id="getPwd" resultType="String">
 		SELECT mem_pwd from tbl_member where mem_id = #{mem_id}

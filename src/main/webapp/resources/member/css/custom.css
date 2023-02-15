@@ -5,6 +5,15 @@
 	transform:translateZ(0);
 	backface-visibility:hidden;
 } */
+
+.agreeBox .allCheck{
+	padding-bottom: 1rem;
+	border-bottom:1px solid #ddd;
+}
+.agreeBox .checkFirst{
+	margin-top:1rem;
+}
+
 .readOnlyText{
 	border: none; 
 	resize: none; 
@@ -209,6 +218,8 @@ html {
 	width: 80%;
 	border-radius: 1rem;
 }
+
+
 
 /* orderDetailView */
 .orderDateStrong {

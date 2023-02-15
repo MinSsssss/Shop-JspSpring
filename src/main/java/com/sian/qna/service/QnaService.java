@@ -10,9 +10,13 @@ public interface QnaService {
 	
 	public int getTotal();
 	
+	public int getTotal(int category_no);
+	
 	public int getTotal(String mem_id);
 	
 	public List<QnaDTO> getQnaList(Criteria cri);
+	
+	public List<QnaDTO> getQnaList(int category_no,Criteria cri);
 	
 	public List<QnaDTO> qnaMemberList(String mem_id,Criteria cri);
 	
@@ -21,4 +25,6 @@ public interface QnaService {
 	public boolean qnaDelete(Long qna_no);
 	
 	public boolean qnaAnswerRegister(QnaDTO qnaDTO);
+	
+	public List<QnaDTO> recentQna();
 }

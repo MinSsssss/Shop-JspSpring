@@ -20,7 +20,7 @@
 		<div class="card-body">
 			<div class="table-responsive">
 
-				<form action="/admin/notice/noticeRegisterProc" method="post" id="registerForm">
+				<form action="<c:url value='/admin/notice/noticeRegisterProc'/>" method="post" id="registerForm">
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
 

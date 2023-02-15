@@ -9,7 +9,10 @@
 .table-bordered .thWidth15{
 	width:15%;
 }
-
+.sidebar-brand a{
+	color: white;
+	text-decoration-line :none;
+}
 
 
 .readOnlyText{

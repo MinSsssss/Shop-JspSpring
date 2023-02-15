@@ -28,31 +28,48 @@ public class QnaController {
 	private final QnaService qnaService;
 	private final MemberService memberService;
 	
+	/*
+	 * qna 게시판 조회 페이지
+	 */
 	@GetMapping({"/qna/qnaBoard","/admin/qna/qnaList"})
-	public void qnaBoard(Model model,Criteria cri) {
-		
-		model.addAttribute("qnaList",qnaService.getQnaList(cri));
-		
-		int total = qnaService.getTotal();
+	public void qnaBoard(@RequestParam("category_no") int category_no,Criteria cri,Model model) {
+		int total = 0;
+		if(category_no==0) {
+			model.addAttribute("qnaList",qnaService.getQnaList(cri));
+			total = qnaService.getTotal();
+		}
+		else {
+			model.addAttribute("qnaList",qnaService.getQnaList(category_no, cri));
+			total = qnaService.getTotal(category_no);
+		}
+		model.addAttribute("category",categoryService.getCategoryList("qna"));
 		
 		PageDTO page = new PageDTO(cri, total);
 		
 		model.addAttribute("page",page);
 	}
 	
+	/*
+	 * qna 게시판 단일 조회
+	 */
 	@GetMapping("/qna/qnaBoardRead")
 	public void qnaBoardRead(@RequestParam("qna_no") Long qna_no,Model model) {
 		model.addAttribute("qna", qnaService.getQna(qna_no));
 	}
 	
 	
-	
+	/*
+	 * qna 작성 페이지
+	 */
 	
 	@GetMapping("/qna/qnaWrite")
 	public void qnaWriteView(Model model) {
 		model.addAttribute("qnaCategoryList", categoryService.getCategoryList("qna"));
 	}
 	
+	/*
+	 * qna 작성
+	 */
 	@PostMapping("/qna/qnaWriteProc")
 	public String qnaWriteProc(QnaDTO qnaDTO,Authentication authentication) {
 		//String mem_id = memberService.getId(authentication);
@@ -72,12 +89,20 @@ public class QnaController {
 		 return "redirect:/qna/qnaRead?qna_no="+ qnaDTO.getQna_no();
 	}
 	
+
 	
+	/*
+	 * 회원 및 관리자 qna 단일 조회
+	 */
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@GetMapping({"/qna/qnaRead","/admin/qna/qnaRead"})
 	public void qnaRead(@RequestParam("qna_no") Long qna_no,Model model) {
 		model.addAttribute("qna", qnaService.getQna(qna_no));
 	}
 	
+	/*
+	 * 회원 qna 삭제 
+	 */
 	@ResponseBody
 	@PostMapping("/qna/qnaDelete")
 	public String reviewDelete(@RequestParam("qna_no")Long qna_no,RedirectAttributes rttr) {
@@ -93,6 +118,9 @@ public class QnaController {
 
 	}
 	
+	/*
+	 * qna 비밀번호 확인
+	 */
 	@PostMapping("/qna/pwdChk")
 	public String qnaPwdChk(QnaDTO qnaDTO,RedirectAttributes rttr) {
 		QnaDTO qna = qnaService.getQna(qnaDTO.getQna_no());
@@ -106,6 +134,9 @@ public class QnaController {
 		}
 	}
 	
+	/*
+	 * 회원 qna 리스트 조회
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@GetMapping("/qna/qnaList")
 	public void qnaList(Authentication authentication, Model model,Criteria cri) {
@@ -123,6 +154,9 @@ public class QnaController {
 		model.addAttribute("page",page);
 	}
 	
+	/*
+	 * 관리자 qna 답변 작성
+	 */
 	@ResponseBody
 	@PostMapping("/admin/qna/qnaAnswerRegister")
 	public boolean qnaAnswerRegister(@RequestBody QnaDTO qnaDTO) {

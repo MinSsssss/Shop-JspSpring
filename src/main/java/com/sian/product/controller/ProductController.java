@@ -1,13 +1,10 @@
 package com.sian.product.controller;
 
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -40,12 +37,15 @@ public class ProductController {
 	/*
 	 * ALL
 	 */
+	/*
+	 * 상품 리스트 조회
+	 */
 	@GetMapping("/product/productList")
 	public void productList(@RequestParam(value = "category_no", required = false) int category_no, 
 			Model model,Criteria cri,RedirectAttributes rttr) {
 		List<ProductDTO> productList = null;
 		if(cri.getKeyword()==null) {
-			model.addAttribute("categoryList", categoryService.getCategoryList("product"));
+			
 			model.addAttribute("category", categoryService.categoryRead(category_no));
 			productList = productService.memberProductList(category_no);
 			
@@ -53,7 +53,7 @@ public class ProductController {
 		}
 		else {
 			productList = productService.productList(cri);
-			System.out.println(productList.size());
+			
 			if(productList.size() == 0) {
 				model.addAttribute("searchNull" , "검색하신 상품을 찾을수 없습니다.");
 
@@ -68,7 +68,9 @@ public class ProductController {
 		
 		
 	}
-
+	/*
+	 * 상품 단일 조회
+	 */
 	@GetMapping({ "/product/productRead"})
 	public String productRead(
 			HttpServletResponse response,
@@ -82,8 +84,6 @@ public class ProductController {
 			System.out.println("");
 		}
 		response.addCookie(new Cookie("view",cookie));
-		System.out.println(cookie);
-		
 		
 		ProductDTO product = productService.getProduct(product_no);
 		
@@ -93,6 +93,7 @@ public class ProductController {
 		
 		List<String> images = productService.imgList(product_no);
 		List<String> originImages = productService.originImgList(product_no);
+		
 		images.remove(images.indexOf(thumbImg));
 		images.add(0, thumbImg);
 		
@@ -116,8 +117,7 @@ public class ProductController {
 		if(reviewList.size()!=0) {
 			
 			product.setReviewAvg((double)(total/reviewList.size()));
-		}
-		
+		}	
 		
 		model.addAttribute("product",product);
 		 
@@ -127,10 +127,16 @@ public class ProductController {
 		return "/product/productRead";
 	}
 
+	
+	
+	
 	/*
 	 * ADMIN ONLY
 	 */
-
+	
+	/*
+	 * 상품 리스트 조회  
+	 */
 	@GetMapping("/admin/product/productList")
 	public void adminProductList(@RequestParam("category_no")int category_no,Criteria cri,Model model) {
 		 int total = 0;
@@ -145,39 +151,48 @@ public class ProductController {
 			 total = productService.getTotal(category_no); 
 		 }
 		 
-		 model.addAttribute("category",categoryService.getCategoryList("product"));
+		
 		
 		PageDTO page = new PageDTO(cri, total);
 		
 		model.addAttribute("page",page);
 	}
 
+	/*
+	 * 상품 등록 페이지
+	 */
 	@GetMapping("/admin/product/productRegister")
 	public void productRegister(Model model) {
-		model.addAttribute("categoryList", categoryService.getCategoryList("product"));
+		
 	}
-
+	
+	/*
+	 * 상품 등록
+	 */
 	@PostMapping("/admin/product/productRegisterProc")
 	public String productRegisterProc(ProductDTO productDTO) {
 		
-//		if (productDTO.getAttachList() != null) {
-//			productDTO.getAttachList().forEach(attach -> System.out.println(attach));
-//		}
 
 		productService.productRegister(productDTO);
 
 		return "redirect:/admin/product/productList?category_no=0";
 	}
-
+	
+	/*
+	 * 상품 수정
+	 */
 	@PostMapping("/admin/product/productModifyProc")
 	public String productModifyProc(ProductDTO productDTO) {
-		System.out.println(productDTO);
+		
 		productService.productModify(productDTO);
 
 		return "redirect:/admin/product/productList?category_no=0";
 
 	}
-
+	
+	/*
+	 * 상품 단일 조회 및 상품 수정 페이지
+	 */
 	 @GetMapping({"/admin/product/productRead","/admin/product/productModify" })
 	 public void productModify(@RequestParam("product_no")int product_no,Model model) {
 		ProductDTO product = productService.getProduct(product_no);
@@ -186,10 +201,6 @@ public class ProductController {
 
 		List<String> images = productService.imgList(product_no);
 		
-		
-			/*
-			 * productModify 대표사진위치변경
-			 */
 			
 		images.remove(images.indexOf(thumbImg));
 		images.add(0, thumbImg);
@@ -199,18 +210,10 @@ public class ProductController {
 
 		model.addAttribute("product", product);
 
-		model.addAttribute("categoryList", categoryService.getCategoryList("product"));
+		
 
-		model.addAttribute("reviewList", reviewService.getReviewList(product_no));
-
-	
-		 
+ 
 	 }
 	 
-	 
-	 
-	/*
-	 * MEMBER ONLY @PreAuthorize("hasRole('ROLE_MEMBER')")
-	 */
 
 }

@@ -13,7 +13,7 @@
                     <!-- Page Heading -->
                     <div class="pageHead">
                     	<h1 class="h3 mb-2 text-gray-800">상품리스트</h1>
-                    	<div><a class="btn btn-link" href="/admin/product/productRegister">등록하기</a></div>
+                    	<div><a class="btn btn-link" href="<c:url value='/admin/product/productRegister'/>">등록하기</a></div>
                     </div>
 
                     <!-- DataTales Example -->
@@ -22,19 +22,18 @@
                         <div class="card-body">
                             <div class="table-responsive">
                             	<div>
-                            		<span><a href="/admin/product/productList?category_no=0">전체</a></span>
-                            		<c:forEach items="${category}" var="cate" varStatus="status">
+                            		<span><a href="<c:url value='/admin/product/productList?category_no=0'/>">전체</a></span>
+                            		<c:forEach items="${categoryList}" var="cate" varStatus="status">
                             			<span class="moveCategory">
-                            				<a href="#" onclick="fnMoveCategory(${cate.category_no})">
-                            					${cate.category_name}
+                            				<a href="#" onclick="fnMoveCategory(<c:out value='${cate.category_no}'/>)">
+                            					<c:out value='${cate.category_name}'/>
                             				</a>
                             			</span> 
                             			
                             		</c:forEach>
-                            		<form id="moveCategoryForm" method="get"
-                            			action="/admin/product/productList">
-											<input type="hidden" name="pageNum" value="1">
-											<input type="hidden" name="amount" value="${page.cri.amount}">
+                            		<form id="moveCategoryForm" method="get" action="<c:url value='/admin/product/productList'/>">
+										<input type="hidden" name="pageNum" value="1">
+										<input type="hidden" name="amount" value="<c:out value='${page.cri.amount}'/>">
 											
 									</form>
                             	</div>
@@ -57,16 +56,20 @@
 	                                    	<tr>
 	                                            <td class="align-middle">${num}</td>
 	                                            <td class="align-middle">
-		                                            <div><img  class="productListImage" alt="" src="/display?fileName=${product.product_thumb_img}">
-		                                            	<span><a href="/admin/product/productRead?product_no=${product.product_no}">${product.product_name}</a></span>
+		                                            <div><img  class="productListImage" alt="" src="<c:url value='/display?fileName=${product.product_thumb_img}'/>">
+		                                            	<span>
+		                                            		<a href="<c:url value='/admin/product/productRead?product_no=${product.product_no}'/>">
+		                                            			<c:out value='${product.product_name}'/>
+		                                            		</a>
+		                                            	</span>
 		                                            </div>
 	                                            
 	                                            </td>
 	                                            
-	                                            <td class="align-middle">${product.product_price }</td>
-	                                            <td class="align-middle">${product.product_hit }</td>
-	                                            <td class="align-middle"><fmt:formatDate pattern="yyyy-MM-dd" value = "${product.product_regdate }"/></td>
-	                                            <td class="align-middle"><fmt:formatDate pattern="yyyy-MM-dd" value = "${product.product_updateDate }"/></td>
+	                                            <td class="align-middle"><c:out value='${product.product_price}'/></td>
+	                                            <td class="align-middle"><c:out value='${product.product_hit}'/></td>
+	                                            <td class="align-middle"><fmt:formatDate pattern="yyyy-MM-dd" value="${product.product_regdate}"/></td>
+	                                            <td class="align-middle"><fmt:formatDate pattern="yyyy-MM-dd" value="${product.product_updateDate}"/></td>
 	                                             
 	                                        </tr>
 	                                    	<c:set var="num" value="${num-1}"/>

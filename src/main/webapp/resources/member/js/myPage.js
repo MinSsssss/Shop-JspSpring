@@ -19,9 +19,7 @@ $(document).ready(function() {
 		location.href = "/member/memberDrop"
 	})
 
-/*	$("#logoutBtn").on("click", function() {
-		$("#logoutForm").submit();
-	})*/
+
 
 	$("#pwChkCancleBtn").on("click", function() {
 		location.href = "/order/orderList";
@@ -60,7 +58,7 @@ $(document).ready(function() {
 	$("#pwChkSubmitBtn").on("click", function() {
 		let mem_id = $("#mem_id").val();
 		let mem_pwd = $("#mem_pwd").val();
-		console.log(mem_pwd);
+		
 		var param = {
 			"mem_id" : mem_id,
 			"mem_pwd" : mem_pwd
@@ -78,13 +76,14 @@ $(document).ready(function() {
 				data : JSON.stringify(param),
 				contentType : "application/json; charset=UTF-8",
 				success : function(data) {
-					console.log(data);
-					if (data == 1) {
-						console.log(data);
+					
+					if (data) {
+						$("#memberModifyForm").submit();
+						
+					} else {
+						
 						alert("비밀번호가 틀렸습니다.");
 						return false;
-					} else if (data == 0) {
-						$("#memberModifyForm").submit();
 					}
 				}
 			})
@@ -177,7 +176,7 @@ $(document).ready(function() {
 })
 
 function wishDelete(product_no) {
-	console.log("큐ㅜ큐큐")
+	
 	let param = { "product_no": product_no.value };
 	$.ajax({
 		url: "/wish/wishDelete",

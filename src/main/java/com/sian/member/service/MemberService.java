@@ -12,7 +12,7 @@ public interface MemberService {
 	
 	public boolean memberDrop(MemberDTO memberDTO) ;
 	
-	public int idChk(MemberDTO memberDTO) ;
+	public boolean idChk(String mem_id) ;
 	
 	public String getId(Authentication authentication);
 	

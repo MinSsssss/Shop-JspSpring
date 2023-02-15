@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sian</groupId>
-	<artifactId>shop</artifactId>
+	<artifactId>sian</artifactId>
 	<name>sian_v2</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
@@ -334,6 +334,15 @@
 					<compilerArgument>-Xlint:all</compilerArgument>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.1</version>
+				<configuration>
+					<warSourceDirectory>src/main/webapp</warSourceDirectory> <!-- war파일 디렉토리 -->
+					<failOnMissingWebXml>false</failOnMissingWebXml> <!-- web.xml이 없을 때 에러를 낼건지 안낼건지 -->
 				</configuration>
 			</plugin>
 			<plugin>

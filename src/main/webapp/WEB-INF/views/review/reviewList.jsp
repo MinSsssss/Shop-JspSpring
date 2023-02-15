@@ -11,22 +11,14 @@
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div
-	class="ltn__breadcrumb-area ltn__breadcrumb-area-4 bg-overlay-theme-10--- bg-image"
-	data-bg="img/bg/4.png">
+<div class="ltn__breadcrumb-area">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div
 					class="ltn__breadcrumb-inner ltn__breadcrumb-inner-4 justify-content-between">
 					<div class="section-title-area">
-						<h1 class="section-title white-color">마이페이지</h1>
-					</div>
-					<div class="ltn__breadcrumb-list">
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li>My Account</li>
-						</ul>
+						
 					</div>
 				</div>
 			</div>
@@ -52,8 +44,7 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="tab-content">
-									<c:forEach items="${reviewList }"
-									var="review" varStatus="status">
+									<c:forEach items="${reviewList }" var="review" varStatus="status">
 
 										<div class="reviewWrap">
 											<h4>		
@@ -61,24 +52,23 @@
 											</h4>
 											<div class="reviewWrapTop">
 												<div class="productInfo">
-													<div><img  class="product_image" alt="" src="/display?fileName=${review.product_thumb_img}"></div>
+													<div>
+														<img class="product_image" src="<c:url value='/display?fileName=${review.product_thumb_img}'/>">
+													</div>
 													
-													<div class="productName">${review.product_name }
-														
+													<div class="productName">
+														<c:out value='${review.product_name}'/>
 													</div>
 													
 												</div>
 												<div class="reviewModifyBtns">
-													<form action="/review/reviewModifyView" method="post" id="reviewModifyViewForm${status.count}">
-														<input type="hidden" name="review_no" value="${review.review_no}">
+													<form action="<c:url value='/review/reviewModifyView'/>" method="post" id="reviewModifyViewForm${status.count}">
+														<input type="hidden" name="review_no" value="<c:out value='${review.review_no}'/>">
 														<button class="btn btn-link" onclick="reviewModifyViewFun(${status.count})">수정</button><br>
 													</form>
 													<button class="btn btn-link" onclick="reviewDeleteFun(${status.count})">삭제</button>
-													<input type="hidden" value="${review.review_no}" id="review_no${status.count}">
-													<%-- <form action="/member/auth/reviewDelete" method="post" id="reviewDeleteForm${status.count}">
-														
-														
-													</form> --%>
+													<input type="hidden" value="<c:out value='${review.review_no}'/>" id="review_no${status.count}">
+													
 													
 												</div>
 											</div>
@@ -86,7 +76,7 @@
 												<div>
 													<div class="mb-3 myform"  id="reviewStars">
 														<fieldset>
-															<input type="hidden" id="review_star" name="review_star" value="${review.review_star}">
+															<input type="hidden" id="review_star" name="review_star" value="<c:out value='${review.review_star}'/>">
 															<span class="text-bold"></span>
 															<input type="radio" name="reviewStar${status.index}" value="5" id="rate5${status.index}"><label
 																for="rate5">★</label>
@@ -105,13 +95,13 @@
 												<table class="reviewTable">
 													<tr>
 														<th style="width:5rem;">제목</th>
-														<td>${review.review_title }</td>
+														<td><c:out value='${review.review_title}'/></td>
 													</tr>
 													<tr>
 														<th>내용</th>
 														<td>
 															<textarea class="readOnlyText" 
-															id="review_content" readonly="readonly">${review.review_content }</textarea>
+															id="review_content" readonly="readonly"><c:out value='${review.review_content}'/></textarea>
 														</td>
 													</tr>
 													
@@ -135,7 +125,7 @@
 <!-- WISHLIST AREA START -->
 <script>
 
-var result = '${msg}';
+var result = "<c:out value='${msg}'/>'";
 if(result === 'success'){
 	
 	alert('수정이 완료되었습니다.');

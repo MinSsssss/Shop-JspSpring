@@ -13,7 +13,7 @@
 		<a data-toggle="tab" href="#" id="qnaList">문의내역 </a> 
 		<a data-toggle="tab" href="#" id="memberModify">개인정보확인/수정 </a>
 
-		<form action="/logout" id="logoutForm" method="post">
+		<form action="<c:url value='/logout'/>" id="logoutForm" method="post">
 			<input type="hidden" name="${_csrf.parameterName }"
 				value="${_csrf.token }" />
 		</form>	

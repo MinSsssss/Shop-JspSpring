@@ -41,4 +41,5 @@ public interface OrderService {
 	
 	public boolean updateStatus(OrderDTO orderDTO);
 	
+	public List<OrderDTO> recentOrder();
 }

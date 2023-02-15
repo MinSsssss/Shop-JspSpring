@@ -12,22 +12,14 @@
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div
-	class="ltn__breadcrumb-area ltn__breadcrumb-area-4 bg-overlay-theme-10--- bg-image"
-	data-bg="img/bg/4.png">
+<div class="ltn__breadcrumb-area">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div
 					class="ltn__breadcrumb-inner ltn__breadcrumb-inner-4 justify-content-between">
 					<div class="section-title-area">
-						<h1 class="section-title white-color">Cart</h1>
-					</div>
-					<div class="ltn__breadcrumb-list">
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li>Cart</li>
-						</ul>
+						
 					</div>
 				</div>
 			</div>
@@ -51,19 +43,19 @@
 					<h2 class="csTitle">자주묻는질문</h2>
 
 					<div class="categoryNav">
-						<span><a href="/faq/faqList?category_no=0">전체</a></span>
+						<span><a href="<c:url value='/faq/faqList?category_no=0'/>">전체</a></span>
 						<c:forEach items="${category}" var="cate" varStatus="status">
                         	<span class="moveCategory">
-                        		<a href="#" onclick="fnMoveCategory(${cate.category_no})">
-                        			${cate.category_name}
+                        		<a href="#" onclick="fnMoveCategory(<c:out value='${cate.category_no}'/>)">
+                        			<c:out value='${cate.category_name}'/>
                         		</a>
                         	</span> 
                         			
                         </c:forEach>
                         
-                    	<form id="moveCategoryForm" method="get" action="/faq/faqList">
+                    	<form id="moveCategoryForm" method="get" action="<c:url value='/faq/faqList'/>">
 							<input type="hidden" name="pageNum" value="1">
-							<input type="hidden" name="amount" value="${page.cri.amount}">
+							<input type="hidden" name="amount" value="<c:out value='${page.cri.amount}'/>">
 						
 						</form>
 					</div>
@@ -72,11 +64,13 @@
 						<c:forEach items="${faqList }" var="faq" varStatus="status">
 							<div class="card">
 								<div class="collapsed ltn__card-title" data-toggle="collapse"
-									data-target="#faq-item-2-${status.count}" aria-expanded="false"><h6>${faq.faq_title }</h6></div>
+									data-target="#faq-item-2-${status.count}" aria-expanded="false">
+									<h6><c:out value='${faq.faq_title}'/></h6>
+								</div>
 								<div id="faq-item-2-${status.count}" class="collapse"
 									data-parent="#accordion_2">
 									<div class="card-body">
-										<p>${faq.faq_content}</p>
+										<p><c:out value='${faq.faq_content}'/></p>
 									</div>
 								</div>
 							</div>

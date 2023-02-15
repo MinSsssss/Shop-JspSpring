@@ -24,39 +24,32 @@ import com.sian.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/cart")
+@RequestMapping("/cart") //security:intercept-url ROLE_MEMBER 접근허용
 public class CartController {
 	
 	private final CartService cartService;
 	private final MemberService memberService;
 	private final ProductService productService;
 	
-	
 	/*
-	 * ALL
+	 * 장바구니 추가
 	 */
-	
-	/*
-	 * MEMBER ONLY @PreAuthorize("hasRole('ROLE_MEMBER')")
-	 */
-	
 	@ResponseBody
 	@PostMapping("/addCart")
-	public int addCart(@RequestBody CartProductDTO cartProductDTO, Authentication authentication
+	public boolean addCart(@RequestBody CartProductDTO cartProductDTO, Authentication authentication
 			)  {
 
 		cartProductDTO.setMem_id(memberService.getId(authentication));
-		if (cartService.addCart(cartProductDTO) == 1) {
-			return 1;
-		} else {
-			return 0;
-		}
-
-
+		
+		return cartService.addCart(cartProductDTO);
 	}
 	
+	
+	/*
+	 * 본인 장바구니 조회
+	 */
 	@GetMapping("/cartView")
-	public String carts(Authentication authentication, Model model)  {
+	public String cartView(Authentication authentication, Model model)  {
 		
 
 		model.addAttribute("cartList", cartService.cartList(memberService.getId(authentication)));
@@ -64,6 +57,10 @@ public class CartController {
 		return "/cart/cartView";
 	}
 
+	
+	/*
+	 * 장바구니에서 수량변경
+	 */
 	@PostMapping("/cartModify")
 	public String cartModify(CartProductDTO cartProductDTO, Authentication authentication, Model model)
 			 {
@@ -77,28 +74,29 @@ public class CartController {
 		return "redirect:/cart/cartView";
 	}
 	
+	
+	/*
+	 * 장바구니에서 삭제
+	 */
 	@ResponseBody
 	@PostMapping("/cartDelete")
-	public int cartDelete(@RequestBody CartProductDTO cartProductDTO,
+	public boolean cartDelete(@RequestBody CartProductDTO cartProductDTO,
 			Authentication authentication)  {
 
 		cartProductDTO.setMem_id(memberService.getId(authentication));
-		if(cartService.cartDelete(cartProductDTO)==1) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
-
 		
+		return cartService.cartDelete(cartProductDTO);
 	}
 
+	
+	/*
+	 * 장바구니에서 선택 상품 삭제
+	 */
 	@PostMapping("/cartSelectDelete")
 	public String cartSelectDelete(@RequestParam(value = "cartIds", required = false) List<String> cartIds,
 			CartProductDTO cartProductDTO, Authentication authentication)  {
 
 		for (int i = 0; i < cartIds.size(); i++) {
-			System.out.println(cartIds);
 			cartProductDTO.setProduct_no(productService.getProductNo(cartIds.get(i)));
 			cartProductDTO.setMem_id(memberService.getId(authentication));
 			cartService.cartDelete(cartProductDTO);
@@ -108,6 +106,9 @@ public class CartController {
 		return "redirect:/cart/cartView";
 	}
 
+	/*
+	 * 장바구니에서 선택한 물건 구매
+	 */
 	@PostMapping("/cartSelectOrder")
 	public String cartSelectOrder(OrderDTO orderDTO, Model model, Authentication authentication)  {
 		
@@ -115,11 +116,6 @@ public class CartController {
 		return "/order/checkout";
 	}
 	
-	
-	
-	/*
-	 * ADMIN ONLY
-	 */
-	
+
 	
 }

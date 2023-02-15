@@ -20,14 +20,21 @@
                         <div class="card-body">
                             <div class="table-responsive">
                             	<div>
-                            		<span><a href="/admin/qna/qnaList?category_no=0">전체</a></span>
-                            		<c:forEach items="${category}" var="cate">
-                            			<span>
-                            				<a href="/admin/qna/qnaList?category_no=${cate.category_no}">
-                            					${cate.category_name}
+                            		<span><a href="<c:url value='/admin/qna/qnaList?category_no=0'/>">전체</a></span>
+                            		<c:forEach items="${category}" var="cate" varStatus="status">
+                            			<span class="moveCategory">
+                            				<a href="#" onclick="fnMoveCategory(<c:out value='${cate.category_no}'/>)">
+                            					<c:out value='${cate.category_name}'/>
                             				</a>
                             			</span> 
+                            			
                             		</c:forEach>
+                            		<form id="moveCategoryForm" method="get"
+                            			action="<c:url value='/admin/qna/qnaList'/>">
+											<input type="hidden" name="pageNum" value="1">
+											<input type="hidden" name="amount" value="<c:out value='${page.cri.amount}'/>">
+											
+									</form>
                             	</div>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
@@ -45,16 +52,17 @@
                                     	<c:set var="num" value="${page.total-(page.cri.pageNum-1) * page.cri.amount}"/>
                                     	<c:forEach items="${qnaList}" var="qna">
 	                                    	<tr>
-	                                            <td>${num}</td>
-												<td>${qna.category_name}</td>
+	                                            <td><c:out value='${num}'/></td>
+												<td><c:out value='${qna.category_name}'/></td>
 												<td class="noticeTitle">
-												<a href="/admin/qna/qnaRead?qna_no=${qna.qna_no}">${qna.qna_title}</a>
+												<a href="<c:url value='/admin/qna/qnaRead?qna_no=${qna.qna_no}'/>">
+													<c:out value='${qna.qna_title}'/>
+												</a>
 													
 												</td>
-												<td><fmt:formatDate pattern="yyyy.MM.dd"
-														value="${qna.qna_date}" /></td>
-												<td>${qna.qna_writer}</td>
-												<td>${qna.qna_status}</td>
+												<td><fmt:formatDate pattern="yyyy.MM.dd" value="${qna.qna_date}" /></td>
+												<td><c:out value='${qna.qna_writer}'/></td>
+												<td><c:out value='${qna.qna_status}'/></td>
 	                                             
 	                                        </tr>
 	                                        <c:set var="num" value="${num-1}"/>
@@ -77,7 +85,7 @@
         
 	<jsp:include page="/WEB-INF/views/admin/includes/adminFooter.jsp"></jsp:include>
 	<script>
-		let result = '${msg}';
+		let result = "<c:out value='${msg}'/>'";
 		successFun(result);
 	</script>    
 	<script src="/resources/member/js/paging.js"></script>

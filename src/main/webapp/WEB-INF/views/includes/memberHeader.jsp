@@ -9,13 +9,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Arowana - Beard Oil Responsive HTML Template</title>
+    <title>SIAN COFFEE</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Place favicon.png in the root directory -->
-    <link rel="shortcut icon"  href="resources/member/img/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon"  href="#" type="image/x-icon" />
     <!-- Font Icons css -->
     <link rel="stylesheet" href="/resources/member/css/font-icons.css"/>
     <!-- plugins css -->
@@ -46,15 +46,15 @@
         <div class="top-bar">
 
 	        <sec:authorize access="isAnonymous()">
-	            <a href="/login">로그인</a>
-	            <a href="/register">회원가입</a>
+	            <a href="<c:url value='/login'/>">로그인</a>
+	            <a href="<c:url value='/registerAgree'/>">회원가입</a>
 	        </sec:authorize>
 	        
 	        <sec:authorize access="isAuthenticated()">
 	            <div class=""><sec:authentication property="principal.member.mem_name"/>님</div>
 	            <a href="#" data-toggle="modal" data-target="#logoutModal">로그아웃</a>
 	        </sec:authorize>
-	        <a href="/notice/noticeList">고객센터</a>
+	        <a href="<c:url value='/notice/noticeList'/>">고객센터</a>
 	        
         </div>
         <div class="ltn__header-top-area top-area-color-white d-none">
@@ -126,22 +126,20 @@
                             <nav>
                                 <div class="ltn__main-menu">
                                     <ul>
-                                      <c:forEach items="${categoryList }" var="category">
-                                        	
-                                        		<li>
-                                        			<a class="menu-icon" id="productMove"
-                                        			href='/product/productList?category_no=${category.category_no}'>
-                                        			
-                                        			${category.category_name }</a>
-                                        		</li>
-                                        		 
+                                      	<c:forEach items="${categoryList }" var="category">
+	                                      	<li>
+	                                    		<a class="menu-icon" id="productMove"
+	                                    			href="<c:url value='/product/productList?category_no=${category.category_no}'/>">
+	                                    			<c:out value='${category.category_name}'/>
+	                                    		</a>
+	                                    	</li>
                                         </c:forEach>
                                         
                                     </ul>
                                 </div>
                             </nav>
                         </div>
-                       <form id='actionForm' action="/member/productList" method='get'>
+                       <form id='actionForm' action="<c:url value='/member/productList'/>" method='get'>
 							<input type="hidden" name=>
 						</form>
                     </div>
@@ -156,7 +154,7 @@
                                     </div>
                                 </div>
                                 <div class="header-search-1-form">
-                                    <form action="/product/productList" id="searchForm" method="get">
+                                    <form action="<c:url value='/product/productList'/>" id="searchForm" method="get">
                                       
                                          <input type="text" name="keyword" placeholder="Search...">
 					                   
@@ -178,21 +176,21 @@
                             
                              <sec:authorize access="hasRole('ROLE_MEMBER')"> 
 	                            <div class="ltn__drop-menu user-menu">
-	                                    <a href="/order/orderList"><i class="icon-user"></i></a>   
+	                                    <a href="<c:url value='/order/orderList'/>"><i class="icon-user"></i></a>   
 	                            </div>
 	                         
 	                            
 	                            <!-- mini-cart -->
 	                            <div class="mini-cart-icon">
-	                                <a href="/cart/cartView" >
+	                                <a href="<c:url value='/cart/cartView'/>" >
 	                                    <i class="icon-shopping-cart"></i>
-	                                    <sup>2</sup>
+	                                    <sup></sup>
 	                                </a>
 	                            </div>
                             </sec:authorize>
                             <sec:authorize access="hasRole('ROLE_ADMIN')"> 
 	                            <div class="ltn__drop-menu user-menu">
-	                                    <a href="/admin"><i class="icon-user"></i></a>   
+	                                    <a href="<c:url value='/admin'/>"><i class="icon-user"></i></a>   
 	                            </div>
 	                        </sec:authorize>
                             <!-- Mobile Menu Button -->
@@ -223,7 +221,7 @@
         <div class="ltn__utilize-menu-inner ltn__scrollbar">
             <div class="ltn__utilize-menu-head">
                 <div class="site-logo">
-                    <a href="/"><img src="/resources/member/img/logo.png" alt="Logo"></a>
+                    <a href="<c:url value='/'/>"><img src="<c:url value='/resources/member/img/logo.png'/>" alt="Logo"></a>
                 </div>
                 <button class="ltn__utilize-close">×</button>
             </div>
@@ -231,7 +229,7 @@
             
             
             <div class="ltn__utilize-menu-search-form">
-                <form action="/product/productList" id="searchForm" method="get">
+                <form action="<c:url value='/product/productList'/>" id="searchForm" method="get">
                     <input type="text" name="keyword" placeholder="Search...">
                     <input type="hidden" name="category_no" value="0">
                 
@@ -241,17 +239,19 @@
             <div class="ltn__utilize-menu">
                 <ul>
                     <c:forEach items="${categoryList }" var="category">
-                        <li><a class="menu-icon" id="productMove"
-                                        			href='/product/productList?category_no=${category.category_no}'>
-                                        			
-                                        			${category.category_name }</a></li>
+                        <li>
+                        	<a class="menu-icon" id="productMove"
+                            	href="<c:url value='/product/productList?category_no=${category.category_no}'/>">
+                            	<c:out value='${category.category_name}'/>
+                            </a>
+                       </li>
                     </c:forEach>
                 </ul>
             </div>
             <div class="ltn__utilize-buttons ltn__utilize-buttons-2">
                 <ul>
                     <li>
-                        <a href="/login" title="Login">
+                        <a href="<c:url value='/login'/>" title="Login">
                             <span class="utilize-btn-icon">
                                 <i class="far fa-user"></i>
                             </span>
@@ -259,7 +259,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/wish/wishListView" title="Wishlist">
+                        <a href="<c:url value='/wish/wishListView'/>" title="Wishlist">
                             <span class="utilize-btn-icon">
                                 <i class="far fa-heart"></i>
                                 <sup>3</sup>
@@ -268,7 +268,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/cart/cartView" title="Shoping Cart">
+                        <a href="<c:url value='/cart/cartView'/>" title="Shoping Cart">
                             <span class="utilize-btn-icon">
                                 <i class="fas fa-shopping-cart"></i>
                                 <sup>5</sup>
@@ -280,10 +280,8 @@
             </div>
             <div class="ltn__social-media-2">
                 <ul>
-                    <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                    <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-                    <li><a href="#" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://www.facebook.com/siancoffee" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="https://www.instagram.com/si_an_coffee" title="Instagram"><i class="fab fa-instagram"></i></a></li>
                     
                 </ul>
             </div>

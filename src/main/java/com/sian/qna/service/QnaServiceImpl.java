@@ -26,6 +26,11 @@ public class QnaServiceImpl implements QnaService{
 	}
 	
 	@Override
+	public int getTotal(int category_no) {
+		return qnaDAO.getCategoryTotal(category_no);
+	}
+	
+	@Override
 	public int getTotal(String mem_id) {
 		
 		return qnaDAO.getMemberTotal(mem_id);
@@ -35,6 +40,12 @@ public class QnaServiceImpl implements QnaService{
 	public List<QnaDTO> getQnaList(Criteria cri) {
 		
 		return qnaDAO.getQnaList(cri);
+	}
+	
+	@Override
+	public List<QnaDTO> getQnaList(int category_no, Criteria cri) {
+		
+		return qnaDAO.selectQnaList(category_no,cri.getPageNum(),cri.getAmount());
 	}
 	
 	@Override
@@ -65,6 +76,12 @@ public class QnaServiceImpl implements QnaService{
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public List<QnaDTO> recentQna() {
+		
+		return qnaDAO.recentQna();
 	}
 
 	

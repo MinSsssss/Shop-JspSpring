@@ -20,9 +20,9 @@
 		<div class="card-body">
 			<div class="table-responsive">
 
-				<form action="/admin/product/productModifyProc" method="post"
+				<form action="<c:url value='/admin/product/productModifyProc'/>" method="post"
 					id="productModifyForm" enctype="multipart/form-data">
-					<input type="hidden" name="product_no" value="${product.product_no }">
+					<input type="hidden" name="product_no" value="<c:out value='${product.product_no}'/>">
 					
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
@@ -33,22 +33,25 @@
 								<td>
 									<select name="category_no" id="category_name">
 										
-											<c:choose>
-												<c:when test="${not empty product.category_name}">
-													
-													
-													<c:forEach items="${categoryList }" var="category">
-														<option id="categorySelect" value="${category.category_no}">${category.category_name }</option>
-													</c:forEach>
-												</c:when> 
-												<c:when test="${empty product.category_name}">
-													<option id="categorySelect" value="0">카테고리없음</option>
-													<c:forEach items="${categoryList }" var="category">
-														<option id="categorySelect" value="${category.category_no}">${category.category_name }</option>
-													</c:forEach>
-												</c:when>
-										
-											</c:choose> 
+										<c:choose>
+											<c:when test="${not empty product.category_name}">
+												<c:forEach items="${categoryList }" var="category">
+													<option id="categorySelect" value="<c:out value='${category.category_no}'/>">
+														<c:out value='${category.category_name }'/>
+													</option>
+												</c:forEach>
+											</c:when> 
+											
+											<c:when test="${empty product.category_name}">
+												<option id="categorySelect" value="0">카테고리없음</option>
+												<c:forEach items="${categoryList }" var="category">
+													<option id="categorySelect" value="<c:out value='${category.category_no}'/>">
+														<c:out value='${category.category_name}'/>
+													</option>
+												</c:forEach>
+											</c:when>
+									
+										</c:choose> 
 										
 									</select>
 								</td>
@@ -56,24 +59,35 @@
 
 							<tr>
 								<td>상품이름</td>
-								<td><input type="text" name="product_name"
-									id="product_name" value="${product.product_name }"></td>
+								<td>
+									<input type="text" name="product_name" id="product_name" value="<c:out value='${product.product_name}'/>">
+								</td>
+							</tr>
+							
+							<tr>
+								<td>설명</td>
+								<td>
+									<textarea rows="10" cols="50" name="product_detail"
+										id="product_detail"><c:out value='${product.product_detail}'/>
+									</textarea>
+								</td>
 							</tr>
 							<tr>
-								<td>상품설명</td>
-								<td><textarea rows="10" cols="20" name="product_content"
-										id="product_content">${product.product_content }</textarea></td>
-							</tr>
-							<tr>
-								<td>상세설명</td>
-								<td><textarea rows="10" cols="20" name="product_detail"
-										id="product_detail">${product.product_detail }</textarea></td>
+								<td>내용</td>
+								<td>
+									<textarea rows="20" cols="50" name="product_content"
+										id="product_content"><c:out value='${product.product_content}'/>
+									</textarea>
+								</td>
 							</tr>
 							<tr>
 								<td>가격</td>
-								<td><input type="text" name="product_price"
-									id="product_price" value="${product.product_price }"></td>
+								<td>
+								<input type="text" name="product_price"
+									id="product_price" value="<c:out value='${product.product_price }'/>">
+								</td>
 							</tr>
+							
 							
 							
 							<tr>
@@ -98,9 +112,9 @@
 															<i class='fa fa-times'></i>
 															</button><br>
 															
-																<input type='radio' name='product_thumb_img' value="${images}" checked="checked">
+																<input type='radio' name='product_thumb_img' value="<c:out value='${images}'/>" checked="checked">
 															
-															<img src='/display?fileName=${images}'>	
+															<img src="<c:url value='/display?fileName=${images}'/>">	
 														</div>
 														
 													</li>

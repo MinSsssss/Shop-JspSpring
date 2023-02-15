@@ -36,4 +36,6 @@ public interface OrderDAO {
 	public PayInfoDTO getLastPay(PayInfoDTO payDTO);
 	
 	public int updateStatus(OrderDTO orderDTO);
+	
+	public List<OrderDTO> recentOrder();
 }

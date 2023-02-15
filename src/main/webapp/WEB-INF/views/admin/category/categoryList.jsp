@@ -12,9 +12,9 @@
 
 	<!-- Page Heading -->
 	<div class="pageHead">
-		<h1 class="h3 mb-2 text-gray-800">${title}카테고리조회</h1>
+		<h1 class="h3 mb-2 text-gray-800"><c:out value="${title}"/>카테고리조회</h1>
 		<div>
-			<a class="btn btn-link" href="/admin/category/categoryRegister?category_class=${category_class}">등록하기</a>
+			<a class="btn btn-link" href="<c:url value='/admin/category/categoryRegister?category_class=${category_class}'/>">등록하기</a>
 		</div>
 	</div>
 
@@ -37,11 +37,13 @@
 					<tbody>
 						<c:forEach items="${categoryList }" var="category" varStatus="status">
 							<tr>
-								<td class="align-middle"><a id="categoryMove"
-									href='/admin/category/categoryRead?category_no=${category.category_no}'>
-										${status.count }</a></td>
+								<td class="align-middle">
+									<a id="categoryMove" href="<c:url value='/admin/category/categoryRead?category_no=${category.category_no}'/>">
+										<c:out value="${status.count}"/>
+									</a>
+								</td>
 
-								<td class="align-middle">${category.category_name }</td>
+								<td class="align-middle"><c:out value="${category.category_name }"/></td>
 							</tr>
 						</c:forEach>
 
@@ -50,9 +52,11 @@
 				</table>
 			</div>
 		</div>
-		<form id='actionForm' action="/admin/categoryList" method='get'>
+		
+		<form id='actionForm' action="<c:url value='/admin/categoryList'/>" method='get'>
 
 		</form>
+		
 		<!--Category Modal -->
 		<div class="modal fade" id="categoryDropModal" tabindex="-1"
 			role="dialog" aria-labelledby="categoryDropCenterTitle"
@@ -97,6 +101,6 @@
 <!-- End of Main Content -->
 <jsp:include page="/WEB-INF/views/admin/includes/adminFooter.jsp"></jsp:include>
 <script>
-	let result = '${msg}';
+	let result = '<c:out value="${msg}"/>';
 	successFun(result);
 </script> 

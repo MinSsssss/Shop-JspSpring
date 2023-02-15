@@ -20,7 +20,7 @@
 		<div class="card-body">
 			<div class="table-responsive">
 
-				<form action="/admin/faq/faqRegisterProc" method="post"
+				<form action="<c:url value='/admin/faq/faqRegisterProc'/>" method="post"
 					id="registerForm">
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
@@ -31,7 +31,7 @@
 								<td>
 									<select name="category_name">
 										<c:forEach items="${category}" var="cate">
-											<option>${cate.category_name}</option>
+											<option><c:out value='${cate.category_name}'/></option>
 										</c:forEach>
 									</select>
 								</td>
@@ -40,13 +40,15 @@
 							<tr>
 								<td>제목</td>
 								<td><input type="text" name="faq_title"
-									id="faq_title"></td>
+									id="faq_title">
+								</td>
 							</tr>
 
 							<tr>
 								<td>내용</td>
 								<td><textarea rows="10" cols="20" name="faq_content"
-										id="faq_content"></textarea></td>
+										id="faq_content"></textarea>
+								</td>
 							</tr>
 							
 

@@ -14,22 +14,14 @@
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div
-	class="ltn__breadcrumb-area ltn__breadcrumb-area-4 bg-overlay-theme-10--- bg-image"
-	data-bg="img/bg/4.png">
+<div class="ltn__breadcrumb-area">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div
 					class="ltn__breadcrumb-inner ltn__breadcrumb-inner-4 justify-content-between">
 					<div class="section-title-area">
-						<h1 class="section-title white-color">Cart</h1>
-					</div>
-					<div class="ltn__breadcrumb-list">
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li>Cart</li>
-						</ul>
+						
 					</div>
 				</div>
 			</div>
@@ -73,16 +65,16 @@
 								<c:set var="num" value="${page.total-(page.cri.pageNum-1) * page.cri.amount}"/>
 								<c:forEach items="${qnaList}" var="qna" varStatus="status">
 									<tr>
-										<td>${num}</td>
-										<td>${qna.category_name}</td>
+										<td><c:out value='${num}'/></td>
+										<td><c:out value='${qna.category_name}'/></td>
 										<td class="noticeTitle">
-										<a href="#" onclick="getQnaFun(${status.count})">${qna.qna_title}</a>
-											<input type="hidden" id="qna_no${status.count}" value="${qna.qna_no}">
-											<input type="hidden" id="mem_id${status.count}" value="${qna.mem_id}" >
+										<a href="#" onclick="getQnaFun(${status.count})"><c:out value='${qna.qna_title}'/></a>
+											<input type="hidden" id="qna_no${status.count}" value="<c:out value='${qna.qna_no}'/>">
+											<input type="hidden" id="mem_id${status.count}" value="<c:out value='${qna.mem_id}'/>" >
 										</td>
 										<td><fmt:formatDate pattern="yyyy.MM.dd"
 												value="${qna.qna_date}" /></td>
-										<td>${qna.qna_writer}</td>
+										<td><c:out value='${qna.qna_writer}'/></td>
 
 									</tr>
 									<c:set var="num" value="${num-1}"/>
@@ -138,7 +130,7 @@
 
 <script>
 
-var result = '${msg}';
+var result = "<c:out value='${msg}'/>'";
 if(result === 'false'){
 	
 	alert('비밀번호가 틀렸습니다.');

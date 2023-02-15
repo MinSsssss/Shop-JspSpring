@@ -17,7 +17,7 @@ public int noticeRegister(NoticeDTO noticeDTO);
 	
 	public NoticeDTO getNotice(int notice_no);
 	
-	public int noticeModify(NoticeDTO noticeDTO);
+	public boolean noticeModify(NoticeDTO noticeDTO);
 	
-	public int noticeDelete(int notice_no);
+	public boolean noticeDelete(int notice_no);
 }

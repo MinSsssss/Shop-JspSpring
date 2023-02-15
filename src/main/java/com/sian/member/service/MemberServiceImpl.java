@@ -43,9 +43,11 @@ public class MemberServiceImpl implements MemberService{
 
 	}
 	@Override
-	public int idChk(MemberDTO memberDTO)  {
-		int result = memberDAO.idChk(memberDTO);
-		return result;
+	public boolean idChk(String mem_id)  {
+		if(memberDAO.idChk(mem_id)==1) {
+			return true;
+		}
+		return false;
 	}
 
 

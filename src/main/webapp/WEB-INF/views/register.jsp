@@ -9,19 +9,13 @@
 
 </style>
     <!-- BREADCRUMB AREA START -->
-    <div class="ltn__breadcrumb-area ltn__breadcrumb-area-4 bg-overlay-theme-10--- bg-image" data-bg="img/bg/4.png">
+    <div class="ltn__breadcrumb-area">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ltn__breadcrumb-inner ltn__breadcrumb-inner-4 justify-content-between">
                         <div class="section-title-area">
-                            <h1 class="section-title white-color">Register</h1>
-                        </div>
-                        <div class="ltn__breadcrumb-list">
-                            <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li>Register</li>
-                            </ul>
+                            
                         </div>
                     </div>
                 </div>
@@ -37,7 +31,7 @@
                 <div class="col-lg-12">
                     <div class="section-title-area text-center">
                         <h1 class="section-title">회원가입</h1>
-                        <p>환영합니다!</p>
+                        
                     </div>
                 </div>
             </div>
@@ -129,6 +123,6 @@
 
 	
 <script src="/resources/member/js/register.js"></script>
-
+<script src="/resources/member/js/address.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 

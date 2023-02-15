@@ -19,8 +19,8 @@
 
 		<div class="card-body">
 			<div class="table-responsive">
-				<form action="/admin/product/productDeleteProc" method="post" id="deleteForm">
-					<input type="hidden" name="product_no" value="${product.product_no}">
+				<form action="<c:url value='/admin/product/productDeleteProc'/>" method="post" id="deleteForm">
+					<input type="hidden" name="product_no" value="<c:out value='${product.product_no}'/>">
 				</form>
 				<table class="table table-bordered" id="dataTable" width="100%"
 					cellspacing="0">
@@ -30,65 +30,66 @@
 						<tr>
 							<th>분류</th>
 							<td class="align-middle readOnlyText">
-								<input class="readOnlyText" type="text" value="${product.category_name}" readonly="readonly">
+								<input class="readOnlyText" type="text" value="<c:out value='${product.category_name}'/>" readonly="readonly">
 							</td>
 						</tr>
 						<tr>
 							<th>상품명</th>
 							<td class="align-middle readOnlyText">
-								<input class="readOnlyText" type="text" value="${product.product_name}" readonly="readonly">
+								<input class="readOnlyText" type="text" value="<c:out value='${product.product_name}'/>" readonly="readonly">
 							</td>
 						</tr>
 						<tr>
 							<th>가격</th>
 							<td class="align-middle readOnlyText">
-								<input class="readOnlyText" type="text" value="${product.product_price}" readonly="readonly">
+								<input class="readOnlyText" type="text" value="<c:out value='${product.product_price}'/>" readonly="readonly">
+							</td>
+						</tr>
+						<tr>
+							<th>설명</th>
+							<td> 
+							<pre><c:out value='${product.product_detail}'/></pre> 
 							</td>
 						</tr>
 						<tr>
 							<th>내용</th>
 							<td> 
-							<textarea class="readOnlyText "
-							rows="10" cols="30" readonly="readonly">${product.product_detail}</textarea> 
+							<pre><c:out value='${product.product_content}'/></pre> 
 							</td>
 						</tr>
 						<tr>
 							<th>대표사진</th>
 							<td class="align-middle readOnlyText">
-								<div><img alt="" src="/display?fileName=${product.product_thumb_img}"></div>
-								
-								
-								<%-- <input class="readOnlyText" type="text" value="${product.product_thumb_img}" readonly="readonly"> --%>
+								<div><img alt="" src="<c:url value='/display?fileName=${product.product_thumb_img}'/>"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>사진</th>
 							<td class="align-middle readOnlyText">
 								 <c:forEach items="${product.product_imgs}" var="images" varStatus="status">
-									<div><img alt="" src="/display?fileName=${images}"></div>
+									<div><img src="<c:url value='/display?fileName=${images}'/>"></div>
 									
-								</c:forEach> 
-								
-								<%-- <input class="readOnlyText" type="text" value="${product.product_thumb_img}" readonly="readonly"> --%>
-								
+								</c:forEach> 			
 							</td>
 						</tr>
 						<tr>
 							<th>등록일</th>
 							<td class="align-middle readOnlyText">
-								<input class="readOnlyText" type="text" value="<fmt:formatDate pattern="yyyy-MM-dd" value = "${product.product_regdate }"/>" readonly="readonly">
+								<input class="readOnlyText" type="text" readonly="readonly"
+								value="<fmt:formatDate pattern="yyyy-MM-dd" value="${product.product_regdate }"/>">
 							</td>
 						</tr>
 						<tr>
 							<th>수정일</th>
 							<td class="align-middle readOnlyText">
-								<input class="readOnlyText" type="text" value="<fmt:formatDate pattern="yyyy-MM-dd" value = "${product.product_updateDate }"/>" readonly="readonly">
+								<input class="readOnlyText" type="text" readonly="readonly"
+								value="<fmt:formatDate pattern="yyyy-MM-dd" value="${product.product_updateDate }"/>">
 							</td>
 						</tr>
 						<tr>
 							<th>조회수</th>
 							<td class="align-middle readOnlyText">
-								<input class="readOnlyText" type="text" value="${product.product_hit}" readonly="readonly">
+								<input class="readOnlyText" type="text" value="<c:out value='${product.product_hit}'/>" readonly="readonly">
 							</td>
 						</tr>	
 						
@@ -99,7 +100,7 @@
 				
 				
 			</div>
-			<a href="/admin/product/productModify?product_no=${product.product_no}" class="btn btn-primary btn-sm" id="productModyfyBtn">수정</a>
+			<a href="<c:url value='/admin/product/productModify?product_no=${product.product_no}'/>" class="btn btn-primary btn-sm" id="productModyfyBtn">수정</a>
 			<button class="btn btn-secondary btn-sm"
 			data-toggle="modal" data-target="#productDeleteModal">삭제</button>
 			
@@ -111,7 +112,7 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="productDeleteModalTitle">product삭제</h5>
+						<h5 class="modal-title" id="productDeleteModalTitle">상품 삭제</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>

@@ -4,138 +4,101 @@
 	prefix="sec"%>
 
 <!-- FOOTER AREA START -->
-<footer class="ltn__footer-area  ">
-	<div class="footer-top-area  section-bg-2 plr--5">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xl-3 col-md-6 col-sm-6 col-12">
-					
-				</div>
-				<div class="col-xl-2 col-md-6 col-sm-6 col-12">
-					
-				</div>
-				<div class="col-xl-2 col-md-6 col-sm-6 col-12">
-					
-				</div>
-				<div class="col-xl-2 col-md-6 col-sm-6 col-12">
-					
-				</div>
-				<div class="col-xl-3 col-md-6 col-sm-12 col-12">
-					
-				</div>
-			</div>
-		</div>
-	</div>
-	
-</footer>
-<!-- FOOTER AREA END -->
+    <footer class="ltn__footer-area">
+        <div class="footer-top-area  section-bg-2 plr--5">
+            <div class="container-fluid">
+                <div class="footer-row">
+                	
+                    <div class="col-xl-3 col-md-6 col-sm-6 col-12">
+                        <div class="footer-widget footer-about-widget">
+                            
+                            <h4 class="footer-title">SIAN COFFEE</h4>
+                            <div class="footer-menu">
+                                <ul>
+                                	<li>
+                                        <div class="footer-address-info">
+                                            <p>대표자명 : 000</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="footer-address-info">
+                                            <p>주소 : 0000000000000000</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="footer-address-info">
+                                            <p>사업자등록번호 : 000-00-00000</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="footer-address-info">
+                                            <p>tel : 000-0000-0000</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="footer-address-info">
+                                            <p>email : 00000@00000.000</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="ltn__social-media mt-20">
+                                <ul>
+                                    <li><a href="https://www.facebook.com/siancoffee" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                  
+                                    <li><a href="https://www.instagram.com/si_an_coffee" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-sm-6 col-12">
+                        <div class="footer-widget footer-menu-widget clearfix">
+                            <h4 class="footer-title">C/S CENTER</h4>
+                            <div class="footer-menu">
+                                <ul>
+                                    <li>전화 : 000-0000-0000</li>
+                                    <li>팩스 : 000-0000-0000</li>
+                                    <li>이메일 : 0000000@00000.000</li>
+                                    <li>카카오톡 ID : 0000000</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-sm-6 col-12">
+                        <div class="footer-widget footer-menu-widget clearfix">
+                            <h4 class="footer-title">근무시간</h4>
+                            <div class="footer-menu">
+                                <ul>
+                                    <li>월 ~ 금 AM 9:00 ~ PM 6:00</li>
+                                    <li>점심시간 : PM 12:00 ~ PM 1:00</li>
+                                    <li>고객센터 : AM 10:00 ~ PM 6:00</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-sm-6 col-12">
+                        <div class="footer-widget footer-menu-widget clearfix">
+                            <h4 class="footer-title">은행정보</h4>
+                            <div class="footer-menu">
+                                <ul>
+                                    <li>OO은행 OOOO-OOOO-OOOO-OOOO</li>
+                                    <li>예금주 : OOOOOOOOOO</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+        
+    </footer>
+    <!-- FOOTER AREA END -->
 
 
 
-<!-- MODAL AREA START (Quick View Modal) -->
-<div class="ltn__modal-area ltn__quick-view-modal-area">
-	<div class="modal fade" id="quick_view_modal" tabindex="-1">
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-						<!-- <i class="fas fa-times"></i> -->
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="ltn__quick-view-modal-inner">
-						<div class="modal-product-item">
-							<div class="row">
-								<div class="col-lg-6 col-12">
-									<div class="modal-product-img">
-										<img src="/resources/member/img/product/4.png" alt="#">
-									</div>
-								</div>
-								<div class="col-lg-6 col-12">
-									<div class="modal-product-info">
-										<div class="product-ratting">
-											<ul>
-												<li><a href="#"><i class="fas fa-star"></i></a></li>
-												<li><a href="#"><i class="fas fa-star"></i></a></li>
-												<li><a href="#"><i class="fas fa-star"></i></a></li>
-												<li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-												<li><a href="#"><i class="far fa-star"></i></a></li>
-												<li class="review-total"><a href="#"> ( 95 Reviews
-														)</a></li>
-											</ul>
-										</div>
-										<h3>Brand new product</h3>
-										<div class="product-price">
-											<span>$149.00</span>
-											<del>$165.00</del>
-										</div>
-										<div class="modal-product-meta ltn__product-details-menu-1">
-											<ul>
-												<li><strong>Categories:</strong> <span> <a
-														href="#">Beard</a> <a href="#">Oil</a> <a href="#">Grooming</a>
-														<a href="#">Tools</a>
-												</span></li>
-											</ul>
-										</div>
-										<div class="ltn__product-details-menu-2">
-											<ul>
-												<li>
-													<div class="cart-plus-minus">
-														<input type="text" value="02" name="qtybutton"
-															class="cart-plus-minus-box">
-													</div>
-												</li>
-												<li><a href="#" class="theme-btn-1 btn btn-effect-1"
-													title="Add to Cart" data-toggle="modal"
-													data-target="#add_to_cart_modal"> <i
-														class="fas fa-shopping-cart"></i> <span>ADD TO CART</span>
-												</a></li>
-											</ul>
-										</div>
-										<div class="ltn__product-details-menu-3">
-											<ul>
-												<li><a href="#" class="" title="Wishlist"
-													data-toggle="modal" data-target="#liton_wishlist_modal">
-														<i class="far fa-heart"></i> <span>Add to Wishlist</span>
-												</a></li>
-												<li><a href="#" class="" title="Compare"
-													data-toggle="modal" data-target="#quick_view_modal"> <i
-														class="fas fa-exchange-alt"></i> <span>Compare</span>
-												</a></li>
-											</ul>
-										</div>
-										<hr>
-										<div class="ltn__social-media">
-											<ul>
-												<li>Share:</li>
-												<li><a href="#" title="Facebook"><i
-														class="fab fa-facebook-f"></i></a></li>
-												<li><a href="#" title="Twitter"><i
-														class="fab fa-twitter"></i></a></li>
-												<li><a href="#" title="Linkedin"><i
-														class="fab fa-linkedin"></i></a></li>
-												<li><a href="#" title="Instagram"><i
-														class="fab fa-instagram"></i></a></li>
-
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- MODAL AREA END -->
-
-<!-- MODAL AREA START (Add To Cart Modal) -->
-
-<!-- MODAL AREA END -->
 <!--logout Modal -->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
 	aria-labelledby="logoutModalCenterTitle" aria-hidden="true">

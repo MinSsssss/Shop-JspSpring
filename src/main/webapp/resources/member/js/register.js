@@ -1,4 +1,28 @@
 $(document).ready(function(){
+	$('#agreeAllChk').click(function(){
+		let checked = $('#agreeAllChk').is(':checked');
+		
+		if(checked)
+			$('input:checkbox').prop('checked',true);
+	});
+	
+	$("#registerNextBtn").on("click",function(){
+		let chk1 = $("#agreeChk1").is(':checked');
+		let chk2 = $("#agreeChk2").is(':checked');
+		
+		
+		if(!chk1){
+			alert("이용약관(필수)을 체크해주세요.");
+			return false;
+		}
+		if(!chk2){
+			alert("개인정보 수집 및 이용 (필수)을 체크해주세요.");
+			return false;
+		}
+		$("#registerNext").submit();
+	})
+	
+	
 	
 	
 	
@@ -50,7 +74,8 @@ $(document).ready(function(){
 })
 
 function fn_idChk(){
-	if($("#mem_id").val()==""){
+	let mem_id = $("#mem_id").val();
+	if(mem_id==""){
 		alert("아이디를 입력해주세요.")
 		return false;
 	}
@@ -59,11 +84,12 @@ function fn_idChk(){
 		url : "/idChk",
 		type : "post",
 		dataType : "json",
-		data : {"mem_id" : $("#mem_id").val()},
+		data : {"mem_id" : mem_id},
 		success : function(data){
-			if(data == 1){
+			if(data){
 				alert("중복된 아이디입니다.");
-			}else if(data == 0){
+			}else{
+				
 				$("#idChk").attr("value", "Y");
 				alert("사용가능한 아이디입니다.");
 			}

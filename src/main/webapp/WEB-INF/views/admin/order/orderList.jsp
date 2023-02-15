@@ -33,11 +33,15 @@
                                     <tbody>
                                     	<c:forEach items="${orderList}" var="order">
 	                                        <tr>
-	                                            <td><a href="/admin/order/orderDetailView?order_no=${order.order_no}">${order.order_no}</a></td>
-	                                            <td>${order.mem_id }</td>
-	                                            <td>${order.total_price}</td>
+	                                            <td>
+	                                            	<a href="<c:url value='/admin/order/orderDetailView?order_no=${order.order_no}'/>">
+	                                            		<c:out value='${order.order_no}'/>
+	                                            	</a>
+	                                            </td>
+	                                            <td><c:out value='${order.mem_id}'/></td>
+	                                            <td><c:out value='${order.total_price}'/></td>
 	                                            <td><fmt:formatDate pattern="yyyy.MM.dd HH:mm" value="${order.order_date}"/> </td>
-	                                            <td>${order.order_status }</td>
+	                                            <td><c:out value='${order.order_status}'/></td>
 	                                        </tr>
                                         </c:forEach>
                                     </tbody>

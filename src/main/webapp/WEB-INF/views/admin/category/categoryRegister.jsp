@@ -11,10 +11,10 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800">${title}카테고리생성</h1>
+	<h1 class="h3 mb-2 text-gray-800"><c:out value='${title}'/>카테고리생성</h1>
 
 	<!-- DataTales Example -->
-	<form action="/admin/category/categoryRegisterProc" id="categoryRegisterForm" method="post">
+	<form action="<c:url value='/admin/category/categoryRegisterProc'/>" id="categoryRegisterForm" method="post">
 		<div class="card shadow mb-4">
 
 			<table class="table table-bordered">
@@ -26,7 +26,7 @@
 			</table>
 
 		</div>
-		<input type="hidden" name="category_class" value="${category_class}"> 
+		<input type="hidden" name="category_class" value="<c:out value='${category_class}'/>"> 
 		<input type="submit" id="cateBtnSubmit" class="btn btn-primary btn-icon-split " value="생성">
 		<input type="button" id="cateBtnCencle" class="btn btn-secondary btn-icon-split " value="취소">
 
@@ -45,7 +45,7 @@
 <jsp:include page="/WEB-INF/views/admin/includes/adminFooter.jsp"></jsp:include>
 
 <script>
-	let result = '${msg}';
+	let result = '<c:out value="${msg}"/>';
 	successFun(result);
 </script>   
 

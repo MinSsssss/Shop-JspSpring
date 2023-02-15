@@ -13,7 +13,7 @@ public interface MemberDAO {
 	
 	public void register(MemberDTO member,AuthVO authVO) ;
 	
-	public int idChk(MemberDTO memberDTO) ;
+	public int idChk(String mem_id) ;
 	
 	public String getPwd(String mem_id) ;
 	

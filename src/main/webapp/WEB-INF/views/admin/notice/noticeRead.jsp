@@ -19,8 +19,8 @@
 
 		<div class="card-body">
 			<div class="table-responsive">
-				<form action="/admin/notice/noticeDeleteProc" method="post" id="deleteForm">
-					<input type="hidden" name="notice_no" value="${notice.notice_no}">
+				<form action="<c:url value='/admin/notice/noticeDeleteProc'/>" method="post" id="deleteForm">
+					<input type="hidden" name="notice_no" value="<c:out value='${notice.notice_no}'/>">
 				</form>
 				<table class="table table-bordered" id="dataTable" width="100%"
 					cellspacing="0">
@@ -29,7 +29,7 @@
 						<tr>
 							<th>번호</th>
 							<td class="align-middle">
-								<input class="readOnlyText" type="text" value="${notice.notice_no}" readonly="readonly">
+								<input class="readOnlyText" type="text" value="<c:out value='${notice.notice_no}'/>" readonly="readonly">
 							</td>
 
 						</tr>
@@ -37,14 +37,14 @@
 						<tr>
 							<th>제목</th>
 							<td class="align-middle readOnlyText">
-								<input class="readOnlyText" type="text" value="${notice.notice_title}" readonly="readonly">
+								<input class="readOnlyText" type="text" value="<c:out value='${notice.notice_title}'/>" readonly="readonly">
 							</td>
 						</tr>
 						<tr>
 							<th>내용</th>
 							<td> 
 							<textarea class="readOnlyText "
-							rows="10" cols="30" readonly="readonly">${notice.notice_content}</textarea> 
+							rows="10" cols="30" readonly="readonly"><c:out value='${notice.notice_content}'/></textarea> 
 							</td>
 						</tr>		
 						
@@ -55,7 +55,7 @@
 				
 				
 			</div>
-			<a href="/admin/notice/noticeModify?notice_no=${notice.notice_no}" class="btn btn-primary btn-sm" id="noticeModyfyBtn">수정</a>
+			<a href="<c:url value='/admin/notice/noticeModify?notice_no=${notice.notice_no}'/>" class="btn btn-primary btn-sm" id="noticeModyfyBtn">수정</a>
 			<button class="btn btn-secondary btn-sm"
 			data-toggle="modal" data-target="#noticeDeleteModal">삭제</button>
 			

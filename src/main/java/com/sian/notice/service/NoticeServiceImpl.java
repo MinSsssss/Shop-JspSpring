@@ -50,14 +50,18 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public int noticeModify(NoticeDTO noticeDTO) {
-		
-		return noticeDAO.noticeModify(noticeDTO);
+	public boolean noticeModify(NoticeDTO noticeDTO) {
+		if(noticeDAO.noticeModify(noticeDTO)==1) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
-	public int noticeDelete(int notice_no) {
-		
-		return noticeDAO.noticeDelete(notice_no);
+	public boolean noticeDelete(int notice_no) {
+		if(noticeDAO.noticeDelete(notice_no)==1) {
+			return true;
+		}		
+		return false;
 	}
 }

@@ -6,7 +6,8 @@ import com.sian.common.page.Criteria;
 import com.sian.faq.dto.FaqDTO;
 
 public interface FaqService {
-public int faqRegister(FaqDTO faqDTO);
+	
+	public boolean faqRegister(FaqDTO faqDTO);
 	
 	public int getTotal();
 	
@@ -18,7 +19,7 @@ public int faqRegister(FaqDTO faqDTO);
 	
 	public FaqDTO getFaq(int faq_no);
 	
-	public int faqModify(FaqDTO faqDTO);
+	public boolean faqModify(FaqDTO faqDTO);
 	
-	public int faqDelete(int faq_no);
+	public boolean faqDelete(int faq_no);
 }

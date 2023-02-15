@@ -99,6 +99,11 @@ public class OrderServiceImpl implements OrderService{
 		return true;
 		
 	}
+	@Override
+	public List<OrderDTO> recentOrder() {
+		
+		return orderDAO.recentOrder();
+	}
 	
 	
 	

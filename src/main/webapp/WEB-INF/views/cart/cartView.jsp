@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="/WEB-INF/views/includes/memberHeader.jsp"></jsp:include>
 
 
@@ -12,22 +13,14 @@
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div
-	class="ltn__breadcrumb-area ltn__breadcrumb-area-4 bg-overlay-theme-10--- bg-image"
-	data-bg="img/bg/4.png">
+<div class="ltn__breadcrumb-area ltn__breadcrumb-area-4 bg-overlay-theme-10--- bg-image">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div
 					class="ltn__breadcrumb-inner ltn__breadcrumb-inner-4 justify-content-between">
 					<div class="section-title-area">
-						<h1 class="section-title white-color">Cart</h1>
-					</div>
-					<div class="ltn__breadcrumb-list">
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li>Cart</li>
-						</ul>
+						
 					</div>
 				</div>
 			</div>
@@ -62,7 +55,7 @@
 							<tbody>
 							
 								<c:forEach items="${cartList }" var="cart" varStatus="status">
-									<form action="/cart/cartSelectOrder" id="orderForm" method="post">
+									<form action="<c:url value='/cart/cartSelectOrder'/>" id="orderForm" method="post">
 											
 									</form>
 									<tr>
@@ -71,51 +64,52 @@
 										
 											<input type="checkbox" name="checkedCount" class="individual_cart_checkbox" checked="checked"  >
 											
-											<input type="hidden" id="chkProductName" value="${cart.product_name }">
-											<input type="hidden" id="chkProductQty" value="${cart.cart_qty }">
-											<input type="hidden" id="chkSubTotal" value="${cart.sub_total }">
+											<input type="hidden" id="chkProductName" value="<c:out value='${cart.product_name}'/>">
+											<input type="hidden" id="chkProductQty" value="<c:out value='${cart.cart_qty}'/>">
+											<input type="hidden" id="chkSubTotal" value="<c:out value='${cart.sub_total }'/>">
 										</td>
 										
 
 										<td class="cart-product-image">
-											<a href="/product/productRead?product_no=${cart.product_no}">
-											<img src="/display?fileName=${cart.product_thumb_img}" alt="#"></a>
+											<a href="<u:url value='/product/productRead?product_no=${cart.product_no}'/>">
+											<img src="<c:url value='/display?fileName=${cart.product_thumb_img}'/>"></a>
 										</td>
 										
 										<td class="cart-product-info">
-											<a href="/product/productRead?product_no=${cart.product_no}">${cart.product_name }</a>
+											<a href="<c:url value='/product/productRead?product_no=${cart.product_no}'/>">
+												<c:out value='${cart.product_name}'/>
+											</a>
 										</td>
 										
-										<td class="cart-product-price">${cart.product_price }</td>
+										<td class="cart-product-price">
+											<fmt:formatNumber type="number" maxFractionDigits="3" value="${cart.product_price}"/>
+										</td>
 										<td class="cart-product-quantity">
 										
-											<form action="/cart/cartModify" id="cartModifyForm"
-												method="post">
+											<form action="<c:url value='/cart/cartModify'/>" id="cartModifyForm" method="post">
 												<div class="cart-plus-minus">
-													<input type="text" value="${cart.cart_qty }"
-														name="cart_qty" class="cart-plus-minus-box">
+													<input type="text" value="<c:out value='${cart.cart_qty}'/>" name="cart_qty" class="cart-plus-minus-box">
 
 												</div>
 
-												<input type="hidden" name="product_name"
-													value="${cart.product_name }"> <input type="hidden"
-													name="product_price" value="${cart.product_price }">
-
+												<input type="hidden" name="product_name" value="<c:out value='${cart.product_name}'/>">
+												<input type="hidden" name="product_price" value="<c:out value='${cart.product_price}'/>">
 												
 												<button id="cartModifyBtn" class="cartModifyBtn">수정</button>
 											</form>
 
 										</td>
-										<td class="cart-product-subtotal" id="subTotal">${cart.sub_total }</td>
+										<td class="cart-product-subtotal" id="subTotal">
+											<fmt:formatNumber type="number" maxFractionDigits="3" value='${cart.sub_total}'/>
+										</td>
 										<td class="cart-product-remove">
 											<form>
-												<input type="hidden" name="thisProduct_no${status.index}" id="product_no" value="${cart.product_no }">
-													<button type="button" id="cartDeleteBtn" onclick="cartDelete(thisProduct_no${status.index})">삭제</button>
+												<input type="hidden" name="thisProduct_no${status.index}" id="product_no" 
+												value="<c:out value='${cart.product_no}'/>">
+												<button type="button" id="cartDeleteBtn" onclick="cartDelete(thisProduct_no${status.index})">삭제</button>
 											</form>
 										</td>
 									</tr>
-
-
 								</c:forEach>
 
 							</tbody>

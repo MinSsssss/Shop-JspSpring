@@ -5,12 +5,12 @@
 	<div class="pageInfo_area">
 		<ul id="pageInfo" class="pageInfo">
 			<c:if test="${page.prev}">
-				<li class="pageInfo_btn previous"><a href="${page.startPage-1}">이전</a></li>
+				<li class="pageInfo_btn previous"><a href="<c:url value='${page.startPage-1}'/>">이전</a></li>
 			</c:if>
 
 			<c:forEach var="num" begin="${page.startPage}" end="${page.endPage}">
 				<li class="pageInfo_btn ${page.cri.pageNum == num ? "active":"" }"><a
-					href="${num}">${num}</a></li>
+					href="<c:url value='${num}'/>"><c:out value='${num}'/></a></li>
 			</c:forEach>
 
 
@@ -22,6 +22,6 @@
 	</div>
 </div>
 <form id="moveForm" method="get">
-	<input type="hidden" name="pageNum" value="${page.cri.pageNum }">
-	<input type="hidden" name="amount" value="${page.cri.amount }">
+	<input type="hidden" name="pageNum" value="<c:out value='${page.cri.pageNum}'/>">
+	<input type="hidden" name="amount" value="<c:out value='${page.cri.amount}'/>">
 </form>

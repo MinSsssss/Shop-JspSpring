@@ -24,8 +24,8 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@Controller
-@RequestMapping("/wish")
+@Controller 
+@RequestMapping("/wish") //security:intercept-url ROLE_MEMBER 접근허용
 public class WishController {
 	
 	private final WishService wishService;
@@ -34,21 +34,15 @@ public class WishController {
 	
 	private final ProductService productService;
 	
-	/*
-	 * ALL
-	 */
-	
 
 	
 	/*
-	 * ADMIN ONLY
+	 * MEMBER ONLY
 	 */
 	
 	/*
-	 * MEMBER ONLY @PreAuthorize("hasRole('ROLE_MEMBER')")
+	 * 찜리스트 조회
 	 */
-	
-	
 	@GetMapping("/wishListView")
 	public void wishList(Authentication authentication,Model model) {
 		String mem_id = memberService.getId(authentication);
@@ -56,6 +50,9 @@ public class WishController {
 		
 	}
 	
+	/*
+	 * 찜하기
+	 */
 	@ResponseBody
 	@PostMapping("/addWishList")
 	public int addWishList(@RequestBody WishDTO wishListDTO, Authentication authentication) {
@@ -67,6 +64,9 @@ public class WishController {
 		}
 	}
 	
+	/*
+	 * 상품이 이미 찜리스트에 있는지 확인
+	 */
 	@ResponseBody
 	@PostMapping("/wishChk")
 	public int wishChk(@RequestBody WishDTO wishListDTO) {
@@ -79,6 +79,9 @@ public class WishController {
 		}
 	}
 	
+	/*
+	 * 찜리스트에서 상품 삭제
+	 */
 	@ResponseBody
 	@PostMapping("/wishDelete")
 	public int wishDelete(@RequestBody WishDTO wishListDTO,
@@ -95,18 +98,4 @@ public class WishController {
 		
 	}
 	
-	@PostMapping("/wishSelectDelete")
-	public String wishSelectDelete(@RequestParam(value = "cartIds", required = false) List<String> cartIds,
-			WishDTO wishListDTO, Authentication authentication)  {
-
-		for (int i = 0; i < cartIds.size(); i++) {
-			System.out.println(cartIds);
-			wishListDTO.setProduct_no(productService.getProductNo(cartIds.get(i)));
-			wishListDTO.setMem_id(memberService.getId(authentication));
-			wishService.wishDelete(wishListDTO);
-
-		}
-
-		return "redirect:/wish/wishListView";
-	}
 }

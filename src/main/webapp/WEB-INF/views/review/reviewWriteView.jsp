@@ -11,22 +11,14 @@
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div
-	class="ltn__breadcrumb-area ltn__breadcrumb-area-4 bg-overlay-theme-10--- bg-image"
-	data-bg="img/bg/4.png">
+<div class="ltn__breadcrumb-area">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div
 					class="ltn__breadcrumb-inner ltn__breadcrumb-inner-4 justify-content-between">
 					<div class="section-title-area">
-						<h1 class="section-title white-color">마이페이지</h1>
-					</div>
-					<div class="ltn__breadcrumb-list">
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li>My Account</li>
-						</ul>
+						
 					</div>
 				</div>
 			</div>
@@ -52,7 +44,7 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="tab-content">
-									<form class="mb-3" action="/review/reviewRegisterProc"
+									<form class="mb-3" action="<c:url value='/review/reviewRegisterProc"'/>
 										id="reviewForm" method="post">
 										<input type="hidden" name="order_detail_no"
 											value="${reviewView.order_detail_no }">
@@ -63,11 +55,10 @@
 											</div>
 											<div class="reviewInfo">
 												<div class="reviewImg">
-													<img alt=""
-														src="/display?fileName=${reviewView.product_thumb_img}">
+													<img src="<c:url value='/display?fileName=${reviewView.product_thumb_img}'/>">
 												</div>
 												<div>
-													<p class="product_name">${reviewView.product_name}</p>
+													<p class="product_name"><c:out value='${reviewView.product_name}'/></p>
 													<div>
 
 														<fieldset>

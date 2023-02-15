@@ -11,22 +11,14 @@
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div
-	class="ltn__breadcrumb-area ltn__breadcrumb-area-4 bg-overlay-theme-10--- bg-image"
-	data-bg="img/bg/4.png">
+<div class="ltn__breadcrumb-area">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div
 					class="ltn__breadcrumb-inner ltn__breadcrumb-inner-4 justify-content-between">
 					<div class="section-title-area">
-						<h1 class="section-title white-color">마이페이지</h1>
-					</div>
-					<div class="ltn__breadcrumb-list">
-						<ul>
-							<li><a href="/">Home</a></li>
-							<li>My Account</li>
-						</ul>
+						
 					</div>
 				</div>
 			</div>
@@ -52,34 +44,34 @@
 							</div>
 							<div class="col-lg-8">
 								<div class="tab-content">
-									<c:forEach items="${orderList}" var="orderList"
-										varStatus="status">
+									<c:forEach items="${orderList}" var="orderList" varStatus="status">
 										 <div class="orderFor">
 
 											<div class="orderForDisplay">
 												<div>
 													<h3 class="orderDate">
-														<fmt:formatDate pattern="yyyy. MM. dd 주문"
-															value="${orderList.order_date}" />
+														<fmt:formatDate pattern="yyyy. MM. dd 주문" value="${orderList.order_date}" />
 													</h3>
-													<h5>${orderList.order_status }</h5>
+													<h5><c:out value='${orderList.order_status}'/></h5>
 												</div>
 												<div>
 													<p>
-														<button class="btn btn-link" id="orderDetailView" onclick="orderDetailViewFun(${status.count})"
-															>주문상세보기</button>
+														<button class="btn btn-link" id="orderDetailView" onclick="orderDetailViewFun(${status.count})">
+															주문상세보기</button>
 													</p>
-													<form action="/order/orderDetailView" method="get" id="orderDetailViewForm${status.count}">
-														<input type="hidden" name="order_no" value="${orderList.order_no}">
+													<form action="<c:url value='/order/orderDetailView'/>" method="get" id="orderDetailViewForm${status.count}">
+														<input type="hidden" name="order_no" value="<c:out value='${orderList.order_no}'/>">
 													</form>
 
 
 
 													<form>
-														<input type="hidden" name="thisOrder_no${status.count}"
-															id="order_no" value="${orderList.order_no}"> <input
-															type="hidden" name="thisStatus${status.count}"
-															id="order_status" value="${orderList.order_status }">
+														<input type="hidden" name="thisOrder_no${status.count}" id="order_no" 
+														value="<c:out value='${orderList.order_no}'/>">
+														 
+														<input type="hidden" name="thisStatus${status.count}" id="order_status" 
+														value="<c:out value='${orderList.order_status}'/>">
+														
 														<button type="button" id="orderDeleteBtns" class="btn btn-link"
 															onclick="orderDeleteFun(thisStatus${status.count},thisOrder_no${status.count})">주문내역삭제</button>
 													</form>
@@ -93,23 +85,19 @@
 													<div class="orderProductFor">
 														<div class="orderInfo">
 															<div class="orderDisplay">
-																<a
-																	href='/product/productRead?product_no=${orderDetailList.product_no}'>
-																	<img class="product_img"
-																	src="/display?fileName=${orderDetailList.product_thumb_img}"
-																	alt="">
+																<a href="<c:url value='/product/productRead?product_no=${orderDetailList.product_no}'/>">
+																	<img class="product_img" src="<c:url value='/display?fileName=${orderDetailList.product_thumb_img}'/>">
 																</a>
 																<div class="productInfo">
-
 																	<p>
-																		<a
-																			href='/product/productRead?product_no=${orderDetailList.product_no}'>
-																			${orderDetailList.product_name } </a>
+																		<a href="<c:url value='/product/productRead?product_no=${orderDetailList.product_no}'/>">
+																			<c:out value='${orderDetailList.product_name}'/> 
+																		</a>
 																	</p>
 
-																	<span class="productPrice">${orderDetailList.product_price }원
-																		x</span> <span class="orderQty">${orderDetailList.order_qty }
-																		= </span> <span>${orderDetailList.sub_total }</span>
+																	<span class="productPrice"><c:out value='${orderDetailList.product_price}'/>원 x</span> 
+																	<span class="orderQty"><c:out value='${orderDetailList.order_qty}'/> = </span> 
+																	<span><c:out value='${orderDetailList.sub_total}'/></span>
 																</div>
 															</div>
 														</div>
@@ -121,9 +109,9 @@
 																onclick="reviewWriteFun('${orderList.order_status}',${status.count}${nextStatus.count})">
 																리뷰작성</button>
 																
-															<form action="/review/reviewWriteView" method="post" 
+															<form action="<c:url value='/review/reviewWriteView'/>" method="post" 
 																id="reviewWriteForm${status.count}${nextStatus.count}">
-																<input type="hidden" name="order_detail_no" value="${orderDetailList.order_detail_no}">
+																<input type="hidden" name="order_detail_no" value="<c:out value='${orderDetailList.order_detail_no}'/>">
 															</form>
 														</div>
 													</div>
@@ -145,11 +133,11 @@
 </div>
 <!-- WISHLIST AREA START -->
 <script>
-var result = '${msg}';
+var result = "<c:out value='${msg}'/>";
 if(result === 'already'){
 	console.log(result);
 	alert('이미 리뷰를 작성하셨습니다.');
-	location.href="/order/orderList";
+	location.href="<c:url value='/order/orderList'/>";
 }
 </script>
 

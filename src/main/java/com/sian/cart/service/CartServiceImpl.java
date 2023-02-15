@@ -20,17 +20,17 @@ public class CartServiceImpl implements CartService{
 	private final CartDAO cartDAO;
 	
 	@Override
-	public int addCart(CartProductDTO cartProductDTO)  {
+	public boolean addCart(CartProductDTO cartProductDTO)  {
 		
 		try {
-			if(cartDAO.insert(cartProductDTO)) {
-				return 1;
+			if(cartDAO.addCart(cartProductDTO)==1) {
+				return true;
 			}
 			else {
-				return 0;
+				return false;
 			}
 		} catch (DataIntegrityViolationException e) {
-			return 0;
+			return false;
 		}
 		
 	}
@@ -43,16 +43,21 @@ public class CartServiceImpl implements CartService{
 	}
 	
 	@Override
-	public void cartModify(CartProductDTO cartProductDTO) {
+	public boolean cartModify(CartProductDTO cartProductDTO) {
+		if(cartDAO.cartModify(cartProductDTO)==1) {
+			return true;
+		}
+		return false;
 		
-		cartDAO.cartModify(cartProductDTO);
 
 	}
 	
 	@Override
-	public int cartDelete(CartProductDTO cartProductDTO)  {
+	public boolean cartDelete(CartProductDTO cartProductDTO)  {
+		if(cartDAO.cartDelete(cartProductDTO)==1) {
+			return true;
+		}
 		
-		
-		return cartDAO.cartDelete(cartProductDTO);
+		return false;
 	}
 }

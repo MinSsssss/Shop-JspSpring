@@ -20,7 +20,7 @@
 		<div class="card-body">
 			<div class="table-responsive">
 
-				<form action="/admin/faq/faqModifyProc" method="post" id="modifyForm">
+				<form action="<c:url value='/admin/faq/faqModifyProc'/>" method="post" id="modifyForm">
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
 
@@ -28,7 +28,7 @@
 							<tr>
 								<th>번호</th>
 								<td class="align-middle">
-								<input class="readOnlyText" type="text" name="faq_no" id="faq_no" value="${faq.faq_no}" readonly="readonly">
+									<input class="readOnlyText" type="text" name="faq_no" id="faq_no" value="<c:out value='${faq.faq_no}'/>" readonly="readonly">
 								</td>
 
 							</tr>
@@ -37,7 +37,7 @@
 								<td>
 									<select name="category_name">
 										<c:forEach items="${category}" var="cate">
-											<option>${cate.category_name}</option>
+											<option><c:out value="${cate.category_name}"/></option>
 										</c:forEach>
 									</select>
 								</td>
@@ -45,14 +45,14 @@
 							<tr>
 								<th>제목</th>
 								<td class="align-middle">
-								<input type="text" name="faq_title" id="faq_title" value="${faq.faq_title}">
+									<input type="text" name="faq_title" id="faq_title" value="<c:out value='${faq.faq_title}'/>">
 								</td>
 							</tr>
 							<tr>
 								<th>내용</th>
 								<td>
-								<textarea  name="faq_content"
-										id="faq_title" rows="10" cols="30">${faq.faq_content}</textarea>
+									<textarea  name="faq_content"
+									id="faq_title" rows="10" cols="30"><c:out value='${faq.faq_content}'/></textarea>
 								</td>
 							</tr>
 

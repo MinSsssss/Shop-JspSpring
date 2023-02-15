@@ -21,8 +21,11 @@ public class FaqServiceImpl implements FaqService{
 	
 	
 	@Override
-	public int faqRegister(FaqDTO faqDTO) {
-		return faqDAO.faqRegister(faqDTO);
+	public boolean faqRegister(FaqDTO faqDTO) {
+		if(faqDAO.faqRegister(faqDTO)==1) {
+			return true;
+		}
+		return false;
 
 	}
 	@Override
@@ -54,14 +57,19 @@ public class FaqServiceImpl implements FaqService{
 	}
 
 	@Override
-	public int faqModify(FaqDTO faqDTO) {
+	public boolean faqModify(FaqDTO faqDTO) {
+		if(faqDAO.faqModify(faqDTO)==1) {
+			return true;
+		}
+		return false;
 		
-		return faqDAO.faqModify(faqDTO);
 	}
 
 	@Override
-	public int faqDelete(int faq_no) {
-		
-		return faqDAO.faqDelete(faq_no);
+	public boolean faqDelete(int faq_no) {
+		if(faqDAO.faqDelete(faq_no)==1) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -13,9 +13,14 @@ public interface QnaDAO {
 	
 	public int getTotal();
 	
+	public int getCategoryTotal(int category_no);
+	
 	public int getMemberTotal(String mem_id);
 	
 	public List<QnaDTO> getQnaList(Criteria cri);
+	
+	public List<QnaDTO> selectQnaList(@Param("category_no")int catrgory_no,
+			@Param("pageNum") int pageNum,@Param("amount") int amount);
 	
 	public List<QnaDTO> qnaMemberList(@Param("mem_id") String mem_id,
 			@Param("pageNum") int pageNum,@Param("amount") int amount);
@@ -25,4 +30,6 @@ public interface QnaDAO {
 	public int qnaDelete(Long qna_no);
 	
 	public int qnaAnswerRegister(QnaDTO qnaDTO);
+	
+	public List<QnaDTO> recentQna();
 }

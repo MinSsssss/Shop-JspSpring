@@ -20,7 +20,7 @@
 		<div class="card-body">
 			<div class="table-responsive">
 
-				<form role="form"  action="/admin/product/productRegisterProc" method="post"
+				<form role="form"  action="<c:url value='/admin/product/productRegisterProc'/>" method="post"
 					id="productRegisterForm" enctype="multipart/form-data">
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
@@ -28,40 +28,46 @@
 						<tbody>
 							<tr>
 								<td>카테고리</td>
-								<td><select name="category_name" id="category_name">
-											<option id="categorySelect">카테고리없음</option>
+								<td>
+									<select name="category_name" id="category_name">
+										<option id="categorySelect">카테고리없음</option>
 										<c:forEach items="${categoryList }" var="category">
 											<option id="categorySelect">
-												${category.category_name }
+												<c:out value='${category.category_name }'/>
 											</option>
-
 										</c:forEach>
-								</select></td>
+									</select>
+								</td>
 							</tr>
 							
 							<tr>
 								<td>상품이름</td>
-								<td><input type="text" name="product_name"
-									id="product_name"></td>
+								<td>
+									<input type="text" name="product_name" id="product_name">
+								</td>
 							</tr>
 
 							<tr>
 								<td>상품설명</td>
-								<td><textarea rows="10" cols="20" name="product_content"
-										id="product_content"></textarea></td>
+								<td>
+									<textarea rows="20" cols="50" name="product_content"
+										id="product_content"></textarea>
+								</td>
 						
 							</tr>
 							<tr>
 								<td>상세설명</td>
-								<td><textarea rows="10" cols="20" name="product_detail"
+								<td>
+									<textarea rows="10" cols="20" name="product_detail"
 										id="product_detail"></textarea>
 								</td>
 						
 							</tr>
 							<tr>
 								<td>가격</td>
-								<td><input type="text" name="product_price"
-									id="product_price"></td>
+								<td>
+									<input type="text" name="product_price" id="product_price">
+								</td>
 							</tr>
 							
 							

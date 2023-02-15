@@ -23,11 +23,9 @@ public class NoticeController {
 	/*
 	 * ALL
 	 */
-//	@GetMapping({"/admin/notice/noticeList","/notice/noticeList"})
-//	 public void noticeList(Model model) {
-//		 
-//		 model.addAttribute("noticeList", noticeService.noticeList());
-//	 }
+	/*
+	 * 공지사항 리스트 조회
+	 */
 	@GetMapping({"/admin/notice/noticeList","/notice/noticeList"})
 	 public void noticeList(Model model,Criteria cri) {
 		 
@@ -45,16 +43,26 @@ public class NoticeController {
 	/*
 	 * ADMIN ONLY
 	 */
+	/*
+	 * 공지사항 등록 페이지
+	 */
 	@GetMapping("/admin/notice/noticeRegister")
 	 public void noticeRegister() {
 		 
 	 }
-	 @GetMapping({"/admin/notice/noticeRead","/admin/notice/noticeModify","/notice/noticeRead"})
+	
+	/*
+	 * 공지사항 단일 조회 및 수정 페이지
+	 */
+	 @GetMapping({"/notice/noticeRead","/admin/notice/noticeRead","/admin/notice/noticeModify"})
 	 public void noticeRead(@RequestParam("notice_no") int notice_no,Model model) {
 		 model.addAttribute("notice", noticeService.getNotice(notice_no));
 		 
 	 }
 	 
+	 /*
+	  * 공지사항 등록 
+	  */
 	 @PostMapping("/admin/notice/noticeRegisterProc")
 	 public String noticeRegisterProc(NoticeDTO noticeDTO,RedirectAttributes rttr) {
 		 if(noticeService.noticeRegister(noticeDTO)==1) {
@@ -66,25 +74,27 @@ public class NoticeController {
 		 return "redirect:/admin/notice/noticeList";
 	 }
 	 
-	 
+	 /*
+	  * 공지사항 수정
+	  */
 	 @PostMapping("/admin/notice/noticeModifyProc")
 	 public String noticeModifyProc(NoticeDTO noticeDTO,RedirectAttributes rttr) {
-		 if(noticeService.noticeModify(noticeDTO)==1) {
+		 if(noticeService.noticeModify(noticeDTO)) {
 			 rttr.addFlashAttribute("msg","successModify");
 		 }
 		 else {
 			 rttr.addFlashAttribute("msg","failModify");
 		 }
 		 return "redirect:/admin/notice/noticeList";
-	 }
+	 } 
 	 
-	 
-	 
-
+	 /*
+	  * 공지사항 삭제
+	  */
 	 @PostMapping("/admin/notice/noticeDeleteProc")
 	 public String noticeDeleteProc(int notice_no,RedirectAttributes rttr) {
 		 
-		 if(noticeService.noticeDelete(notice_no)==1) {
+		 if(noticeService.noticeDelete(notice_no)) {
 			 rttr.addFlashAttribute("msg","successDelete");
 		 }
 		 else {
@@ -93,10 +103,5 @@ public class NoticeController {
 		 
 		 return "redirect:/admin/notice/noticeList";
 	 }
-	/*
-	 * MEMBER ONLY @PreAuthorize("hasRole('ROLE_MEMBER')")
-	 */
 	
-	 
-	 
 }

@@ -20,7 +20,7 @@
 		<div class="card-body">
 			<div class="table-responsive">
 
-				<form action="/admin/notice/noticeModifyProc" method="post" id="modifyForm">
+				<form action="<c:url value='/admin/notice/noticeModifyProc'/>" method="post" id="modifyForm">
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
 
@@ -28,7 +28,7 @@
 							<tr>
 								<th>번호</th>
 								<td class="align-middle">
-								<input class="readOnlyText" type="text" name="notice_no" id="notice_no" value="${notice.notice_no}" readonly="readonly">
+								<input class="readOnlyText" type="text" name="notice_no" id="notice_no" value="<c:out value='${notice.notice_no}'/>" readonly="readonly">
 								</td>
 
 							</tr>
@@ -36,14 +36,14 @@
 							<tr>
 								<th>제목</th>
 								<td class="align-middle">
-								<input type="text" name="notice_title" id="notice_title" value="${notice.notice_title}">
+								<input type="text" name="notice_title" id="notice_title" value="<c:out value='${notice.notice_title}'/>">
 								</td>
 							</tr>
 							<tr>
 								<th>내용</th>
 								<td>
 								<textarea  name="notice_content"
-										id="notice_title" rows="10" cols="30">${notice.notice_content}</textarea>
+										id="notice_title" rows="10" cols="30"><c:out value='${notice.notice_content}'/></textarea>
 								</td>
 							</tr>
 

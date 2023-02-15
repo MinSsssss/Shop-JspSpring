@@ -4,7 +4,7 @@
 	<insert id="reviewRegister">
 		INSERT INTO tbl_review(review_no,order_detail_no,
 		mem_id,review_title,review_content,review_star)
-		VALUES(seq_review_no.nextval,#{order_detail_no},
+		VALUES(seq_review.nextval,#{order_detail_no},
 		#{mem_id},#{review_title},#{review_content},#{review_star})
 	</insert>
 	

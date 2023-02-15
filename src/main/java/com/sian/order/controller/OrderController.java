@@ -66,16 +66,12 @@ public class OrderController {
 	
 	private final CourierService courierService;
 	
-	
-	 
-	/*
-	 * ALL
-	 */
-	
 
-	
 	/*
 	 * ADMIN ONLY
+	 */
+	/*
+	 * 주문 리스트 조회
 	 */
 	@GetMapping("/admin/order/orderList")
 	public void orderList(Model model) {
@@ -86,22 +82,14 @@ public class OrderController {
 		model.addAttribute("orderList", orderList);
 	}
 	
-	@GetMapping("/order/orderRead")
-	public void orderRead(@RequestParam("order_no") Long order_no, Model model) {
-		
-	}
-	
 	
 	/*
 	 * MEMBER ONLY @PreAuthorize("hasRole('ROLE_MEMBER')")
 	 */
 	
-	
-	
 	@PostMapping("/order/complete")
 	@ResponseBody
-	public int paymentComplete(String imp_uid, String merchant_uid,String total_price,HttpSession session
-			,@RequestBody OrderDTO orderDTO) throws Exception {
+	public int paymentComplete(@RequestBody OrderDTO orderDTO) throws Exception {
 		    
 		    String token = payService.getToken();
 		    
@@ -116,17 +104,16 @@ public class OrderController {
 				payService.payMentCancle(token, orderDTO.getImp_uid(), amount,"결제 금액 오류");
 				return res;
 			}
-		    System.out.println(orderDTO);
+		    
 			orderService.orderInsert(orderDTO);
-			System.out.println("res" + res);
+			
 			return res;
 		 
 	}
 	
-	
-	
-	
-	
+	/*
+	 * 결제 상세 정보 저장 및 장바구니에서 삭제
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@PostMapping("/order/orderDetails")
 	public void orderDetails(@RequestParam HashMap<String, Object> orderDetailList,
@@ -159,11 +146,10 @@ public class OrderController {
 			
 	
 		}
-		
-		
-		//return "redirect:/member/auth/cartView";
 	}
-
+	/*
+	 * 주문 정보 리스트 조회
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@GetMapping("/order/orderList")
 	public String orderList(Authentication authentication,Model model) throws IOException {
@@ -185,10 +171,12 @@ public class OrderController {
 		
 		model.addAttribute("orderList", orderList);
 		return "/order/orderList";
-		
-		
+
 	}
 	
+	/*
+	 * 주문정보 상세 페이지
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER') || hasRole('ROLE_ADMIN')")
 	@GetMapping({"/order/orderDetailView","/admin/order/orderDetailView"})
 	public void orderDetailView(Long order_no,Model model) {
@@ -207,6 +195,10 @@ public class OrderController {
 		
 	}
 	
+	
+	/*
+	 * 주문 삭제
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@ResponseBody
 	@PostMapping("/order/orderDelete")
@@ -216,21 +208,10 @@ public class OrderController {
 		
 	}
 	
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
-	@ResponseBody
-	@PostMapping("/order/checkout")
-	public Long checkout(@RequestBody OrderDTO orderDTO,
-			Authentication authentication)  {
-		
-		
-		String mem_id = memberService.getId(authentication);
-		orderDTO.setMem_id(mem_id);
-		orderService.orderInsert(orderDTO);
-		Long order_no = orderService.getOrderNo(mem_id);
-		
-		return order_no;
-	}
 	
+	/*
+	 * 배송상태 수정
+	 */
 	@ResponseBody
 	@PostMapping("/admin/order/deliveryComplete")
 	public boolean deliveryComplete(@RequestBody OrderDTO orderDTO) {
@@ -238,17 +219,5 @@ public class OrderController {
 		return orderService.updateStatus(orderDTO);
 	}
 	
-	
-	
-	
-//	public int orderCancle(OrderDTO orderDTO) throws Exception {
-//		if(!orderDTO.getImp_uid().equals("")) {
-//			String token = payService.getToken(); 
-//			Long price = orderDTO.getTotal_price();
-//			Long refundPrice = price ;
-//			payService.payMentCancle(token, orderDTO.getImp_uid(), refundPrice+"", "환불");
-//		}
-//		
-//		return adminDAO.orderCancle((orderList.getOrderNum()));
-//}
+
 }

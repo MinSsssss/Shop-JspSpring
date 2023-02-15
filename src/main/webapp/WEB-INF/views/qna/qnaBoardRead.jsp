@@ -13,22 +13,14 @@
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div
-	class="ltn__breadcrumb-area ltn__breadcrumb-area-4 bg-overlay-theme-10--- bg-image"
-	data-bg="img/bg/4.png">
+<div class="ltn__breadcrumb-area">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div
 					class="ltn__breadcrumb-inner ltn__breadcrumb-inner-4 justify-content-between">
 					<div class="section-title-area">
-						<h1 class="section-title white-color">Cart</h1>
-					</div>
-					<div class="ltn__breadcrumb-list">
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li>Cart</li>
-						</ul>
+						
 					</div>
 				</div>
 			</div>
@@ -52,20 +44,20 @@
 					<h2>1:1 문의</h2>
 					<div class="boardWrap">
 						<div class="boardTitle">
-							<h4>${qna.qna_title }</h4>
-							<div>${qna.qna_status}</div>	
+							<h4><c:out value='${qna.qna_title}'/></h4>
+							<div><c:out value='${qna.qna_status}'/></div>	
 						</div>
 						<div  class="boardInfo">
-							<div><strong>${qna.qna_writer }</strong>
+							<div><strong><c:out value='${qna.qna_writer}'/></strong>
 								<span><fmt:formatDate pattern="yyyy.MM.dd HH:mm:ss" value="${qna.qna_date }"/></span>
 							</div>
 							
 						</div>
-						<div class="boardContent">${qna.qna_content}</div>
+						<div class="boardContent"><c:out value='${qna.qna_content}'/></div>
 						<c:if test="${not empty qna.qna_answer }">
 							<div class="boardContent">
 								<p>답변내용</p>
-								<div>${qna.qna_answer}</div>
+								<div><c:out value='${qna.qna_answer}'/></div>
 							</div>
 						</c:if>
 					</div>

@@ -12,22 +12,14 @@
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div
-	class="ltn__breadcrumb-area ltn__breadcrumb-area-4 bg-overlay-theme-10--- bg-image"
-	data-bg="img/bg/4.png">
+<div class="ltn__breadcrumb-area">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div
 					class="ltn__breadcrumb-inner ltn__breadcrumb-inner-4 justify-content-between">
 					<div class="section-title-area">
-						<h1 class="section-title white-color">Cart</h1>
-					</div>
-					<div class="ltn__breadcrumb-list">
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li>WishList</li>
-						</ul>
+						
 					</div>
 				</div>
 			</div>
@@ -62,31 +54,26 @@
 											<div class="orderProductFor">
 												<div class="orderInfo">
 													<div class="orderDisplay">
-														<a
-															href='/product/productRead?product_no=${wish.product_no}'>
-															<img class="product_img"
-															src="/display?fileName=${wish.product_thumb_img}"
-															alt="">
+														<a href="<c:url value='/product/productRead?product_no=${wish.product_no}'/>">
+															<img class="product_img" src="<c:url value='/display?fileName=${wish.product_thumb_img}'/>">
 														</a>
 														<div class="productInfo">
 															<p>
-																<a
-																	href='/product/productRead?product_no=${wish.product_no}'>
-																	${wish.product_name } 
+																<a href="<c:url value='/product/productRead?product_no=${wish.product_no}'/>">
+																	<c:out value='${wish.product_name}'/> 
 																</a>
 															</p>
-															<span class="productPrice">${wish.product_price }원
-																
-																</span>
+															<span class="productPrice">
+																<c:out value='${wish.product_price}'/>원	
+															</span>
 														</div>
 													</div>
 												</div>
 												<div class="orderBtns">
 													
 													<form>
-														<input type="hidden"
-															name="thisProduct_no${status.index}" id="product_no"
-															value="${wish.product_no }">
+														<input type="hidden" name="thisProduct_no${status.index}" id="product_no"
+															value="<c:out value='${wish.product_no}'/>">
 														<button type="button" class="btn btn-outline-info"
 															onclick="wishDelete(thisProduct_no${status.index})">삭제</button>
 													</form>

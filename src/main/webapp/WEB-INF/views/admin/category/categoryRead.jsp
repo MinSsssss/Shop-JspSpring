@@ -19,8 +19,8 @@
 
 		<div class="card-body">
 			<div class="table-responsive">
-				<form action="/admin/category/categoryDeleteProc" method="post" id="deleteForm">
-					<input type="hidden" name="category_no" value="${category.category_no}">
+				<form action="<c:url value='/admin/category/categoryDeleteProc'/>" method="post" id="deleteForm">
+					<input type="hidden" name="category_no" value="<c:out value='${category.category_no}'/>">
 				</form>
 				<table class="table table-bordered" id="dataTable" width="100%"
 					cellspacing="0">

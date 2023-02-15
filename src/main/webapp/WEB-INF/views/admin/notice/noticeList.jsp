@@ -12,7 +12,7 @@
                     <!-- Page Heading -->
                     <div class="pageHead">
                     	<h1 class="h3 mb-2 text-gray-800">공지사항</h1>
-                    	<div><a class="btn btn-link" href="/admin/notice/noticeRegister">등록하기</a></div>
+                    	<div><a class="btn btn-link" href="<c:url value='/admin/notice/noticeRegister'/>">등록하기</a></div>
                     </div>
 					
                     <!-- DataTales Example -->
@@ -34,9 +34,13 @@
                                     	<c:forEach items="${noticeList}" var="notice">
                                     	
 	                                    	<tr>
-	                                            <td>${num}</td>
-	                                            <td><a href="/admin/notice/noticeRead?notice_no=${notice.notice_no}">${notice.notice_title }</a></td>
-	                                            <td><fmt:formatDate pattern="yyyy.MM.dd" value = "${notice.notice_date }"/></td>
+	                                            <td><c:out value='${num}'/></td>
+	                                            <td>
+	                                            	<a href="<c:url value='/admin/notice/noticeRead?notice_no=${notice.notice_no}'/>">
+	                                            		<c:out value='${notice.notice_title}'/>
+	                                            	</a>
+	                                            </td>
+	                                            <td><fmt:formatDate pattern="yyyy.MM.dd" value ="${notice.notice_date }"/></td>
   
 	                                        </tr>
 	                                     	<c:set var="num" value="${num-1}"/>
@@ -57,6 +61,6 @@
          
 	<jsp:include page="/WEB-INF/views/admin/includes/adminFooter.jsp"></jsp:include>
 <script>
-	let result = '${msg}';
+	let result = "<c:out value='${msg}'/>";
 	successFun(result);
 </script>   

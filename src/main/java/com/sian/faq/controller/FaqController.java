@@ -29,6 +29,11 @@ public class FaqController {
 	/*
 	 * ALL
 	 */
+	
+	
+	/*
+	 * faq 리스트 조회
+	 */
 	@GetMapping({"/faq/faqList","/admin/faq/faqList"})
 	 public void faqList(@RequestParam("category_no")int category_no,Criteria cri,Model model) {
 		
@@ -52,8 +57,13 @@ public class FaqController {
 	 }
 
 	
+	
 	/*
 	 * ADMIN ONLY
+	 */
+	
+	/*
+	 * faq 조회 및 수정 페이지
 	 */
 	@GetMapping({"/admin/faq/faqRead","/admin/faq/faqModify"})
 	 public void faqRead(@RequestParam("faq_no")int faq_no,Model model)  {
@@ -62,17 +72,22 @@ public class FaqController {
 		 model.addAttribute("category",categoryService.getCategoryList("faq"));
 	 }	 
 	 
-	 
+	 /*
+	  * faq 생성 페이지
+	  */
 	 @GetMapping("/admin/faq/faqRegister")
 	 public void faqRegister(Model model)  {
 		 
 		 model.addAttribute("category",categoryService.getCategoryList("faq"));
 	 }
 	 
+	 /*
+	  * faq 생성
+	  */
 	 @PostMapping("/admin/faq/faqRegisterProc")
 	 public String faqRegisterProc(FaqDTO faqDTO,RedirectAttributes rttr) {
 		 
-		 if(faqService.faqRegister(faqDTO)==1) {
+		 if(faqService.faqRegister(faqDTO)) {
 			 rttr.addFlashAttribute("msg","successRegister");
 		 }
 		 else {
@@ -82,9 +97,12 @@ public class FaqController {
 		 return "redirect:/admin/faq/faqList?category_no=0";
 	 }
 	 
+	 /*
+	  * faq 수정
+	  */
 	 @PostMapping("/admin/faq/faqModifyProc")
 	 public String faqModifyProc(FaqDTO faqDTO,RedirectAttributes rttr) {
-		 if(faqService.faqModify(faqDTO)==1) {
+		 if(faqService.faqModify(faqDTO)) {
 			 rttr.addFlashAttribute("msg","successModify");
 		 }
 		 else {
@@ -93,10 +111,13 @@ public class FaqController {
 		 return "redirect:/admin/faq/faqList?category_no=0";
 	 }
 	 
+	 /*
+	  * faq 삭제
+	  */
 	 @PostMapping("/admin/faq/faqDeleteProc")
 	 public String faqDeleteProc(int faq_no,RedirectAttributes rttr) {
 		 
-		 if(faqService.faqDelete(faq_no)==1) {
+		 if(faqService.faqDelete(faq_no)) {
 			 rttr.addFlashAttribute("msg","successDelete");
 		 }
 		 else {
@@ -105,10 +126,6 @@ public class FaqController {
 		 
 		 return "redirect:/admin/faq/faqList?category_no=0";
 	 }
-	/*
-	 * MEMBER ONLY @PreAuthorize("hasRole('ROLE_MEMBER')")
-	 */
-	
-	
+
 	 
 }

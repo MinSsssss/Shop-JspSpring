@@ -55,6 +55,7 @@ $(document).ready(function() {
 				let paramList = {
 					"paramList": JSON.stringify(orderDetailArr)
 				}
+				alert(paramList);
 				$.ajax({
 
 					type: "POST",
@@ -74,12 +75,13 @@ $(document).ready(function() {
 	$("#buyNowBtn").on("click", function() {
 		let product_name = $("#product_name").text();
 		let order_qty = $("#cart_qty").val();
-		let product_price = $("#product_price").text();
-		let sub_total = parseInt(order_qty) * parseInt(product_price);
-		console.log("order_qty : " + order_qty);
-		console.log("product_name : " + product_name);
-		console.log("product_price : " + product_price);
-		console.log("sub_total : " + sub_total);
+		let priceText = $("#product_price").text();
+		
+		let product_price = priceText.replace(",","");
+		
+		
+		let sub_total = parseInt(order_qty) * product_price;
+		
 		let form_content = '';
 		let productName_input =
 			"<input name='orderDetailList[0].product_name' type='hidden' value='" + product_name + "'> ";
@@ -125,7 +127,7 @@ function setTotalInfo() {
 	// 총 가격
 	$(".totalPrice").text(totalPrice.toLocaleString());
 	// 배송비
-	$(".deliveryPrice").text(deliveryPrice);
+	$(".deliveryPrice").text(deliveryPrice.toLocaleString());
 	// 최종 가격(총 가격 + 배송비)
 	$(".finalTotalPrice").text(finalTotalPrice.toLocaleString());
 }

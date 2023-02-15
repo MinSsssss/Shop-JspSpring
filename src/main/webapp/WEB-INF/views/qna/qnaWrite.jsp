@@ -12,22 +12,14 @@
 <div class="ltn__utilize-overlay"></div>
 
 <!-- BREADCRUMB AREA START -->
-<div
-	class="ltn__breadcrumb-area ltn__breadcrumb-area-4 bg-overlay-theme-10--- bg-image"
-	data-bg="img/bg/4.png">
+<div class="ltn__breadcrumb-area">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div
 					class="ltn__breadcrumb-inner ltn__breadcrumb-inner-4 justify-content-between">
 					<div class="section-title-area">
-						<h1 class="section-title white-color">Cart</h1>
-					</div>
-					<div class="ltn__breadcrumb-list">
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li>Cart</li>
-						</ul>
+						
 					</div>
 				</div>
 			</div>
@@ -50,7 +42,7 @@
 				<div class="shoping-cart-inner">
 					<h2>1:1 문의하기</h2>
 					<div class="table-responsive">
-						<form action="/qna/qnaWriteProc" method="post">
+						<form action="<c:url value='/qna/qnaWriteProc'/>" method="post">
 							<table class="inquiryTable">
 	
 								<tbody>
@@ -60,7 +52,7 @@
 											<select class="inquirySelect tableMargin" name="category_name" id="category_name">
 												<c:forEach items="${qnaCategoryList}" var="category">
 													<option id="categorySelect">
-														${category.category_name }
+														<c:out value='${category.category_name}'/>
 													</option>
 												</c:forEach>
 											</select>
@@ -72,10 +64,8 @@
 									<tr>
 										<th>작성자</th>
 										<td>
-											<input type="text" name="qna_writer" id="qna_writer"
-											value="<sec:authentication property='principal.member.mem_id'/>">
-											<input type="hidden" name="mem_id" id="mem_id"
-											value="<sec:authentication property='principal.member.mem_id'/>">
+											<input type="text" name="qna_writer" id="qna_writer" value="<sec:authentication property='principal.member.mem_id'/>">
+											<input type="hidden" name="mem_id" id="mem_id" value="<sec:authentication property='principal.member.mem_id'/>">
 										</td>
 									</tr>
 

@@ -35,54 +35,15 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	private final MemberService memberService;
 	
-	private final CategoryService categoryService;
-	
-	private final ProductService productService;
+
 	/*
 	 * ALL
 	 */
-	@GetMapping("/")
-	public String memberIndex(HttpServletResponse response, Model model,Criteria cri)  {
-		List<CategoryDTO> categoryList = categoryService.getCategoryList("product");
-		
-		Cookie cookie = new Cookie("view", null);
-		cookie.setComment("게시글 조회 확인");
-		cookie.setMaxAge(60*60*24);
-		response.addCookie(cookie);
-		
-		
-		int category_no = 0;
-		CategoryDTO category = null;
-		List<ProductDTO> productList = null;
-
-		for(int i=0; i< categoryList.size(); i++) {
-			
-			category = categoryList.get(i);
-			category_no = category.getCategory_no();
-			productList = productService.memberProductList(category_no);
-			for(ProductDTO product : productList) {
-				product.setProduct_thumb_img(product.getProduct_thumb_img().replace("s_",""));
-			}
-			category.setProductList(productList);
-		}
-		
-
-		model.addAttribute("categoryList", categoryList);
-		return "/index";
-	}
-	
 	
 	
 	/*
-	 * ADMIN ONLY
+	 * 관리자 페이지 회원 리스트 조회
 	 */
-	
-	@GetMapping("/admin")
-	public String adminIndex(){
-		return "/admin/index";
-	}
-	
-	
 	@GetMapping("/admin/member/memberList")
 	public void memberList(Model model) {
 		model.addAttribute("memberList",memberService.getMemberList());
@@ -92,18 +53,18 @@ public class MemberController {
 	 * MEMBER ONLY @PreAuthorize("hasRole('ROLE_MEMBER')")
 	 */
 	
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
-	@GetMapping("/member/memberModify")
-	public void memberModify() {
-
-	}
 	
+	/*
+	 * 회원 탈퇴 페이지
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@GetMapping("/member/memberDrop")
 	public void memberDrop() {
 
 	}
-	
+	/*
+	 * 로그아웃
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@PostMapping("/member/logout")
 	public String logoutPost() {
@@ -111,6 +72,9 @@ public class MemberController {
 		return "redirect:/member";
 	}
 	
+	/*
+	 * 회원 탈퇴
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@PostMapping("/member/memberDropProc")
 	public String memberDropProc(MemberDTO memberDTO, Authentication authentication, RedirectAttributes rttr)
@@ -122,22 +86,31 @@ public class MemberController {
 		if (pwdChk) {
 			memberDTO.setMem_id(memberService.getId(authentication));
 			if (memberService.memberDrop(memberDTO)) {
-
-				
 				return "redirect:/member";
-			} else {
 				
-
+			} else {
 				return "redirect:/member/memberDrop";
+				
 			}
-
 		} else {
-			
 			rttr.addFlashAttribute("msg", "비밀번호가 틀렸습니다.");
 			return "redirect:/member/memberDrop";
 		}
 	}
 	
+	
+	/*
+	 * 회원정보 수정 비밀번호 확인 페이지
+	 */
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@GetMapping("/member/memberModify")
+	public void memberModify() {
+
+	}
+	
+	/*
+	 * 회원 정보 수정 비밀번호 확인
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@PostMapping("/member/memberModify")
 	public String memberModifyPwdChk(MemberDTO memberDTO, Authentication authentication, RedirectAttributes rttr)
@@ -151,36 +124,40 @@ public class MemberController {
 		}
 
 	}
+	
+	/*
+	 * 회원정보 수정 페이지
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@GetMapping("/member/memberModifyNext")
 	public void memberModifyNext() {
 
 	}
 
+	/*
+	 * 회원정보 수정
+	 */
 	@PostMapping("/member/memberModifyNextProc")
 	public String memberModifyNextProc(MemberDTO memberDTO)  {
 
 		if (memberService.memberModify(memberDTO)) {
 
-			return "redirect:/member";
+			return "redirect:/";
 		}
 
 		return "redirect:/member/memberModifyNext";
 
 	}
+	
+	/*
+	 * 비밀번호 확인
+	 */
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@ResponseBody
 	@PostMapping("/member/pwdChk")
-	public int pwdChk(@RequestBody MemberDTO memberDTO, Authentication authentication)  {
-		boolean result = false;
-		result = memberService.pwdChk(memberDTO, authentication);
-
-		if (result) {
-			
-			return 0;
-		}
+	public boolean pwdChk(@RequestBody MemberDTO memberDTO, Authentication authentication)  {
 		
-		return 1;
+		return memberService.pwdChk(memberDTO, authentication);
 	}
 
 	

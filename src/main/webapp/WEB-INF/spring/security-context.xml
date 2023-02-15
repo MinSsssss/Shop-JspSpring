@@ -30,7 +30,7 @@
 			
 		<!-- 로그인된 상태에서는 로그인이나 회원가입 화면에 접근 못하도록 함 -->
 		<security:intercept-url pattern="/login" access="isAnonymous()" />
-		<security:intercept-url pattern="/register" access="isAnonymous()" />
+		<security:intercept-url pattern="/registerAgree" access="isAnonymous()" />
 		
 		<!-- <security:intercept-url pattern="/login" access="permitAll()" /> -->
 		
