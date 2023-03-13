@@ -47,6 +47,7 @@ public class IamPortController {
 	public IamportResponse<Payment> verifyIamportPOST(@PathVariable(value = "imp_uid") String imp_uid) throws IamportResponseException, IOException {
 			System.out.println("imp_uid : " + imp_uid);
 			System.out.println(client.paymentByImpUid(imp_uid));
+			
 			return client.paymentByImpUid(imp_uid);
 		}
 	
@@ -55,6 +56,9 @@ public class IamPortController {
 	public ResponseEntity<Long> payInfoPOST(Model model,HttpServletRequest request, HttpServletResponse response,
 		        @RequestParam String imp_uid,HttpSession session,
 		        Authentication authentication) throws Exception {
+			
+		System.out.println("이거냐iamport payInfo");
+		
 			IamportResponse<Payment> result = client.paymentByImpUid(imp_uid);
 			PayInfoDTO payInfoDTO = new PayInfoDTO();
 			payInfoDTO.setMem_id(memberService.getId(authentication));
@@ -62,6 +66,7 @@ public class IamPortController {
 			payInfoDTO.setPay_method(result.getResponse().getPayMethod());
 			payInfoDTO.setPay_name(result.getResponse().getName());
 			payInfoDTO.setPay_amount(result.getResponse().getAmount().longValue());
+			
 			
 			orderService.insertPayInfo(payInfoDTO);
 			

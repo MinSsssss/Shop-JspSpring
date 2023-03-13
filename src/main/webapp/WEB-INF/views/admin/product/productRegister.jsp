@@ -30,7 +30,7 @@
 								<td>카테고리</td>
 								<td>
 									<select name="category_name" id="category_name">
-										<option id="categorySelect">카테고리없음</option>
+										<option id="categorySelect" >카테고리없음</option>
 										<c:forEach items="${categoryList }" var="category">
 											<option id="categorySelect">
 												<c:out value='${category.category_name }'/>

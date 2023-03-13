@@ -41,7 +41,7 @@
 		 
 				</div>
 				<div class="shoping-cart-inner">
-					
+			
 					<div class="table-responsive">
 						<h2 class="csTitle">공지사항</h2>
 						<table class="allTable boardTable">
@@ -57,10 +57,11 @@
 							</thead>
 								
 							<tbody>
-								<c:set var="num" value="${page.total-(page.cri.pageNum-1) * page.cri.amount}"/>
+								
+								<c:set var="num" value="${page.total-page.cri.pageNum}"/>
 								<c:forEach items="${noticeList }" var="notice">
 									<tr>
-										<td>${num}</td>
+										<td><c:out value='${num}'/></td>
 										<td class="noticeTitle">
 											<a href="<c:url value='/notice/noticeRead?notice_no=${notice.notice_no}'/>">
 												<c:out value='${notice.notice_title}'/>
@@ -77,7 +78,7 @@
 								
 							</tbody>
 						</table>
-						<jsp:include page="/WEB-INF/views/admin/includes/pageInclude.jsp"></jsp:include>
+						<jsp:include page="/WEB-INF/views/includes/pageInclude.jsp"></jsp:include>
                         <input type="hidden" id="pageId" value="notice">
 					</div>
 					

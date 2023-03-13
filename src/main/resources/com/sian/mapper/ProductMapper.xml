@@ -10,7 +10,7 @@
 
  	<insert id="insert">
  		<selectKey keyProperty="product_no" resultType="int" order="BEFORE">
-			select seq_tbl_product.nextval from dual 
+			select nextval(seq_product) from dual 
 			
 		</selectKey>
  	
@@ -40,6 +40,23 @@
 	</select>
 	<select id="getListPaging" resultType="com.sian.product.dto.ProductDTO">
 		<![CDATA[
+			SELECT product_no,
+ 			product_name,product_price,product_hit,product_regdate,
+	 		product_updatedate,product_thumb_img
+ 			FROM tbl_product
+ 			
+			ORDER BY product_no desc
+			LIMIT #{pageNum},#{amount}
+		]]>
+		<!-- SELECT product_no,cate.category_no,cate.category_name,
+ 			product_name,product_price,product_hit,product_regdate,
+	 		product_updatedate,product_thumb_img
+ 			FROM tbl_product pro,tbl_category cate
+ 			WHERE pro.category_no = cate.category_no	
+			ORDER BY product_no desc
+			LIMIT #{pageNum},#{amount} -->
+	</select>
+	<!-- <![CDATA[
 			SELECT product_no,category_no,
 			(SELECT cate.category_name from tbl_category cate WHERE cate.category_no=pro.category_no) 
  			AS category_name,
@@ -63,11 +80,20 @@
 	 		WHERE rn > (#{pageNum}-1) * #{amount}
 	 		
 			
-		]]>
-	</select>
-	
+		]]> -->
 	<select id="selectProductList" resultType="com.sian.product.dto.ProductDTO">
 		<![CDATA[
+			SELECT product_no,cate.category_no,cate.category_name,
+ 			product_name,product_price,product_hit,product_regdate,
+	 		product_updatedate,product_thumb_img
+ 			FROM tbl_product pro,tbl_category cate
+ 			WHERE pro.category_no=cate.category_no
+ 			AND cate.category_no=#{category_no}
+			ORDER BY product_no desc
+			LIMIT #{pageNum},#{amount}
+		]]>
+	</select>
+	<!-- <![CDATA[
 			SELECT product_no,category_no,category_name,
 	 		product_name,product_price,product_hit,product_regdate,
 	 		product_updatedate,product_thumb_img
@@ -84,9 +110,7 @@
 			) pro
 	 		WHERE rn > (#{pageNum}-1) * #{amount}
 			AND pro.category_no = #{category_no}
-		]]>
-	</select>
-	
+		]]> -->
 	<update id="productModify">
 		UPDATE tbl_product
 		SET category_no=#{category_no},
@@ -95,7 +119,7 @@
 		product_content=#{product_content},
 		product_detail=#{product_detail},
 		product_thumb_img=#{product_thumb_img},
-		product_updatedate=sysdate
+		product_updatedate=sysdate()
 		
 		WHERE product_no=#{product_no}
 		
@@ -111,14 +135,25 @@
 	</select>
 	
 	<select id="getProduct" resultType="com.sian.product.dto.ProductDTO">
-		SELECT pro.product_no,cate.category_no,cate.category_name,
-		pro.product_name,pro.product_price,pro.product_detail,
-		pro.product_content,pro.product_detail,pro.product_regdate,
-		pro.product_updateDate,pro.product_hit,product_thumb_img
-		
-		FROM tbl_product pro FULL JOIN tbl_category cate
-		ON pro.category_no=cate.category_no
+		SELECT product_no,
+		ifnull((SELECT category_name FROM tbl_category cate,tbl_product pro
 		WHERE product_no = #{product_no}
+		AND cate.category_no=pro.category_no),'카테고리없음') category_name,
+		product_name,product_price,product_detail,
+		product_content,product_detail,product_regdate,
+		product_updateDate,product_hit,product_thumb_img
+		
+		FROM tbl_product
+		WHERE product_no =#{product_no}
+		
+		<!-- SELECT product_no,cate.category_no,cate.category_name,
+		product_name,product_price,product_detail,
+		product_content,product_detail,product_regdate,
+		product_updateDate,product_hit,product_thumb_img
+		
+		FROM tbl_product pro,tbl_category cate
+		WHERE product_no = #{product_no}
+		AND pro.category_no=cate.category_no -->
 		
 	</select>
 	

@@ -1,9 +1,9 @@
 $(document).ready(function() {
 	$("#noticeList").on("click", function() {
-		location.href = "/notice/noticeList";
+		location.href = "/notice/noticeList?pageNum=0&amount=5";
 	})
 	$("#faqList").on("click", function() {
-		location.href = "/faq/faqList?category_no=0";
+		location.href = "/faq/faqList?category_no=0&pageNum=0&amount=5";
 	})
 	$("#qnaBoard").on("click", function() {
 		location.href = "/qna/qnaBoard?category_no=0";

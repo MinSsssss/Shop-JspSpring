@@ -30,7 +30,7 @@
                                     </thead>
                                     
                                     <tbody>
-                                    	<c:set var="num" value="${page.total-(page.cri.pageNum-1) * page.cri.amount}"/>
+                                    	<c:set var="num" value="${page.total-page.cri.pageNum}"/>
                                     	<c:forEach items="${noticeList}" var="notice">
                                     	
 	                                    	<tr>

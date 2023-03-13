@@ -96,7 +96,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                     	<a class="collapse-item" href="<c:url value='/admin/category/categoryList?category_class=product'/>">상품카테고리조회</a>
                       
-                        <a class="collapse-item" href="<c:url value='/admin/product/productList?category_no=0'/>">상품조회</a>
+                        <a class="collapse-item" href="<c:url value='/admin/product/productList?category_no=0&pageNum=0&amount=5'/>">상품조회</a>
                       
                     </div>
                 </div>
@@ -108,12 +108,12 @@
                 </a>
                 <div id="qnaManage" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="<c:url value='/admin/notice/noticeList'/>">공지사항조회</a>
+                        <a class="collapse-item" href="<c:url value='/admin/notice/noticeList?pageNum=0&amount=5'/>">공지사항조회</a>
                         <a class="collapse-item" href="<c:url value='/admin/category/categoryList?category_class=faq'/>">FAQ 카테고리조회</a>
-                        <a class="collapse-item" href="<c:url value='/admin/faq/faqList?category_no=0'/>">FAQ 조회</a>
+                        <a class="collapse-item" href="<c:url value='/admin/faq/faqList?category_no=0&pageNum=0&amount=5'/>">FAQ 조회</a>
                         
 						<a class="collapse-item" href="<c:url value='/admin/category/categoryList?category_class=qna'/>">QNA 카테고리조회</a>
-                        <a class="collapse-item" href="<c:url value='/admin/qna/qnaList?category_no=0'/>">QNA 조회</a>
+                        <a class="collapse-item" href="<c:url value='/admin/qna/qnaList?category_no=0&pageNum=0&amount=5'/>">QNA 조회</a>
                     </div>
                 </div>
             </li>

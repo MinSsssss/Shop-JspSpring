@@ -4,6 +4,8 @@ WHERE mem_id = 'admin';
 insert into tbl_member_auth(mem_id,auth)
 values('cda010','ROLE_ADMIN');
 
+USE sian;
+
 SELECT mem_id FROM tbl_member
 		WHERE mem_id = 'cda01';
 select * from tbl_member;
@@ -23,6 +25,7 @@ select * from tbl_product_images;
 select * from tbl_courier;
 
 
+			
 
 INSERT INTO tbl_category(category_no,category_class,category_name)
 VALUES(0,'product','카테고리없음');

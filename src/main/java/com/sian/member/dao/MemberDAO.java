@@ -11,7 +11,9 @@ public interface MemberDAO {
 	
 	public MemberDTO read(String mem_id);
 	
-	public void register(MemberDTO member,AuthVO authVO) ;
+	/* public void register(MemberDTO member,AuthVO authVO) ; */
+	
+	
 	
 	public int idChk(String mem_id) ;
 	
@@ -22,6 +24,8 @@ public interface MemberDAO {
 	public int memberModify(MemberDTO memberDTO) ;
 	
 	public int insert(MemberDTO memberDTO) ;
+	
+	public void insertAuth(String mem_id);
 	
 	public List<MemberDTO> getList() ;
 	

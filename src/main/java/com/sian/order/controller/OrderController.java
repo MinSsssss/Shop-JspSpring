@@ -90,12 +90,12 @@ public class OrderController {
 	@PostMapping("/order/complete")
 	@ResponseBody
 	public int paymentComplete(@RequestBody OrderDTO orderDTO) throws Exception {
-		    
+		    System.out.println("토큰체크1");
 		    String token = payService.getToken();
-		    
+		    System.out.println("토큰체크2 : " + token);
 		    // 결제 완료된 금액
 		    String amount = payService.paymentInfo(orderDTO.getImp_uid(), token);
-		    
+		    System.out.println("이거냐orderController");
 		    int res = 1;
 		    
 		    if (orderDTO.getTotal_price() != Long.parseLong(amount)) {

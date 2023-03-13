@@ -22,7 +22,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                             	<div>
-                            		<span><a href="<c:url value='/admin/product/productList?category_no=0'/>">전체</a></span>
+                            		<span><a href="<c:url value='/admin/product/productList?category_no=0&pageNum=0&amount=5'/>">전체</a></span>
                             		<c:forEach items="${categoryList}" var="cate" varStatus="status">
                             			<span class="moveCategory">
                             				<a href="#" onclick="fnMoveCategory(<c:out value='${cate.category_no}'/>)">
@@ -32,7 +32,7 @@
                             			
                             		</c:forEach>
                             		<form id="moveCategoryForm" method="get" action="<c:url value='/admin/product/productList'/>">
-										<input type="hidden" name="pageNum" value="1">
+										<input type="hidden" name="pageNum" value="0">
 										<input type="hidden" name="amount" value="<c:out value='${page.cri.amount}'/>">
 											
 									</form>
@@ -51,7 +51,7 @@
                                     </thead>
                                     
                                     <tbody>
-                                   		<c:set var="num" value="${page.total-(page.cri.pageNum-1) * page.cri.amount}"/>
+                                   		<c:set var="num" value="${page.total-page.cri.pageNum}"/>
 	                                    <c:forEach items="${productList }" var="product">
 	                                    	<tr>
 	                                            <td class="align-middle">${num}</td>
@@ -79,7 +79,7 @@
                                     </tbody>
                                 </table>
                                 
-                              <jsp:include page="/WEB-INF/views/admin/includes/pageInclude.jsp"></jsp:include>
+                              <jsp:include page="/WEB-INF/views/includes/pageInclude.jsp"></jsp:include>
                               <input type="hidden" id="pageId" value="product">
                                
                             </div>

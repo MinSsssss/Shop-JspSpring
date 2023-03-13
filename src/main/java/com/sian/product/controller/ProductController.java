@@ -81,14 +81,14 @@ public class ProductController {
 		if(!(cookie.contains(String.valueOf(product_no)))) {
 			cookie += product_no + "/";
 			productService.productReadCount(product_no);
-			System.out.println("");
+			
 		}
 		response.addCookie(new Cookie("view",cookie));
 		
 		ProductDTO product = productService.getProduct(product_no);
 		
 		String thumbImg = product.getProduct_thumb_img();
-		System.out.println(thumbImg);
+		
 		String originImg = thumbImg.replace("s_","");
 		
 		List<String> images = productService.imgList(product_no);
@@ -174,8 +174,8 @@ public class ProductController {
 		
 
 		productService.productRegister(productDTO);
-
-		return "redirect:/admin/product/productList?category_no=0";
+		System.out.println(productDTO.getProduct_no());
+		return "redirect:/admin/product/productRead?product_no="+productDTO.getProduct_no();
 	}
 	
 	/*
@@ -186,7 +186,7 @@ public class ProductController {
 		
 		productService.productModify(productDTO);
 
-		return "redirect:/admin/product/productList?category_no=0";
+		return "redirect:/admin/product/productRead?product_no="+productDTO.getProduct_no();
 
 	}
 	

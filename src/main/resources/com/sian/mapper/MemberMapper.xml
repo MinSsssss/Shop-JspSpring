@@ -29,12 +29,13 @@
 	</select>
 	
 	<insert id="insert">
-		INSERT ALL
+		INSERT 
 			INTO tbl_member(mem_id,mem_pwd,mem_name,mem_email,mem_tel,full_address)
-			VALUES (#{mem_id},#{mem_pwd},#{mem_name},#{mem_email},#{mem_tel},#{full_address})
-			INTO tbl_member_auth (mem_id) 
-			VALUES (#{mem_id})
-			SELECT * FROM dual
+			VALUES (#{mem_id},#{mem_pwd},#{mem_name},#{mem_email},#{mem_tel},#{full_address})	
+	</insert>
+	<insert id="insertAuth">
+		INSERT INTO tbl_member_auth(mem_id)
+		VALUES(#{mem_id})
 	</insert>
 	
 	<delete id="memberDrop" parameterType="com.sian.member.dto.MemberDTO">

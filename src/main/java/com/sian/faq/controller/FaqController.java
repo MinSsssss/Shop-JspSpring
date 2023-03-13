@@ -41,7 +41,7 @@ public class FaqController {
 		 if(category_no==0) {
 			 model.addAttribute("faqList",faqService.faqList(cri));
 			 total = faqService.getTotal();
-			 
+			 System.out.println("faq : " + faqService.faqList(cri));
 		 }
 		 else {
 			 
@@ -94,7 +94,7 @@ public class FaqController {
 			 rttr.addFlashAttribute("msg","failRegister");
 		 }
 		 
-		 return "redirect:/admin/faq/faqList?category_no=0";
+		 return "redirect:/admin/faq/faqList?category_no=0&pageNum=0&amount=5";
 	 }
 	 
 	 /*

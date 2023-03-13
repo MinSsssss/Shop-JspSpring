@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sian.cart.service.CartService;
 import com.sian.member.dao.MemberDAO;
@@ -29,17 +30,18 @@ public class MemberServiceImpl implements MemberService{
 	private final BCryptPasswordEncoder passwordEncoder;
 
 
-	
+	@Transactional
 	@Override
 	public void register(MemberDTO memberDTO, AuthVO authVO)  {
 
-		List<AuthVO> list = new ArrayList<>();
-		authVO.setMem_id(memberDTO.getMem_id());
-		list.add(authVO);
+//		List<AuthVO> list = new ArrayList<>();
+//		authVO.setMem_id(memberDTO.getMem_id());
+//		list.add(authVO);
 
 		memberDTO.setMem_pwd(passwordEncoder.encode(memberDTO.getMem_pwd()));
-		memberDTO.setAuthList(list);
+		//memberDTO.setAuthList(list);
 		memberDAO.insert(memberDTO);
+		memberDAO.insertAuth(memberDTO.getMem_id());
 
 	}
 	@Override

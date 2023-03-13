@@ -28,13 +28,13 @@ public class NoticeController {
 	 */
 	@GetMapping({"/admin/notice/noticeList","/notice/noticeList"})
 	 public void noticeList(Model model,Criteria cri) {
-		 
+		System.out.println("퍼스트 cri" + cri);
 		model.addAttribute("noticeList", noticeService.getListPaging(cri));
 		
 		int total = noticeService.getTotal();
 		
 		PageDTO page = new PageDTO(cri, total);
-		
+		System.out.println("page : " + page);
 		model.addAttribute("page",page);
 	 }
 	

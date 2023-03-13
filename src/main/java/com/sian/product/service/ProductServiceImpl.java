@@ -40,19 +40,19 @@ public class ProductServiceImpl implements ProductService {
 	}
 	@Override
 	public int getTotal(int category_no) {
-		System.out.println("category2 : " + category_no);
+		
 		return productDAO.getCategoryTotal(category_no);
 	}
 	
 	@Override
 	public List<ProductDTO> productList(Criteria cri) {
-		
+		System.out.println(productDAO.getListPaging(cri));
 		return productDAO.getListPaging(cri);
 	}
 	
 	@Override
 	public List<ProductDTO> productList(int category_no, Criteria cri) {
-		System.out.println("category3 : " + category_no);
+		
 		return productDAO.selectProductList(category_no,cri.getPageNum(),cri.getAmount()) ;
 	}
 	

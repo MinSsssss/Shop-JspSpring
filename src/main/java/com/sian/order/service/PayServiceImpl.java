@@ -38,7 +38,9 @@ public class PayServiceImpl implements PayService {
 
 		HttpsURLConnection conn = null;
 		URL url = new URL("https://api.iamport.kr/users/getToken");
-
+		System.out.println("url : "+url);
+		System.out.println("impkey : " + impKey);
+		System.out.println("imp_secret : "+impSecret);
 		conn = (HttpsURLConnection) url.openConnection();
 
 		conn.setRequestMethod("POST");
@@ -63,7 +65,7 @@ public class PayServiceImpl implements PayService {
 		String response = gson.fromJson(br.readLine(), Map.class).get("response").toString();
 
 		String token = gson.fromJson(response, Map.class).get("access_token").toString();
-
+		System.out.println("페이페이페이");
 		br.close();
 		conn.disconnect();
 

@@ -18,15 +18,19 @@ public class PageDTO {
 	public PageDTO(Criteria cri, int total) {
 		this.cri = cri;
 		this.total = total;
-		
+		System.out.println("cri : " + cri);
 		//페이징의 끝번호 계산
-		this.endPage = (int)(Math.ceil(cri.getPageNum()/5.0))*5;
 		
+		this.endPage = (int)(Math.ceil((cri.getPageNum()+1)/25.0))*5;
+		System.out.println("엔드페이지" + this.endPage);
 		//페이징의 시작번호 계산
 		this.startPage = this.endPage-4;
-		
+		System.out.println("시작페이지" + this.startPage);
 		//페이징의 마지막번호
 		int realEnd = (int)(Math.ceil((total *1.0)/cri.getAmount()));
+		
+		System.out.println("리얼엔드 : " + realEnd);
+		
 		
 		if(realEnd<this.endPage) {
 			this.endPage = realEnd;

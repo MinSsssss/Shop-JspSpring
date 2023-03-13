@@ -13,49 +13,42 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-        <!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
-        <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"></property> 
-        -->
-        
-        <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-        <property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
-        <property name="username" value="sian_v1"></property>
-        <property name="password" value="1234"></property>
-    </bean>
+	
     
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:config/application.properties"/>
         <property name="fileEncoding" value="UTF-8" />
-    </bean>
+    </bean> 
     
-    
-    <!-- HikariCP Configuration -->
-    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-        <constructor-arg ref="hikariConfig"/>
-    </bean>
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-   		 <property name="dataSource" ref="dataSource"></property>
-   		 <!-- <property name="configLocation" value="classpath:/mybatisConfig/mybatis-config.xml"></property> -->
-   		 <property name="mapperLocations" value="classpath:/com/sian/mapper/*.xml"/> 
+    <!--  HikariCp Config -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="org.mariadb.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/sian"></property>
+		<property name="username" value="sian"></property>
+		<property name="password" value="1234"></property>
 	</bean>
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
 		
+	<!-- HikariDataSource -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
 	</bean>
+	    
+    
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations" value="classpath:/com/sian/mapper/*.xml"/>
+	</bean>
+	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<task:annotation-driven/>
      
-<!--     <bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="100000000" />
-        <property name="defaultEncoding" value="UTF-8" />
-    </bean> -->
-	
+
+	<mybatis-spring:scan base-package="com.sian.test"/>
 	<mybatis-spring:scan base-package="com.sian.category.dao"/>
 	<mybatis-spring:scan base-package="com.sian.faq.dao"/>
 	<mybatis-spring:scan base-package="com.sian.member.dao"/>

@@ -3,7 +3,7 @@
 <mapper namespace="com.sian.category.dao.CategoryDAO">
  	<insert id="insert">
  		INSERT INTO tbl_category(category_no,category_name,category_class)
- 		VALUES (seq_category.nextval,#{category_name},#{category_class})
+ 		VALUES (nextval(seq_category),#{category_name},#{category_class})
  	</insert>
  	
  	<select id="getList" resultType="com.sian.category.dto.CategoryDTO">

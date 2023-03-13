@@ -4,7 +4,7 @@
  	<insert id="faqRegister">
  		INSERT INTO tbl_faq(faq_no,category_no,faq_title,
  		faq_content)
- 		VALUES(seq_faq.nextval,
+ 		VALUES(nextval(seq_faq),
  		(SELECT category_no
  		FROM tbl_category
  		WHERE category_name=#{category_name}
@@ -23,6 +23,15 @@
  	
  	<select id="faqList" resultType="com.sian.faq.dto.FaqDTO">
  		<![CDATA[
+			SELECT faq_no,cate.category_no,cate.category_name,
+ 			faq_title,faq_content,faq_hit
+ 			FROM tbl_faq faq,tbl_category cate
+ 			WHERE faq.category_no=cate.category_no
+			ORDER BY faq_no desc
+			LIMIT #{pageNum},#{amount}
+		]]>
+ 	</select>
+ 	<!-- <![CDATA[
  		
  		SELECT faq_no,category_no,
  		(SELECT cate.category_name from tbl_category cate WHERE cate.category_no=faq.category_no) 
@@ -37,11 +46,20 @@
  		)faq
  		WHERE rn > (#{pageNum}-1) * #{amount}
  		
- 		]]>
- 	</select>
- 	
+ 		]]> -->
  	<select id="selectFaqList" resultType="com.sian.faq.dto.FaqDTO">
  		<![CDATA[
+			SELECT faq_no,cate.category_no,cate.category_name,
+ 			faq_title,faq_content,faq_hit
+ 			FROM tbl_faq faq,tbl_category cate
+ 			WHERE faq.category_no=cate.category_no
+ 			AND cate.category_no = ${category_no}
+			ORDER BY faq_no desc
+			LIMIT #{pageNum},#{amount}
+		]]>
+ 		
+ 	</select>
+ 	<!-- <![CDATA[
  		SELECT faq_no,category_no,category_name,
  		faq_title,faq_content,faq_hit
  		FROM 
@@ -56,9 +74,7 @@
  		) faq
  		WHERE rn > (#{pageNum}-1) * #{amount}
 		AND category_no = ${category_no}
- 		]]>
- 	</select>
- 	
+ 		]]> -->
  	<select id="getFaq" resultType="com.sian.faq.dto.FaqDTO">
  		SELECT faq.faq_no,cate.category_no,cate.category_name,faq.faq_title,faq.faq_content,faq.faq_hit
  		FROM tbl_faq faq, tbl_category cate

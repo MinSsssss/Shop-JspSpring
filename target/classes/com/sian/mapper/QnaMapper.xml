@@ -4,7 +4,7 @@
 	<insert id="insertQna" useGeneratedKeys="true" keyProperty="qna_no" parameterType="com.sian.qna.dto.QnaDTO">
 		INSERT INTO tbl_qna(qna_no,category_no,order_no,mem_id,
 		qna_title,qna_pwd,qna_writer,qna_tel,qna_content)
-		VALUES(seq_qna.NEXTVAL,
+		VALUES(nextval(seq_qna),
 		(SELECT category_no FROM tbl_category
 		WHERE category_name=#{category_name}),
 		
@@ -31,7 +31,18 @@
 	</select>
 	
 	<select id="getQnaList" resultType="com.sian.qna.dto.QnaDTO">
-	<![CDATA[
+		<![CDATA[
+			SELECT qna_no,qna_title,cate.category_no,cate.category_name,
+			qna_status,qna_date,qna_writer,mem_id 
+ 			FROM tbl_qna qna,tbl_category cate
+ 			WHERE qna.category_no=cate.category_no
+			ORDER BY qna_no desc
+			LIMIT #{pageNum},#{amount}
+		]]>
+	
+		
+	</select>
+	<!-- <![CDATA[
 		SELECT qna_no,qna_title,category_no,
 		(SELECT cate.category_name from tbl_category cate WHERE cate.category_no=qna.category_no) 
  		AS category_name,
@@ -45,13 +56,21 @@
 		) qna
 
 		WHERE rn > (#{pageNum}-1) * #{amount}
-		]]>
+		]]> -->
 	
-		
-	</select>
 	
 	<select id="selectQnaList" resultType="com.sian.qna.dto.QnaDTO">
 	<![CDATA[
+		SELECT qna_no,qna_title,cate.category_no,cate.category_name,
+			qna_status,qna_date,qna_writer,mem_id 
+ 			FROM tbl_qna qna,tbl_category cate
+ 			WHERE qna.category_no=cate.category_no
+ 			AND cate.category_no = ${category_no}
+			ORDER BY qna_no desc
+			LIMIT #{pageNum},#{amount}
+		]]>
+	</select>
+	<!-- <![CDATA[
 		SELECT qna_no,qna_title,category_no,category_name,
 		qna_status,qna_date,qna_writer,mem_id 
 		FROM
@@ -66,11 +85,20 @@
 		WHERE rn > (#{pageNum}-1) * #{amount}
 		AND category_no = ${category_no}
 		
-		]]>
-	</select>
-	
+		]]> -->
 	<select id="qnaMemberList" resultType="com.sian.qna.dto.QnaDTO">
 		<![CDATA[
+		SELECT qna_no,qna_title,cate.category_no,cate.category_name,
+			qna_status,qna_date,qna_writer,mem_id 
+ 			FROM tbl_qna qna,tbl_category cate
+ 			WHERE qna.category_no=cate.category_no
+ 			AND cate.category_no = ${category_no}
+ 			AND mem_id=#{mem_id}
+			ORDER BY qna_no desc
+			LIMIT #{pageNum},#{amount}
+		]]>
+	</select>
+	<!-- <![CDATA[
 		SELECT qna_no,qna_title,cate.category_name,
 		qna_status,qna_date,qna_writer,mem_id 
 		FROM(
@@ -86,9 +114,7 @@
 		AND qna.category_no = cate.category_no
 		AND mem_id=#{mem_id}
 			
-		]]>
-	</select>
-	
+		]]> -->
 	<select id="getQna" resultType="com.sian.qna.dto.QnaDTO">
 		SELECT qna.qna_no,qna.category_no,cate.category_name,
 		qna.mem_id,qna.order_no,qna.qna_title,qna.qna_pwd, 
