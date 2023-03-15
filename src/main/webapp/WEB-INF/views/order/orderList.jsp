@@ -56,12 +56,11 @@
 												</div>
 												<div>
 													<p>
-														<button class="btn btn-link" id="orderDetailView" onclick="orderDetailViewFun(${status.count})">
-															주문상세보기</button>
+														
+														<a class="btn btn-link" href="/order/orderDetailView/${orderList.order_no}">
+															주문상세보기</a>
 													</p>
-													<form action="<c:url value='/order/orderDetailView'/>" method="get" id="orderDetailViewForm${status.count}">
-														<input type="hidden" name="order_no" value="<c:out value='${orderList.order_no}'/>">
-													</form>
+													
 
 
 
@@ -85,12 +84,12 @@
 													<div class="orderProductFor">
 														<div class="orderInfo">
 															<div class="orderDisplay">
-																<a href="<c:url value='/product/productRead?product_no=${orderDetailList.product_no}'/>">
+																<a href="<c:url value='/product/productRead/${orderDetailList.product_no}'/>">
 																	<img class="product_img" src="<c:url value='/display?fileName=${orderDetailList.product_thumb_img}'/>">
 																</a>
 																<div class="productInfo">
 																	<p>
-																		<a href="<c:url value='/product/productRead?product_no=${orderDetailList.product_no}'/>">
+																		<a href="<c:url value='/product/productRead/${orderDetailList.product_no}'/>">
 																			<c:out value='${orderDetailList.product_name}'/> 
 																		</a>
 																	</p>
@@ -107,7 +106,8 @@
 
 															<button type="button" class="btn btn-outline-info" id="reviewWriteFormBtn"
 																onclick="reviewWriteFun('${orderList.order_status}',${status.count}${nextStatus.count})">
-																리뷰작성</button>
+																리뷰작성
+															</button>
 																
 															<form action="<c:url value='/review/reviewWriteView'/>" method="post" 
 																id="reviewWriteForm${status.count}${nextStatus.count}">

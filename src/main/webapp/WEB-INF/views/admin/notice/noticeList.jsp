@@ -36,7 +36,7 @@
 	                                    	<tr>
 	                                            <td><c:out value='${num}'/></td>
 	                                            <td>
-	                                            	<a href="<c:url value='/admin/notice/noticeRead?notice_no=${notice.notice_no}'/>">
+	                                            	<a href="<c:url value='/admin/notice/noticeRead/${notice.notice_no}'/>">
 	                                            		<c:out value='${notice.notice_title}'/>
 	                                            	</a>
 	                                            </td>

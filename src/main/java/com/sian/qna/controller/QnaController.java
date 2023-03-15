@@ -1,11 +1,14 @@
 package com.sian.qna.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,12 +34,14 @@ public class QnaController {
 	/*
 	 * qna 게시판 조회 페이지
 	 */
-	@GetMapping({"/qna/qnaBoard","/admin/qna/qnaList"})
-	public void qnaBoard(@RequestParam("category_no") int category_no,Criteria cri,Model model) {
+	@GetMapping({"/qna/qnaBoard/{category_no}","/admin/qna/qnaList/{category_no}"})
+	public String qnaBoard(@PathVariable("category_no") int category_no,Criteria cri,
+			Model model,HttpServletRequest req) {
 		int total = 0;
 		if(category_no==0) {
 			model.addAttribute("qnaList",qnaService.getQnaList(cri));
 			total = qnaService.getTotal();
+			
 		}
 		else {
 			model.addAttribute("qnaList",qnaService.getQnaList(category_no, cri));
@@ -44,17 +49,23 @@ public class QnaController {
 		}
 		model.addAttribute("category",categoryService.getCategoryList("qna"));
 		
-		PageDTO page = new PageDTO(cri, total);
+		model.addAttribute("page",new PageDTO(cri, total));
 		
-		model.addAttribute("page",page);
+		model.addAttribute("category_no",category_no);
+		
+		String uri = req.getRequestURI().toString().replace("/"+category_no, "");
+		
+		return uri;
 	}
 	
 	/*
 	 * qna 게시판 단일 조회
 	 */
-	@GetMapping("/qna/qnaBoardRead")
-	public void qnaBoardRead(@RequestParam("qna_no") Long qna_no,Model model) {
+	@GetMapping("/qna/qnaBoardRead/{qna_no}")
+	public String qnaBoardRead(@PathVariable("qna_no") Long qna_no,Model model) {
 		model.addAttribute("qna", qnaService.getQna(qna_no));
+		
+		return "/qna/qnaBoardRead";
 	}
 	
 	
@@ -80,13 +91,12 @@ public class QnaController {
 			 
 		 }
 		 else {
-			
 			 qnaDTO.setQna_pwd(passwordEncoder.encode(qnaDTO.getQna_pwd()));
 			
 		 }
 		 qnaService.insertQna(qnaDTO);
 		 
-		 return "redirect:/qna/qnaRead?qna_no="+ qnaDTO.getQna_no();
+		 return "redirect:/qna/qnaBoardRead/"+ qnaDTO.getQna_no();
 	}
 	
 
@@ -94,10 +104,16 @@ public class QnaController {
 	/*
 	 * 회원 및 관리자 qna 단일 조회
 	 */
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
-	@GetMapping({"/qna/qnaRead","/admin/qna/qnaRead"})
-	public void qnaRead(@RequestParam("qna_no") Long qna_no,Model model) {
+	
+	@GetMapping({"/qna/qnaRead/{qna_no}","/admin/qna/qnaRead/{qna_no}"})
+	public String qnaRead(@PathVariable("qna_no") Long qna_no,Model model,
+			HttpServletRequest req) {
 		model.addAttribute("qna", qnaService.getQna(qna_no));
+		String uri = req.getRequestURI().toString().replace("/"+qna_no,"");
+		
+		return uri;
+		
+		
 	}
 	
 	/*
@@ -105,17 +121,9 @@ public class QnaController {
 	 */
 	@ResponseBody
 	@PostMapping("/qna/qnaDelete")
-	public String reviewDelete(@RequestParam("qna_no")Long qna_no,RedirectAttributes rttr) {
+	public boolean reviewDelete(@RequestParam("qna_no")Long qna_no,RedirectAttributes rttr) {
 		
-		if(qnaService.qnaDelete(qna_no)) {
-			rttr.addFlashAttribute("msg","successDelete");
-			return "redirect:/qna/qnaList";
-		}
-		else {
-			rttr.addFlashAttribute("msg", "falseDelete");
-			return "redirect:/qna/qnaRead?qna_no="+qna_no;
-		}
-
+		return qnaService.qnaDelete(qna_no);
 	}
 	
 	/*
@@ -126,7 +134,7 @@ public class QnaController {
 		QnaDTO qna = qnaService.getQna(qnaDTO.getQna_no());
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		if(passwordEncoder.matches(qnaDTO.getQna_pwd(), qna.getQna_pwd())) {
-			return "redirect:/qna/qnaBoardRead?qna_no="+qnaDTO.getQna_no();
+			return "redirect:/qna/qnaBoardRead/"+qnaDTO.getQna_no();
 		}
 		else {
 			rttr.addFlashAttribute("msg","false");
@@ -146,12 +154,8 @@ public class QnaController {
 				qnaService.qnaMemberList(mem_id,cri));
 		
 		int total = qnaService.getTotal(mem_id);
-		
-		PageDTO page = new PageDTO(cri, total);
-		
-		System.out.println(page);
-		
-		model.addAttribute("page",page);
+
+		model.addAttribute("page",new PageDTO(cri, total));
 	}
 	
 	/*
@@ -161,7 +165,7 @@ public class QnaController {
 	@PostMapping("/admin/qna/qnaAnswerRegister")
 	public boolean qnaAnswerRegister(@RequestBody QnaDTO qnaDTO) {
 		QnaDTO qna = qnaService.getQna(qnaDTO.getQna_no());
-		System.out.println(qnaDTO.getQna_answer());
+		
 		qna.setQna_answer(qnaDTO.getQna_answer());
 		qna.setQna_status("답변 완료");
 		

@@ -1,8 +1,11 @@
 package com.sian.faq.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,14 +37,16 @@ public class FaqController {
 	/*
 	 * faq 리스트 조회
 	 */
-	@GetMapping({"/faq/faqList","/admin/faq/faqList"})
-	 public void faqList(@RequestParam("category_no")int category_no,Criteria cri,Model model) {
-		
+	@GetMapping({"/faq/faqList/{category_no}","/admin/faq/faqList/{category_no}"})
+	 public String faqList(@PathVariable("category_no")int category_no,Criteria cri,
+			 Model model,HttpServletRequest req) {
+		 
+		 
 		 int total = 0;
 		 if(category_no==0) {
 			 model.addAttribute("faqList",faqService.faqList(cri));
 			 total = faqService.getTotal();
-			 System.out.println("faq : " + faqService.faqList(cri));
+			 
 		 }
 		 else {
 			 
@@ -50,12 +55,30 @@ public class FaqController {
 			 
 		 }
 		 model.addAttribute("category",categoryService.getCategoryList("faq"));
-		
-		PageDTO page = new PageDTO(cri, total);
 			
-		model.addAttribute("page",page);
+		model.addAttribute("page",new PageDTO(cri, total));
+		
+		
+		model.addAttribute("category_no",category_no);
+		
+		
+		String uri = req.getRequestURI().toString().replace("/"+category_no, "");
+		
+		return uri;
+		
+		
 	 }
+	@GetMapping({"/admin/faq/faqRead/{faq_no}","/admin/faq/faqModify/{faq_no}"})
+	 public String faqRead(@PathVariable("faq_no")int faq_no,Model model,
+			 HttpServletRequest req)  {
+		
+		model.addAttribute("faq",faqService.getFaq(faq_no));
+		model.addAttribute("category",categoryService.getCategoryList("faq"));
 
+		String uri = req.getRequestURI().toString().replace("/"+faq_no, "");
+	
+		return uri;
+	 }	 
 	
 	
 	/*
@@ -65,12 +88,7 @@ public class FaqController {
 	/*
 	 * faq 조회 및 수정 페이지
 	 */
-	@GetMapping({"/admin/faq/faqRead","/admin/faq/faqModify"})
-	 public void faqRead(@RequestParam("faq_no")int faq_no,Model model)  {
-		 
-		 model.addAttribute("faq",faqService.getFaq(faq_no));
-		 model.addAttribute("category",categoryService.getCategoryList("faq"));
-	 }	 
+	
 	 
 	 /*
 	  * faq 생성 페이지
@@ -93,8 +111,8 @@ public class FaqController {
 		 else {
 			 rttr.addFlashAttribute("msg","failRegister");
 		 }
-		 
-		 return "redirect:/admin/faq/faqList?category_no=0&pageNum=0&amount=5";
+		
+		 return "redirect:/admin/faq/faqRead/"+faqDTO.getFaq_no();
 	 }
 	 
 	 /*
@@ -108,7 +126,7 @@ public class FaqController {
 		 else {
 			 rttr.addFlashAttribute("msg","failModify");
 		 }
-		 return "redirect:/admin/faq/faqList?category_no=0";
+		 return "redirect:/admin/faq/faqRead/"+faqDTO.getFaq_no();
 	 }
 	 
 	 /*
@@ -124,7 +142,7 @@ public class FaqController {
 			 rttr.addFlashAttribute("msg","failDelete");
 		 }
 		 
-		 return "redirect:/admin/faq/faqList?category_no=0";
+		 return "redirect:/admin/faq/faqList/0?pageNum=0&amount=5";
 	 }
 
 	 

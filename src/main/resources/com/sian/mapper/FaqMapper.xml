@@ -2,15 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sian.faq.dao.FaqDAO">
  	<insert id="faqRegister">
+ 		<selectKey keyProperty="faq_no" resultType="int" order="BEFORE">
+ 			SELECT nextval(seq_faq)
+ 		</selectKey>
  		INSERT INTO tbl_faq(faq_no,category_no,faq_title,
  		faq_content)
- 		VALUES(nextval(seq_faq),
+ 		VALUES(#{faq_no},
  		(SELECT category_no
  		FROM tbl_category
  		WHERE category_name=#{category_name}
  		AND category_class='faq'),
  		#{faq_title},
  		#{faq_content})
+ 		
  	</insert>
  	
  	<select id="getTotal" resultType="int">

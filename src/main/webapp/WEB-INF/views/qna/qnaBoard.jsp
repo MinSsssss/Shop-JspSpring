@@ -48,7 +48,9 @@
 							<h2 class="csTitle">1:1문의</h2>
 							<button id="qnaWrite">문의하기</button>
 						</div>
-						<div></div>
+						<div>
+							
+						</div>
 						<table class="allTable boardTable">
 							<thead>
 
@@ -60,7 +62,7 @@
 									<th class="thSize">작성자</th>
 								</tr>
 							</thead>
-
+							
 							<tbody>
 								<c:set var="num" value="${page.total-(page.cri.pageNum-1) * page.cri.amount}"/>
 								<c:forEach items="${qnaList}" var="qna" varStatus="status">
@@ -83,6 +85,7 @@
 						</table>
 						<jsp:include page="/WEB-INF/views/includes/pageInclude.jsp"></jsp:include>
 						<input type="hidden" id="pageId" value="qnaBoard"> 
+						<input type="hidden" id="category_no" value="${category_no}">
 						
 						<input type="hidden" id="memChk" value="<sec:authentication property='principal'/>">
 						<sec:authorize access="isAuthenticated()">

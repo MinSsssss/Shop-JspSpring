@@ -12,9 +12,9 @@
 
 	<!-- Page Heading -->
 	<div class="pageHead">
-		<h1 class="h3 mb-2 text-gray-800"><c:out value="${title}"/>카테고리조회</h1>
+		<h1 class="h3 mb-2 text-gray-800"><c:out value="${title} "/>카테고리조회</h1>
 		<div>
-			<a class="btn btn-link" href="<c:url value='/admin/category/categoryRegister?category_class=${category_class}'/>">등록하기</a>
+			<a class="btn btn-link" href="<c:url value='/admin/category/categoryRegister/${category_class}'/>">등록하기</a>
 		</div>
 	</div>
 
@@ -38,7 +38,7 @@
 						<c:forEach items="${categoryList }" var="category" varStatus="status">
 							<tr>
 								<td class="align-middle">
-									<a id="categoryMove" href="<c:url value='/admin/category/categoryRead?category_no=${category.category_no}'/>">
+									<a id="categoryMove" href="<c:url value='/admin/category/categoryRead/${category.category_no}'/>">
 										<c:out value="${status.count}"/>
 									</a>
 								</td>

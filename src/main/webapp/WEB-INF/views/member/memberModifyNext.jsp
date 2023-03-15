@@ -43,7 +43,7 @@
 							<div class="col-lg-8">
 								<div class="ltn__myaccount-tab-content-inner">
 									<div class="ltn__form-box">
-										<form action="<c:url value='/member/memberModifyNextProc'/>" id="memberModifyNextForm" method="post">
+										<form action="/member/memberModifyNextProc" id="memberModifyNextForm" method="post">
 											<div class="row mb-50">
 											
 												<fieldset>

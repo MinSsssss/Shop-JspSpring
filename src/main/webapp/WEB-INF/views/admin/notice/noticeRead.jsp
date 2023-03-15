@@ -55,7 +55,7 @@
 				
 				
 			</div>
-			<a href="<c:url value='/admin/notice/noticeModify?notice_no=${notice.notice_no}'/>" class="btn btn-primary btn-sm" id="noticeModyfyBtn">수정</a>
+			<a href="<c:url value='/admin/notice/noticeModify/${notice.notice_no}'/>" class="btn btn-primary btn-sm" id="noticeModyfyBtn">수정</a>
 			<button class="btn btn-secondary btn-sm"
 			data-toggle="modal" data-target="#noticeDeleteModal">삭제</button>
 			
@@ -96,6 +96,10 @@
 <!-- End of Main Content -->
 
 
+ 
 
-<!-- End of Main Content -->
 <jsp:include page="/WEB-INF/views/admin/includes/adminFooter.jsp"></jsp:include>
+<script>
+	let result = "<c:out value='${msg}'/>";
+	successFun(result);
+</script>  

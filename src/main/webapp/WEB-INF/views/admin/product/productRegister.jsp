@@ -141,4 +141,7 @@
 
 <!-- End of Main Content -->
 <jsp:include page="/WEB-INF/views/admin/includes/adminFooter.jsp"></jsp:include>
-
+<script>
+	let result = '<c:out value="${msg}"/>';
+	successFun(result);
+</script>   

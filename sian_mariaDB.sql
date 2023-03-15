@@ -1,24 +1,25 @@
 UPDATE tbl_member_auth 
 SET auth = 'ROLE_ADMIN'
-WHERE mem_id = 'cda01';
+WHERE mem_id = 'admin';
 
 insert into tbl_member_auth(mem_id,auth)
-values('cda010','ROLE_ADMIN');
-USE sian;
+values('admin','ROLE_ADMIN');
+USE sianmaria;
 
 SELECT * FROM tbl_notice orders LIMIT 10;
 SELECT mem_id FROM tbl_member
 		WHERE mem_id = 'cda01';
 
-
+Create Database sianmaria;
 
 select * from tbl_member;
+CREATE DATABASE `sian_db` /*!40100 COLLATE 'utf8_general_ci' */
 
 select * from tbl_member_auth;
 
 select * from tbl_category;
 
-select * from tbl_product;
+SELECT * from tbl_product;
 
 		
 select * from tbl_cart;
@@ -50,19 +51,20 @@ SELECT HOST, USER, PASSWORD FROM USER;
 GRANT ALL PRIVILEGES ON siandb.* TO 'siandb'@'%';
 FLUSH PRIVILEGES;
 
-
+SELECT qna_no,qna_title,cate.category_no,cate.category_name,
+			qna_status,qna_date,qna_writer,mem_id 
+ 			FROM tbl_qna qna,tbl_category cate
+ 			WHERE qna.category_no=cate.category_no
+ 			
+ 			AND mem_id='cda09'
+			ORDER BY qna_no desc
+			LIMIT 0,5
 
 CREATE USER 'siandb'@'%' IDENTIFIED BY 'vlsltl12';
 
 SHOW DATABASES;
 
-INSERT ALL
-			INTO tbl_member VALUES ('cda02','1234','기윽','cda@cda','010010',NOW(),'1','몰랄아아아아')
-			INTO tbl_member_auth VALUES ('cda02','ROLE_MEMBER')
-			SELECT * FROM DUAL;
 
-INSERT INTO tbl_category(category_no,category_class,category_name)
-VALUES(0,'product','카테고리없음');
 commit;
 SHOW DATABASES;
 
@@ -118,9 +120,9 @@ CREATE TABLE tbl_product (
 	product_hit	double default 0 NOT NULL,
     CONSTRAINT pk_product PRIMARY KEY(product_no)
 );
-alter table tbl_product modify(product_detail varchar2(2000));
-alter table tbl_product modify(product_content varchar2(2000));
 
+DELETE FROM tbl_product
+		WHERE product_no=22;
 
 CREATE TABLE tbl_product_images(
     uuid varchar(500) not null,
@@ -129,9 +131,10 @@ CREATE TABLE tbl_product_images(
     filetype char(1) default 'i',
     product_no double
 );
-ALTER TABLE tbl_product_images ADD CONSTRAINT pk_product_images primary key(uuid);
+ALTER TABLE tbl_product_images ADD CONSTRAINT pk_product_images primary key(UUID);
 ALTER TABLE tbl_product_images ADD CONSTRAINT fk_product_attach foreign key(product_no)
-REFERENCES tbl_product(product_no);
+REFERENCES tbl_product(product_no) ON DELETE CASCADE;
+ALTER TABLE tbl_product_images DROP CONSTRAINT fk_product_attach;
 commit;
 
 
@@ -140,18 +143,18 @@ commit;
 
 --  SQLINES DEMO *** �는 회원탈퇴 불가능
 
+ SET sql_mode = '';
 CREATE TABLE tbl_order (
 	order_no varchar(18) primary key,
 	mem_id	varchar(50)		NOT NULL,
 	receiver_name	varchar(20)		NOT NULL,
 	receiver_tel	varchar(20)		NOT NULL,
 	receiver_addr	varchar(100)		NOT NULL,
-    order_date	datetime	DEFAULT sysdate()	 NOT NULL,
-    order_request_msg varchar(1000),
-    order_status varchar(20) default '결제완료' NOT NULL,
-    
-    merchant_uid varchar(100),
-    imp_uid varchar(100),
+   order_date	datetime	DEFAULT sysdate()	 NOT NULL,
+   order_request_msg varchar(1000),
+   order_status varchar(20) DEFAULT '결제완료' NOT NULL,
+   merchant_uid varchar(100),
+   imp_uid varchar(100),
     
     constraint fk_order_mem_id foreign key(mem_id) references tbl_member(mem_id)
 );
@@ -240,7 +243,7 @@ ALTER TABLE tbl_wishlist ADD UNIQUE(product_no,mem_id);
 
 
 commit;
-
+set names utf8;
 
 CREATE TABLE tbl_qna (
 	qna_no	double,
@@ -258,7 +261,7 @@ CREATE TABLE tbl_qna (
 	--  SQLINES DEMO *** ault 0	NOT NULL
     CONSTRAINT PRIMARY KEY(qna_no)
 );
-
+SELECT schema_name, default_character_set_name FROM information_schema.schemata;
 
 CREATE TABLE tbl_faq (
 	faq_no	double,
@@ -268,7 +271,7 @@ CREATE TABLE tbl_faq (
 	faq_hit	double DEFAULT 0 	NOT NULL,
     CONSTRAINT PRIMARY KEY(faq_no)
 );
-
+ALTER DATABASE sianmaria DEFAULT CHARACTER SET utf8;
 
 CREATE TABLE tbl_notice (
 	notice_no	double,
@@ -280,15 +283,7 @@ CREATE TABLE tbl_notice (
     CONSTRAINT PRIMARY KEY(notice_no)
 );
 
-INSERT INTO tbl_notice(notice_no,notice_title,notice_content,notice_writer)
-VALUES (NEXTVAL(seq_notice),'5','1','1');
-COMMIT;
-SELECT * FROM tbl_notice;
 
-
-SELECT * FROM tbl_notice
-			ORDER BY notice_no desc
-			LIMIT 5,5;
 
 CREATE TABLE tbl_qna_comment (
 	qna_com_no	varchar(13) primary key,
@@ -306,7 +301,9 @@ CREATE SEQUENCE seq_product;
 CREATE SEQUENCE seq_qna;
 CREATE SEQUENCE seq_review;
 CREATE SEQUENCE seq_pay;
+CREATE SEQUENCE seq_order;
 
+COMMIT;
 
 DROP SEQUENCE seq_faq;
 DROP SEQUENCE seq_order_detail;
@@ -318,9 +315,9 @@ DROP SEQUENCE seq_category;
 DROP SEQUENCE seq_qna;
 DROP SEQUENCE seq_notice;
 DROP SEQUENCE seq_pay;
-
-CREATE SEQUENCE seq_order;
 DROP SEQUENCE seq_order;
+
+
 
 drop table tbl_qna_comment;
 drop table tbl_courier;

@@ -2,18 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sian.qna.dao.QnaDAO">
 	<insert id="insertQna" useGeneratedKeys="true" keyProperty="qna_no" parameterType="com.sian.qna.dto.QnaDTO">
+		<selectKey keyProperty="qna_no" resultType="long" order="BEFORE">
+			SELECT nextval(seq_qna)
+		</selectKey>
 		INSERT INTO tbl_qna(qna_no,category_no,order_no,mem_id,
 		qna_title,qna_pwd,qna_writer,qna_tel,qna_content)
-		VALUES(nextval(seq_qna),
+		VALUES(#{qna_no},
 		(SELECT category_no FROM tbl_category
 		WHERE category_name=#{category_name}),
 		
 		#{order_no,jdbcType=VARCHAR},#{mem_id,jdbcType=VARCHAR},#{qna_title},#{qna_pwd},#{qna_writer},
 		#{qna_tel},#{qna_content}
 		)
-		<selectKey keyProperty="qna_no" order="AFTER" resultType="long">
-			SELECT seq_qna.CURRVAL FROM DUAL
-		</selectKey>
+		
 	</insert>
 	
 	<select id="getTotal" resultType="int">
@@ -42,21 +43,7 @@
 	
 		
 	</select>
-	<!-- <![CDATA[
-		SELECT qna_no,qna_title,category_no,
-		(SELECT cate.category_name from tbl_category cate WHERE cate.category_no=qna.category_no) 
- 		AS category_name,
-		qna_status,qna_date,qna_writer,mem_id 
-		FROM
-		(SELECT  /*+ INDEX_DESC(tbl_qna pk_qna) */ 
-		ROWNUM AS rn,qna_no,qna_title,category_no,
-		qna_status,qna_date,qna_writer,mem_id
-		FROM tbl_qna
-		WHERE ROWNUM <= #{pageNum} * #{amount}  
-		) qna
-
-		WHERE rn > (#{pageNum}-1) * #{amount}
-		]]> -->
+	
 	
 	
 	<select id="selectQnaList" resultType="com.sian.qna.dto.QnaDTO">
@@ -70,51 +57,19 @@
 			LIMIT #{pageNum},#{amount}
 		]]>
 	</select>
-	<!-- <![CDATA[
-		SELECT qna_no,qna_title,category_no,category_name,
-		qna_status,qna_date,qna_writer,mem_id 
-		FROM
-		(SELECT  /*+ INDEX_DESC(qna pk_qna) */ 
-		ROWNUM AS rn,qna_no,qna_title,qna.category_no,cate.category_name,
-		qna_status,qna_date,qna_writer,mem_id
-		FROM tbl_qna qna,tbl_category cate 
-		WHERE ROWNUM <= #{pageNum} * #{amount}  
-		AND qna.category_no = cate.category_no
-		AND qna.category_no = ${category_no}
-		) qna
-		WHERE rn > (#{pageNum}-1) * #{amount}
-		AND category_no = ${category_no}
-		
-		]]> -->
+	
 	<select id="qnaMemberList" resultType="com.sian.qna.dto.QnaDTO">
 		<![CDATA[
 		SELECT qna_no,qna_title,cate.category_no,cate.category_name,
 			qna_status,qna_date,qna_writer,mem_id 
  			FROM tbl_qna qna,tbl_category cate
  			WHERE qna.category_no=cate.category_no
- 			AND cate.category_no = ${category_no}
  			AND mem_id=#{mem_id}
 			ORDER BY qna_no desc
 			LIMIT #{pageNum},#{amount}
 		]]>
 	</select>
-	<!-- <![CDATA[
-		SELECT qna_no,qna_title,cate.category_name,
-		qna_status,qna_date,qna_writer,mem_id 
-		FROM(
-			SELECT  /*+ INDEX_DESC(qna pk_qna) */ 
-			 ROWNUM AS rn,qna_no,qna_title,qna.category_no,cate.category_name,
-			qna_status,qna_date,qna_writer,mem_id
-			FROM tbl_qna qna,tbl_category cate 
-			WHERE ROWNUM <= #{pageNum} * #{amount}  
-			AND qna.category_no = cate.category_no
-			AND mem_id=#{mem_id}) qna,tbl_category cate
-			
-		WHERE rn > (#{pageNum}-1) * #{amount}
-		AND qna.category_no = cate.category_no
-		AND mem_id=#{mem_id}
-			
-		]]> -->
+	
 	<select id="getQna" resultType="com.sian.qna.dto.QnaDTO">
 		SELECT qna.qna_no,qna.category_no,cate.category_name,
 		qna.mem_id,qna.order_no,qna.qna_title,qna.qna_pwd, 

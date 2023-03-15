@@ -69,9 +69,11 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.getOrderDetailList(order_no);
 	}
 	@Override
-	public int orderDelete(Long order_no) {
-		
-		return orderDAO.orderDelete(order_no);
+	public boolean orderDelete(Long order_no) {
+		if(orderDAO.orderDelete(order_no)==0) {
+			return false;
+		}
+		return true;
 	}
 	@Override
 	public OrderDetailDTO getReviewView(Long order_detail_no) {

@@ -54,8 +54,7 @@
     
     <script src="/resources/admin/js/admin.js"></script>
     
-	<script src="/resources/summernote/js/summernote-lite.js"></script>
-	<script src="/resources/summernote/js/lang/summernote-ko-KR.js"></script>
+	
     <!-- Page level plugins -->
 
 

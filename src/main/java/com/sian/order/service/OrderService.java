@@ -28,12 +28,9 @@ public interface OrderService {
 	
 	public List<OrderDetailDTO> getOrderDetailList(Long order_no);
 	
-	public int orderDelete(Long order_no);
+	public boolean orderDelete(Long order_no);
 	
 	public OrderDetailDTO getReviewView(Long order_detail_no);
-	
-	
-	
 	
 	public void insertPayInfo(PayInfoDTO payDTO);
 	

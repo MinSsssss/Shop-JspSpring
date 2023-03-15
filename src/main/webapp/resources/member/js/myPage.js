@@ -8,7 +8,7 @@ $(document).ready(function() {
 	$("#cart").on("click", function() {
 		location.href = "/cart/cartView"
 	})
-	
+
 	$("#reviewList").on("click", function() {
 		location.href = "/review/reviewList"
 	})
@@ -24,44 +24,46 @@ $(document).ready(function() {
 	$("#pwChkCancleBtn").on("click", function() {
 		location.href = "/order/orderList";
 	})
-	
-	$("#qnaList").on("click",function(){
-		location.href="/qna/qnaList";
+
+	$("#qnaList").on("click", function() {
+		location.href = "/qna/qnaList?pageNum=0&amount=5";
 	})
-	$("#qnaList2").on("click",function(){
-		location.href="/qna/qnaList";
+	$("#qnaList2").on("click", function() {
+		location.href = "/qna/qnaList?pageNum=0&amount=5";
 	})
-	
-	$("#qnaModify").on("click",function(){
-		location.href="/qna/qnaModify";
+
+	$("#qnaModify").on("click", function() {
+		let qna_no = $("#qna_no").val();
+
+		location.href = "/qna/qnaModify/" + qna_no;
 	})
-	$("#qnaDelete").on("click",function(){
+	$("#qnaDelete").on("click", function() {
 		let qna_no = $("#qna_no").val();
 		let answer = confirm("문의를 삭제 하시겠습니까?");
 		if (answer) {
 
-			let param = { "qna_no": qna_no}
+			let param = { "qna_no": qna_no }
 			$.ajax({
 				url: "/qna/qnaDelete",
 				type: "POST",
 				data: param,
 				success: function() {
-					alert("문의가 삭제되었습니다.");
-					location.reload();
+					alert("문의가 삭제되었습니다");
+					location.href = "/qna/qnaList?pageNum=0&amount=5";
 				}
 			})
 
 
 		}
 	})
-	
+
 	$("#pwChkSubmitBtn").on("click", function() {
 		let mem_id = $("#mem_id").val();
 		let mem_pwd = $("#mem_pwd").val();
-		
+
 		var param = {
-			"mem_id" : mem_id,
-			"mem_pwd" : mem_pwd
+			"mem_id": mem_id,
+			"mem_pwd": mem_pwd
 		};
 		console.log(param);
 		if (mem_pwd == "") {
@@ -69,19 +71,19 @@ $(document).ready(function() {
 			return false();
 		} else {
 			$.ajax({
-				url : "/member/pwdChk",
-				async : true,
-				type : "post",
-				dataType : "json",
-				data : JSON.stringify(param),
-				contentType : "application/json; charset=UTF-8",
-				success : function(data) {
-					
+				url: "/member/pwdChk",
+				async: true,
+				type: "post",
+				dataType: "json",
+				data: JSON.stringify(param),
+				contentType: "application/json; charset=UTF-8",
+				success: function(data) {
+
 					if (data) {
 						$("#memberModifyForm").submit();
-						
+
 					} else {
-						
+
 						alert("비밀번호가 틀렸습니다.");
 						return false;
 					}
@@ -96,70 +98,84 @@ $(document).ready(function() {
 		let this_mem_pwd = $("#this_mem_pwd").val();
 		let mem_pwd = $("#mem_pwd").val();
 		let mem_pwd_re = $("#mem_pwd_re").val();
-		console.log(this_mem_pwd);
-		console.log(mem_pwd);
-		console.log(mem_pwd_re);
 
-		if (this_mem_pwd == "" && this_mem_pwd == undefined) {
+		if (this_mem_pwd == "" || this_mem_pwd == undefined) {
 			alert("비밀번호를 입력해주세요.");
-			return false();
-		} else {
-			let param = {
-				"mem_pwd" : this_mem_pwd
-			}
-			console.log(param);
-			$.ajax({
-				url : "/member/pwdChk",
-				async : true,
-				type : "post",
-				dataType : "json",
-				data : JSON.stringify(param),
-				contentType : "application/json; charset=UTF-8",
-				success : function(data) {
-					console.log(data);
-					if (data == 1) {
-						alert("비밀번호가 틀렸습니다.");
-						return false;
-					} else if (data == 0) {
-						if (mem_pwd == mem_pwd_re) {
-							alert("회원 정보 수정이 완료되었습니다.");
-							$("#memberModifyNextForm").submit();
-						} else {
-							alert("새 비밀번호가 같지 않습니다.")
-							return false;
-						}
+			$("#this_mem_pwd").focus();
+			return false;
+		}
+		if (mem_pwd == "" || mem_pwd == undefined) {
+			alert("새 비밀번호를 입력해주세요.");
+			$("#mem_pwd").focus();
+			return false;
+		}
+		if (mem_pwd_re == "" || mem_pwd_re == undefined) {
+			alert("새 비밀번호를 입력해주세요.");
+			$("#mem_pwd_re").focus();
+			return false;
+		}
 
-					}
-				}
-			})
+		if (mem_pwd != mem_pwd_re) {
+			alert("새 비밀번호가 같지 않습니다.");
+			$("#re_mem_pwd").focus();
+			return false;
 
 		}
+
+		let param = {
+			"mem_pwd": this_mem_pwd
+		}
+
+		$.ajax({
+			url: "/member/pwdChk",
+			async: true,
+			type: "post",
+			dataType: "json",
+			data: JSON.stringify(param),
+			contentType: "application/json; charset=UTF-8",
+			success: function(data) {
+
+				if (!data) {
+					alert("비밀번호가 틀렸습니다.");
+					$("#this_mem_pwd").focus();
+					return false;
+				} else {
+
+					alert("회원 정보 수정이 완료되었습니다.");
+					$("#memberModifyNextForm").submit();
+
+
+				}
+			}
+		})
+
+
 
 	})
 
 	$("#memberDropBtn").on("click", function() {
-		
+
 		let mem_pwd = $("#mem_pwd").val();
-		
+
 		var param = {
-			"mem_pwd" : mem_pwd
+			"mem_pwd": mem_pwd
 		};
-		
+
 		if (mem_pwd == "") {
 			alert("비밀번호를 입력해주세요.");
 			return false();
 		} else {
 			$.ajax({
-				url : "/member/pwdChk",
-				async : true,
-				type : "post",
-				dataType : "json",
-				data : JSON.stringify(param),
-				contentType : "application/json; charset=UTF-8",
-				success : function(data) {
-					console.log(data);
+				url: "/member/pwdChk",
+				async: true,
+				type: "post",
+				dataType: "json",
+				data: JSON.stringify(param),
+				contentType: "application/json; charset=UTF-8",
+				success: function(data) {
+
 					if (data == 1) {
-						console.log(data);
+
 						alert("비밀번호가 틀렸습니다.");
 						$("#memberDropModal").modal('hide');
 						return false;
@@ -170,13 +186,13 @@ $(document).ready(function() {
 			})
 
 		}
-		
+
 	})
 
 })
 
 function wishDelete(product_no) {
-	
+
 	let param = { "product_no": product_no.value };
 	$.ajax({
 		url: "/wish/wishDelete",

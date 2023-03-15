@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                             	<div>
-                            		<span><a href="<c:url value='/admin/faq/faqList?category_no=0&pageNum=0&amount=5'/>">전체</a></span>
+                            		<span><a href="<c:url value='/admin/faq/faqList/0?pageNum=0&amount=5'/>">전체</a></span>
                             		<c:forEach items="${category}" var="cate" varStatus="status">
                             			<span class="moveCategory">
                             				<a href="#" onclick="fnMoveCategory(<c:out value='${cate.category_no}'/>)">
@@ -53,7 +53,7 @@
 	                                            	<c:out value='${num}'/>
 	                                            </td>
 	                                            <td>
-	                                            	<a href="<c:url value='/admin/faq/faqRead?faq_no=${faq.faq_no}'/>">
+	                                            	<a href="<c:url value='/admin/faq/faqRead/${faq.faq_no}'/>">
 	                                            		<c:out value='${faq.faq_title }'/>
 	                                            	</a>
 	                                            </td>
@@ -68,7 +68,7 @@
                                 </table>
                                 <jsp:include page="/WEB-INF/views/includes/pageInclude.jsp"></jsp:include>
 								<input type="hidden" id="pageId" value="adminFaqList">
-								
+								<input type="hidden" id="category_no" value="${category_no}">
                             </div>
                         </div>
                     </div>

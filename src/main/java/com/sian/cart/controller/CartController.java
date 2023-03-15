@@ -51,7 +51,7 @@ public class CartController {
 	@GetMapping("/cartView")
 	public String cartView(Authentication authentication, Model model)  {
 		
-
+		
 		model.addAttribute("cartList", cartService.cartList(memberService.getId(authentication)));
 		
 		return "/cart/cartView";
@@ -65,7 +65,7 @@ public class CartController {
 	public String cartModify(CartProductDTO cartProductDTO, Authentication authentication, Model model)
 			 {
 		int product_no = productService.getProductNo(cartProductDTO.getProduct_name());
-
+		
 		cartProductDTO.setProduct_no(product_no);
 		cartProductDTO.setMem_id(memberService.getId(authentication));
 

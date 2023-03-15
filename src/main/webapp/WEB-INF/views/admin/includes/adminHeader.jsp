@@ -26,7 +26,7 @@
     <link href="/resources/admin/css/custom.css" rel="stylesheet">
     
     
-	<link rel="stylesheet" href="/resources/summernote/css/summernote-lite.css">
+	
 </head>
 
 <body id="page-top">
@@ -94,9 +94,9 @@
                 </a>
                 <div id="productManage" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                    	<a class="collapse-item" href="<c:url value='/admin/category/categoryList?category_class=product'/>">상품카테고리조회</a>
+                    	<a class="collapse-item" href="<c:url value='/admin/category/categoryList/product'/>">상품카테고리조회</a>
                       
-                        <a class="collapse-item" href="<c:url value='/admin/product/productList?category_no=0&pageNum=0&amount=5'/>">상품조회</a>
+                        <a class="collapse-item" href="<c:url value='/admin/product/productList/0?pageNum=0&amount=5'/>">상품조회</a>
                       
                     </div>
                 </div>
@@ -109,11 +109,11 @@
                 <div id="qnaManage" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="<c:url value='/admin/notice/noticeList?pageNum=0&amount=5'/>">공지사항조회</a>
-                        <a class="collapse-item" href="<c:url value='/admin/category/categoryList?category_class=faq'/>">FAQ 카테고리조회</a>
-                        <a class="collapse-item" href="<c:url value='/admin/faq/faqList?category_no=0&pageNum=0&amount=5'/>">FAQ 조회</a>
+                        <a class="collapse-item" href="<c:url value='/admin/category/categoryList/faq'/>">FAQ 카테고리조회</a>
+                        <a class="collapse-item" href="<c:url value='/admin/faq/faqList/0?pageNum=0&amount=5'/>">FAQ 조회</a>
                         
-						<a class="collapse-item" href="<c:url value='/admin/category/categoryList?category_class=qna'/>">QNA 카테고리조회</a>
-                        <a class="collapse-item" href="<c:url value='/admin/qna/qnaList?category_no=0&pageNum=0&amount=5'/>">QNA 조회</a>
+						<a class="collapse-item" href="<c:url value='/admin/category/categoryList/qna'/>">QNA 카테고리조회</a>
+                        <a class="collapse-item" href="<c:url value='/admin/qna/qnaList/0?pageNum=0&amount=5'/>">QNA 조회</a>
                     </div>
                 </div>
             </li>

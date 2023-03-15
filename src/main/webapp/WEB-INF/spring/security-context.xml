@@ -7,8 +7,7 @@
 
 
 
-	<bean id="customAccessDenied"
-		class="com.sian.security.CustomAccessDeniedHandler"></bean>
+	<bean id="customAccessDenied" class="com.sian.security.CustomAccessDeniedHandler"></bean>
 
 	<bean id="loginSuccessHandler" class="com.sian.security.CustomLoginSuccessHandler">
 	    <property name="loginId" value="mem_id"/>
@@ -46,7 +45,7 @@
 			access="hasRole('ROLE_MEMBER')" />
 		<security:intercept-url pattern="/wish/**"
 			access="hasRole('ROLE_MEMBER')" /> 
-			
+		
 		<!-- <security:intercept-url pattern="/member/**"
 			access="permitAll" /> -->
 		<!-- 권한이 없어서 금지된 URI 접속할 때 보여줄 페이지(403 에러 페이지 대체) -->
@@ -85,11 +84,9 @@
 	<!-- DB 연동 설정 -->
 	<security:authentication-manager>
 
-		<security:authentication-provider
-			user-service-ref="customUserDetailsService">
+		<security:authentication-provider user-service-ref="customUserDetailsService">
 
-			<security:password-encoder
-				ref="bcryptPasswordEncoder" />
+			<security:password-encoder ref="bcryptPasswordEncoder" />
 
 		</security:authentication-provider>
 

@@ -100,7 +100,7 @@
 				
 				
 			</div>
-			<a href="<c:url value='/admin/product/productModify?product_no=${product.product_no}'/>" class="btn btn-primary btn-sm" id="productModyfyBtn">수정</a>
+			<a href="<c:url value='/admin/product/productModify/${product.product_no}'/>" class="btn btn-primary btn-sm" id="productModyfyBtn">수정</a>
 			<button class="btn btn-secondary btn-sm"
 			data-toggle="modal" data-target="#productDeleteModal">삭제</button>
 			
@@ -144,3 +144,7 @@
 
 <!-- End of Main Content -->
 <jsp:include page="/WEB-INF/views/admin/includes/adminFooter.jsp"></jsp:include>
+<script>
+	let result = '<c:out value="${msg}"/>';
+	successFun(result);
+</script>   

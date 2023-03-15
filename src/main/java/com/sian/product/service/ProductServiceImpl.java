@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<ProductDTO> productList(Criteria cri) {
-		System.out.println(productDAO.getListPaging(cri));
+		
 		return productDAO.getListPaging(cri);
 	}
 	
@@ -70,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	@Override
 	public void productRegister(ProductDTO productDTO)  {
-		int i=0;
+		
 		productDAO.insert(productDTO);
 		
 		
@@ -81,10 +81,7 @@ public class ProductServiceImpl implements ProductService {
 			attach.setProduct_no(productDTO.getProduct_no());
 			productAttachDAO.insert(attach);
 		});
-		i++;
-		if(i==2) {
-			System.out.println("두번실행되나?"+i);
-		}
+		
 		
 	}
 
@@ -104,7 +101,7 @@ public class ProductServiceImpl implements ProductService {
 		if(productDTO.getAttachList() == null || productDTO.getAttachList().size() <= 0) {
 			return;
 		}
-		System.out.println("productNO : " + productDTO.getProduct_no());
+		
 		getAttachList(productDTO.getProduct_no())
 	 	.forEach(attach->{
 	 				productAttachDAO.delete(attach.getUuid());
@@ -177,6 +174,14 @@ public class ProductServiceImpl implements ProductService {
 	public long productReadCount(int product_no) {
 		
 		return productDAO.productReadCount(product_no);
+	}
+	@Override
+	public boolean productDelete(int product_no) {
+		
+		if(productDAO.productDelete(product_no)==0) {
+			return false;
+		}
+		return true;
 	}
 	
 	

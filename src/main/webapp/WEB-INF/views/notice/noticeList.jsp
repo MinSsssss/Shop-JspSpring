@@ -35,9 +35,9 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="csCenterNav">
-					<a data-toggle="tab" href="#" id="noticeList">공지사항 </a> 
-					<a data-toggle="tab" href="#" id="faqList">자주묻는질문</a> 
-					<a data-toggle="tab" href="#" id="qnaBoard">1:1 문의</a> 
+					<a href="#" id="noticeList">공지사항 </a> 
+					<a href="#" id="faqList">자주묻는질문</a> 
+					<a href="#" id="qnaBoard">1:1 문의</a> 
 		 
 				</div>
 				<div class="shoping-cart-inner">
@@ -63,7 +63,7 @@
 									<tr>
 										<td><c:out value='${num}'/></td>
 										<td class="noticeTitle">
-											<a href="<c:url value='/notice/noticeRead?notice_no=${notice.notice_no}'/>">
+											<a href="<c:url value='/notice/noticeRead/${notice.notice_no}'/>">
 												<c:out value='${notice.notice_title}'/>
 											</a>
 										</td>

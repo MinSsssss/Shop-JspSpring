@@ -85,3 +85,7 @@
 
 
 <jsp:include page="/WEB-INF/views/includes/memberFooter.jsp"></jsp:include>
+<script>
+	let result = '<c:out value="${msg}"/>';
+	successFun(result);
+</script>   

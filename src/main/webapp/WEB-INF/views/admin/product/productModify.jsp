@@ -31,18 +31,11 @@
 							 <tr>
 								<td>카테고리</td>
 								<td>
+									${not empty product.category_name}
 									<select name="category_no" id="category_name">
 										
 										<c:choose>
-											<c:when test="${not empty product.category_name}">
-												<c:forEach items="${categoryList }" var="category">
-													<option id="categorySelect" value="<c:out value='${category.category_no}'/>">
-														<c:out value='${category.category_name }'/>
-													</option>
-												</c:forEach>
-											</c:when> 
-											
-											<c:when test="${empty product.category_name}">
+											<c:when test="${product.category_name eq '카테고리없음'}">
 												<option id="categorySelect" value="0">카테고리없음</option>
 												<c:forEach items="${categoryList }" var="category">
 													<option id="categorySelect" value="<c:out value='${category.category_no}'/>">
@@ -50,6 +43,18 @@
 													</option>
 												</c:forEach>
 											</c:when>
+										
+											<c:when test="${product.category_name ne '카테고리없음'}">
+												<c:forEach items="${categoryList }" var="category">
+													<option id="categorySelect" value="<c:out value='${category.category_no}'/>">
+														<c:out value='${category.category_name }'/>
+													</option>
+													
+												</c:forEach>
+												<option id="categorySelect" value="0">카테고리없음</option>
+											</c:when> 
+											
+											
 									
 										</c:choose> 
 										
@@ -203,4 +208,7 @@
 
 <!-- End of Main Content -->
 <jsp:include page="/WEB-INF/views/admin/includes/adminFooter.jsp"></jsp:include>
-
+<script>
+	let result = '<c:out value="${msg}"/>';
+	successFun(result);
+</script>   

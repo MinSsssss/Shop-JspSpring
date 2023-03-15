@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                             	<div>
-                            		<span><a href="<c:url value='/admin/qna/qnaList?category_no=0&pageNum=0&amount=5'/>">전체</a></span>
+                            		<span><a href="<c:url value='/admin/qna/qnaList/0?pageNum=0&amount=5'/>">전체</a></span>
                             		<c:forEach items="${category}" var="cate" varStatus="status">
                             			<span class="moveCategory">
                             				<a href="#" onclick="fnMoveCategory(<c:out value='${cate.category_no}'/>)">
@@ -55,7 +55,7 @@
 	                                            <td><c:out value='${num}'/></td>
 												<td><c:out value='${qna.category_name}'/></td>
 												<td class="noticeTitle">
-												<a href="<c:url value='/admin/qna/qnaRead?qna_no=${qna.qna_no}'/>">
+												<a href="<c:url value='/admin/qna/qnaRead/${qna.qna_no}'/>">
 													<c:out value='${qna.qna_title}'/>
 												</a>
 													

@@ -3,7 +3,9 @@ $(document).ready(function() {
 
 let moveForm = $("#moveForm");
 	let pageId = $("#pageId").val();
-
+	
+	let category_no = $("#category_no").val();
+	
 	$(".pageInfo a").on("click", function(e) {
 		e.preventDefault();
 
@@ -14,7 +16,8 @@ let moveForm = $("#moveForm");
 
 		}
 		if (pageId == "qnaBoard") {
-			moveForm.attr("action", "/qna/qnaBoard");
+			
+			moveForm.attr("action", "/qna/qnaBoard/"+category_no);
 
 		}
 		if (pageId == "qnaMemberList") {
@@ -22,15 +25,13 @@ let moveForm = $("#moveForm");
 
 		}
 		if (pageId == "qnaList") {
-			moveForm.attr("action", "/admin/qna/qnaList");
+			
+			moveForm.attr("action", "/admin/qna/qnaList/"+category_no);
 
 		}
 		if (pageId == "faqList") {
-			let category_no = $.urlParam('category_no');
-			let categoryInput = '<input type="hidden" name="category_no" value="'+category_no+'">'
-			moveForm.append(categoryInput);
-			moveForm.attr("action", "/faq/faqList");
-
+			
+			moveForm.attr('action',"/faq/faqList/"+category_no);
 		}
 		moveForm.submit();
 
@@ -52,8 +53,12 @@ $.urlParam = function(name) {
 function fnMoveCategory(category_no){
 		
 		let moveCategoryForm = $("#moveCategoryForm");
-		let categoryInput = '<input type="hidden" name="category_no" value="'+category_no+'">'
-		moveCategoryForm.append(categoryInput);
+		let categoryAction = moveCategoryForm.attr('action');
+		
+		moveCategoryForm.attr('action',categoryAction+"/"+category_no);
+		
+		
 		moveCategoryForm.submit();
+
 }
 

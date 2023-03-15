@@ -3,8 +3,10 @@
 function fnMoveCategory(category_no){
 		
 		let moveCategoryForm = $("#moveCategoryForm");
-		let categoryInput = '<input type="hidden" name="category_no" value="'+category_no+'">'
-		moveCategoryForm.append(categoryInput);
+		let categoryAction = moveCategoryForm.attr('action');
+		
+		moveCategoryForm.attr('action',categoryAction+"/"+category_no);
+		
 		moveCategoryForm.submit();
 
 }
@@ -38,10 +40,9 @@ $(document).ready(function() {
 
 		}
 		else if (pageId == "adminFaqList") {
-			let category_no = $.urlParam('category_no');
-			let categoryInput = '<input type="hidden" name="category_no" value="'+category_no+'">'
-			moveForm.append(categoryInput);
-			moveForm.attr("action", "/admin/faq/faqList");
+			let category_no = $("#category_no").val();
+			
+			moveForm.attr('action',"/admin/faq/faqList/"+category_no);
 
 		}
 		moveForm.submit();
@@ -184,11 +185,8 @@ $(document).ready(function() {
 		      
 		    });
 		    
-		    console.log(str);
-		    
 		    formObj.append(str).submit();
 			
-			alert("상품등록이 완료되었습니다.")
 		})
 
 
@@ -224,28 +222,19 @@ $(document).ready(function() {
 		    var str = "";
 		    
 		    $(".uploadResult ul li").each(function(i, obj){
-		      
-		    	console.log("obj" + $(obj).data("fileName"));
-		    	
-		      var jobj = $(obj);
-		      
-		      console.dir(jobj);
-		      console.log("-------------------------");
-		      console.log(jobj.data("filename"));
-		      
+	
+		      let jobj = $(obj);
+ 
 		      
 		      str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
 		      str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
 		      str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
 		      str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+ jobj.data("type")+"'>";
 		      
-		    });
-		    
-		    console.log(str);
+		    });  
 		    
 		    formObj.append(str).submit();
-			
-			//alert("상품수정이 완료되었습니다.")
+	
 		})
 
 
@@ -407,8 +396,5 @@ function successFun(result) {
 	if (result == 'uniqueRegister') {
 
 		alert("중복된 이름입니다.");
-
-		window.location = document.referrer;
-		history.back();
 	}
 }

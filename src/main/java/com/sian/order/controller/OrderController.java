@@ -90,12 +90,12 @@ public class OrderController {
 	@PostMapping("/order/complete")
 	@ResponseBody
 	public int paymentComplete(@RequestBody OrderDTO orderDTO) throws Exception {
-		    System.out.println("토큰체크1");
+		    
 		    String token = payService.getToken();
-		    System.out.println("토큰체크2 : " + token);
+		    
 		    // 결제 완료된 금액
 		    String amount = payService.paymentInfo(orderDTO.getImp_uid(), token);
-		    System.out.println("이거냐orderController");
+		    
 		    int res = 1;
 		    
 		    if (orderDTO.getTotal_price() != Long.parseLong(amount)) {
@@ -118,20 +118,20 @@ public class OrderController {
 	@PostMapping("/order/orderDetails")
 	public void orderDetails(@RequestParam HashMap<String, Object> orderDetailList,
 			Authentication authentication) throws JsonMappingException, JsonProcessingException{
-		System.out.println("orderDetailList : " + orderDetailList );
+		
 		String json = (String) orderDetailList.get("paramList");
-		System.out.println("json : " + json);
+		
 		ObjectMapper mapper = new ObjectMapper();
 		
 		List<OrderDetailDTO> orderDetails = mapper.readValue(json, new TypeReference<List<OrderDetailDTO>>() {
 		});
 		
-		System.out.println("orderDetails : " + orderDetails);
+		
 		String mem_id = memberService.getId(authentication);
 
 		Map<String,Object> map = new HashMap<String, Object>();
 		for (int i = 0; i < orderDetails.size(); i++) {
-			System.out.println(orderDetails.size());
+			
 			
 			int product_no = productService.getProductNo(orderDetails.get(i).getProduct_name());
 			
@@ -163,7 +163,7 @@ public class OrderController {
 			order_no = orderList.get(i).getOrder_no();
 			orderDetailList = orderService.getOrderDetailList(order_no);
 			orderList.get(i).setOrderDetailList(orderDetailList);
-			System.out.println(orderDetailList);
+			
 			
 		}
 		
@@ -177,9 +177,10 @@ public class OrderController {
 	/*
 	 * 주문정보 상세 페이지
 	 */
-	@PreAuthorize("hasRole('ROLE_MEMBER') || hasRole('ROLE_ADMIN')")
-	@GetMapping({"/order/orderDetailView","/admin/order/orderDetailView"})
-	public void orderDetailView(Long order_no,Model model) {
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@GetMapping({"/order/orderDetailView/{order_no}","/admin/order/orderDetailView/{order_no}"})
+	public String orderDetailView(@PathVariable("order_no") Long order_no,Model model,
+			HttpServletRequest req) {
 		
 		CourierDTO courierDTO = courierService.get(order_no);
 		
@@ -192,7 +193,9 @@ public class OrderController {
 		if(courierDTO != null) {
 			model.addAttribute("courier",courierDTO);
 		}
+		String uri = req.getRequestURI().toString().replace("/" + order_no, "");
 		
+		return uri;
 	}
 	
 	
@@ -202,10 +205,25 @@ public class OrderController {
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@ResponseBody
 	@PostMapping("/order/orderDelete")
-	public void orderDelete(@RequestParam("order_no") Long order_no) {
+	public boolean orderDelete(@RequestParam("order_no") Long order_no) {
 
-		orderService.orderDelete(order_no);
+		return orderService.orderDelete(order_no);
 		
+	}
+	
+	/*
+	 * 운송장 등록
+	 */
+	@PostMapping("/admin/order/invoiceRegister")
+	public String invoiceRegister(CourierDTO courierDTO) {
+		
+		courierService.insert(courierDTO);
+		OrderDTO orderDTO = new OrderDTO();
+		orderDTO.setOrder_no(courierDTO.getOrder_no());
+		orderDTO.setOrder_status("배송시작");
+		orderService.updateStatus(orderDTO);
+		
+		return "redirect:/admin/order/orderDetailView/" + courierDTO.getOrder_no();
 	}
 	
 	
@@ -218,6 +236,8 @@ public class OrderController {
 		
 		return orderService.updateStatus(orderDTO);
 	}
+	
+	
 	
 
 }

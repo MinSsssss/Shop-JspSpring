@@ -1,8 +1,11 @@
 package com.sian.notice.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,16 +31,26 @@ public class NoticeController {
 	 */
 	@GetMapping({"/admin/notice/noticeList","/notice/noticeList"})
 	 public void noticeList(Model model,Criteria cri) {
-		System.out.println("퍼스트 cri" + cri);
+		
 		model.addAttribute("noticeList", noticeService.getListPaging(cri));
 		
 		int total = noticeService.getTotal();
 		
-		PageDTO page = new PageDTO(cri, total);
-		System.out.println("page : " + page);
-		model.addAttribute("page",page);
+		model.addAttribute("page",new PageDTO(cri, total));
 	 }
 	
+	/*
+	 * 공지사항 단일 조회 및 수정 페이지
+	 */
+	 @GetMapping({"/notice/noticeRead/{notice_no}","/admin/notice/noticeRead/{notice_no}","/admin/notice/noticeModify/{notice_no}"})
+	 public String noticeRead(@PathVariable("notice_no") int notice_no,Model model,
+			 HttpServletRequest req) {
+		 
+		 model.addAttribute("notice", noticeService.getNotice(notice_no));
+		 String uri = req.getRequestURI().toString().replace("/"+notice_no, "");
+		 
+		 return uri;	
+	 }
 	
 	
 	/*
@@ -51,14 +64,7 @@ public class NoticeController {
 		 
 	 }
 	
-	/*
-	 * 공지사항 단일 조회 및 수정 페이지
-	 */
-	 @GetMapping({"/notice/noticeRead","/admin/notice/noticeRead","/admin/notice/noticeModify"})
-	 public void noticeRead(@RequestParam("notice_no") int notice_no,Model model) {
-		 model.addAttribute("notice", noticeService.getNotice(notice_no));
-		 
-	 }
+	
 	 
 	 /*
 	  * 공지사항 등록 
@@ -71,7 +77,8 @@ public class NoticeController {
 		 else {
 			 rttr.addFlashAttribute("msg","failRegister");
 		 }
-		 return "redirect:/admin/notice/noticeList";
+		 
+		 return "redirect:/admin/notice/noticeRead/"+noticeDTO.getNotice_no();
 	 }
 	 
 	 /*
@@ -85,7 +92,7 @@ public class NoticeController {
 		 else {
 			 rttr.addFlashAttribute("msg","failModify");
 		 }
-		 return "redirect:/admin/notice/noticeList";
+		 return "redirect:/admin/notice/noticeRead/"+noticeDTO.getNotice_no();
 	 } 
 	 
 	 /*
@@ -101,7 +108,7 @@ public class NoticeController {
 			 rttr.addFlashAttribute("msg","failDelete");
 		 }
 		 
-		 return "redirect:/admin/notice/noticeList";
+		 return "redirect:/admin/notice/noticeList?pageNum=0&amount=5";
 	 }
 	
 }

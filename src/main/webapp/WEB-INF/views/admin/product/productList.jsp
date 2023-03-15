@@ -58,7 +58,7 @@
 	                                            <td class="align-middle">
 		                                            <div><img  class="productListImage" alt="" src="<c:url value='/display?fileName=${product.product_thumb_img}'/>">
 		                                            	<span>
-		                                            		<a href="<c:url value='/admin/product/productRead?product_no=${product.product_no}'/>">
+		                                            		<a href="<c:url value='/admin/product/productRead/${product.product_no}'/>">
 		                                            			<c:out value='${product.product_name}'/>
 		                                            		</a>
 		                                            	</span>
@@ -96,3 +96,7 @@
 	
 	<!-- End of Main Content -->
 	<jsp:include page="/WEB-INF/views/admin/includes/adminFooter.jsp"></jsp:include>
+<script>
+	let result = '<c:out value="${msg}"/>';
+	successFun(result);
+</script>   

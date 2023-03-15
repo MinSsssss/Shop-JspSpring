@@ -62,7 +62,7 @@
 													
 													<td><c:out value='${qna.category_name}'/></td>
 													<td>
-														<a href="<c:url value='/qna/qnaRead?qna_no=${qna.qna_no}'/>">
+														<a href="<c:url value='/qna/qnaRead/${qna.qna_no}'/>">
 															<c:out value='${qna.qna_title}'/>
 														</a>
 													</td>

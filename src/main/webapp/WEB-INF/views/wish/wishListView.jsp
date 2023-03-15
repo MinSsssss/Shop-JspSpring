@@ -54,12 +54,12 @@
 											<div class="orderProductFor">
 												<div class="orderInfo">
 													<div class="orderDisplay">
-														<a href="<c:url value='/product/productRead?product_no=${wish.product_no}'/>">
+														<a href="<c:url value='/product/productRead/${wish.product_no}'/>">
 															<img class="product_img" src="<c:url value='/display?fileName=${wish.product_thumb_img}'/>">
 														</a>
 														<div class="productInfo">
 															<p>
-																<a href="<c:url value='/product/productRead?product_no=${wish.product_no}'/>">
+																<a href="<c:url value='/product/productRead/${wish.product_no}'/>">
 																	<c:out value='${wish.product_name}'/> 
 																</a>
 															</p>

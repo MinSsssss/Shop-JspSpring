@@ -32,4 +32,5 @@ public interface ProductDAO {
 	
 	public Long productReadCount(int product_no);
 	
+	public int productDelete(int product_no);
 }

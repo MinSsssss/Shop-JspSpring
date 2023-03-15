@@ -34,7 +34,7 @@
                                     	<c:forEach items="${orderList}" var="order">
 	                                        <tr>
 	                                            <td>
-	                                            	<a href="<c:url value='/admin/order/orderDetailView?order_no=${order.order_no}'/>">
+	                                            	<a href="<c:url value='/admin/order/orderDetailView/${order.order_no}'/>">
 	                                            		<c:out value='${order.order_no}'/>
 	                                            	</a>
 	                                            </td>

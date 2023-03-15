@@ -57,7 +57,7 @@ public class IamPortController {
 		        @RequestParam String imp_uid,HttpSession session,
 		        Authentication authentication) throws Exception {
 			
-		System.out.println("이거냐iamport payInfo");
+			
 		
 			IamportResponse<Payment> result = client.paymentByImpUid(imp_uid);
 			PayInfoDTO payInfoDTO = new PayInfoDTO();

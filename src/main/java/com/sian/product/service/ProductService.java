@@ -36,4 +36,6 @@ public interface ProductService {
 	public List<String> originImgList(int product_no);
 	
 	public long productReadCount(int product_no);
+	
+	public boolean productDelete(int product_no);
 }

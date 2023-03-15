@@ -270,7 +270,7 @@ $(document).ready(function(){
 	     });
 	})
 	
-	var myKey = "bxF4okBn1zOznPasDxit3w"; // sweet tracker에서 발급받은 자신의 키 넣는다.
+	let myKey = "2NNTgfuc13wSnhvkyXVKYQ"; // 스윗트래커에서 발급받은 키 넣는다.
 	getTekbeCompnayList(myKey,0);
 	
 	
@@ -307,8 +307,8 @@ $(document).ready(function(){
        
         // 배송정보와 배송추적 tracking-api
         $("#myButton1").click(function() {
-            var t_code = $('#tekbeCompnayList option:selected').attr('value');
-            var t_invoice = $('#invoiceNumberText').val();
+            let t_code = $('#tekbeCompnayList option:selected').attr('value');
+            let t_invoice = $('#invoiceNumberText').val();
             
             $.ajax({
                 type:"GET",
@@ -316,7 +316,7 @@ $(document).ready(function(){
                 url:"http://info.sweettracker.co.kr/api/v1/trackingInfo?t_key="+myKey+"&t_code="+t_code+"&t_invoice="+t_invoice,
                 success:function(data){
                     console.log(data);
-                    var myInvoiceData = "";
+                    let myInvoiceData = "";
                     if(data.status == false){
                         myInvoiceData += ('<p>'+data.msg+'<p>');
                     }
@@ -325,11 +325,11 @@ $(document).ready(function(){
                     
                     $("#myPtag").html(myInvoiceData)
                     
-                    var trackingDetails = data.trackingDetails;
+                    let trackingDetails = data.trackingDetails;
                     
                     
-                    var myTracking="";
-                    var header ="";
+                    let myTracking="";
+                    let header ="";
                     header += ('<tr>');                
                     header += ('<th>'+"시간"+'</th>');
                     header += ('<th>'+"장소"+'</th>');
@@ -363,14 +363,14 @@ function getTekbeCompnayList(myKey,type){
          success:function(data){
                  console.log(myKey);
                  // 방법 1. JSON.parse 이용하기
-                 var parseData = JSON.parse(JSON.stringify(data));
+                 let parseData = JSON.parse(JSON.stringify(data));
                   //console.log(parseData.Company); // 그중 Json Array에 접근하기 위해 Array명 Company 입력
                  
                  // 방법 2. Json으로 가져온 데이터에 Array로 바로 접근하기
-                 var CompanyArray = data.Company; // Json Array에 접근하기 위해 Array명 Company 입력
+                 let CompanyArray = data.Company; // Json Array에 접근하기 위해 Array명 Company 입력
                  //console.log(CompanyArray); 
                  
-                 var myData="";
+                 let myData="";
                  myData += ('<option></option>');
                  $.each(CompanyArray,function(key,value) {
                          myData += ('<option value='+value.Code+'>' +value.Name + '</option>');

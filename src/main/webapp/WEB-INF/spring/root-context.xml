@@ -21,13 +21,18 @@
     </bean> 
     
     <!--  HikariCp Config -->
+	<!-- <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="org.mariadb.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mariadb://127.0.0.1:3306/sian_db"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="1234"></property>
+	</bean> -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="org.mariadb.jdbc.Driver"></property>
 		<property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/sian"></property>
 		<property name="username" value="sian"></property>
 		<property name="password" value="1234"></property>
-	</bean>
-		
+	</bean>	
 	<!-- HikariDataSource -->
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig" />
@@ -48,7 +53,7 @@
 	<task:annotation-driven/>
      
 
-	<mybatis-spring:scan base-package="com.sian.test"/>
+	
 	<mybatis-spring:scan base-package="com.sian.category.dao"/>
 	<mybatis-spring:scan base-package="com.sian.faq.dao"/>
 	<mybatis-spring:scan base-package="com.sian.member.dao"/>
@@ -60,18 +65,18 @@
 	<mybatis-spring:scan base-package="com.sian.cart.dao"/>
 	<mybatis-spring:scan base-package="com.sian.qna.dao"/>
 	
-	<context:component-scan base-package="com.sian.security"></context:component-scan>
-	<context:component-scan base-package="com.sian.category.service"></context:component-scan>
-	<context:component-scan base-package="com.sian.faq.service"></context:component-scan>
-	<context:component-scan base-package="com.sian.member.service"></context:component-scan>
-	<context:component-scan base-package="com.sian.notice.service"></context:component-scan>
-	<context:component-scan base-package="com.sian.order.service"></context:component-scan>
-	<context:component-scan base-package="com.sian.product.service"></context:component-scan>
-	<context:component-scan base-package="com.sian.review.service"></context:component-scan>
-	<context:component-scan base-package="com.sian.wish.service"></context:component-scan>
-	<context:component-scan base-package="com.sian.cart.service"></context:component-scan>
-	<context:component-scan base-package="com.sian.qna.service"></context:component-scan>
-	<context:component-scan base-package="com.sian.common.upload"></context:component-scan>
+	<context:component-scan base-package="com.sian.security"/>
+	<context:component-scan base-package="com.sian.category.service"/>
+	<context:component-scan base-package="com.sian.faq.service"/>
+	<context:component-scan base-package="com.sian.member.service"/>
+	<context:component-scan base-package="com.sian.notice.service"/>
+	<context:component-scan base-package="com.sian.order.service"/>
+	<context:component-scan base-package="com.sian.product.service"/>
+	<context:component-scan base-package="com.sian.review.service"/>
+	<context:component-scan base-package="com.sian.wish.service"/>
+	<context:component-scan base-package="com.sian.cart.service"/>
+	<context:component-scan base-package="com.sian.qna.service"/>
+	<context:component-scan base-package="com.sian.common.upload"/>
 	
 	
 </beans>

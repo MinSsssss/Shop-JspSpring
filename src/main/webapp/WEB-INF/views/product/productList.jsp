@@ -59,14 +59,14 @@
 					class="ltn__gallery-item filter_category_3 col-lg-3 col-md-4 col-sm-6 col-12">
 					<div class="ltn__product-item ltn__product-item-3 text-center">
 						<div class="product-img">
-							<a href="<c:url value='/product/productRead?product_no=${product.product_no}'/>">
+							<a href="<c:url value='/product/productRead/${product.product_no}'/>">
 								<img src="<c:url value='/display?fileName=${product.product_thumb_img}'/>">
 							</a>
 						</div>
 						
 						<div class="product-info">
 							<h2 class="product-title">
-								<a href="<c:url value='/product/productRead?product_no=${product.product_no}'/>">
+								<a href="<c:url value='/product/productRead/${product.product_no}'/>">
 									<c:out value='${product.product_name}'/>
 								</a>
 							</h2>

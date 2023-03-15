@@ -60,7 +60,7 @@
 				
 				
 			</div>
-			<a href="<c:url value='/admin/faq/faqModify?faq_no=${faq.faq_no}'/>" class="btn btn-primary btn-sm" id="faqModyfyBtn">수정</a>
+			<a href="<c:url value='/admin/faq/faqModify/${faq.faq_no}'/>" class="btn btn-primary btn-sm" id="faqModyfyBtn">수정</a>
 			<button class="btn btn-secondary btn-sm"
 			data-toggle="modal" data-target="#faqDeleteModal">삭제</button>
 			
@@ -104,3 +104,7 @@
 
 <!-- End of Main Content -->
 <jsp:include page="/WEB-INF/views/admin/includes/adminFooter.jsp"></jsp:include>
+<script>
+	let result = "<c:out value='${msg}'/>";
+	successFun(result);
+</script>  

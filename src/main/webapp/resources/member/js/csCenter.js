@@ -3,10 +3,10 @@ $(document).ready(function() {
 		location.href = "/notice/noticeList?pageNum=0&amount=5";
 	})
 	$("#faqList").on("click", function() {
-		location.href = "/faq/faqList?category_no=0&pageNum=0&amount=5";
+		location.href = "/faq/faqList/0?pageNum=0&amount=5";
 	})
 	$("#qnaBoard").on("click", function() {
-		location.href = "/qna/qnaBoard?category_no=0";
+		location.href = "/qna/qnaBoard/0?pageNum=0&amount=5";
 	})
 
 	$("#qnaBoardRead").on("click",function(){
@@ -32,7 +32,7 @@ function getQnaFun(count){
 			alert(str);
 			return false;
 		}
-		console.log(qna_no);
+		
 		$("#pwdChkModal").modal("show");
 		$("#chk_qna_no").val(qna_no);
 		
@@ -44,7 +44,7 @@ function getQnaFun(count){
 		
 		
 		if(mem_id==memIdChk){
-			location.href = "/qna/qnaBoardRead?qna_no="+qna_no;
+			location.href = "/qna/qnaBoardRead/"+qna_no;
 		}
 		else{
 			alert(str);

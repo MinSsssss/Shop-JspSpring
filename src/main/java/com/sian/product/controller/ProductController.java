@@ -5,12 +5,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,8 +43,8 @@ public class ProductController {
 	/*
 	 * 상품 리스트 조회
 	 */
-	@GetMapping("/product/productList")
-	public void productList(@RequestParam(value = "category_no", required = false) int category_no, 
+	@GetMapping("/product/productList/{category_no}")
+	public String productList(@PathVariable("category_no") int category_no, 
 			Model model,Criteria cri,RedirectAttributes rttr) {
 		List<ProductDTO> productList = null;
 		if(cri.getKeyword()==null) {
@@ -66,16 +69,15 @@ public class ProductController {
 		}
 		model.addAttribute("productList", productList);
 		
-		
+		return "/product/productList";		
 	}
 	/*
 	 * 상품 단일 조회
 	 */
-	@GetMapping({ "/product/productRead"})
-	public String productRead(
-			HttpServletResponse response,
-            @CookieValue(name = "view") String cookie,
-			@RequestParam("product_no") int product_no, Model model
+	@GetMapping("/product/productRead/{product_no}")
+	public String productRead(HttpServletResponse response,
+			@PathVariable("product_no") int product_no, Model model,
+			@CookieValue(name = "view") String cookie
 			) throws ClassNotFoundException, SQLException {
 	
 		if(!(cookie.contains(String.valueOf(product_no)))) {
@@ -123,7 +125,7 @@ public class ProductController {
 		 
 		model.addAttribute("category",categoryService.getCategoryList("product"));
 		
-		//response.sendRedirect("/product/productRead?product_no="+product_no);
+		
 		return "/product/productRead";
 	}
 
@@ -137,8 +139,8 @@ public class ProductController {
 	/*
 	 * 상품 리스트 조회  
 	 */
-	@GetMapping("/admin/product/productList")
-	public void adminProductList(@RequestParam("category_no")int category_no,Criteria cri,Model model) {
+	@GetMapping("/admin/product/productList/{category_no}")
+	public String adminProductList(@PathVariable("category_no")int category_no,Criteria cri,Model model) {
 		 int total = 0;
 		 if(category_no==0) {
 			 model.addAttribute("productList",productService.productList(cri));
@@ -150,12 +152,9 @@ public class ProductController {
 			 
 			 total = productService.getTotal(category_no); 
 		 }
-		 
-		
-		
-		PageDTO page = new PageDTO(cri, total);
-		
-		model.addAttribute("page",page);
+
+		model.addAttribute("page",new PageDTO(cri, total));
+		return "/admin/product/productList";
 	}
 
 	/*
@@ -170,31 +169,30 @@ public class ProductController {
 	 * 상품 등록
 	 */
 	@PostMapping("/admin/product/productRegisterProc")
-	public String productRegisterProc(ProductDTO productDTO) {
+	public String productRegisterProc(ProductDTO productDTO,RedirectAttributes rttr) {
 		
-
-		productService.productRegister(productDTO);
-		System.out.println(productDTO.getProduct_no());
-		return "redirect:/admin/product/productRead?product_no="+productDTO.getProduct_no();
+		try {
+			productService.productRegister(productDTO);
+			rttr.addFlashAttribute("msg","successRegister");
+			
+		} catch (DataIntegrityViolationException e) {
+			e.printStackTrace();
+			rttr.addFlashAttribute("msg","uniqueRegister");
+			return "redirect:/admin/product/productRegister";
+		}
+		
+		
+		return "redirect:/admin/product/productRead/"+productDTO.getProduct_no();
 	}
 	
-	/*
-	 * 상품 수정
-	 */
-	@PostMapping("/admin/product/productModifyProc")
-	public String productModifyProc(ProductDTO productDTO) {
-		
-		productService.productModify(productDTO);
-
-		return "redirect:/admin/product/productRead?product_no="+productDTO.getProduct_no();
-
-	}
+	
 	
 	/*
 	 * 상품 단일 조회 및 상품 수정 페이지
 	 */
-	 @GetMapping({"/admin/product/productRead","/admin/product/productModify" })
-	 public void productModify(@RequestParam("product_no")int product_no,Model model) {
+	 @GetMapping({"/admin/product/productRead/{product_no}","/admin/product/productModify/{product_no}" })
+	 public String productModify(@PathVariable("product_no")int product_no,Model model,
+			 HttpServletRequest req) {
 		ProductDTO product = productService.getProduct(product_no);
 		String thumbImg = product.getProduct_thumb_img();
 		 	
@@ -210,10 +208,42 @@ public class ProductController {
 
 		model.addAttribute("product", product);
 
+		String uri = req.getRequestURI().toString().replace("/"+product_no, "");
 		
-
+		return uri;
  
 	 }
 	 
+ 	/*
+	 * 상품 수정
+	 */
+	@PostMapping("/admin/product/productModifyProc")
+	public String productModifyProc(ProductDTO productDTO,RedirectAttributes rttr) {
+		try {
+			productService.productModify(productDTO);
+			rttr.addFlashAttribute("msg","successModify");
+			
+		} catch (DataIntegrityViolationException e) {
+			e.printStackTrace();
+			rttr.addFlashAttribute("msg","uniqueRegister");
+			return "redirect:/admin/product/productModify/"+productDTO.getProduct_no();
+		}
+		
+		return "redirect:/admin/product/productRead/"+productDTO.getProduct_no();
 
+	}
+	/*
+	 * 상품 삭제
+	 */
+	
+	@PostMapping("/admin/product/productDeleteProc")
+	public String productDeleteProc(int product_no,RedirectAttributes rttr) {
+		if(!productService.productDelete(product_no)) {
+			rttr.addFlashAttribute("msg","failDelete");
+			return "redirect:/admin/product/productRead/"+product_no;
+		}
+		rttr.addFlashAttribute("msg","successDelete");
+		return "redirect:/admin/product/productList/0?pageNum=0&amount=5";
+	}
+		
 }

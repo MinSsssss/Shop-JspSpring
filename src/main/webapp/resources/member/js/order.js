@@ -141,7 +141,7 @@ function orderDeleteFun(order_status, order_no) {
 				url: "/order/orderDelete",
 				type: "POST",
 				data: param,
-				success: function(data) {
+				success: function() {
 					alert("주문내역이 삭제되었습니다.");
 					location.reload();
 				}
@@ -153,9 +153,7 @@ function orderDeleteFun(order_status, order_no) {
 		}
 	}
 }
-function orderDetailViewFun(count){
-	$("#orderDetailViewForm"+count).submit();
-}
+
 
 
 

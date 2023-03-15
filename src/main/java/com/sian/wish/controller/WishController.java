@@ -32,10 +32,6 @@ public class WishController {
 	
 	private final MemberService memberService;
 	
-	private final ProductService productService;
-	
-
-	
 	/*
 	 * MEMBER ONLY
 	 */
@@ -74,7 +70,7 @@ public class WishController {
 			return wishService.wishChk(wishListDTO);
 			
 		} catch (DataIntegrityViolationException e) {
-			System.out.println("catch : " + wishService.wishChk(wishListDTO));
+			
 			return 0;
 		}
 	}
