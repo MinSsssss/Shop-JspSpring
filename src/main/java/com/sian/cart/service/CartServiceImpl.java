@@ -30,6 +30,7 @@ public class CartServiceImpl implements CartService{
 				return false;
 			}
 		} catch (DataIntegrityViolationException e) {
+			e.printStackTrace();
 			return false;
 		}
 		

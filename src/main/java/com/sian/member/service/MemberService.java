@@ -8,11 +8,12 @@ import com.sian.member.dto.AuthVO;
 import com.sian.member.dto.MemberDTO;
 
 public interface MemberService {
+	
 	public void register(MemberDTO memberDTO,AuthVO authVO) ;
 	
 	public boolean memberDrop(MemberDTO memberDTO) ;
 	
-	public boolean idChk(String mem_id) ;
+	public boolean idChk(String mem_id);
 	
 	public String getId(Authentication authentication);
 	

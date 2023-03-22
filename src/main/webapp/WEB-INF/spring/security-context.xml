@@ -7,16 +7,19 @@
 
 
 
-	<bean id="customAccessDenied" class="com.sian.security.CustomAccessDeniedHandler"></bean>
+	<bean id="customAccessDenied" 
+	class="com.sian.security.CustomAccessDeniedHandler"></bean>
 
-	<bean id="loginSuccessHandler" class="com.sian.security.CustomLoginSuccessHandler">
+	<bean id="loginSuccessHandler"
+	 class="com.sian.security.CustomLoginSuccessHandler">
 	    <property name="loginId" value="mem_id"/>
 	    <property name="defaultUrl" value="/"/>
 	</bean>
 	
 	
 
-	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+	<bean id="bcryptPasswordEncoder" 
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 
 	<bean id="customUserDetailsService"
 		class="com.sian.security.CustomUserDetailsService"></bean>
@@ -58,8 +61,8 @@
 			username-parameter="mem_id" password-parameter="mem_pwd"
 			login-processing-url="/loginProcess" default-target-url="/"
 			authentication-success-handler-ref="loginSuccessHandler"
-			authentication-failure-handler-ref="userLoginFailHandler"
-			/>
+			authentication-failure-handler-ref="userLoginFailHandler"/>
+			
 		<security:csrf disabled="true"/>
 
 		<!-- <security:logout logout-url="/logout"

@@ -22,18 +22,17 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 	private RequestCache requestCache = new HttpSessionRequestCache();
-    private RedirectStrategy redirectStratgy = new DefaultRedirectStrategy();
-    
-	
-	
+	private RedirectStrategy redirectStratgy = new DefaultRedirectStrategy();
+
 	private String loginId;
 	private String defaultUrl;
+
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
 			throws IOException, ServletException {
-		
-		
+
 		resultRedirectStrategy(request, response, auth);
+		
 //		log.warn("Login Success");
 //
 //		List<String> roleNames = new ArrayList<>();
@@ -59,45 +58,46 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 //		}
 //
 //		response.sendRedirect("/");
-		
-		
-		
-		
-		
+
 	}
+
 	public String getLoginId() {
 		return loginId;
 	}
+
 	public void setLoginId(String loginId) {
 		this.loginId = loginId;
 	}
+
 	public String getDefaultUrl() {
 		return defaultUrl;
 	}
+
 	public void setDefaultUrl(String defaultUrl) {
 		this.defaultUrl = defaultUrl;
 	}
-	
-	
-	
-	  protected void resultRedirectStrategy(HttpServletRequest request,
-	  HttpServletResponse response, Authentication authentication) throws
-	  IOException, ServletException { HttpSession session = request.getSession();
-	  SavedRequest savedRequest = requestCache.getRequest(request, response);
-	  
-	  if(savedRequest!=null) { String targetUrl = savedRequest.getRedirectUrl();
-	  if(targetUrl.contains("wishChk")) { String prevPage =
-	  (String)session.getAttribute("prevPage");
-	  
-	  session.removeAttribute("prevPage"); redirectStratgy.sendRedirect(request,
-	  response, prevPage); } else { redirectStratgy.sendRedirect(request, response,
-	  targetUrl); }
-	  
-	  
-	  } else { redirectStratgy.sendRedirect(request, response, defaultUrl); }
-	  
-	  }
-	 
+
+	protected void resultRedirectStrategy(HttpServletRequest request, 
+			HttpServletResponse response,
+			Authentication authentication) throws IOException, ServletException {
+		HttpSession session = request.getSession();
+		SavedRequest savedRequest = requestCache.getRequest(request, response);
+
+		if (savedRequest != null) {
+			String targetUrl = savedRequest.getRedirectUrl();
+			if (targetUrl.contains("wishChk")) {
+				String prevPage = (String) session.getAttribute("prevPage");
+
+				session.removeAttribute("prevPage");
+				redirectStratgy.sendRedirect(request, response, prevPage);
+			} else {
+				redirectStratgy.sendRedirect(request, response, targetUrl);
+			}
+
+		} else {
+			redirectStratgy.sendRedirect(request, response, defaultUrl);
+		}
+
+	}
+
 }
-
-

@@ -33,17 +33,12 @@ public class MemberServiceImpl implements MemberService{
 	@Transactional
 	@Override
 	public void register(MemberDTO memberDTO, AuthVO authVO)  {
-
-//		List<AuthVO> list = new ArrayList<>();
-//		authVO.setMem_id(memberDTO.getMem_id());
-//		list.add(authVO);
-
 		memberDTO.setMem_pwd(passwordEncoder.encode(memberDTO.getMem_pwd()));
-		//memberDTO.setAuthList(list);
+		
 		memberDAO.insert(memberDTO);
 		memberDAO.insertAuth(memberDTO.getMem_id());
-
 	}
+	
 	@Override
 	public boolean idChk(String mem_id)  {
 		if(memberDAO.idChk(mem_id)==1) {
@@ -81,13 +76,12 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public boolean pwdChk(MemberDTO memberDTO,Authentication authentication)  {
-
-		if (passwordEncoder.matches(memberDTO.getMem_pwd(), this.getPwd(authentication))) {
+		if (passwordEncoder.matches(memberDTO.getMem_pwd(), 
+			this.getPwd(authentication))) {
 			return true;
 		} else {
 			return false;
 		}
-
 	}
 
 	@Override

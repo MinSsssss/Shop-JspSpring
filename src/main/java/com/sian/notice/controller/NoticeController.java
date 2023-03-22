@@ -17,9 +17,11 @@ import com.sian.notice.dto.NoticeDTO;
 import com.sian.notice.service.NoticeService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 
 @RequiredArgsConstructor
 @Controller
+@Log4j
 public class NoticeController {
 	private final NoticeService noticeService;
 	

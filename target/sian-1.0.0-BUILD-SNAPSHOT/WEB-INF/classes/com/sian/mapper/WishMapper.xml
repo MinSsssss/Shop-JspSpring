@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sian.wish.dao.WishDAO">
+ 	<insert id="insert">
+ 		INSERT INTO tbl_wishlist(product_no,mem_id)
+ 		VALUES (#{product_no},#{mem_id})
+ 	</insert>
+	
+	<select id="wishList" resultType="com.sian.wish.dto.WishDTO">
+ 		SELECT pro.product_thumb_img,pro.product_thumb_img,pro.product_no,
+ 		pro.product_name,pro.product_price,wish.mem_id
+		FROM tbl_product pro,tbl_wishlist wish
+		WHERE pro.product_no=wish.product_no AND wish.mem_id=#{mem_id}
+ 	</select>
+ 	
+ 	
+ 	<delete id="wishDelete">
+		DELETE FROM tbl_wishlist
+		WHERE product_no=#{product_no} AND mem_id=#{mem_id}
+	</delete>
+	
+	<select id="wishChk" resultType="int">
+		SELECT COUNT(*)
+		FROM tbl_wishlist
+		WHERE mem_id=#{mem_id}
+		AND product_no = #{product_no}
+	</select>
+</mapper>

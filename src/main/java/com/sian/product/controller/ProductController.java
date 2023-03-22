@@ -56,7 +56,7 @@ public class ProductController {
 		}
 		else {
 			productList = productService.productList(cri);
-			
+			System.out.println(cri);
 			if(productList.size() == 0) {
 				model.addAttribute("searchNull" , "검색하신 상품을 찾을수 없습니다.");
 
@@ -162,7 +162,7 @@ public class ProductController {
 	 */
 	@GetMapping("/admin/product/productRegister")
 	public void productRegister(Model model) {
-		
+		model.addAttribute("categoryList",categoryService.getCategoryList("product"));
 	}
 	
 	/*
@@ -190,12 +190,13 @@ public class ProductController {
 	/*
 	 * 상품 단일 조회 및 상품 수정 페이지
 	 */
-	 @GetMapping({"/admin/product/productRead/{product_no}","/admin/product/productModify/{product_no}" })
+	 @GetMapping({"/admin/product/productRead/{product_no}",
+		 		  "/admin/product/productModify/{product_no}" })
 	 public String productModify(@PathVariable("product_no")int product_no,Model model,
 			 HttpServletRequest req) {
 		ProductDTO product = productService.getProduct(product_no);
 		String thumbImg = product.getProduct_thumb_img();
-		 	
+		 
 
 		List<String> images = productService.imgList(product_no);
 		
@@ -205,7 +206,9 @@ public class ProductController {
 		product.setProduct_imgs(images);
 
 		product.setAttachList(productService.getAttachList(product_no));
-
+		
+		model.addAttribute("categoryList",categoryService.getCategoryList("product"));
+		
 		model.addAttribute("product", product);
 
 		String uri = req.getRequestURI().toString().replace("/"+product_no, "");

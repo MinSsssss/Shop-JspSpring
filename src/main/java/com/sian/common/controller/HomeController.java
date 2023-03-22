@@ -104,20 +104,10 @@ public class HomeController {
 	}
 
 	@GetMapping("/login")
-	public void loginInput(HttpServletRequest request, String error, String logout, Model model) {
-
-		log.info("error: " + error);
-		log.info("logout: " + logout);
+	public void loginInput(HttpServletRequest request, Model model) {
+		
 		String referrer = request.getHeader("Referer");
 		request.getSession().setAttribute("prevPage", referrer);
-
-		if (error != null) {
-			model.addAttribute("error", "Login Error Check Your Account");
-		}
-
-		if (logout != null) {
-			model.addAttribute("logout", "Logout!!");
-		}
 	}
 
 	@GetMapping("/registerAgree")
@@ -126,17 +116,18 @@ public class HomeController {
 	}
 
 	@PostMapping("/register")
-	public String registerPage(@RequestParam(value = "agree1", defaultValue = "false") boolean agree1,
+	public String registerPage(
+			@RequestParam(value = "agree1", defaultValue = "false")boolean agree1,
 			@RequestParam(value = "agree2", defaultValue = "false") boolean agree2) {
 		if (!agree1 || !agree2) {
 			return "/registerAgree";
 		}
-
 		return "/register";
 	}
 
 	@PostMapping("/registerProc")
-	public String registerAction(@Valid MemberDTO memberDTO, AuthVO authVO) throws Exception {
+	public String registerAction(@Valid MemberDTO memberDTO,
+			AuthVO authVO) throws Exception {
 		String postcode = memberDTO.getPostcode();
 		String address = memberDTO.getAddress();
 		String detailAddress = memberDTO.getDetailAddress();

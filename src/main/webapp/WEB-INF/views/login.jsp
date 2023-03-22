@@ -37,9 +37,11 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="account-login-inner">
-                        <form action="/loginProcess" id="loginForm" role="form" method="post" class="ltn__form-box contact-form-box">
+                        <form action="/loginProcess" id="loginForm" role="form" method="post"
+                         class="ltn__form-box contact-form-box">
                             <input type="text" id="memId" name="mem_id" placeholder="아이디 ">
                             <input type="password" id="memPwd" name="mem_pwd" placeholder="비밀번호">
+                            
                             <div class="btn-wrapper mt-0">
                                 <!-- <input type='submit' class='btn-success' value="로그인"> -->
                                    <button id="loginBtn" class="btn btn-lg btn-block theme-btn-1">로그인</button>     
@@ -49,7 +51,6 @@
                                 <a href="#"><span class="mr-30">아이디 찾기</span></a>
                                 <a href="#"><span>비밀번호 찾기</span></a>
                             </div>
-                           
                         </form>
                     </div>
                 </div>

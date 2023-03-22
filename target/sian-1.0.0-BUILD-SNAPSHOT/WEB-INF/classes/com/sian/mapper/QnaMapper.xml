@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sian.qna.dao.QnaDAO">
+	<insert id="insertQna" useGeneratedKeys="true" keyProperty="qna_no" parameterType="com.sian.qna.dto.QnaDTO">
+		<selectKey keyProperty="qna_no" resultType="long" order="BEFORE">
+			SELECT nextval(seq_qna)
+		</selectKey>
+		INSERT INTO tbl_qna(qna_no,category_no,order_no,mem_id,
+		qna_title,qna_pwd,qna_writer,qna_tel,qna_content)
+		VALUES(#{qna_no},
+		(SELECT category_no FROM tbl_category
+		WHERE category_name=#{category_name}),
+		
+		#{order_no,jdbcType=VARCHAR},#{mem_id,jdbcType=VARCHAR},#{qna_title},#{qna_pwd},#{qna_writer},
+		#{qna_tel},#{qna_content}
+		)
+		
+	</insert>
+	
+	<select id="getTotal" resultType="int">
+		SELECT COUNT(*) from tbl_qna
+	</select>
+	
+	<select id="getCategoryTotal" resultType="int">
+		SELECT COUNT(*) from tbl_qna
+		WHERE category_no = #{category_no}
+	</select>
+	
+	<select id="getMemberTotal" resultType="int">
+		SELECT COUNT(*) from tbl_qna
+		WHERE mem_id=#{mem_id}
+	</select>
+	
+	<select id="getQnaList" resultType="com.sian.qna.dto.QnaDTO">
+		<![CDATA[
+			SELECT qna_no,qna_title,cate.category_no,cate.category_name,
+			qna_status,qna_date,qna_writer,mem_id 
+ 			FROM tbl_qna qna,tbl_category cate
+ 			WHERE qna.category_no=cate.category_no
+			ORDER BY qna_no desc
+			LIMIT #{pageNum},#{amount}
+		]]>
+	
+		
+	</select>
+	
+	
+	
+	<select id="selectQnaList" resultType="com.sian.qna.dto.QnaDTO">
+	<![CDATA[
+		SELECT qna_no,qna_title,cate.category_no,cate.category_name,
+			qna_status,qna_date,qna_writer,mem_id 
+ 			FROM tbl_qna qna,tbl_category cate
+ 			WHERE qna.category_no=cate.category_no
+ 			AND cate.category_no = ${category_no}
+			ORDER BY qna_no desc
+			LIMIT #{pageNum},#{amount}
+		]]>
+	</select>
+	
+	<select id="qnaMemberList" resultType="com.sian.qna.dto.QnaDTO">
+		<![CDATA[
+		SELECT qna_no,qna_title,cate.category_no,cate.category_name,
+			qna_status,qna_date,qna_writer,mem_id 
+ 			FROM tbl_qna qna,tbl_category cate
+ 			WHERE qna.category_no=cate.category_no
+ 			AND mem_id=#{mem_id}
+			ORDER BY qna_no desc
+			LIMIT #{pageNum},#{amount}
+		]]>
+	</select>
+	
+	<select id="getQna" resultType="com.sian.qna.dto.QnaDTO">
+		SELECT qna.qna_no,qna.category_no,cate.category_name,
+		qna.mem_id,qna.order_no,qna.qna_title,qna.qna_pwd, 
+		qna.qna_writer,qna.qna_tel,qna.qna_content,
+		qna.qna_status,qna.qna_date,qna.qna_answer
+		FROM tbl_qna qna,tbl_category cate
+		WHERE qna_no=#{qna_no}
+		AND qna.category_no = cate.category_no
+	</select>
+	
+	<delete id="qnaDelete">
+		DELETE FROM tbl_qna
+		WHERE qna_no=#{qna_no}
+	</delete>
+	
+	<update id="qnaAnswerRegister">
+		UPDATE tbl_qna
+		SET qna_status = #{qna_status}, 
+		qna_answer = #{qna_answer}
+		WHERE qna_no=#{qna_no}
+	</update>
+	
+	<select id="recentQna" resultType="com.sian.qna.dto.QnaDTO">
+		SELECT * FROM tbl_qna qna,tbl_category cate
+		WHERE qna_status= '접수'
+		AND qna.category_no=cate.category_no
+		
+	</select>
+</mapper>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+	<bean id="customAccessDenied" class="com.sian.security.CustomAccessDeniedHandler"></bean>
+
+	<bean id="loginSuccessHandler" class="com.sian.security.CustomLoginSuccessHandler">
+	    <property name="loginId" value="mem_id"/>
+	    <property name="defaultUrl" value="/"/>
+	</bean>
+	
+	
+
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+
+	<bean id="customUserDetailsService"
+		class="com.sian.security.CustomUserDetailsService"></bean>
+
+
+	<security:http>
+		<!-- 정적리소스 허용 -->
+		<!-- <security:intercept-url pattern="/resources/**"
+			access="permitAll" /> -->
+			
+		<!-- 로그인된 상태에서는 로그인이나 회원가입 화면에 접근 못하도록 함 -->
+		<security:intercept-url pattern="/login" access="isAnonymous()" />
+		<security:intercept-url pattern="/registerAgree" access="isAnonymous()" />
+		
+		<!-- <security:intercept-url pattern="/login" access="permitAll()" /> -->
+		
+		<security:headers>
+			<security:frame-options policy="SAMEORIGIN"/>
+		</security:headers>
+
+		
+
+		<security:intercept-url pattern="/admin/**"
+			access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/cart/**"
+			access="hasRole('ROLE_MEMBER')" />
+		<security:intercept-url pattern="/wish/**"
+			access="hasRole('ROLE_MEMBER')" /> 
+		
+		<!-- <security:intercept-url pattern="/member/**"
+			access="permitAll" /> -->
+		<!-- 권한이 없어서 금지된 URI 접속할 때 보여줄 페이지(403 에러 페이지 대체) -->
+		<security:access-denied-handler ref="customAccessDenied" />
+
+		<!-- <security:form-login login-page="/login"
+			authentication-success-handler-ref="customLoginSuccess" /> -->
+			
+		<security:form-login login-page="/login"
+			username-parameter="mem_id" password-parameter="mem_pwd"
+			login-processing-url="/loginProcess" default-target-url="/"
+			authentication-success-handler-ref="loginSuccessHandler"
+			authentication-failure-handler-ref="userLoginFailHandler"
+			/>
+		<security:csrf disabled="true"/>
+
+		<!-- <security:logout logout-url="/logout"
+			invalidate-session="true" /> -->
+		<!--로그아웃 처리  -->
+		
+		
+		<!-- <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800" /> -->
+		
+		<security:logout 
+			logout-url="/logout"
+			logout-success-url="/"
+			invalidate-session="true"
+			delete-cookies="true" />
+			
+		<!-- <security:logout logout-url="/logout"
+			invalidate-session="true" delete-cookies="remember-me,JSESSION_ID" /> -->
+
+
+	</security:http>
+
+	<!-- DB 연동 설정 -->
+	<security:authentication-manager>
+
+		<security:authentication-provider user-service-ref="customUserDetailsService">
+
+			<security:password-encoder ref="bcryptPasswordEncoder" />
+
+		</security:authentication-provider>
+
+	</security:authentication-manager>
+
+</beans>

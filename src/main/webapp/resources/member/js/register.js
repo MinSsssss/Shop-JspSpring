@@ -61,7 +61,7 @@ $(document).ready(function(){
 			$("#mem_tel").focus();
 			return false;
 		}
-		var idChkVal = $("#idChk").val();
+		let idChkVal = $("#idChk").val();
 		if(idChkVal == "N"){
 			alert("중복확인 버튼을 눌러주세요.");
 			return false;
@@ -78,8 +78,7 @@ function fn_idChk(){
 	if(mem_id==""){
 		alert("아이디를 입력해주세요.")
 		return false;
-	}
-	
+	}	
 	$.ajax({
 		url : "/idChk",
 		type : "post",
@@ -88,8 +87,7 @@ function fn_idChk(){
 		success : function(data){
 			if(data){
 				alert("중복된 아이디입니다.");
-			}else{
-				
+			}else{		
 				$("#idChk").attr("value", "Y");
 				alert("사용가능한 아이디입니다.");
 			}

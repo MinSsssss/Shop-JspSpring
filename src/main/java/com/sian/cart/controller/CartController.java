@@ -36,8 +36,7 @@ public class CartController {
 	 */
 	@ResponseBody
 	@PostMapping("/addCart")
-	public boolean addCart(@RequestBody CartProductDTO cartProductDTO, Authentication authentication
-			)  {
+	public boolean addCart(@RequestBody CartProductDTO cartProductDTO, Authentication authentication)  {
 
 		cartProductDTO.setMem_id(memberService.getId(authentication));
 		

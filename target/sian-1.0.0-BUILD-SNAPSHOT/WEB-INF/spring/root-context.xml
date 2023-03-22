@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	
+    
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:config/application.properties"/>
+        <property name="fileEncoding" value="UTF-8" />
+    </bean> 
+    
+    <!--  HikariCp Config -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="org.mariadb.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mariadb://sian-db.cx1loab9m7nq.ap-northeast-2.rds.amazonaws.com/sian_db"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="vlsltl12"></property>
+	</bean>
+	<!-- <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="org.mariadb.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/sian"></property>
+		<property name="username" value="sian"></property>
+		<property name="password" value="1234"></property>
+	</bean> -->
+	<!-- HikariDataSource -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+	    
+    
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations" value="classpath:/com/sian/mapper/*.xml"/>
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<task:annotation-driven/>
+     
+
+	
+	<mybatis-spring:scan base-package="com.sian.category.dao"/>
+	<mybatis-spring:scan base-package="com.sian.faq.dao"/>
+	<mybatis-spring:scan base-package="com.sian.member.dao"/>
+	<mybatis-spring:scan base-package="com.sian.notice.dao"/>
+	<mybatis-spring:scan base-package="com.sian.order.dao"/>
+	<mybatis-spring:scan base-package="com.sian.product.dao"/>
+	<mybatis-spring:scan base-package="com.sian.review.dao"/>
+	<mybatis-spring:scan base-package="com.sian.wish.dao"/>
+	<mybatis-spring:scan base-package="com.sian.cart.dao"/>
+	<mybatis-spring:scan base-package="com.sian.qna.dao"/>
+	
+	<context:component-scan base-package="com.sian.security"/>
+	<context:component-scan base-package="com.sian.category.service"/>
+	<context:component-scan base-package="com.sian.faq.service"/>
+	<context:component-scan base-package="com.sian.member.service"/>
+	<context:component-scan base-package="com.sian.notice.service"/>
+	<context:component-scan base-package="com.sian.order.service"/>
+	<context:component-scan base-package="com.sian.product.service"/>
+	<context:component-scan base-package="com.sian.review.service"/>
+	<context:component-scan base-package="com.sian.wish.service"/>
+	<context:component-scan base-package="com.sian.cart.service"/>
+	<context:component-scan base-package="com.sian.qna.service"/>
+	<context:component-scan base-package="com.sian.common.upload"/>
+	
+	
+</beans>
+

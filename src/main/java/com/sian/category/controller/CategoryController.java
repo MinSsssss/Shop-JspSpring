@@ -61,7 +61,9 @@ public class CategoryController {
 	 * 카테고리 생성 페이지
 	 */
 	@GetMapping("/categoryRegister/{category_class}")
-	public String categoryRegister(@PathVariable("category_class") String category_class,Model model) {
+	public String categoryRegister(
+		@PathVariable("category_class") String category_class,Model model) {
+		
 		if(category_class.equals("product")) {
 			model.addAttribute("title", "상품");
 		}
@@ -80,7 +82,9 @@ public class CategoryController {
 	 *  카테고리 생성
 	 */
 	@PostMapping("/categoryRegisterProc")
-	public String catrgoryRegisterProc(CategoryDTO categoryDTO,RedirectAttributes rttr){
+	public String catrgoryRegisterProc(
+			CategoryDTO categoryDTO,RedirectAttributes rttr){
+		
 		String category_class=categoryDTO.getCategory_class();
 		try {
 			categoryService.categoryRegister(categoryDTO);

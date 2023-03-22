@@ -30,9 +30,9 @@
 								<td>카테고리</td>
 								<td>
 									<select name="category_name" id="category_name">
-										<option id="categorySelect" >카테고리없음</option>
+										<option>카테고리없음</option>
 										<c:forEach items="${categoryList }" var="category">
-											<option id="categorySelect">
+											<option>
 												<c:out value='${category.category_name }'/>
 											</option>
 										</c:forEach>
@@ -72,9 +72,8 @@
 							
 							
 							<tr>
-								<td>이미지 첨부<br>
-									(대표사진설정)
-								</td>
+								<td>이미지 첨부<br>(대표사진설정)</td>
+								
 								<td class="uploadTd"><input type="file" name="uploadFile"
 									id="fileItem" multiple>
 									<div class="uploadResult">
@@ -82,8 +81,7 @@
 										
 										</ul>
 									</div>
-								</td>
-									
+								</td>		
 							</tr>
 
 						</tbody>

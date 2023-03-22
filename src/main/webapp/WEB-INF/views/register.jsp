@@ -96,7 +96,8 @@
                         	</table>
  
                             <div class="btn-wrapper">
-                                <button id="joinBtn" class="theme-btn-1 btn reverse-color btn-block" type="button"
+                                <button type="button" id="joinBtn" 
+                                class="theme-btn-1 btn reverse-color btn-block" 
                                 onclick="return joinCheck()">가입하기</button>
                             </div>
                             <div class="btn-wrapper">

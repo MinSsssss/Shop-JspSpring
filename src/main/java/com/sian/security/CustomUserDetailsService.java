@@ -24,10 +24,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		log.warn("Load User By UserName : " + username);
-
 		
 		MemberDTO dto = memberDAO.read(username);
-
 		
 		log.warn("queried by member mapper: " + dto);
 

@@ -3,7 +3,7 @@
 <mapper namespace="com.sian.product.dao.ProductDAO">
 	<sql id="criteria">
 		<if test="keyword!=null">
-			product_name like '%' || #{keyword} || '%' AND
+			WHERE product_name like concat('%',#{keyword},'%')
 		</if>
 	</sql>
 
@@ -30,9 +30,9 @@
 	
 	<select id="getTotal" resultType="int">
 		SELECT COUNT(*) from tbl_product
-		WHERE 
+		
 		<include refid="criteria"></include>
-		product_no > 0
+		
 	</select>
 	<select id="getCategoryTotal" resultType="int">
 		SELECT COUNT(*) from tbl_product
@@ -45,6 +45,9 @@
 	 		product_updatedate,product_thumb_img
  			FROM tbl_product
  			
+ 			]]>
+	 		<include refid="criteria"></include>
+	 	<![CDATA[
 			ORDER BY product_no desc
 			LIMIT #{pageNum},#{amount}
 		]]>

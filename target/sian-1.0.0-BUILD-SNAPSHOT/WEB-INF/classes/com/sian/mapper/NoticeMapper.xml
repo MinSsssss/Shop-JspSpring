@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sian.notice.dao.NoticeDAO">
+ 	<insert id="noticeRegister">
+ 		<selectKey keyProperty="notice_no" resultType="int" order="BEFORE">
+ 			SELECT nextval(seq_notice)
+ 		</selectKey>
+ 		INSERT INTO tbl_notice(notice_no,notice_title,
+ 		notice_content,notice_writer)
+ 		VALUES (#{notice_no},#{notice_title},
+ 		#{notice_content},#{notice_writer}) 
+ 	</insert>
+	
+	<select id="noticeList" resultType="com.sian.notice.dto.NoticeDTO">
+		SELECT *
+		FROM tbl_notice
+	</select>
+	
+	<select id="getNotice" resultType="com.sian.notice.dto.NoticeDTO">
+		SELECT *
+		FROM tbl_notice
+		WHERE notice_no=#{notice_no}
+	</select>
+	
+	<select id="getTotal" resultType="int">
+		SELECT COUNT(*) from tbl_notice
+	</select>
+	
+	<select id="getListPaging" resultType="com.sian.notice.dto.NoticeDTO">
+		<![CDATA[
+			SELECT * FROM tbl_notice
+			ORDER BY notice_no desc
+			LIMIT #{pageNum},#{amount}
+		]]>
+	</select>
+	<!-- SELECT /*+ INDEX_DESC(notice pk_notice) */
+			notice_no,notice_title,
+			notice_date,notice_writer,notice_hit FROM(
+			SELECT ROWNUM AS rn,notice_no,notice_title,
+			notice_date,notice_writer,notice_hit
+			FROM tbl_notice WHERE ROWNUM <= #{pageNum} * #{amount}) notice
+			WHERE rn > (#{pageNum}-1) * #{amount} -->
+	<update id="noticeModify">
+		UPDATE tbl_notice
+		SET notice_title=#{notice_title},
+		notice_content=#{notice_content}
+		WHERE notice_no=#{notice_no}
+	</update>
+	
+	<delete id="noticeDelete">
+		DELETE FROM tbl_notice
+		WHERE notice_no = #{notice_no}
+	</delete>
+</mapper>

@@ -26,8 +26,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sian.common.upload.AttachFileDTO;
 
+import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
 @Controller
+@Log4j
 public class UploadFileController {
 	
 
@@ -62,10 +64,11 @@ public class UploadFileController {
 	@PostMapping(value = "/admin/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
-
+		
 		List<AttachFileDTO> list = new ArrayList<>();
-		String uploadFolder = "C:\\upload";
-
+		String uploadFolder = "C:/upload";
+		//String uploadFolder = "/server/apache-tomcat-9.0.73/webapps/upload";
+		
 		String uploadFolderPath = getFolder();
 		// make folder --------
 		File uploadPath = new File(uploadFolder, uploadFolderPath);
@@ -74,7 +77,7 @@ public class UploadFileController {
 			uploadPath.mkdirs();
 		}
 		// make yyyy/MM/dd folder
-
+		
 		for (MultipartFile multipartFile : uploadFile) {
 
 			AttachFileDTO attachDTO = new AttachFileDTO();
@@ -89,7 +92,7 @@ public class UploadFileController {
 			UUID uuid = UUID.randomUUID();
 
 			uploadFileName = uuid.toString() + "_" + uploadFileName;
-
+			
 			try {
 				File saveFile = new File(uploadPath, uploadFileName);
 				multipartFile.transferTo(saveFile);
@@ -117,6 +120,7 @@ public class UploadFileController {
 			}
 
 		} // end for
+		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 //
@@ -124,7 +128,8 @@ public class UploadFileController {
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String fileName) {
 
-		File file = new File("c:\\upload\\" + fileName);
+		File file = new File("c:/upload/" + fileName);
+		//File file = new File("/server/apache-tomcat-9.0.73/webapps/upload/" + fileName);
 		
 		
 		ResponseEntity<byte[]> result = null;
@@ -146,14 +151,13 @@ public class UploadFileController {
 	@PostMapping("/deleteFile")
 	@ResponseBody
 	public ResponseEntity<String> deleteFile(String fileName, String type) {
-
 		
-
 		File file;
 
 		try {
-			file = new File("c:\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
-
+			file = new File("c:/upload/" + URLDecoder.decode(fileName, "UTF-8"));
+			//file = new File("/server/apache-tomcat-9.0.73/webapps/upload/" + URLDecoder.decode(fileName, "UTF-8"));
+			
 			file.delete();
 
 			if (type.equals("image")) {
