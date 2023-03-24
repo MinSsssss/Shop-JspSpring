@@ -22,8 +22,8 @@
                         <div class="card-body">
                             <div class="table-responsive">
                             	<div>
-                            		<span><a href="<c:url value='/admin/product/productList?category_no=0&pageNum=0&amount=5'/>">전체</a></span>
-                            		<c:forEach items="${categoryList}" var="cate" varStatus="status">
+                            		<span><a href="<c:url value='/admin/product/productList/0?pageNum=0&amount=5'/>">전체</a></span>
+                            		<c:forEach items="${category}" var="cate" varStatus="status">
                             			<span class="moveCategory">
                             				<a href="#" onclick="fnMoveCategory(<c:out value='${cate.category_no}'/>)">
                             					<c:out value='${cate.category_name}'/>

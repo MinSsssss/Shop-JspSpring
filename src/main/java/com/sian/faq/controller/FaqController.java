@@ -56,15 +56,15 @@ public class FaqController {
 		 }
 		 model.addAttribute("category",categoryService.getCategoryList("faq"));
 			
-		model.addAttribute("page",new PageDTO(cri, total));
+		 model.addAttribute("page",new PageDTO(cri, total));
 		
 		
-		model.addAttribute("category_no",category_no);
+		 model.addAttribute("category_no",category_no);
 		
 		
-		String uri = req.getRequestURI().toString().replace("/"+category_no, "");
+		 String uri = req.getRequestURI().toString().replace("/"+category_no, "");
 		
-		return uri;
+		 return uri;
 		
 		
 	 }

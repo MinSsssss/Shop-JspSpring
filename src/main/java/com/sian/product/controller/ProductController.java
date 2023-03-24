@@ -152,9 +152,14 @@ public class ProductController {
 			 
 			 total = productService.getTotal(category_no); 
 		 }
-
-		model.addAttribute("page",new PageDTO(cri, total));
-		return "/admin/product/productList";
+		 
+		 model.addAttribute("category",categoryService.getCategoryList("product"));
+			
+		 model.addAttribute("category_no",category_no);
+		 
+		 model.addAttribute("page",new PageDTO(cri, total));
+		 
+		 return "/admin/product/productList";
 	}
 
 	/*
